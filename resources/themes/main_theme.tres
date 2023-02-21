@@ -1,0 +1,59 @@
+[gd_resource type="Theme" load_steps=8 format=2]
+
+[ext_resource path="res://resources/themes/main_theme/disabled_styleboxflat.tres" type="StyleBox" id=1]
+[ext_resource path="res://resources/themes/main_theme/normal_styleboxflat.tres" type="StyleBox" id=2]
+[ext_resource path="res://resources/fonts/normal_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://resources/themes/main_theme/focus_styleboxflat.tres" type="StyleBox" id=4]
+[ext_resource path="res://resources/fonts/normal_font_small.tres" type="DynamicFont" id=5]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.894118 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.792157, 0.792157, 0.792157, 1 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.972549, 0.972549, 0.972549, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0.929412, 1, 1 )
+
+[resource]
+default_font = ExtResource( 3 )
+Button/colors/font_color = Color( 0.054902, 0.0509804, 0.0509804, 1 )
+Button/colors/font_color_disabled = Color( 0, 0, 0, 0.2 )
+Button/colors/font_color_focus = Color( 0, 0, 0, 1 )
+Button/colors/font_color_hover = Color( 0, 0, 0, 1 )
+Button/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+Button/fonts/font = ExtResource( 3 )
+Button/styles/disabled = ExtResource( 1 )
+Button/styles/focus = ExtResource( 4 )
+Button/styles/hover = ExtResource( 4 )
+Button/styles/normal = ExtResource( 2 )
+Button/styles/pressed = ExtResource( 4 )
+ItemList/styles/bg = SubResource( 2 )
+MarginContainer/constants/margin_bottom = 5
+MarginContainer/constants/margin_left = 5
+MarginContainer/constants/margin_right = 5
+MarginContainer/constants/margin_top = 5
+OptionButton/colors/font_color = Color( 1, 1, 1, 1 )
+OptionButton/colors/font_color_disabled = Color( 1, 1, 1, 1 )
+OptionButton/colors/font_color_focus = Color( 1, 1, 1, 1 )
+OptionButton/colors/font_color_hover = Color( 1, 1, 1, 1 )
+OptionButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+OptionButton/constants/arrow_margin = 0
+OptionButton/constants/hseparation = 0
+OptionButton/fonts/font = ExtResource( 3 )
+OptionButton/icons/arrow = null
+OptionButton/styles/disabled = SubResource( 1 )
+OptionButton/styles/focus = SubResource( 1 )
+OptionButton/styles/hover = SubResource( 1 )
+OptionButton/styles/normal = SubResource( 1 )
+OptionButton/styles/pressed = SubResource( 1 )
+PanelContainer/styles/panel = SubResource( 2 )
+TabContainer/fonts/font = ExtResource( 5 )
+TabContainer/styles/panel = SubResource( 2 )

@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/themes/main_theme.tres" type="Theme" id=4]
+[ext_resource path="res://gui/utils/CardInfoPanel.cs" type="Script" id=5]
+[ext_resource path="res://gui/utils/Tabs.tscn" type="PackedScene" id=7]
+
+[node name="CardInfoPanel" type="VBoxContainer"]
+margin_right = 468.0
+margin_bottom = 1039.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 5 )
+
+[node name="TopContainer" type="HBoxContainer" parent="."]
+margin_right = 468.0
+margin_bottom = 517.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CardImg" type="TextureRect" parent="TopContainer"]
+margin_right = 468.0
+margin_bottom = 517.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Tabs" parent="." instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 521.0
+margin_right = 468.0
+margin_bottom = 1039.0
