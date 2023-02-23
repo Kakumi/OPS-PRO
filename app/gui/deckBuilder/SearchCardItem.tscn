@@ -1,63 +1,52 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://app/resources/OP01-001.png" type="Texture" id=1]
 [ext_resource path="res://app/resources/fonts/normal_font_small.tres" type="DynamicFont" id=2]
 [ext_resource path="res://app/resources/fonts/normal_font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://app/gui/deckBuilder/SearchCardItem.cs" type="Script" id=4]
-[ext_resource path="res://app/gui/game/Card.cs" type="Script" id=5]
-[ext_resource path="../game/Card.tscn" type="PackedScene" id=6]
+[ext_resource path="res://app/gui/game/Card.tscn" type="PackedScene" id=6]
 
-[sub_resource type="PackedScene" id=1]
-_bundled = {
-"conn_count": 1,
-"conns": PoolIntArray( 1073741825, 1073741824, 11, 10, 2, 0 ),
-"editable_instances": [  ],
-"names": PoolStringArray( "Card", "TextureRect", "anchor_right", "anchor_bottom", "mouse_default_cursor_shape", "size_flags_horizontal", "size_flags_vertical", "expand", "stretch_mode", "script", "OnGuiInput", "gui_input" ),
-"node_count": 1,
-"node_paths": [ NodePath("."), NodePath(".") ],
-"nodes": PoolIntArray( -1, -1, 1, 0, -1, 8, 2, 0, 3, 1, 4, 2, 5, 3, 6, 4, 7, 5, 8, 6, 9, 7, 0 ),
-"variants": [ 1.0, 1.0, 2, 3, 3, true, 5, ExtResource( 5 ) ],
-"version": 2
-}
-
-[node name="SearchCardItem" type="HBoxContainer"]
+[node name="SearchCardItem" type="PanelContainer"]
 anchor_right = 0.363021
 anchor_bottom = 0.0481481
 mouse_default_cursor_shape = 2
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
-[node name="Card" parent="." instance=ExtResource( 6 )]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 690.0
+margin_bottom = 85.0
+
+[node name="Card" parent="HBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 43.0
+margin_right = 42.0
 margin_bottom = 78.0
 rect_min_size = Vector2( 40, 0 )
 texture = ExtResource( 1 )
 stretch_mode = 6
 
-[node name="TextContainer" type="VBoxContainer" parent="."]
-margin_left = 47.0
-margin_right = 697.0
+[node name="TextContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 46.0
+margin_right = 683.0
 margin_bottom = 78.0
 size_flags_horizontal = 3
 size_flags_vertical = 2
 size_flags_stretch_ratio = 15.0
 
-[node name="CardName" type="Label" parent="TextContainer"]
-margin_right = 650.0
+[node name="CardName" type="Label" parent="HBoxContainer/TextContainer"]
+margin_right = 637.0
 margin_bottom = 40.0
 custom_fonts/font = ExtResource( 3 )
 text = "Card Name"
 
-[node name="CardInfo" type="Label" parent="TextContainer"]
+[node name="CardInfo" type="Label" parent="HBoxContainer/TextContainer"]
 margin_top = 44.0
-margin_right = 650.0
+margin_right = 637.0
 margin_bottom = 78.0
 custom_fonts/font = ExtResource( 2 )
 text = "Card Info"
 
 [connection signal="gui_input" from="." to="." method="OnGuiInput"]
-[connection signal="resized" from="TextContainer" to="." method="OnTextContainerResized"]
+[connection signal="resized" from="HBoxContainer/TextContainer" to="." method="OnTextContainerResized"]

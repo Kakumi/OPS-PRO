@@ -1,10 +1,6 @@
 using Godot;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
-public class SearchCardItem : HBoxContainer
+public class SearchCardItem : PanelContainer
 {
     public Card Card { get; protected set; }
     public VBoxContainer TextContainer { get; protected set; }
@@ -16,17 +12,29 @@ public class SearchCardItem : HBoxContainer
 
     public override void _Ready()
     {
-        Card = GetNode<Card>("Card");
-        TextContainer = GetNode<VBoxContainer>("TextContainer");
-        CardNameLabel = GetNode<Label>("TextContainer/CardName");
-        CardInfoLabel = GetNode<Label>("TextContainer/CardInfo");
+        Card = GetNode<Card>("HBoxContainer/Card");
+        TextContainer = GetNode<VBoxContainer>("HBoxContainer/TextContainer");
+        CardNameLabel = GetNode<Label>("HBoxContainer/TextContainer/CardName");
+        CardInfoLabel = GetNode<Label>("HBoxContainer/TextContainer/CardInfo");
 
         this.ConnectIfMissing("mouse_entered", this, nameof(MouseEntered));
+        this.ConnectIfMissing("mouse_exited", this, nameof(MouseExited));
     }
 
     public void MouseEntered()
     {
         Card.CheckAndDownload();
+
+        var stylebox = new StyleBoxFlat();
+        stylebox.BgColor = new Color().FromRGBA(0, 0, 0, 0.7f);
+        Set("custom_styles/panel", stylebox);
+    }
+
+    private void MouseExited()
+    {
+        var stylebox = new StyleBoxFlat();
+        stylebox.BgColor = new Color().FromRGBA(0, 0, 0, 0f);
+        Set("custom_styles/panel", stylebox);
     }
 
     public void UpdateCardInfo(CardInfo cardInfo, bool download = false)
