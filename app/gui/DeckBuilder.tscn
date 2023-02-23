@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://app/gui/utils/CardInfoPanel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://app/gui/game/Card.tscn" type="PackedScene" id=2]
+[ext_resource path="res://app/gui/deckBuilder/SearchContainer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://app/gui/deckBuilder/DeckContainer.tscn" type="PackedScene" id=4]
+
+[node name="DeckBuilder" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CardInfoPanel" parent="." instance=ExtResource( 1 )]
+margin_right = 479.0
+margin_bottom = 1080.0
+HoverCardNodePath = [ NodePath("../Content/DeckContainer"), NodePath("../Content/SearchContainer") ]
+
+[node name="Content" type="HBoxContainer" parent="."]
+margin_left = 483.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="DeckContainer" parent="Content" instance=ExtResource( 4 )]
+margin_right = 955.0
+margin_bottom = 1080.0
+SearchContainerPath = NodePath("../SearchContainer")
+CardPackedScene = ExtResource( 2 )
+
+[node name="SearchContainer" parent="Content" instance=ExtResource( 3 )]
+margin_left = 959.0
+margin_right = 1437.0
+margin_bottom = 1080.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

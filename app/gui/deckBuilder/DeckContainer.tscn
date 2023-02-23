@@ -1,0 +1,193 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://app/gui/deckBuilder/DeckContainer.cs" type="Script" id=1]
+
+[node name="DeckContainer" type="VBoxContainer"]
+margin_right = 935.0
+margin_bottom = 1039.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+script = ExtResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 935.0
+margin_bottom = 258.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DeckManagerContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 928.0
+margin_bottom = 251.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/DeckManagerContainer"]
+margin_right = 921.0
+margin_bottom = 20.0
+
+[node name="Button" type="Button" parent="PanelContainer/DeckManagerContainer/HBoxContainer"]
+margin_right = 304.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Quitter"
+
+[node name="Button2" type="Button" parent="PanelContainer/DeckManagerContainer/HBoxContainer"]
+margin_left = 308.0
+margin_right = 612.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Hand Tester"
+
+[node name="Button3" type="Button" parent="PanelContainer/DeckManagerContainer/HBoxContainer"]
+margin_left = 616.0
+margin_right = 921.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Export"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/DeckManagerContainer"]
+margin_top = 24.0
+margin_right = 921.0
+margin_bottom = 192.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/DeckManagerContainer/MarginContainer"]
+margin_right = 921.0
+margin_bottom = 168.0
+
+[node name="DeckStatus" type="RichTextLabel" parent="PanelContainer/DeckManagerContainer/MarginContainer/VBoxContainer"]
+margin_right = 921.0
+margin_bottom = 15.0
+bbcode_enabled = true
+fit_content_height = true
+
+[node name="InfoMessage" type="RichTextLabel" parent="PanelContainer/DeckManagerContainer/MarginContainer/VBoxContainer"]
+margin_top = 19.0
+margin_right = 921.0
+margin_bottom = 34.0
+bbcode_enabled = true
+fit_content_height = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/DeckManagerContainer"]
+margin_top = 196.0
+margin_right = 921.0
+margin_bottom = 244.0
+size_flags_vertical = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/DeckManagerContainer/VBoxContainer2"]
+margin_right = 921.0
+margin_bottom = 20.0
+
+[node name="Save" type="Button" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2"]
+margin_right = 181.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Save"
+
+[node name="Create" type="Button" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2"]
+margin_left = 185.0
+margin_right = 366.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Create"
+
+[node name="Delete" type="Button" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2"]
+margin_left = 370.0
+margin_right = 551.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Delete"
+
+[node name="Clear" type="Button" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2"]
+margin_left = 555.0
+margin_right = 736.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Clear"
+
+[node name="Duplicate" type="Button" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2"]
+margin_left = 740.0
+margin_right = 921.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Dupliquer"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/DeckManagerContainer/VBoxContainer2"]
+margin_top = 24.0
+margin_right = 921.0
+margin_bottom = 48.0
+
+[node name="DecksOptions" type="OptionButton" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer3"]
+margin_right = 458.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="DeckName" type="LineEdit" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer3"]
+margin_left = 462.0
+margin_right = 921.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "Deck name..."
+
+[node name="DeckContainer" type="VBoxContainer" parent="."]
+margin_top = 262.0
+margin_right = 935.0
+margin_bottom = 1039.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="PanelContainer" type="PanelContainer" parent="DeckContainer"]
+margin_right = 935.0
+margin_bottom = 28.0
+
+[node name="MarginContainer" type="MarginContainer" parent="DeckContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 928.0
+margin_bottom = 21.0
+
+[node name="DeckInfo" type="HBoxContainer" parent="DeckContainer/PanelContainer/MarginContainer"]
+margin_right = 921.0
+margin_bottom = 14.0
+
+[node name="CardsNumber" type="Label" parent="DeckContainer/PanelContainer/MarginContainer/DeckInfo"]
+margin_right = 458.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Cards: 40"
+
+[node name="CardsTypes" type="Label" parent="DeckContainer/PanelContainer/MarginContainer/DeckInfo"]
+margin_left = 462.0
+margin_right = 921.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Leader: 1, Characters: 5, Counter: 8"
+align = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="DeckContainer"]
+margin_top = 32.0
+margin_right = 935.0
+margin_bottom = 777.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Deck" type="GridContainer" parent="DeckContainer/PanelContainer2"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 928.0
+margin_bottom = 738.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 10
+
+[connection signal="pressed" from="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2/Save" to="." method="OnSavePressed"]
+[connection signal="pressed" from="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2/Create" to="." method="OnCreatePressed"]
+[connection signal="pressed" from="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2/Delete" to="." method="OnDeletePressed"]
+[connection signal="pressed" from="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2/Clear" to="." method="OnClearPressed"]
+[connection signal="pressed" from="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2/Duplicate" to="." method="OnDuplicatePressed"]
+[connection signal="item_selected" from="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer3/DecksOptions" to="." method="OnDecksOptionsItemSelected"]

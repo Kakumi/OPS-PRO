@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://app/scripts/managers/SoundManager.cs" type="Script" id=1]
+[ext_resource path="res://app/resources/sounds/background1.ogg" type="AudioStream" id=2]
+
+[node name="SoundManager" type="Node"]
+script = ExtResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -25.0
+autoplay = true
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="OnBackgroundMusicFinished"]
