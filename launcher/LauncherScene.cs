@@ -60,10 +60,21 @@ public class LauncherScene : PanelContainer
 
             using (var client = new WebClient())
             {
-                var serverConfigText = client.DownloadString(_serverUrl);
-                ServerConfig = JsonConvert.DeserializeObject<ServerConfig>(serverConfigText);
+                client.DownloadStringCompleted += ServerConfigDownloaded;
+                client.DownloadStringAsync(new Uri(_serverUrl));
             }
+        } catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeMessage($"Failed to init the downloader because {ex.Message}", true);
+        }
+    }
 
+    private void ServerConfigDownloaded(object sender, DownloadStringCompletedEventArgs e)
+    {
+        try
+        {
+            ServerConfig = JsonConvert.DeserializeObject<ServerConfig>(e.Result);
             ChangeMessage("Checking files and versions...");
 
             if (ServerConfig.Files.Count == 0)
@@ -92,7 +103,8 @@ public class LauncherScene : PanelContainer
                     LoadApp(ServerConfig.Files);
                 }
             }
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
             ChangeMessage($"Failed to init the downloader because {ex.Message}", true);
