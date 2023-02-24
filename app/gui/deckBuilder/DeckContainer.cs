@@ -3,6 +3,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public class DeckContainer : VBoxContainer
 {
@@ -18,6 +19,8 @@ public class DeckContainer : VBoxContainer
     public RichTextLabel InfoMessage { get; private set; }
     public SearchContainer SearchContainer { get; set; }
     public GridContainer Deck { get; protected set; }
+    public Label CardsNumber { get; protected set; }
+    public Label CardsTypes { get; protected set; }
 
     private List<Deck> _decks;
     public List<Deck> Decks
@@ -42,6 +45,8 @@ public class DeckContainer : VBoxContainer
         DeckName = GetNode<LineEdit>("PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer3/DeckName");
         DeckStatus = GetNode<RichTextLabel>("PanelContainer/DeckManagerContainer/MarginContainer/VBoxContainer/DeckStatus");
         InfoMessage = GetNode<RichTextLabel>("PanelContainer/DeckManagerContainer/MarginContainer/VBoxContainer/InfoMessage");
+        CardsNumber = GetNode<Label>("DeckContainer/PanelContainer/MarginContainer/DeckInfo/CardsNumber");
+        CardsTypes = GetNode<Label>("DeckContainer/PanelContainer/MarginContainer/DeckInfo/CardsTypes");
         Deck = GetNode<GridContainer>("DeckContainer/PanelContainer2/Deck");
 
         Decks = DeckManager.Instance.LoadDecks();
@@ -243,9 +248,18 @@ public class DeckContainer : VBoxContainer
         InfoMessage.BbcodeText = $"[color={color}]{message}[/color]";
     }
 
-    private void UpdateStatus()
+    private void UpdateStatus(Deck deck)
     {
+        DeckStatus.BbcodeText = "Statut: " + (deck.IsValid() ? "[color=green]Valid[/color]" : "[color=red]Invalid[/color]");
 
+        CardsNumber.Text = $"Cards: {deck.NumberOfCards}";
+
+        var sBuilderTypes = new StringBuilder();
+        sBuilderTypes.Append($"Leader: {deck.NumberOfCardsTypes(CardTypeList.LEADER)}").Append(" | ");
+        sBuilderTypes.Append($"Characters: {deck.NumberOfCardsTypes(CardTypeList.CHARACTER)}").Append(" | ");
+        sBuilderTypes.Append($"Stage: {deck.NumberOfCardsTypes(CardTypeList.STAGE)}").Append(" | ");
+        sBuilderTypes.Append($"Event: {deck.NumberOfCardsTypes(CardTypeList.EVENT)}");
+        CardsTypes.Text = sBuilderTypes.ToString();
     }
 
     private void UpdateDeckView(Deck deck)
@@ -260,6 +274,8 @@ public class DeckContainer : VBoxContainer
                 AddCardDeckView(x.Key);
             }
         });
+
+        UpdateStatus(deck);
     }
 
     private void AddCardDeckView(CardInfo cardInfo)
@@ -267,7 +283,9 @@ public class DeckContainer : VBoxContainer
         var card = CardPackedScene.Instance<Card>();
         Deck.AddChild(card);
         card.SetCardInfo(cardInfo, true);
-        card.ConnectIfMissing(nameof(Card.ClickCard), this, nameof(DeckCardClicked), new Godot.Collections.Array(card));
+        card.ConnectIfMissing(nameof(Card.LeftClickCard), this, nameof(DeckCardLeftClicked), new Godot.Collections.Array(card));
+        card.ConnectIfMissing(nameof(Card.RightClickCard), this, nameof(DeckCardRightClicked), new Godot.Collections.Array(card));
+        card.ConnectIfMissing(nameof(Card.MiddleClickCard), this, nameof(DeckCardMiddleClicked), new Godot.Collections.Array(card));
         card.ConnectIfMissing("mouse_entered", this, nameof(CardMouseEntered), new Godot.Collections.Array(card));
         card.ConnectIfMissing("mouse_exited", this, nameof(CardMouseExited), new Godot.Collections.Array(card));
     }
@@ -288,6 +306,7 @@ public class DeckContainer : VBoxContainer
                 {
                     selectedDeck.AddCard(cardInfo, 1);
                     AddCardDeckView(cardInfo);
+                    UpdateStatus(selectedDeck);
                 } else
                 {
                     Log.Warning($"Cart cannot be added because of error {error}");
@@ -323,7 +342,7 @@ public class DeckContainer : VBoxContainer
         }
     }
 
-    private void DeckCardClicked(CardInfo cardInfo, Card card)
+    private void DeckCardLeftClicked(CardInfo cardInfo, Card card)
     {
         try
         {
@@ -334,6 +353,7 @@ public class DeckContainer : VBoxContainer
             {
                 Log.Information($"Remove 1 card {cardInfo.Id} from deck {selectedDeck.Name}.");
                 selectedDeck.RemoveCard(cardInfo);
+                UpdateStatus(selectedDeck);
                 card.QueueFree();
             }
             else
@@ -346,6 +366,16 @@ public class DeckContainer : VBoxContainer
             Log.Error(ex, ex.Message);
             ChangeInfoMessage($"An error occured, unable to remove this card because {ex.Message}.", "red");
         }
+    }
+
+    private void DeckCardMiddleClicked(CardInfo cardInfo, Card card)
+    {
+
+    }
+
+    private void DeckCardRightClicked(CardInfo cardInfo, Card card)
+    {
+        AddCard(cardInfo);
     }
 
     private void CardMouseEntered(Card card)

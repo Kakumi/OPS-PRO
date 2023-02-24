@@ -7,7 +7,13 @@ public class Card : TextureRect
     public CardInfo CardInfo { get; protected set; }
 
     [Signal]
-    public delegate void ClickCard(CardInfo cardInfo);
+    public delegate void LeftClickCard(CardInfo cardInfo);
+
+    [Signal]
+    public delegate void RightClickCard(CardInfo cardInfo);
+
+    [Signal]
+    public delegate void MiddleClickCard(CardInfo cardInfo);
 
     private bool _textureSet = false;
 
@@ -77,9 +83,18 @@ public class Card : TextureRect
         if (inputEvent is InputEventMouseButton)
         {
             InputEventMouseButton inputButton = inputEvent as InputEventMouseButton;
-            if (inputButton.ButtonIndex == (int)ButtonList.Left && !inputButton.Pressed)
+            if (!inputButton.Pressed)
             {
-                EmitSignal(nameof(ClickCard), CardInfo);
+                if (inputButton.ButtonIndex == (int)ButtonList.Left)
+                {
+                    EmitSignal(nameof(LeftClickCard), CardInfo);
+                } else if (inputButton.ButtonIndex == (int)ButtonList.Right)
+                {
+                    EmitSignal(nameof(RightClickCard), CardInfo);
+                } else if (inputButton.ButtonIndex == (int)ButtonList.Middle)
+                {
+                    EmitSignal(nameof(MiddleClickCard), CardInfo);
+                }
             }
         }
     }

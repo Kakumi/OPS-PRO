@@ -49,4 +49,13 @@ public class Deck : Object
 
         return deck;
     }
+
+    public bool IsValid()
+    {
+        var totalCards = NumberOfCardsTypes(CardTypeList.CHARACTER, CardTypeList.EVENT, CardTypeList.STAGE);
+        var totalLeader = NumberOfCardsTypes(CardTypeList.LEADER);
+        var leader = Cards.FirstOrDefault(x => x.Key.CardTypeList == CardTypeList.LEADER).Key;
+
+        return totalCards == 50 && totalLeader == 1 && leader != null && Cards.All(x => x.Key.Colors.Any(y => leader.Colors.Contains(y)));
+    }
 }

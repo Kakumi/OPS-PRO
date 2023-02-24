@@ -39,9 +39,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="MarginContainer/HBoxContainer"]
-margin_top = 366.0
+margin_top = 321.0
 margin_right = 1866.0
-margin_bottom = 545.0
+margin_bottom = 544.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = ExtResource( 4 )
@@ -49,9 +49,9 @@ text = "OPS Pro"
 align = 1
 
 [node name="Message" type="RichTextLabel" parent="MarginContainer/HBoxContainer"]
-margin_top = 915.0
+margin_top = 870.0
 margin_right = 1866.0
-margin_bottom = 950.0
+margin_bottom = 920.0
 size_flags_horizontal = 3
 custom_fonts/mono_font = ExtResource( 5 )
 custom_fonts/bold_italics_font = ExtResource( 5 )
@@ -61,12 +61,14 @@ custom_fonts/normal_font = ExtResource( 5 )
 bbcode_enabled = true
 fit_content_height = true
 
-[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/HBoxContainer"]
-margin_top = 954.0
+[node name="BytesProgressBar" type="ProgressBar" parent="MarginContainer/HBoxContainer"]
+margin_top = 924.0
 margin_right = 1866.0
-margin_bottom = 988.0
+margin_bottom = 973.0
+step = 1.0
 
-[node name="ProgressBar2" type="ProgressBar" parent="MarginContainer/HBoxContainer"]
-margin_top = 992.0
+[node name="FilesProgressBar" type="ProgressBar" parent="MarginContainer/HBoxContainer"]
+margin_top = 977.0
 margin_right = 1866.0
 margin_bottom = 1026.0
+step = 1.0

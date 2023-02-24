@@ -1,68 +1,214 @@
 using Godot;
+using Newtonsoft.Json;
 using Serilog;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 public class LauncherScene : PanelContainer
 {
+    private readonly string _serverUrl = "https://launcher.opbluesea.fr/opspro/";
+
     public Label Title { get; protected set; }
     public RichTextLabel Message { get; protected set; }
-    public ProgressBar ProgressBar { get; protected set; }
-    public ProgressBar ProgressBar2 { get; protected set; }
+    public ProgressBar BytesProgressBar { get; protected set; }
+    public ProgressBar FilesProgressBar { get; protected set; }
+    public ServerConfig ServerConfig { get; protected set; }
 
     private string _path;
+    private Queue<ServerFile> _downloadableFiles;
 
     public override void _Ready()
     {
         Title = GetNode<Label>("MarginContainer/HBoxContainer/Title");
         Message = GetNode<RichTextLabel>("MarginContainer/HBoxContainer/Message");
-        ProgressBar = GetNode<ProgressBar>("MarginContainer/HBoxContainer/ProgressBar");
-        ProgressBar2 = GetNode<ProgressBar>("MarginContainer/HBoxContainer/ProgressBar2");
+        BytesProgressBar = GetNode<ProgressBar>("MarginContainer/HBoxContainer/BytesProgressBar");
+        FilesProgressBar = GetNode<ProgressBar>("MarginContainer/HBoxContainer/FilesProgressBar");
 
-        _path = ProjectSettings.GlobalizePath("user://launcher/main.pck");
+        _path = ProjectSettings.GlobalizePath("user://patches");
+        System.IO.Directory.CreateDirectory(_path);
+
+        _downloadableFiles = new Queue<ServerFile>();
+
+        ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
+
+        OS.WindowResizable = false;
+        OS.WindowBorderless = true;
+        OS.WindowMaximized = false;
+        OS.WindowSize = new Vector2(960, 540);
+
+        var screenSize = OS.GetScreenSize(0);
+        var windowSize = OS.WindowSize;
+        var multiplier = new Vector2(0.5f, 0.5f);
+
+        OS.WindowPosition = screenSize * multiplier - windowSize * multiplier;
 
         Init();
     }
 
-    public bool HasFile()
-    {
-        return System.IO.File.Exists(_path);
-    }
-
     public void Init()
     {
-        if (HasFile())
+        try
         {
-            var success = ProjectSettings.LoadResourcePack(_path);
+            Log.Information($"Contacting web server...");
+            ChangeMessage("Contacting web server...");
 
-            if (success)
+            using (var client = new WebClient())
             {
-                Log.Information($"Launching app from PCK file...");
-                var importedScene = ResourceLoader.Load<PackedScene>("res://app/gui/MainMenu.tscn");
-                var instance = importedScene.Instance();
-                GetTree().Root.CallDeferred("add_child", instance);
-                QueueFree();
+                var serverConfigText = client.DownloadString(_serverUrl);
+                ServerConfig = JsonConvert.DeserializeObject<ServerConfig>(serverConfigText);
+            }
+
+            ChangeMessage("Checking files and versions...");
+
+            if (ServerConfig.Files.Count == 0)
+            {
+                Log.Error($"ServerConfig return 0 files, this is a fatal error.");
+                ChangeMessage("No files found on the web server.");
             }
             else
             {
-                ChangeMessage("Failed to load the application, patch cannot be loaded.", true);
+                _downloadableFiles = new Queue<ServerFile>(GetDownloadableFiles(ServerConfig.Files));
+                Log.Information($"Found {_downloadableFiles.Count} to download ({string.Join(", ", _downloadableFiles.Select(x => x.File))}).");
+
+                FilesProgressBar.MaxValue = _downloadableFiles.Count;
+                FilesProgressBar.Value = 0;
+
+                if (_downloadableFiles.Count > 0)
+                {
+                    ChangeMessage($"Downloading missing files (0/{_downloadableFiles.Count})...");
+                    DownloadFile(_downloadableFiles.Dequeue());
+                }
+                else
+                {
+                    BytesProgressBar.MaxValue = 0;
+                    FilesProgressBar.Value = 0;
+
+                    LoadApp(ServerConfig.Files);
+                }
             }
-        } else
+        } catch (Exception ex)
         {
-            Log.Warning($"PCK file not found.");
+            Log.Error(ex, ex.Message);
+            ChangeMessage($"Failed to init the downloader because {ex.Message}", true);
+        }
+    }
 
-            OS.WindowResizable = false;
-            OS.WindowBorderless = true;
-            OS.WindowMaximized = false;
-            OS.WindowSize = new Vector2(960, 540);
+    private void DownloadFile(ServerFile file)
+    {
+        var localPath = System.IO.Path.Combine(_path, file.File);
+        var serverPath = System.IO.Path.Combine(_serverUrl, file.File);
 
-            var screenSize = OS.GetScreenSize(0);
-            var windowSize = OS.WindowSize;
-            var multiplier = new Vector2(0.5f, 0.5f);
+        Log.Information($"Deleting " + localPath);
+        if (System.IO.File.Exists(localPath))
+        {
+            System.IO.File.Delete(localPath);
+        }
 
-            OS.WindowPosition = screenSize * multiplier - windowSize * multiplier;
+        Log.Information($"Downloading " + file.File + " to " + localPath);
 
-            ChangeMessage("PCK File doesn't exists.", true);
+        BytesProgressBar.Value = 0;
+
+        using (var client = new WebClient())
+        {
+            client.DownloadProgressChanged += (s, e) => DownloadProgressChanged(s, e, file);
+            client.DownloadFileCompleted += (s, e) => DownloadFileCompleted(s, e, file);
+            client.DownloadFileAsync(new Uri(serverPath), localPath);
+        }
+    }
+
+    private List<ServerFile> GetDownloadableFiles(List<ServerFile> files)
+    {
+        return files.Where(file =>
+        {
+            var path = System.IO.Path.Combine(_path, file.File);
+            if (System.IO.File.Exists(path))
+            {
+                using (var md5 = MD5.Create())
+                using (var stream = System.IO.File.OpenRead(path))
+                {
+                    var bytes = md5.ComputeHash(stream);
+                    var hash = BitConverter.ToString(bytes).Replace("-", "").ToLowerInvariant();
+
+                    return hash != file.Hash;
+                }
+            }
+
+            return true;
+        }).ToList();
+    }
+
+    private void LoadApp(List<ServerFile> files)
+    {
+        try
+        {
+            Log.Information($"Download finished. Loading PCK files...");
+            ChangeMessage($"Loading PCK Files...");
+
+            files.ForEach(file =>
+            {
+                var localPath = System.IO.Path.Combine(_path, file.File);
+                var success = ProjectSettings.LoadResourcePack(localPath);
+
+                if (!success)
+                {
+                    Log.Error($"Failed to load PCK file at {localPath}");
+                }
+            });
+
+            var importedScene = ResourceLoader.Load<PackedScene>("res://app/gui/MainMenu.tscn");
+            var instance = importedScene.Instance();
+            GetTree().Root.CallDeferred("add_child", instance);
+            QueueFree();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeMessage($"Failed to load the app because {ex.Message}", true);
+        }
+    }
+
+    private void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e, ServerFile serverFile)
+    {
+        try
+        {
+            double bytesIn = double.Parse(e.BytesReceived.ToString());
+            double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
+            double percentage = bytesIn / totalBytes * 100;
+
+            BytesProgressBar.Value = percentage;
+            ChangeMessage($"Downloading {serverFile.Name} ({FilesProgressBar.Value}/{FilesProgressBar.MaxValue})...");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+        }
+    }
+    private void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e, ServerFile serverFile)
+    {
+        try
+        {
+            Log.Information($"Download for file {serverFile.Name} is finished.");
+            FilesProgressBar.Value++;
+
+            if (_downloadableFiles.Count > 0)
+            {
+                DownloadFile(_downloadableFiles.Dequeue());
+            }
+            else
+            {
+                LoadApp(ServerConfig.Files);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeMessage($"Failed to continue after file downloaded because {ex.Message}", true);
         }
     }
 
@@ -78,6 +224,9 @@ public class LauncherScene : PanelContainer
         sBuilder.Append(message);
         sBuilder.Append("[/center]");
 
-        Message.BbcodeText = sBuilder.ToString();
+        if (Message.BbcodeText != sBuilder.ToString())
+        {
+            Message.BbcodeText = sBuilder.ToString();
+        }
     }
 }
