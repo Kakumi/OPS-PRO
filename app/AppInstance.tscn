@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://app/resources/themes/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://app/AppInstance.cs" type="Script" id=2]
+[ext_resource path="res://app/resources/images/backgrounds/background_menu.jpg" type="Texture" id=3]
+[ext_resource path="res://app/scripts/managers/SoundManager.tscn" type="PackedScene" id=4]
+[ext_resource path="res://app/gui/MainMenu.tscn" type="PackedScene" id=5]
+
+[node name="AppInstance" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -490, -91 )
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+SoundManager = ExtResource( 4 )
+MainMenu = ExtResource( 5 )
+
+[node name="AspectRatioContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="TextureRect" parent="AspectRatioContainer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="Content" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0

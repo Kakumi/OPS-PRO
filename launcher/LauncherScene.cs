@@ -173,7 +173,7 @@ public class LauncherScene : PanelContainer
                 }
             });
 
-            var importedScene = ResourceLoader.Load<PackedScene>("res://app/gui/MainMenu.tscn");
+            var importedScene = ResourceLoader.Load<PackedScene>("res://app/scripts/auto_load/AppInstance.tscn");
             var instance = importedScene.Instance();
             GetTree().Root.CallDeferred("add_child", instance);
             QueueFree();

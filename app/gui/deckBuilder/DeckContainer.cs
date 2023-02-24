@@ -418,6 +418,54 @@ public class DeckContainer : VBoxContainer
         return ErrorAddCard.Ok;
     }
 
+    public void OnQuitPressed()
+    {
+        try
+        {
+            var parent = this.SearchParent<DeckBuilder>();
+            if (parent == null)
+            {
+                Log.Error("DeckBuilder not found, can't close pane.");
+                ChangeInfoMessage($"Failed to close the deck builder.", "red");
+            } else
+            {
+                parent?.QueueFree();
+                AppInstance.Instance.ShowMainMenu();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeInfoMessage($"An error occured, {ex.Message}.", "red");
+        }
+    }
+
+    public void OnHandTesterPressed()
+    {
+        try
+        {
+            throw new NotImplementedException();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeInfoMessage($"An error occured, {ex.Message}.", "red");
+        }
+    }
+
+    public void OnExportDeckPressed()
+    {
+        try
+        {
+            throw new NotImplementedException();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeInfoMessage($"An error occured, {ex.Message}.", "red");
+        }
+    }
+
     protected enum ErrorAddCard
     {
         Ok,

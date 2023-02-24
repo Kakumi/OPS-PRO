@@ -102,6 +102,21 @@ public static class Extension
         return list;
     }
 
+    public static List<T> ToList<T>(this Godot.Collections.Array array)
+    {
+        var list = new List<T>();
+        var enumerator = array.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            if (enumerator.Current is T)
+            {
+                list.Add((T)enumerator.Current);
+            }
+        }
+
+        return list;
+    }
+
     public static Node FirstOrNull(this Godot.Collections.Array array)
     {
         var enumerator = array.GetEnumerator();
