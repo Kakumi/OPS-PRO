@@ -159,14 +159,12 @@ margin_bottom = 14.0
 margin_right = 458.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
-text = "Cards: 40"
 
 [node name="CardsTypes" type="Label" parent="DeckContainer/PanelContainer/MarginContainer/DeckInfo"]
 margin_left = 462.0
 margin_right = 921.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
-text = "Leader: 1, Characters: 5, Counter: 8"
 align = 2
 
 [node name="PanelContainer2" type="PanelContainer" parent="DeckContainer"]

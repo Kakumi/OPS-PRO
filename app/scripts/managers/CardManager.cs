@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -187,46 +188,47 @@ public class CardManager
         {
             //lock (_lock)
             //{
-                if (!TextureExists(cardInfo) && download)
+
+            //}
+
+            if (!TextureExists(cardInfo) && download)
+            {
+                if (!_cardTextureDownloaders.Contains(cardInfo.Id))
                 {
-                    if (!_cardTextureDownloaders.Contains(cardInfo.Id))
+                    _cardTextureDownloaders.Add(cardInfo.Id);
+
+                    Log.Debug($"Image for card ID: {cardInfo.Id} doesn't exist, downloading {cardInfo.Images.First()}...");
+                    try
                     {
-                        _cardTextureDownloaders.Add(cardInfo.Id);
-
-                        Log.Debug($"Image for card ID: {cardInfo.Id} doesn't exist, downloading {cardInfo.Images.First()}...");
-                        Task.Run(() =>
+                        using (var client = new WebClient())
                         {
-                            try
-                            {
-                                using (var webClient = new WebClient())
-                                {
-                                    webClient.DownloadFile(cardInfo.Images.First(), path);
-                                    Log.Debug($"Done for card ID: {cardInfo.Id}");
-                                }
-
-                                NotifyTexture(cardInfo);
-                            } catch(Exception ex)
-                            {
-
-                            } finally
-                            {
-                                _cardTextureDownloaders.Remove(cardInfo.Id);
-                            }
-                        });
+                            client.DownloadFileCompleted += (s, e) => DownloadFileCompleted(s, e, cardInfo);
+                            client.DownloadFileAsync(new Uri(cardInfo.Images.First()), path);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, $"Failed to download file {cardInfo.Id} because {ex.Message}.");
+                        _cardTextureDownloaders.Remove(cardInfo.Id);
                     }
                 }
-                else
-                {
-                    NotifyTexture(cardInfo);
-                }
-            //}
+            }
+            else
+            {
+                NotifyTexture(cardInfo);
+            }
         }
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
         }
+    }
 
-        
+    private void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e, CardInfo cardInfo)
+    {
+        Log.Debug($"Download completed for card ID: {cardInfo.Id}");
+        _cardTextureDownloaders.Remove(cardInfo.Id);
+        NotifyTexture(cardInfo);
     }
 
     public async Task<Texture> DownloadAndGetTextureAsync(CardInfo cardInfo)
