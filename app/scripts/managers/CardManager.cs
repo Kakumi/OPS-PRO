@@ -15,6 +15,7 @@ public class CardManager
 
     private Dictionary<string, Task> _downloaders;
     private List<string> _cardTextureDownloaders;
+    private string _path;
 
     public List<CardInfo> Cards { get; private set; }
     public Texture CardTexture { get; private set; }
@@ -42,6 +43,9 @@ public class CardManager
         file.Open(CARD_FILE_JSON, File.ModeFlags.Read);
         Cards = JsonConvert.DeserializeObject<List<CardInfo>>(file.GetAsText());
         Log.Information($"Loaded {Cards.Count} cards");
+
+        _path = ProjectSettings.GlobalizePath($"user://cards");
+        System.IO.Directory.CreateDirectory(_path);
 
         NotifierManager.Instance.Listen("get_card_texture", AskGetPicture);
     }
@@ -119,7 +123,7 @@ public class CardManager
 
     public string GetTexturePath(CardInfo cardInfo)
     {
-        return ProjectSettings.GlobalizePath($"user://cards/{cardInfo.Id}.png");
+        return System.IO.Path.Combine(_path, $"{cardInfo.Id}.png");
     }
 
     public bool TextureExists(CardInfo cardInfo)
