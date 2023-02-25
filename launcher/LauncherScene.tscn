@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://launcher/LauncherScene.cs" type="Script" id=1]
-[ext_resource path="res://launcher/resources/images/background2.jpg" type="Texture" id=2]
+[ext_resource path="res://launcher/resources/images/background.jpg" type="Texture" id=2]
 [ext_resource path="res://launcher/resources/themes/default_theme.tres" type="Theme" id=3]
 [ext_resource path="res://launcher/resources/fonts/title_font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://launcher/resources/fonts/message_font.tres" type="DynamicFont" id=5]

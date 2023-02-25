@@ -12,3 +12,5 @@ SETTINGS_MUSIC_VOLUME,Volume:,Volume :
 SETTINGS_MUSIC_SOUND,Background music:,Musique de fond :
 SETTINGS_TAB_AUDIO,Audio,Audio
 SETTINGS_TAB_INTERFACE,Interface,Interface
+SETTINGS_QUIT,Close,Fermer
+SETTINGS_SAVE,Save,Sauvegarder

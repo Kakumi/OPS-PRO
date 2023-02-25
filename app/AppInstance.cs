@@ -29,7 +29,19 @@ public class AppInstance : Control
         OS.WindowMaximized = true;
         OS.WindowSize = new Vector2(1920, 1080);
 
+        LoadTranslations();
+
         ShowMainMenu();
+    }
+
+    private void LoadTranslations()
+    {
+        var path = ProjectSettings.GlobalizePath("res://app/translations/");
+        System.IO.Directory.GetFiles(path, "*.translation", System.IO.SearchOption.TopDirectoryOnly).ToList().ForEach(x =>
+        {
+            var translation = GD.Load<Translation>(x);
+            TranslationServer.AddTranslation(translation);
+        });
     }
 
     public static AppInstance Instance => _instance;

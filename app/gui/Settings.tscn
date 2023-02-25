@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://app/gui/Settings.cs" type="Script" id=1]
 [ext_resource path="res://app/gui/settings/InterfaceSettings.tscn" type="PackedScene" id=2]
 [ext_resource path="res://app/gui/settings/AudioSettings.tscn" type="PackedScene" id=3]
-[ext_resource path="res://app/gui/utils/TrButton.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -60,17 +59,13 @@ margin_right = 978.0
 margin_bottom = 20.0
 alignment = 2
 
-[node name="Quit" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="Quit" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 margin_left = 754.0
 margin_right = 865.0
 margin_bottom = 20.0
 text = "SETTINGS_QUIT"
 
-[node name="Save" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="Save" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 margin_left = 869.0
 margin_right = 978.0
 margin_bottom = 20.0
