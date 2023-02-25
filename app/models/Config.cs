@@ -29,6 +29,7 @@ public class Config : Resource, IConfig
 
     public void ApplyChanges()
     {
+        Log.Information($"Applying changes from the config...");
         Log.Debug($"Setting locale to {Language}");
         Log.Debug($"Setting theme to {Theme}");
         Log.Debug($"Setting background to {Background}");

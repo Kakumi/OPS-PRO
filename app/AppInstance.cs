@@ -36,12 +36,20 @@ public class AppInstance : Control
 
     private void LoadTranslations()
     {
-        var path = ProjectSettings.GlobalizePath("res://app/translations/");
-        System.IO.Directory.GetFiles(path, "*.translation", System.IO.SearchOption.TopDirectoryOnly).ToList().ForEach(x =>
+        try
         {
-            var translation = GD.Load<Translation>(x);
-            TranslationServer.AddTranslation(translation);
-        });
+            var files = new Directory().GetFiles("res://app/translations/", @".*\.translation");
+            files.ForEach(x =>
+            {
+                Log.Information($"Loading translation at {x}");
+                var translation = GD.Load<Translation>(x);
+                Log.Information($"Translation loaded.");
+                TranslationServer.AddTranslation(translation);
+            });
+        } catch(Exception ex)
+        {
+            Log.Error(ex, $"Failed to load translation {ex.Message}");
+        }
     }
 
     public static AppInstance Instance => _instance;

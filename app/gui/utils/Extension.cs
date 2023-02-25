@@ -3,6 +3,7 @@ using Serilog;
 using Serilog.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 public static class Extension
 {
@@ -160,5 +161,31 @@ public static class Extension
         } while (parent != null && result == null);
 
         return result;
+    }
+
+    public static List<string> GetFiles(this Directory directory, string path, string pattern)
+    {
+        List<string> files = new List<string>();
+        Regex regex = new Regex(pattern);
+
+        directory.Open(path);
+        directory.ListDirBegin(true, true);
+        while(true)
+        {
+            var file = directory.GetNext().Replace(".import", "");
+            if (string.IsNullOrEmpty(file))
+            {
+                break;
+            }
+
+            if (regex.IsMatch(file))
+            {
+                files.Add(System.IO.Path.Combine(path, file));
+            }
+        }
+
+        directory.ListDirEnd();
+
+        return files;
     }
 }

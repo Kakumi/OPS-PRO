@@ -169,7 +169,10 @@ public class LauncherScene : PanelContainer
                     var localPath = System.IO.Path.Combine(_path, file.File);
                     var success = ProjectSettings.LoadResourcePack(localPath);
 
-                    if (!success)
+                    if (success)
+                    {
+                        Log.Information($"PCK File at {localPath} loaded successfully");
+                    } else
                     {
                         Log.Error($"Failed to load PCK file at {localPath}");
                     }

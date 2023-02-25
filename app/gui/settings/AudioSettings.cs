@@ -35,8 +35,7 @@ public class AudioSettings : TabSettings
     {
         SelectMusic.Clear();
 
-        var path = ProjectSettings.GlobalizePath(_musicPath);
-        var files = System.IO.Directory.GetFiles(path, "*.ogg", System.IO.SearchOption.TopDirectoryOnly).ToList();
+        var files = new Directory().GetFiles(_musicPath, @".*\.ogg");
         for (int i = 0; i < files.Count; i++)
         {
             var file = files[i];

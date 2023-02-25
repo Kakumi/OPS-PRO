@@ -41,7 +41,6 @@ public class SettingsManager : Node
 
     public void LoadConfig(IConfig config)
     {
-        Log.Information($"Loading config file...");
         _configFile.Load(_path);
         var defaultConfig = config.CreateDefaultConfig();
 
@@ -62,6 +61,8 @@ public class SettingsManager : Node
                 }
             }
         }
+
+        Log.Information($"Config loaded");
 
         config.ApplyChanges();
     }

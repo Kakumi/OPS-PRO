@@ -1,4 +1,5 @@
 using Godot;
+using Serilog;
 using System;
 
 public abstract class TabSettings : Godot.Tabs
@@ -18,9 +19,16 @@ public abstract class TabSettings : Godot.Tabs
 
     protected virtual void SettingsVisibilityChanged()
     {
-        if (Settings.Visible)
+        try
         {
-            Init();
+            if (Settings.Visible)
+            {
+                Init();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, $"Failed to init settings tab because {ex.Message}");
         }
     }
 

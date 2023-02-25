@@ -1,4 +1,5 @@
 using Godot;
+using Serilog;
 using System;
 
 public class Settings : Control
@@ -8,10 +9,16 @@ public class Settings : Control
 
     public override void _EnterTree()
     {
-        OriginalConfig = new Config();
-        SettingsManager.Instance.Init(OriginalConfig);
+        try
+        {
+            OriginalConfig = new Config();
+            SettingsManager.Instance.Init(OriginalConfig);
 
-        UpdatedConfig = (Config)OriginalConfig.Clone();
+            UpdatedConfig = (Config)OriginalConfig.Clone();
+        } catch (Exception ex)
+        {
+            Log.Error(ex, $"Failed to load Config because {ex.Message}");
+        }
     }
 
     public void OnQuitPressed()
