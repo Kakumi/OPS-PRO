@@ -1,0 +1,16 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+
+[deps]
+
+files=[ "res://launcher/translations/Translation OPS Pro - Launcher.en.translation", "res://launcher/translations/Translation OPS Pro - Launcher.fr.translation" ]
+
+source_file="res://launcher/translations/Translation OPS Pro - Launcher.csv"
+dest_files=[ "res://launcher/translations/Translation OPS Pro - Launcher.en.translation", "res://launcher/translations/Translation OPS Pro - Launcher.fr.translation" ]
+
+[params]
+
+compress=true
+delimiter=0

@@ -56,7 +56,7 @@ public class LauncherScene : PanelContainer
         try
         {
             Log.Information($"Contacting web server...");
-            ChangeMessage("Contacting web server...");
+            ChangeMessage(Tr("LAUNCHER_CONTACTING_WEB_SERVER"));
 
             using (var client = new WebClient())
             {
@@ -66,7 +66,7 @@ public class LauncherScene : PanelContainer
         } catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeMessage($"Failed to init the downloader because {ex.Message}", true);
+            ChangeMessage(string.Format(Tr("LAUNCHER_INIT_FAILED"), ex.Message), true);
         }
     }
 
@@ -75,12 +75,12 @@ public class LauncherScene : PanelContainer
         try
         {
             ServerConfig = JsonConvert.DeserializeObject<ServerConfig>(e.Result);
-            ChangeMessage("Checking files and versions...");
+            ChangeMessage(Tr("LAUNCHER_CHECKING"));
 
             if (ServerConfig.Files.Count == 0)
             {
                 Log.Error($"ServerConfig return 0 files, this is a fatal error.");
-                ChangeMessage("No files found on the web server.");
+                ChangeMessage(Tr("LAUNCHER_FILES_EMPTY"));
             }
             else
             {
@@ -92,7 +92,7 @@ public class LauncherScene : PanelContainer
 
                 if (_downloadableFiles.Count > 0)
                 {
-                    ChangeMessage($"Downloading missing files (0/{_downloadableFiles.Count})...");
+                    ChangeMessage(string.Format(Tr("LAUNCHER_DOWNLOAD_MISSING"), _downloadableFiles.Count));
                     DownloadFile(_downloadableFiles.Dequeue());
                 }
                 else
@@ -107,7 +107,7 @@ public class LauncherScene : PanelContainer
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeMessage($"Failed to init the downloader because {ex.Message}", true);
+            ChangeMessage(string.Format(Tr("LAUNCHER_INIT_FAILED"), ex.Message), true);
         }
     }
 
@@ -160,20 +160,23 @@ public class LauncherScene : PanelContainer
         try
         {
             Log.Information($"Download finished. Loading PCK files...");
-            ChangeMessage($"Loading PCK Files...");
+            ChangeMessage(string.Format(Tr("LAUNCHER_LOADING_PCK")));
 
-            files.ForEach(file =>
+            if (!Engine.EditorHint && !OS.IsDebugBuild())
             {
-                var localPath = System.IO.Path.Combine(_path, file.File);
-                var success = ProjectSettings.LoadResourcePack(localPath);
-
-                if (!success)
+                files.ForEach(file =>
                 {
-                    Log.Error($"Failed to load PCK file at {localPath}");
-                }
-            });
+                    var localPath = System.IO.Path.Combine(_path, file.File);
+                    var success = ProjectSettings.LoadResourcePack(localPath);
 
-            var importedScene = ResourceLoader.Load<PackedScene>("res://app/scripts/auto_load/AppInstance.tscn");
+                    if (!success)
+                    {
+                        Log.Error($"Failed to load PCK file at {localPath}");
+                    }
+                });
+            }
+
+            var importedScene = ResourceLoader.Load<PackedScene>("res://app/AppInstance.tscn");
             var instance = importedScene.Instance();
             GetTree().Root.CallDeferred("add_child", instance);
             QueueFree();
@@ -181,7 +184,7 @@ public class LauncherScene : PanelContainer
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeMessage($"Failed to load the app because {ex.Message}", true);
+            ChangeMessage(string.Format(Tr("LAUNCHER_LOAD_FAILED"), ex.Message), true);
         }
     }
 
@@ -194,7 +197,7 @@ public class LauncherScene : PanelContainer
             double percentage = bytesIn / totalBytes * 100;
 
             BytesProgressBar.Value = percentage;
-            ChangeMessage($"Downloading {serverFile.Name} ({FilesProgressBar.Value}/{FilesProgressBar.MaxValue})...");
+            ChangeMessage(string.Format(Tr("LAUNCHER_DOWNLOAD_MESSAGE"), serverFile.Name, FilesProgressBar.Value, FilesProgressBar.MaxValue));
         }
         catch (Exception ex)
         {
@@ -220,7 +223,7 @@ public class LauncherScene : PanelContainer
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeMessage($"Failed to continue after file downloaded because {ex.Message}", true);
+            ChangeMessage(string.Format(Tr("LAUNCHER_DOWNLOAD_FAILED"), ex.Message), true);
         }
     }
 
@@ -230,7 +233,7 @@ public class LauncherScene : PanelContainer
         sBuilder.Append("[center]");
         if (error)
         {
-            sBuilder.Append("[color=red]Error:[/color] ");
+            sBuilder.Append("[color=red]").Append(Tr("LAUNCHER_ERROR")).Append(":").Append("[/color] ");
         }
 
         sBuilder.Append(message);

@@ -38,7 +38,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 574.0
 margin_bottom = 20.0
-text = "Deck Builder"
+text = "MENU_BUTTON_DECK_BUILDER"
 Scene = ExtResource( 4 )
 
 [node name="Settings" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
@@ -47,13 +47,13 @@ anchor_bottom = 0.0
 margin_top = 30.0
 margin_right = 574.0
 margin_bottom = 50.0
-text = "Settings"
+text = "MENU_BUTTON_SETTINGS"
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 margin_top = 60.0
 margin_right = 574.0
 margin_bottom = 80.0
 mouse_default_cursor_shape = 2
-text = "Quit"
+text = "MENU_BUTTON_QUIT"
 
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="OnQuitPressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Quit" to="." method="OnQuitPressed"]

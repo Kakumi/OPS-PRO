@@ -1,0 +1,16 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+
+[deps]
+
+files=[ "res://app/translations/Translation OPS Pro - Main.en.translation", "res://app/translations/Translation OPS Pro - Main.fr.translation" ]
+
+source_file="res://app/translations/Translation OPS Pro - Main.csv"
+dest_files=[ "res://app/translations/Translation OPS Pro - Main.en.translation", "res://app/translations/Translation OPS Pro - Main.fr.translation" ]
+
+[params]
+
+compress=true
+delimiter=0

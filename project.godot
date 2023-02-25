@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="OPS Pro"
-run/main_scene="res://app/AppInstance.tscn"
+run/main_scene="res://launcher/LauncherScene.tscn"
 config/icon="res://icon.png"
 config/macos_native_icon="res://icon.png"
 
@@ -29,6 +29,11 @@ window/stretch/aspect="expand"
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[locale]
+
+locale_filter=[ 1, [ "en", "fr" ] ]
+translations=PoolStringArray( "res://app/translations/Translation OPS Pro - Main.en.translation", "res://app/translations/Translation OPS Pro - Main.fr.translation", "res://launcher/translations/Translation OPS Pro - Launcher.en.translation", "res://launcher/translations/Translation OPS Pro - Launcher.fr.translation" )
 
 [physics]
 
