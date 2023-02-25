@@ -32,6 +32,14 @@ public class Tab : Godot.Tabs
         }
     }
 
+    public override void _ExitTree()
+    {
+        if (UseNotifier)
+        {
+            NotifierManager.Instance.StopListener(NotifierCode, NotifierReceiveMessage);
+        }
+    }
+
     protected virtual void NotifierReceiveMessage(object[] obj)
     {
         if (obj.Length > 0)
@@ -50,18 +58,20 @@ public class Tab : Godot.Tabs
 
     public void Add(string text)
     {
-        var label = new RichTextLabel();
-        Texts.AddChild(label);
-        label.BbcodeEnabled = true;
-        label.FitContentHeight = true;
-        label.Text = text;
-        label.AddFontOverride("normal_font", Font);
-
-        if (Texts.GetChildCount() > Capacity)
+        if (Texts != null)
         {
-            Texts.GetChild(0).QueueFree();
+            var label = new RichTextLabel();
+            Texts.AddChild(label);
+            label.BbcodeEnabled = true;
+            label.FitContentHeight = true;
+            label.Text = text;
+            label.AddFontOverride("normal_font", Font);
+
+            if (Texts.GetChildCount() > Capacity)
+            {
+                Texts.GetChild(0).QueueFree();
+            }
         }
-        
     }
 
     public string GetTabName()
