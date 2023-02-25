@@ -19,6 +19,7 @@ config/macos_native_icon="res://icon.png"
 [autoload]
 
 Logger="*res://launcher/scripts/auto_load/Logger.cs"
+SettingsManager="*res://launcher/scripts/auto_load/SettingsManager.cs"
 
 [display]
 

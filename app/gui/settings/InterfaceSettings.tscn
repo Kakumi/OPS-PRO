@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://app/gui/utils/TrLabel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://app/gui/settings/InterfaceSettings.cs" type="Script" id=2]
+
+[node name="InterfaceSettings" type="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+margin_right = 1912.0
+margin_bottom = 1044.0
+columns = 2
+
+[node name="Theme" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+margin_right = 954.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="TrLabel" parent="MarginContainer/GridContainer/Theme" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 3.0
+margin_right = 109.0
+margin_bottom = 17.0
+text = "SETTINGS_THEME"
+
+[node name="SelectTheme" type="OptionButton" parent="MarginContainer/GridContainer/Theme"]
+margin_left = 113.0
+margin_right = 954.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Lang" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+margin_left = 958.0
+margin_right = 1912.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="TrLabel" parent="MarginContainer/GridContainer/Lang" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 3.0
+margin_right = 102.0
+margin_bottom = 17.0
+text = "SETTINGS_LANG"
+
+[node name="SelectLang" type="OptionButton" parent="MarginContainer/GridContainer/Lang"]
+margin_left = 106.0
+margin_right = 954.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Background" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+margin_top = 24.0
+margin_right = 954.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+
+[node name="TrLabel" parent="MarginContainer/GridContainer/Background" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 3.0
+margin_right = 159.0
+margin_bottom = 17.0
+text = "SETTINGS_BACKGROUND"
+
+[node name="SelectBackground" type="OptionButton" parent="MarginContainer/GridContainer/Background"]
+margin_left = 163.0
+margin_right = 954.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[connection signal="item_selected" from="MarginContainer/GridContainer/Theme/SelectTheme" to="." method="OnSelectThemeItemSelected"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/Lang/SelectLang" to="." method="OnSelectLangItemSelected"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/Background/SelectBackground" to="." method="OnSelectBackgroundItemSelected"]

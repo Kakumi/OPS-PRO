@@ -1,0 +1,95 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://app/gui/utils/TrLabel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://app/gui/settings/AudioSettings.cs" type="Script" id=2]
+
+[node name="AudioSettings" type="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+margin_right = 1912.0
+margin_bottom = 1044.0
+columns = 2
+
+[node name="MusicEnabled" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+margin_right = 954.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="TrLabel" parent="MarginContainer/GridContainer/MusicEnabled" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 5.0
+margin_right = 173.0
+margin_bottom = 19.0
+text = "SETTINGS_MUSIC_ENABLED"
+
+[node name="BackgroundMusicCheckbox" type="CheckBox" parent="MarginContainer/GridContainer/MusicEnabled"]
+margin_left = 177.0
+margin_right = 201.0
+margin_bottom = 24.0
+
+[node name="MusicVolume" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+margin_left = 958.0
+margin_right = 1912.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="TrLabel2" parent="MarginContainer/GridContainer/MusicVolume" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 5.0
+margin_right = 169.0
+margin_bottom = 19.0
+text = "SETTINGS_MUSIC_VOLUME"
+
+[node name="BackgroundMusicSlider" type="HSlider" parent="MarginContainer/GridContainer/MusicVolume"]
+margin_left = 173.0
+margin_right = 922.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+tick_count = 10
+ticks_on_borders = true
+
+[node name="BackgroundMusicSliderPercent" type="Label" parent="MarginContainer/GridContainer/MusicVolume"]
+margin_left = 926.0
+margin_top = 5.0
+margin_right = 954.0
+margin_bottom = 19.0
+text = "57%"
+
+[node name="MusicSound" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+margin_top = 28.0
+margin_right = 954.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+
+[node name="TrLabel" parent="MarginContainer/GridContainer/MusicSound" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 3.0
+margin_right = 162.0
+margin_bottom = 17.0
+text = "SETTINGS_MUSIC_SOUND"
+
+[node name="SelectMusic" type="OptionButton" parent="MarginContainer/GridContainer/MusicSound"]
+margin_left = 166.0
+margin_right = 954.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[connection signal="toggled" from="MarginContainer/GridContainer/MusicEnabled/BackgroundMusicCheckbox" to="." method="OnBackgroundMusicCheckboxToggled"]
+[connection signal="value_changed" from="MarginContainer/GridContainer/MusicVolume/BackgroundMusicSlider" to="." method="OnBackgroundMusicSliderValueChanged"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/MusicSound/SelectMusic" to="." method="OnSelectMusicItemSelected"]
