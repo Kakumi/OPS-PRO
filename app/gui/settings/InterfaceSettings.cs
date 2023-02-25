@@ -1,4 +1,5 @@
 using Godot;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,7 @@ public class InterfaceSettings : TabSettings
             var name = System.IO.Path.GetFileNameWithoutExtension(file);
             SelectTheme.AddItem(name, i);
 
-            if (file == ProjectSettings.GlobalizePath(Settings.OriginalConfig.Theme))
+            if (file == Settings.OriginalConfig.Theme)
             {
                 SelectTheme.Selected = i;
             }
@@ -62,7 +63,7 @@ public class InterfaceSettings : TabSettings
             var name = System.IO.Path.GetFileNameWithoutExtension(file);
             SelectBackground.AddItem(name, i);
 
-            if (file == ProjectSettings.GlobalizePath(Settings.OriginalConfig.Background))
+            if (file == Settings.OriginalConfig.Background)
             {
                 SelectBackground.Selected = i;
             }

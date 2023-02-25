@@ -42,7 +42,7 @@ public class AudioSettings : TabSettings
             var name = System.IO.Path.GetFileNameWithoutExtension(file);
             SelectMusic.AddItem(name, i);
 
-            if (file == ProjectSettings.GlobalizePath(Settings.OriginalConfig.BackgroundMusic))
+            if (file == Settings.OriginalConfig.BackgroundMusic)
             {
                 SelectMusic.Selected = i;
             }

@@ -43,7 +43,7 @@ public class AppInstance : Control
             {
                 Log.Information($"Loading translation at {x}");
                 var translation = GD.Load<Translation>(x);
-                Log.Information($"Translation loaded.");
+                Log.Information($"Translation {translation.Locale} loaded.");
                 TranslationServer.AddTranslation(translation);
             });
         } catch(Exception ex)
