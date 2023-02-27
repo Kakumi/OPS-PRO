@@ -38,7 +38,7 @@ public class InterfaceSettings : TabSettings
     {
         SelectTheme.Clear();
 
-        var files = new Directory().GetFiles(_themePath, @".*_theme\.tres");
+        var files = new Directory().GetFiles(_themePath, @".*_theme\.tres$");
         for(int i = 0; i < files.Count; i++)
         {
             var file = files[i];
@@ -56,7 +56,7 @@ public class InterfaceSettings : TabSettings
     {
         SelectBackground.Clear();
 
-        var files = new Directory().GetFiles(_backgroundPath, @".*\.jpg");
+        var files = new Directory().GetFiles(_backgroundPath, @".*\.jpg$");
         for (int i = 0; i < files.Count; i++)
         {
             var file = files[i];

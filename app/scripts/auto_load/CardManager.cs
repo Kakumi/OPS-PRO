@@ -9,28 +9,28 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-public class CardManager
+public class CardManager : Node
 {
-    public static string CARD_FILE_JSON = @"res://app/resources/json/cards.json";
+    //public static string CARD_FILE_JSON = @"res://app/resources/json/cards.json";
 
-    private Dictionary<string, Task> _downloaders;
     private List<string> _cardTextureDownloaders;
     private string _path;
+    private OPSPopup _popup;
 
     public List<CardInfo> Cards { get; private set; }
     public Texture CardTexture { get; private set; }
     public Texture LeaderTexture { get; private set; }
     public Texture DonTexture { get; private set; }
 
-    private static readonly Lazy<CardManager> _instance = new Lazy<CardManager>(() => new CardManager());
-    private static object _lock = new object();
+    private static CardManager _instance;
 
-    public static CardManager Instance => _instance.Value;
+    public static CardManager Instance => _instance;
 
-    public CardManager()
+    public override void _Ready()
     {
-        _downloaders = new Dictionary<string, Task>();
+        _instance = this;
         _cardTextureDownloaders = new List<string>();
+        _popup = null;
 
         ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
         Cards = new List<CardInfo>();
@@ -39,15 +39,59 @@ public class CardManager
         LeaderTexture = GD.Load<Texture>("res://app/resources/images/leader_back.png");
         DonTexture = GD.Load<Texture>("res://app/resources/images/don_back.jpg");
 
-        File file = new File();
-        file.Open(CARD_FILE_JSON, File.ModeFlags.Read);
-        Cards = JsonConvert.DeserializeObject<List<CardInfo>>(file.GetAsText());
-        Log.Information($"Loaded {Cards.Count} cards");
-
         _path = ProjectSettings.GlobalizePath($"user://cards");
         System.IO.Directory.CreateDirectory(_path);
 
         NotifierManager.Instance.Listen("get_card_texture", AskGetPicture);
+
+        FetchCards();
+    }
+
+    private void FetchCards()
+    {
+        try
+        {
+            if (_popup == null)
+            {
+                _popup = PopupManager.Instance.CreatePopup("Getting cards", "Please wait while cards are being fetched from the server...");
+            }
+
+            _popup.PopupCentered();
+
+            using(var client = new WebClient())
+            {
+                client.DownloadStringCompleted += ServerConfigDownloaded;
+                client.DownloadStringAsync(new Uri("https://launcher.opbluesea.fr/opspro/cards.json"));
+            }
+        } catch(Exception ex)
+        {
+            if (_popup != null)
+            {
+                _popup.Message = $"Fail to fetch cards from the API. Please close the application and try again.";
+            }
+
+            Log.Error(ex, $"Failed to fetch cards from the API because {ex.Message}");
+        }
+    }
+
+    private void ServerConfigDownloaded(object sender, DownloadStringCompletedEventArgs e)
+    {
+        try
+        {
+            Cards = JsonConvert.DeserializeObject<List<CardInfo>>(e.Result);
+            Log.Information($"Loaded {Cards.Count} cards");
+
+            _popup?.QueueFree();
+        }
+        catch (Exception ex)
+        {
+            if (_popup != null)
+            {
+                _popup.Message = $"Fail to deserialize cards from the API. Please close the application and try again.";
+            }
+
+            Log.Error(ex, $"Failed to deserialize cards from the API because {ex.Message}");
+        }
     }
 
     public List<CardInfo> Search(string text, double cost, double counter, double power, string color, string set, string type, string cardtype)
@@ -233,55 +277,6 @@ public class CardManager
         Log.Debug($"Download completed for card ID: {cardInfo.Id}");
         _cardTextureDownloaders.Remove(cardInfo.Id);
         NotifyTexture(cardInfo);
-    }
-
-    public async Task<Texture> DownloadAndGetTextureAsync(CardInfo cardInfo)
-    {
-        string path = GetTexturePath(cardInfo);
-        if (!TextureExists(cardInfo))
-        {
-            try
-            {
-                Task task;
-                lock (_lock)
-                {
-                    if (_downloaders.ContainsKey(cardInfo.Id))
-                    {
-                        Log.Debug($"Downloader contains key {cardInfo.Id}, waiting current task...");
-                        task = _downloaders[cardInfo.Id];
-                    }
-                    else
-                    {
-                        Log.Debug($"Downloader is empty for {cardInfo.Id}, creating new task...");
-                        task = Task.Run(() =>
-                        {
-                            Log.Debug($"Image for card ID: {cardInfo.Id} doesn't exist, downloading {cardInfo.Images.First()}...");
-                            using (var webClient = new WebClient())
-                            {
-                                webClient.DownloadFile(cardInfo.Images.First(), path);
-                                Log.Debug($"Done for card ID: {cardInfo.Id}");
-                            }
-                        });
-
-                        _downloaders.Add(cardInfo.Id, task);
-                    }
-                }
-
-                await task;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, ex.Message);
-                return GetBackTexture(cardInfo);
-            }
-            finally
-            {
-                _downloaders.Remove(cardInfo.Id);
-                //Log.Debug($"Downloader task for {cardInfo.Id} removed");
-            }
-        }
-
-        return GetTexture(cardInfo);
     }
 
     public Texture GetBackTexture(CardInfo cardInfo)

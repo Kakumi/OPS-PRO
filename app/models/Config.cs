@@ -37,7 +37,7 @@ public class Config : Resource, IConfig
         Log.Debug($"Setting sound to {BackgroundMusic} (enabled: {BackgroundMusicEnabled})");
 
         TranslationServer.SetLocale(Language);
-        AppInstance.Instance.Theme = GD.Load<Theme>(Theme);
+        AppInstance.Instance.UpdateTheme(GD.Load<Theme>(Theme));
         AppInstance.Instance.Background.Texture = GD.Load<Texture>(Background);
         AudioServer.SetBusVolumeDb(0, GD.Linear2Db(BackgroundMusicVolume));
         SoundManager.Instance.UpdateSound(BackgroundMusic, BackgroundMusicEnabled);

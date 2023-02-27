@@ -46,6 +46,7 @@ Scene = ExtResource( 4 )
 margin_top = 30.0
 margin_right = 574.0
 margin_bottom = 50.0
+mouse_default_cursor_shape = 2
 text = "MENU_BUTTON_SETTINGS"
 
 [node name="Quit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]

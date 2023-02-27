@@ -11,15 +11,24 @@ config_version=4
 [application]
 
 config/name="OPS Pro"
-run/main_scene="res://launcher/LauncherScene.tscn"
+run/main_scene="res://app/AppInstance.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Godot/app_userdata/OPS Pro/data"
 boot_splash/show_image=false
 config/icon="res://icon.png"
 config/macos_native_icon="res://icon.png"
 
 [autoload]
 
-Logger="*res://launcher/scripts/auto_load/Logger.cs"
-SettingsManager="*res://launcher/scripts/auto_load/SettingsManager.cs"
+SecurityLoad="*res://app/scripts/auto_load/SecurityLoad.cs"
+Logger="*res://app/scripts/auto_load/Logger.cs"
+SettingsManager="*res://app/scripts/auto_load/SettingsManager.cs"
+PopupManager="*res://app/scripts/auto_load/PopupManager.tscn"
+CustomLoader="*res://app/scripts/auto_load/CustomLoader.cs"
+SoundManager="*res://app/scripts/auto_load/SoundManager.tscn"
+NotifierManager="*res://app/scripts/auto_load/NotifierManager.cs"
+CardManager="*res://app/scripts/auto_load/CardManager.cs"
+DeckManager="*res://app/scripts/auto_load/DeckManager.cs"
 
 [display]
 
@@ -35,7 +44,7 @@ common/drop_mouse_on_gui_input_disabled=true
 [locale]
 
 locale_filter=[ 1, [ "en", "fr" ] ]
-translations=PoolStringArray( "res://launcher/translations/Translation OPS Pro - Launcher.en.translation", "res://launcher/translations/Translation OPS Pro - Launcher.fr.translation" )
+translations=PoolStringArray(  )
 
 [physics]
 

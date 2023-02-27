@@ -39,7 +39,7 @@ public class SettingsManager : Node
         return new File().FileExists(_path);
     }
 
-    public void LoadConfig(IConfig config)
+    public void ReadConfig(IConfig config)
     {
         _configFile.Load(_path);
         var defaultConfig = config.CreateDefaultConfig();
@@ -63,6 +63,11 @@ public class SettingsManager : Node
         }
 
         Log.Information($"Config loaded");
+    }
+
+    public void LoadConfig(IConfig config)
+    {
+        ReadConfig(config);
 
         config.ApplyChanges();
     }

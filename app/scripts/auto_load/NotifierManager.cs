@@ -2,15 +2,16 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class NotifierManager
+public class NotifierManager : Node
 {
-    private static readonly Lazy<NotifierManager> _instance = new Lazy<NotifierManager>(() => new NotifierManager());
-    public static NotifierManager Instance => _instance.Value;
+    private static NotifierManager _instance;
+    public static NotifierManager Instance => _instance;
 
-    private readonly Dictionary<string, List<Action<object []>>> _listeners;
+    private Dictionary<string, List<Action<object []>>> _listeners;
 
-    public NotifierManager()
+    public override void _Ready()
     {
+        _instance = this;
         _listeners = new Dictionary<string, List<Action<object[]>>>();
     }
 

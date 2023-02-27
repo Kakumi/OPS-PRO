@@ -35,7 +35,9 @@ public class AudioSettings : TabSettings
     {
         SelectMusic.Clear();
 
-        var files = new Directory().GetFiles(_musicPath, @".*\.ogg");
+        var files = new Directory().GetFiles(_musicPath, @".*\.ogg$");
+        GD.Print("found " + files.Count);
+        GD.Print(string.Join(" - ", files));
         for (int i = 0; i < files.Count; i++)
         {
             var file = files[i];

@@ -170,9 +170,9 @@ public static class Extension
 
         directory.Open(path);
         directory.ListDirBegin(true, true);
-        while(true)
+        string file;
+        while((file = directory.GetNext()) != null)
         {
-            var file = directory.GetNext().Replace(".import", "");
             if (string.IsNullOrEmpty(file))
             {
                 break;
@@ -183,8 +183,6 @@ public static class Extension
                 files.Add(System.IO.Path.Combine(path, file));
             }
         }
-
-        directory.ListDirEnd();
 
         return files;
     }

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://app/scripts/auto_load/PopupManager.cs" type="Script" id=1]
+[ext_resource path="res://app/gui/utils/OPSPopup.tscn" type="PackedScene" id=2]
+
+[node name="PopupManager" type="Node"]
+script = ExtResource( 1 )
+PopupStyle = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 5

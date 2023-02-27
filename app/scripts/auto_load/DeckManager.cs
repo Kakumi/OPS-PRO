@@ -9,15 +9,16 @@ using SDirectory = System.IO.Directory;
 using SFileInfo = System.IO.FileInfo;
 using SPath = System.IO.Path;
 
-public class DeckManager
+public class DeckManager : Node
 {
-    private static readonly Lazy<DeckManager> _instance = new Lazy<DeckManager>(() => new DeckManager());
+    private static DeckManager _instance;
     public string Path { get; private set; }
 
-    public static DeckManager Instance => _instance.Value;
+    public static DeckManager Instance => _instance;
 
-    public DeckManager()
+    public override void _Ready()
     {
+        _instance = this;
         Path = ProjectSettings.GlobalizePath("user://decks");
         SDirectory.CreateDirectory(Path);
     }

@@ -6,15 +6,16 @@ using System.Linq;
 public class AppInstance : Control
 {
     [Export]
-    public PackedScene SoundManager { get; set; }
-
-    [Export]
     public PackedScene MainMenu { get; set; }
+
+    [Signal]
+    public delegate void ThemeChanged(Theme theme);
 
     public TextureRect Background { get; set; }
     public Control Content { get; set; }
 
     private static AppInstance _instance;
+    public static AppInstance Instance => _instance;
 
     public override void _Ready()
     {
@@ -29,30 +30,14 @@ public class AppInstance : Control
         OS.WindowMaximized = true;
         OS.WindowSize = new Vector2(1920, 1080);
 
-        LoadTranslations();
-
         ShowMainMenu();
     }
 
-    private void LoadTranslations()
+    public void UpdateTheme(Theme theme)
     {
-        try
-        {
-            var files = new Directory().GetFiles("res://app/translations/", @".*\.translation");
-            files.ForEach(x =>
-            {
-                Log.Information($"Loading translation at {x}");
-                var translation = GD.Load<Translation>(x);
-                Log.Information($"Translation {translation.Locale} loaded.");
-                TranslationServer.AddTranslation(translation);
-            });
-        } catch(Exception ex)
-        {
-            Log.Error(ex, $"Failed to load translation {ex.Message}");
-        }
+        Theme = theme;
+        EmitSignal(nameof(ThemeChanged), theme);
     }
-
-    public static AppInstance Instance => _instance;
 
     public void GoTo(PackedScene packedScene)
     {
@@ -86,16 +71,6 @@ public class AppInstance : Control
         {
             var instance = MainMenu.Instance();
             Content.CallDeferred("add_child", instance);
-        }
-    }
-
-    public override void _EnterTree()
-    {
-        base._EnterTree();
-        if (SoundManager != null)
-        {
-            var instance = SoundManager.Instance();
-            GetTree().Root.CallDeferred("add_child", instance);
         }
     }
 }
