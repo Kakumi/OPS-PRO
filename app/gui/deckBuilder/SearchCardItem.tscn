@@ -1,51 +1,35 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://3tg2edqu8iyd"]
 
-[ext_resource path="res://app/resources/OP01-001.png" type="Texture2D" id=1]
-[ext_resource path="res://app/resources/fonts/normal_font_small.tres" type="FontFile" id=2]
-[ext_resource path="res://app/resources/fonts/normal_font.tres" type="FontFile" id=3]
-[ext_resource path="res://app/gui/deckBuilder/SearchCardItem.cs" type="Script" id=4]
-[ext_resource path="res://app/gui/game/Card.tscn" type="PackedScene" id=6]
+[ext_resource type="Script" path="res://app/gui/deckBuilder/SearchCardItem.cs" id="4"]
+[ext_resource type="PackedScene" uid="uid://boynil74yqbyv" path="res://app/gui/game/Card.tscn" id="6"]
 
 [node name="SearchCardItem" type="PanelContainer"]
+anchors_preset = -1
 anchor_right = 0.363021
 anchor_bottom = 0.0481481
 mouse_default_cursor_shape = 2
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_left = 7.0
-offset_top = 7.0
-offset_right = 690.0
-offset_bottom = 85.0
+layout_mode = 2
 
-[node name="Card" parent="HBoxContainer" instance=ExtResource( 6 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 42.0
-offset_bottom = 78.0
-custom_minimum_size = Vector2( 40, 0 )
-texture = ExtResource( 1 )
+[node name="Card" parent="HBoxContainer" instance=ExtResource("6")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
 stretch_mode = 6
 
 [node name="TextContainer" type="VBoxContainer" parent="HBoxContainer"]
-offset_left = 46.0
-offset_right = 683.0
-offset_bottom = 78.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 2
 size_flags_stretch_ratio = 15.0
 
 [node name="CardName" type="Label" parent="HBoxContainer/TextContainer"]
-offset_right = 637.0
-offset_bottom = 40.0
-custom_fonts/font = ExtResource( 3 )
+layout_mode = 2
 text = "Card Name"
 
 [node name="CardInfo" type="Label" parent="HBoxContainer/TextContainer"]
-offset_top = 44.0
-offset_right = 637.0
-offset_bottom = 78.0
-custom_fonts/font = ExtResource( 2 )
+layout_mode = 2
 text = "Card Info"
 
 [connection signal="gui_input" from="." to="." method="OnGuiInput"]

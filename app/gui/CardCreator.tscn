@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b411iehs8mi8s"]
+
+[ext_resource type="Script" path="res://app/gui/CardCreator.cs" id="1_55aqx"]
+[ext_resource type="PackedScene" uid="uid://bdos3ombb52gx" path="res://app/gui/utils/CardInfoPanel.tscn" id="2_k1er2"]
+[ext_resource type="PackedScene" uid="uid://byo7nq5sbiyr" path="res://app/gui/cardCreator/CardCreatorEditor.tscn" id="2_qc1ph"]
+
+[node name="CardCreator" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_55aqx")
+
+[node name="CardInfoPanel" parent="." instance=ExtResource("2_k1er2")]
+layout_mode = 2
+
+[node name="DeckContainer" parent="." instance=ExtResource("2_qc1ph")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 3.0

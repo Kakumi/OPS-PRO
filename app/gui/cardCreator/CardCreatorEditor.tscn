@@ -1,0 +1,194 @@
+[gd_scene load_steps=4 format=3 uid="uid://byo7nq5sbiyr"]
+
+[ext_resource type="Script" path="res://app/gui/cardCreator/CardCreatorEditor.cs" id="1_hdp2w"]
+[ext_resource type="Texture2D" uid="uid://dbiogrf5nwvga" path="res://app/resources/images/TemplateRedCard.png" id="1_vd26g"]
+[ext_resource type="Texture2D" uid="uid://eaouwtbmw6t6" path="res://app/resources/test_bg_templat.jpg" id="1_x7a02"]
+
+[node name="CardCreatorEditor" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+script = ExtResource("1_hdp2w")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CardEditor" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CardEditor"]
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="PanelContainer/CardEditor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Quitter"
+
+[node name="Reset" type="Button" parent="PanelContainer/CardEditor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Reset"
+
+[node name="ExportDeck" type="Button" parent="PanelContainer/CardEditor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Export"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CardEditor"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CardEditor/MarginContainer"]
+layout_mode = 2
+
+[node name="Column1" type="VBoxContainer" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorOptions" type="OptionButton" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column1"]
+layout_mode = 2
+clip_text = true
+
+[node name="CardTypeOptions" type="OptionButton" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column1"]
+layout_mode = 2
+clip_text = true
+
+[node name="AttributeOptions" type="OptionButton" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column1"]
+layout_mode = 2
+clip_text = true
+
+[node name="RarityOptions" type="OptionButton" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column1"]
+layout_mode = 2
+clip_text = true
+
+[node name="Column2" type="VBoxContainer" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EditCardName" type="LineEdit" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+placeholder_text = "Text"
+
+[node name="EditTypes" type="LineEdit" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+placeholder_text = "Text"
+
+[node name="EditNumber" type="LineEdit" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+placeholder_text = "Text"
+
+[node name="Column3" type="VBoxContainer" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column3/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Cost :"
+
+[node name="CostText" type="SpinBox" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column3/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 10.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column3/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Counter :"
+
+[node name="CounterText" type="SpinBox" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column3/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 5000.0
+step = 1000.0
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column3/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Power :"
+
+[node name="PowerText" type="SpinBox" parent="PanelContainer/CardEditor/MarginContainer/HBoxContainer/Column3/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 20000.0
+step = 500.0
+
+[node name="InfoContainer" type="MarginContainer" parent="PanelContainer/CardEditor"]
+layout_mode = 2
+
+[node name="InfoLabel" type="RichTextLabel" parent="PanelContainer/CardEditor/InfoContainer"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="CardViewer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CardViewer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CardViewer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BoxContainer" type="CenterContainer" parent="CardViewer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="CustomBackground" type="TextureRect" parent="CardViewer/PanelContainer/MarginContainer/BoxContainer"]
+custom_minimum_size = Vector2(500, 700)
+layout_mode = 2
+texture = ExtResource("1_x7a02")
+expand_mode = 1
+
+[node name="Template" type="TextureRect" parent="CardViewer/PanelContainer/MarginContainer/BoxContainer"]
+custom_minimum_size = Vector2(500, 700)
+layout_mode = 2
+size_flags_horizontal = 6
+texture = ExtResource("1_vd26g")
+expand_mode = 1
+stretch_mode = 5
+
+[connection signal="pressed" from="PanelContainer/CardEditor/HBoxContainer/Quit" to="." method="OnQuitPressed"]
+[connection signal="pressed" from="PanelContainer/CardEditor/HBoxContainer/Reset" to="." method="OnResetPressed"]
+[connection signal="pressed" from="PanelContainer/CardEditor/HBoxContainer/ExportDeck" to="." method="OnExportPressed"]

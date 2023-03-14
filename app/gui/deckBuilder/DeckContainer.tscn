@@ -26,16 +26,19 @@ layout_mode = 2
 [node name="Quit" type="Button" parent="PanelContainer/DeckManagerContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 text = "Quitter"
 
 [node name="HandTester" type="Button" parent="PanelContainer/DeckManagerContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 text = "Hand Tester"
 
 [node name="ExportDeck" type="Button" parent="PanelContainer/DeckManagerContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 text = "Export"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/DeckManagerContainer"]
@@ -50,10 +53,12 @@ layout_mode = 2
 layout_mode = 2
 tooltip_text = "A deck is valid with cards same color as the leader, 1 leader and 50 cards and max 4 for the same card."
 bbcode_enabled = true
+fit_content = true
 
 [node name="InfoMessage" type="RichTextLabel" parent="PanelContainer/DeckManagerContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
+fit_content = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/DeckManagerContainer"]
 layout_mode = 2

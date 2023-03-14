@@ -1,16 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://d0bsel4oaljb3"]
 
-[ext_resource path="res://app/gui/mainMenu/ButtonGoto.tscn" type="PackedScene" id=1]
-[ext_resource path="res://app/gui/MainMenu.cs" type="Script" id=2]
-[ext_resource path="res://app/gui/Settings.tscn" type="PackedScene" id=3]
-[ext_resource path="res://app/gui/DeckBuilder.tscn" type="PackedScene" id=4]
+[ext_resource type="PackedScene" path="res://app/gui/mainMenu/ButtonGoto.tscn" id="1"]
+[ext_resource type="Script" path="res://app/gui/MainMenu.cs" id="2"]
+[ext_resource type="PackedScene" uid="uid://h128lbci1vgn" path="res://app/gui/Settings.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://bry114aad4nsh" path="res://app/gui/DeckBuilder.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://b411iehs8mi8s" path="res://app/gui/CardCreator.tscn" id="4_c8xcf"]
 
 [node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -21,43 +25,37 @@ offset_right = 294.0
 offset_bottom = 112.5
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
-offset_left = 7.0
-offset_top = 7.0
-offset_right = 581.0
-offset_bottom = 218.0
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
-offset_top = 65.0
-offset_right = 574.0
-offset_bottom = 145.0
+layout_mode = 2
 size_flags_horizontal = 7
 size_flags_vertical = 6
-custom_constants/separation = 10
 
-[node name="DeckBuilder" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 574.0
-offset_bottom = 20.0
+[node name="DeckBuilder" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("1")]
+layout_mode = 2
 text = "MENU_BUTTON_DECK_BUILDER"
-Scene = ExtResource( 4 )
+Scene = ExtResource("4")
+
+[node name="CardCreator" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("1")]
+layout_mode = 2
+text = "MENU_BUTTON_CARD_CREATOR"
+Scene = ExtResource("4_c8xcf")
 
 [node name="Settings" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
-offset_top = 30.0
-offset_right = 574.0
-offset_bottom = 50.0
+layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "MENU_BUTTON_SETTINGS"
 
 [node name="Quit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
-offset_top = 60.0
-offset_right = 574.0
-offset_bottom = 80.0
+layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "MENU_BUTTON_QUIT"
 
-[node name="Settings" parent="." instance=ExtResource( 3 )]
+[node name="Settings" parent="." instance=ExtResource("3")]
 visible = false
+layout_mode = 0
+anchors_preset = 0
 offset_left = -553.0
 offset_top = -291.0
 offset_right = 553.0
