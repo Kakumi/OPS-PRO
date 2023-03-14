@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -6,48 +7,52 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-public class CardInfoPanel : VBoxContainer
+public partial class CardInfoPanel : VBoxContainer
 {
-    [Export]
-    public List<NodePath> HoverCardNodePath { get; set; }
+	[Export]
+	public Array<NodePath> HoverCardNodePath { get; set; }
 
-    protected TextureRect CardImg { get; set; }
-    protected Tabs Tabs { get; private set; }
+	protected TextureRect CardImg { get; set; }
+	protected TabInfoContainer TabBar { get; private set; }
 
     public override void _Ready()
     {
-        CardImg = GetNode<TextureRect>("TopContainer/CardImg");
-        Tabs = GetNode<Tabs>("Tabs");
+        base._Ready();
 
-        HoverCardNodePath.ForEach(path =>
+        CardImg = GetNode<TextureRect>("TopContainer/CardImg");
+        TabBar = GetNode<TabInfoContainer>("TabBar");
+
+        HoverCardNodePath.ToList().ForEach(path =>
         {
             var node = GetNode(path);
             if (node.HasSignal("MouseEnterCard"))
             {
-                node.ConnectIfMissing("MouseEnterCard", this, nameof(CardMouseEntered));
+                node.Connect("MouseEnterCard", new Callable(this, nameof(CardMouseEntered)));
+                //node.ConnectIfMissing("MouseEnterCard", this, nameof(CardMouseEntered));
             }
 
             if (node.HasSignal("MouseExitCard"))
             {
-                node.ConnectIfMissing("MouseExitCard", this, nameof(CardMouseExited));
+                node.Connect("MouseExitCard", new Callable(this, nameof(CardMouseExited)));
+                //node.ConnectIfMissing("MouseExitCard", this, nameof(CardMouseExited));
             }
         });
     }
 
     public void CardMouseEntered(Card card)
-    {
-        ShowCardInfo(card);
-    }
+	{
+		ShowCardInfo(card);
+	}
 
-    public void CardMouseExited(Card card)
-    {
-        
-    }
+	public void CardMouseExited(Card card)
+	{
+		
+	}
 
-    public void ShowCardInfo(Card card)
-    {
-        CardImg.Texture = card.Texture;
+	public void ShowCardInfo(Card card)
+	{
+		CardImg.Texture = card.Texture;
 
-        Tabs.CardInfoTab.ShowCardInfo(card.CardInfo);
-    }
+		TabBar.CardInfoTab.ShowCardInfo(card.CardInfo);
+	}
 }

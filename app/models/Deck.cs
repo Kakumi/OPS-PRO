@@ -1,8 +1,8 @@
-﻿using Godot;
+using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Deck : Object
+public partial class Deck : GodotObject
 {
     public string Name { get; set; }
     public Dictionary<CardInfo, int> Cards { get; set; }

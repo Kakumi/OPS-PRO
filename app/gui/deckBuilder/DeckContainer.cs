@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class DeckContainer : VBoxContainer
+public partial class DeckContainer : VBoxContainer
 {
     [Export]
     public NodePath SearchContainerPath { get; set; }
@@ -18,6 +18,7 @@ public class DeckContainer : VBoxContainer
     public RichTextLabel DeckStatus { get; private set; }
     public RichTextLabel InfoMessage { get; private set; }
     public SearchContainer SearchContainer { get; set; }
+    public PanelContainer DeckPanelContainer { get; protected set; }
     public GridContainer Deck { get; protected set; }
     public Label CardsNumber { get; protected set; }
     public Label CardsTypes { get; protected set; }
@@ -34,10 +35,10 @@ public class DeckContainer : VBoxContainer
     }
 
     [Signal]
-    public delegate void MouseEnterCard(Card card);
+    public delegate void MouseEnterCardEventHandler(Card card);
 
     [Signal]
-    public delegate void MouseExitCard(Card card);
+    public delegate void MouseExitCardEventHandler(Card card);
 
     public override void _Ready()
     {
@@ -47,7 +48,8 @@ public class DeckContainer : VBoxContainer
         InfoMessage = GetNode<RichTextLabel>("PanelContainer/DeckManagerContainer/MarginContainer/VBoxContainer/InfoMessage");
         CardsNumber = GetNode<Label>("DeckContainer/PanelContainer/MarginContainer/DeckInfo/CardsNumber");
         CardsTypes = GetNode<Label>("DeckContainer/PanelContainer/MarginContainer/DeckInfo/CardsTypes");
-        Deck = GetNode<GridContainer>("DeckContainer/PanelContainer2/Deck");
+        DeckPanelContainer = GetNode<PanelContainer>("DeckContainer/DeckPanelContainer");
+        Deck = DeckPanelContainer.GetNode<GridContainer>("Deck");
 
         Decks = DeckManager.Instance.LoadDecks();
 
@@ -55,7 +57,7 @@ public class DeckContainer : VBoxContainer
         if (searchNode is SearchContainer)
         {
             SearchContainer = searchNode as SearchContainer;
-            SearchContainer.ConnectIfMissing(nameof(SearchContainer.ClickCard), this, nameof(CardClicked));
+            SearchContainer.ClickCard += CardClicked;
         }
     }
 
@@ -88,7 +90,7 @@ public class DeckContainer : VBoxContainer
     public void SelectDeck(Deck deck)
     {
         var foundId = -1;
-        for(int i = 0; i < DecksOptions.GetItemCount(); i++)
+        for(int i = 0; i < DecksOptions.ItemCount; i++)
         {
             var deckOption = DecksOptions.GetItemText(i);
             if (deck.Name == deckOption)
@@ -114,7 +116,7 @@ public class DeckContainer : VBoxContainer
     {
         try
         {
-            InfoMessage.BbcodeText = null;
+            InfoMessage.Text = null;
 
             var deck = GetSelectedDeck();
             if (deck != null)
@@ -138,7 +140,7 @@ public class DeckContainer : VBoxContainer
     {
         try
         {
-            InfoMessage.BbcodeText = null;
+            InfoMessage.Text = null;
 
             var deck = DeckManager.Instance.Create(DeckName.Text);
             StoreNewDeck(deck);
@@ -156,7 +158,7 @@ public class DeckContainer : VBoxContainer
     {
         try
         {
-            InfoMessage.BbcodeText = null;
+            InfoMessage.Text = null;
 
             var deck = GetSelectedDeck();
             if (deck != null)
@@ -191,7 +193,7 @@ public class DeckContainer : VBoxContainer
     {
         try
         {
-            InfoMessage.BbcodeText = null;
+            InfoMessage.Text = null;
 
             var deck = GetSelectedDeck();
             if (deck != null)
@@ -216,7 +218,7 @@ public class DeckContainer : VBoxContainer
     {
         try
         {
-            InfoMessage.BbcodeText = null;
+            InfoMessage.Text = null;
 
             var selectedDeck = GetSelectedDeck();
             if (selectedDeck != null)
@@ -245,12 +247,12 @@ public class DeckContainer : VBoxContainer
 
     private void ChangeInfoMessage(string message, string color = "white")
     {
-        InfoMessage.BbcodeText = $"[color={color}]{message}[/color]";
+        InfoMessage.Text = $"[color={color}]{message}[/color]";
     }
 
     private void UpdateStatus(Deck deck)
     {
-        DeckStatus.BbcodeText = "Statut: " + (deck.IsValid() ? "[color=green]Valid[/color]" : "[color=red]Invalid[/color]");
+        DeckStatus.Text = "Statut: " + (deck.IsValid() ? "[color=green]Valid[/color]" : "[color=red]Invalid[/color]");
 
         CardsNumber.Text = $"Cards: {deck.NumberOfCards}";
 
@@ -266,7 +268,7 @@ public class DeckContainer : VBoxContainer
     {
         DeckName.Text = deck.Name;
 
-        Deck.GetChildren().QueueFreeAll();
+        Deck.GetChildren().ToList().ForEach(x => x.QueueFree());
         deck.Cards.ToList().ForEach(x =>
         {
             for(int i = 0; i < x.Value; i++)
@@ -280,21 +282,21 @@ public class DeckContainer : VBoxContainer
 
     private void AddCardDeckView(CardInfo cardInfo)
     {
-        var card = CardPackedScene.Instance<Card>();
+        var card = CardPackedScene.Instantiate<Card>();
         Deck.AddChild(card);
         card.SetCardInfo(cardInfo, true);
-        card.ConnectIfMissing(nameof(Card.LeftClickCard), this, nameof(DeckCardLeftClicked), new Godot.Collections.Array(card));
-        card.ConnectIfMissing(nameof(Card.RightClickCard), this, nameof(DeckCardRightClicked), new Godot.Collections.Array(card));
-        card.ConnectIfMissing(nameof(Card.MiddleClickCard), this, nameof(DeckCardMiddleClicked), new Godot.Collections.Array(card));
-        card.ConnectIfMissing("mouse_entered", this, nameof(CardMouseEntered), new Godot.Collections.Array(card));
-        card.ConnectIfMissing("mouse_exited", this, nameof(CardMouseExited), new Godot.Collections.Array(card));
+        card.LeftClickCard += (c) => DeckCardLeftClicked(cardInfo, card);
+        card.RightClickCard += (c) => DeckCardRightClicked(cardInfo, card);
+        card.MiddleClickCard += (c) => DeckCardMiddleClicked(cardInfo, card);
+        card.MouseEntered += () => CardMouseEntered(card);
+        card.MouseExited += () => CardMouseExited(card);
     }
 
     public void AddCard(CardInfo cardInfo)
     {
         try
         {
-            InfoMessage.BbcodeText = null;
+            InfoMessage.Text = null;
 
             var selectedDeck = GetSelectedDeck();
             if (selectedDeck != null)
@@ -346,7 +348,7 @@ public class DeckContainer : VBoxContainer
     {
         try
         {
-            InfoMessage.BbcodeText = null;
+            InfoMessage.Text = null;
 
             var selectedDeck = GetSelectedDeck();
             if (selectedDeck != null)
@@ -380,12 +382,12 @@ public class DeckContainer : VBoxContainer
 
     private void CardMouseEntered(Card card)
     {
-        EmitSignal(nameof(MouseEnterCard), card);
+        EmitSignal(SignalName.MouseEnterCard, card);
     }
 
     private void CardMouseExited(Card card)
     {
-        EmitSignal(nameof(MouseExitCard), card);
+        EmitSignal(SignalName.MouseExitCard, card);
     }
 
     protected ErrorAddCard CanCardAdded(Deck deck, CardInfo cardInfo)

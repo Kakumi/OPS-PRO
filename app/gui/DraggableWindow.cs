@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class DraggableWindow : Container
+public partial class DraggableWindow : Container
 {
     private Vector2 _dragPosition = Vector2.Zero;
     
@@ -18,7 +18,7 @@ public class DraggableWindow : Container
             if (inputEvent.IsPressed())
             {
                 GD.Print("set drag");
-                _dragPosition = GetGlobalMousePosition() - RectGlobalPosition;
+                _dragPosition = GetGlobalMousePosition() - GlobalPosition;
             } else
             {
                 _dragPosition = Vector2.Zero;
@@ -26,7 +26,7 @@ public class DraggableWindow : Container
         } else if (inputEvent is InputEventMouseMotion && _dragPosition != Vector2.Zero)
         {
             GD.Print("remove drag");
-            RectGlobalPosition = GetGlobalMousePosition() - _dragPosition;
+            GlobalPosition = GetGlobalMousePosition() - _dragPosition;
         }
     }
 }

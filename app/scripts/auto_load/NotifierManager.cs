@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class NotifierManager : Node
+public partial class NotifierManager : Node
 {
     private static NotifierManager _instance;
     public static NotifierManager Instance => _instance;

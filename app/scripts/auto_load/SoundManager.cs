@@ -1,6 +1,6 @@
 using Godot;
 
-public class SoundManager : Node
+public partial class SoundManager : Node
 {
     public AudioStreamPlayer AudioStreamPlayer { get; private set; }
     private static SoundManager _instance;

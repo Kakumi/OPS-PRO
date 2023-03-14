@@ -2,7 +2,7 @@ using Godot;
 using Serilog;
 using System;
 
-public class CustomLoader : Node
+public partial class CustomLoader : Node
 {
     public override void _Ready()
     {
@@ -13,7 +13,8 @@ public class CustomLoader : Node
     {
         try
         {
-            var files = new Directory().GetFiles("res://app/translations/", @".*\.translation");
+            var dir = DirAccess.Open("res://app/translations/");
+            var files = dir.GetFiles(@".*\.translation");
             files.ForEach(x =>
             {
                 Log.Information($"Loading translation at {x}");

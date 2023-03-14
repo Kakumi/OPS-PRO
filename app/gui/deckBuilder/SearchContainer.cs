@@ -2,8 +2,9 @@ using Godot;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-public class SearchContainer : VBoxContainer
+public partial class SearchContainer : VBoxContainer
 {
     [Export]
     public PackedScene CardInfoScene { get; set; }
@@ -20,13 +21,13 @@ public class SearchContainer : VBoxContainer
     protected Label SearchCardNumberResult { get; set; }
 
     [Signal]
-    public delegate void ClickCard(Card card);
+    public delegate void ClickCardEventHandler(Card card);
 
     [Signal]
-    public delegate void MouseEnterCard(Card card);
+    public delegate void MouseEnterCardEventHandler(Card card);
 
     [Signal]
-    public delegate void MouseExitCard(Card card);
+    public delegate void MouseExitCardEventHandler(Card card);
 
     public override void _Ready()
     {
@@ -62,7 +63,7 @@ public class SearchContainer : VBoxContainer
         {
             Log.Debug("Search cards button pressed");
 
-            Cards.GetChildren().QueueFreeAll();
+            Cards.GetChildren().ToList().ForEach(x => x.QueueFree());
 
             var selectedColor = ColorOptions.Selected <= 0 ? null : ColorOptions.GetItemText(ColorOptions.Selected);
             var selectedSet = SetOptions.Selected <= 0 ? null : SetOptions.GetItemText(SetOptions.Selected);
@@ -73,12 +74,13 @@ public class SearchContainer : VBoxContainer
             SearchCardNumberResult.Text = $"Results: {cards.Count}";
             cards.ForEach(card =>
             {
-                var cardInstance = CardInfoScene.Instance<SearchCardItem>();
+                var cardInstance = CardInfoScene.Instantiate<SearchCardItem>();
                 Cards.AddChild(cardInstance);
                 cardInstance.UpdateCardInfo(card);
-                cardInstance.ConnectIfMissing(nameof(SearchCardItem.ClickCard), this, nameof(CardClicked));
-                cardInstance.ConnectIfMissing("mouse_entered", this, nameof(CardMouseEntered), new Godot.Collections.Array(cardInstance.Card));
-                cardInstance.ConnectIfMissing("mouse_exited", this, nameof(CardMouseExited), new Godot.Collections.Array(cardInstance.Card));
+
+                cardInstance.ClickCard += CardClicked;
+                cardInstance.MouseEntered += () => CardMouseEntered(cardInstance.Card);
+                cardInstance.MouseExited += () => CardMouseExited(cardInstance.Card);
             });
         }
         catch (Exception ex)
@@ -89,17 +91,17 @@ public class SearchContainer : VBoxContainer
 
     public void CardClicked(Card card)
     {
-        EmitSignal(nameof(ClickCard), card);
+        EmitSignal(SignalName.ClickCard, card);
     }
 
     public void CardMouseEntered(Card card)
     {
-        EmitSignal(nameof(MouseEnterCard), card);
+        EmitSignal(SignalName.MouseEnterCard, card);
     }
 
     public void CardMouseExited(Card card)
     {
-        EmitSignal(nameof(MouseExitCard), card);
+        EmitSignal(SignalName.MouseExitCard, card);
     }
 
     public void OnResetButtonPressed()
@@ -121,6 +123,6 @@ public class SearchContainer : VBoxContainer
 
         SearchCardNumberResult.Text = "Results: 0";
 
-        Cards.GetChildren().QueueFreeAll();
+        Cards.GetChildren().ToList().ForEach(x => x.QueueFree());
     }
 }

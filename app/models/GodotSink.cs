@@ -3,7 +3,7 @@ using Serilog.Core;
 using Serilog.Events;
 using System;
 
-public class GodotSink : ILogEventSink
+public partial class GodotSink : ILogEventSink
 {
     private IFormatProvider _formatProvider;
 

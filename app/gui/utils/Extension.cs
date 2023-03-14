@@ -3,35 +3,12 @@ using Serilog;
 using Serilog.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 
 public static class Extension
 {
-    public static void QueueFreeAll(this Godot.Collections.Array array)
-    {
-        var enumerator = array.GetEnumerator();
-        while (enumerator.MoveNext())
-        {
-            if (enumerator.Current is Node)
-            {
-                (enumerator.Current as Node).QueueFree();
-            }
-        }
-    }
-
-    public static void RemoveChildren(this Node node)
-    {
-        var enumerator = node.GetChildren().GetEnumerator();
-        while (enumerator.MoveNext())
-        {
-            if (enumerator.Current is Node)
-            {
-                node.RemoveChild((enumerator.Current as Node));
-            }
-        }
-    }
-
-    public static T SearchOne<T>(this Godot.Collections.Array array) where T : Node
+    public static T SearchOne<T>(this Godot.Collections.Array<Node> array) where T : Node
     {
         var enumerator = array.GetEnumerator();
         while (enumerator.MoveNext())
@@ -53,7 +30,7 @@ public static class Extension
         return default(T);
     }
 
-    public static List<T> SearchChild<T>(this Godot.Collections.Array array)
+    public static List<T> SearchChild<T>(this Godot.Collections.Array<Node> array) where T : Node
     {
         var list = new List<T>();
 
@@ -62,14 +39,14 @@ public static class Extension
         {
             if (enumerator.Current is T)
             {
-                list.Add((T)enumerator.Current);
+                list.Add(enumerator.Current as T);
             }
         }
 
         return list;
     }
 
-    public static List<T> SearchAll<T>(this Godot.Collections.Array array)
+    public static List<T> SearchAll<T>(this Godot.Collections.Array<Node> array) where T : Node
     {
         var list = new List<T>();
         var enumerator = array.GetEnumerator();
@@ -77,18 +54,18 @@ public static class Extension
         {
             if (enumerator.Current is T)
             {
-                list.Add((T)enumerator.Current);
+                list.Add(enumerator.Current as T);
             }
             else if (enumerator.Current is Node)
             {
-                list.AddRange(SearchAll<T>((enumerator.Current as Node).GetChildren()));
+                list.AddRange(SearchAll<T>(enumerator.Current.GetChildren()));
             }
         }
 
         return list;
     }
 
-    public static List<T> ToList<T>(this System.Array array)
+    public static List<T> ToList<T>(this Array array)
     {
         var list = new List<T>();
         var enumerator = array.GetEnumerator();
@@ -103,48 +80,13 @@ public static class Extension
         return list;
     }
 
-    public static List<T> ToList<T>(this Godot.Collections.Array array)
+    public static void ConnectIfMissing(this Node node, string signal, GodotObject target, string method, uint flags = 0)
     {
-        var list = new List<T>();
-        var enumerator = array.GetEnumerator();
-        while (enumerator.MoveNext())
+        var callable = new Callable(target, new StringName(method));
+        if (!node.IsConnected(signal, callable))
         {
-            if (enumerator.Current is T)
-            {
-                list.Add((T)enumerator.Current);
-            }
+            node.Connect(new StringName(signal), callable, flags);
         }
-
-        return list;
-    }
-
-    public static Node FirstOrNull(this Godot.Collections.Array array)
-    {
-        var enumerator = array.GetEnumerator();
-        if (enumerator.MoveNext())
-        {
-            return enumerator.Current as Node;
-        }
-
-        return null;
-    }
-
-    public static void ConnectIfMissing(this Node node, string signal, Godot.Object target, string method, Godot.Collections.Array binds = null, uint flags = 0)
-    {
-        if (!node.IsConnected(signal, target, method))
-        {
-            node.Connect(signal, target, method, binds, flags);
-        }
-    }
-
-    public static Color FromRGBA(this Color color, int r, int g, int b, float a)
-    {
-        color.r = r / 255f;
-        color.g = g / 255f;
-        color.b = b / 255f;
-        color.a = a;
-
-        return color;
     }
 
     public static T SearchParent<T>(this Node node) where T : Node
@@ -163,13 +105,12 @@ public static class Extension
         return result;
     }
 
-    public static List<string> GetFiles(this Directory directory, string path, string pattern)
+    public static List<string> GetFiles(this DirAccess directory, string pattern)
     {
         List<string> files = new List<string>();
         Regex regex = new Regex(pattern);
 
-        directory.Open(path);
-        directory.ListDirBegin(true, true);
+        directory.ListDirBegin();
         string file;
         while((file = directory.GetNext()) != null)
         {
@@ -178,12 +119,44 @@ public static class Extension
                 break;
             }
 
-            if (regex.IsMatch(file))
+            if (!directory.CurrentIsDir() && regex.IsMatch(file))
             {
-                files.Add(System.IO.Path.Combine(path, file));
+                files.Add(Path.Combine(directory.GetCurrentDir(), file));
             }
         }
 
         return files;
+    }
+
+    public static Variant ToVariant(this object obj)
+    {
+        if (obj.GetType() == typeof(bool))
+            return Variant.CreateFrom((bool) obj);
+        if (obj.GetType() == typeof(char))
+            return Variant.CreateFrom((char)obj);
+        if (obj.GetType() == typeof(sbyte))
+            return Variant.CreateFrom((sbyte)obj);
+        if (obj.GetType() == typeof(short))
+            return Variant.CreateFrom((short)obj);
+        if (obj.GetType() == typeof(int))
+            return Variant.CreateFrom((int)obj);
+        if (obj.GetType() == typeof(long))
+            return Variant.CreateFrom((long)obj);
+        if (obj.GetType() == typeof(byte))
+            return Variant.CreateFrom((byte)obj);
+        if (obj.GetType() == typeof(ushort))
+            return Variant.CreateFrom((ushort)obj);
+        if (obj.GetType() == typeof(uint))
+            return Variant.CreateFrom((uint)obj);
+        if (obj.GetType() == typeof(ulong))
+            return Variant.CreateFrom((ulong)obj);
+        if (obj.GetType() == typeof(float))
+            return Variant.CreateFrom((float)obj);
+        if (obj.GetType() == typeof(double))
+            return Variant.CreateFrom((double)obj);
+        if (obj.GetType() == typeof(string))
+            return Variant.CreateFrom((string)obj);
+
+        return default(Variant);
     }
 }

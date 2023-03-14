@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class PopupManager : Node
+public partial class PopupManager : Node
 {
     [Export]
     public PackedScene PopupStyle { get; set; }
@@ -23,7 +23,7 @@ public class PopupManager : Node
 
     public OPSPopup CreatePopup(string title, string message)
     {
-        var popup = PopupStyle.Instance<OPSPopup>();
+        var popup = PopupStyle.Instantiate<OPSPopup>();
         popup.Title = title;
         popup.Message = message;
         popup.Theme = GD.Load<Theme>(_config.Theme);

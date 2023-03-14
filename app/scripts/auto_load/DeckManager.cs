@@ -3,39 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using Serilog;
 using System;
+using System.IO;
 
-using SFile = System.IO.File;
-using SDirectory = System.IO.Directory;
-using SFileInfo = System.IO.FileInfo;
-using SPath = System.IO.Path;
-
-public class DeckManager : Node
+public partial class DeckManager : Node
 {
     private static DeckManager _instance;
-    public string Path { get; private set; }
+    public string Path3D { get; private set; }
 
     public static DeckManager Instance => _instance;
 
     public override void _Ready()
     {
         _instance = this;
-        Path = ProjectSettings.GlobalizePath("user://decks");
-        SDirectory.CreateDirectory(Path);
+        Path3D = ProjectSettings.GlobalizePath("user://decks");
+        Directory.CreateDirectory(Path3D);
     }
 
     public List<Deck> LoadDecks()
     {
         List<Deck> decks = new List<Deck>();
-        var files = SDirectory.GetFiles(Path, "*.ops").ToList<string>();
+        var files = Directory.GetFiles(Path3D, "*.ops").ToList<string>();
         files.ForEach(f =>
         {
             try
             {
-                SFileInfo fileInfo = new SFileInfo(f);
-                var filename = SPath.GetFileNameWithoutExtension(fileInfo.Name);
+                FileInfo fileInfo = new FileInfo(f);
+                var filename = Path.GetFileNameWithoutExtension(fileInfo.Name);
                 var deck = new Deck(filename);
 
-                var lines = SFile.ReadAllLines(f).ToList<string>();
+                var lines = File.ReadAllLines(f).ToList<string>();
                 lines.ForEach(line =>
                 {
                     var infos = line.Split(" ");
@@ -76,7 +72,7 @@ public class DeckManager : Node
         var deck = new Deck(name);
 
         var filename = GetDeckFilename(deck);
-        if (SFile.Exists(filename))
+        if (File.Exists(filename))
         {
             throw new Exception($"A deck already exists for name {filename}.");
         }
@@ -91,30 +87,30 @@ public class DeckManager : Node
         if (!string.IsNullOrWhiteSpace(newName) && deck.Name != newName)
         {
             var oldFilename = GetDeckFilename(deck);
-            var isNewNameValid = newName.IndexOfAny(SPath.GetInvalidFileNameChars()) < 0;
+            var isNewNameValid = newName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
             if (!isNewNameValid)
             {
                 throw new Exception($"Name is invalid because it contains unsupported characters for a filename ({newName}).");
             }
 
-            SFile.Delete(oldFilename);
+            File.Delete(oldFilename);
             deck.Name = newName;
         }
 
-        var isNameValid = !string.IsNullOrEmpty(deck.Name) && deck.Name.IndexOfAny(SPath.GetInvalidFileNameChars()) < 0;
+        var isNameValid = !string.IsNullOrEmpty(deck.Name) && deck.Name.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
         if (!isNameValid)
         {
             throw new Exception($"Name is invalid because it contains unsupported characters for a filename ({deck.Name}).");
         }
 
         var filename = GetDeckFilename(deck);
-        SFile.WriteAllLines(filename, deck.Cards.Select(x => $"{x.Value} {x.Key.Id}"));
+        File.WriteAllLines(filename, deck.Cards.Select(x => $"{x.Value} {x.Key.Id}"));
     }
 
     public void Delete(Deck deck)
     {
         var filename = GetDeckFilename(deck);
-        SFile.Delete(filename);
+        File.Delete(filename);
     }
 
     public Deck Duplicate(Deck deck)
@@ -132,6 +128,6 @@ public class DeckManager : Node
 
     private string GetDeckFilename(Deck deck)
     {
-        return SPath.Combine(Path, $"{deck.Name}.ops");
+        return Path.Combine(Path3D, $"{deck.Name}.ops");
     }
 }

@@ -1,6 +1,7 @@
 using Godot;
+using System;
 
-public class SearchCardItem : PanelContainer
+public partial class SearchCardItem : PanelContainer
 {
     public Card Card { get; protected set; }
     public VBoxContainer TextContainer { get; protected set; }
@@ -8,7 +9,7 @@ public class SearchCardItem : PanelContainer
     public Label CardInfoLabel { get; protected set; }
 
     [Signal]
-    public delegate void ClickCard(Card card);
+    public delegate void ClickCardEventHandler(Card card);
 
     public override void _Ready()
     {
@@ -17,23 +18,23 @@ public class SearchCardItem : PanelContainer
         CardNameLabel = GetNode<Label>("HBoxContainer/TextContainer/CardName");
         CardInfoLabel = GetNode<Label>("HBoxContainer/TextContainer/CardInfo");
 
-        this.ConnectIfMissing("mouse_entered", this, nameof(MouseEntered));
-        this.ConnectIfMissing("mouse_exited", this, nameof(MouseExited));
+        MouseEntered += MouseEnteredCard;
+        MouseEntered += MouseExitCard;
     }
 
-    public void MouseEntered()
+    public void MouseEnteredCard()
     {
         Card.CheckAndDownload();
 
         var stylebox = new StyleBoxFlat();
-        stylebox.BgColor = new Color().FromRGBA(0, 0, 0, 0.7f);
+        stylebox.BgColor = new Color(0, 0, 0, 0.7f);
         Set("custom_styles/panel", stylebox);
     }
 
-    private void MouseExited()
+    private void MouseExitCard()
     {
         var stylebox = new StyleBoxFlat();
-        stylebox.BgColor = new Color().FromRGBA(0, 0, 0, 0f);
+        stylebox.BgColor = new Color(0, 0, 0, 0f);
         Set("custom_styles/panel", stylebox);
     }
 
@@ -49,9 +50,9 @@ public class SearchCardItem : PanelContainer
         if (inputEvent is InputEventMouseButton)
         {
             InputEventMouseButton inputButton = inputEvent as InputEventMouseButton;
-            if (inputButton.ButtonIndex == (int) ButtonList.Left && !inputButton.Pressed)
+            if (inputButton.ButtonIndex == MouseButton.Left && !inputButton.Pressed)
             {
-                EmitSignal(nameof(ClickCard), Card);
+                EmitSignal(SignalName.ClickCard, Card);
             }
         }
     }
@@ -60,7 +61,7 @@ public class SearchCardItem : PanelContainer
     {
         if (Card != null && TextContainer != null)
         {
-            Card.RectMinSize = new Vector2(Card.RectMinSize.x, TextContainer.RectSize.y);
+            Card.CustomMinimumSize = new Vector2(Card.CustomMinimumSize.X, TextContainer.Size.Y);
         }
     }
 }

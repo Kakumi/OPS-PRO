@@ -1,10 +1,15 @@
 using Godot;
 using System;
+using System.Linq;
 
-public class SecurityLoad : Node
+public partial class SecurityLoad : Node
 {
     public override void _Ready()
     {
-        GD.Print(string.Join(" - ", OS.GetCmdlineArgs()));
+        var args = OS.GetCmdlineArgs().ToList<string>();
+        if (!args.Any(x => x == "Wg9*8Z49UYvU&yU@@F"))
+        {
+            GetTree().Quit();
+        }
     }
 }

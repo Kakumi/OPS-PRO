@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class CardInfo : Object
+public partial class CardInfo : GodotObject
 {
     public string Id { get; set; }
     public List<string> Images { get; set; }

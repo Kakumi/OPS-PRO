@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr5oryxtn1ya5"]
+
+[ext_resource type="Script" path="res://app/gui/utils/TabInfo.cs" id="1_jvcx5"]
+
+[node name="TabInfo" type="TabBar"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_jvcx5")
+Type = null
+Capacity = null
+UseNotifier = null
+NotifierCode = null
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Texts" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[connection signal="resized" from="MarginContainer/ScrollContainer/Texts" to="." method="OnTextsResized"]

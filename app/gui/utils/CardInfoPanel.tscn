@@ -1,34 +1,28 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource path="res://app/resources/themes/main_theme.tres" type="Theme" id=4]
-[ext_resource path="res://app/gui/utils/CardInfoPanel.cs" type="Script" id=5]
-[ext_resource path="res://app/gui/utils/Tabs.tscn" type="PackedScene" id=7]
+[ext_resource type="Theme" uid="uid://c0v6lf45kst5y" path="res://app/resources/themes/main_theme.tres" id="4"]
+[ext_resource type="Script" path="res://app/gui/utils/CardInfoPanel.cs" id="5"]
+[ext_resource type="PackedScene" uid="uid://dal64kois68er" path="res://app/gui/utils/TabInfoContainer.tscn" id="7"]
 
 [node name="CardInfoPanel" type="VBoxContainer"]
-margin_right = 468.0
-margin_bottom = 1039.0
+offset_right = 468.0
+offset_bottom = 1039.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="TopContainer" type="HBoxContainer" parent="."]
-margin_right = 468.0
-margin_bottom = 517.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CardImg" type="TextureRect" parent="TopContainer"]
-margin_right = 468.0
-margin_bottom = 517.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 4 )
-expand = true
-stretch_mode = 6
+theme = ExtResource("4")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Tabs" parent="." instance=ExtResource( 7 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 521.0
-margin_right = 468.0
-margin_bottom = 1039.0
+[node name="TabBar" parent="." instance=ExtResource("7")]
+layout_mode = 2

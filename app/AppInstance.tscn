@@ -1,28 +1,31 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://b2wacalosye27"]
 
-[ext_resource path="res://app/resources/themes/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://app/AppInstance.cs" type="Script" id=2]
-[ext_resource path="res://app/resources/images/backgrounds/luffy_logo.jpg" type="Texture" id=3]
-[ext_resource path="res://app/gui/MainMenu.tscn" type="PackedScene" id=5]
+[ext_resource type="Script" path="res://app/AppInstance.cs" id="2"]
+[ext_resource type="Texture2D" uid="uid://bxeudnqrt3dta" path="res://app/resources/images/backgrounds/luffy_logo.jpg" id="3_so3dr"]
+[ext_resource type="PackedScene" path="res://app/gui/MainMenu.tscn" id="5"]
 
 [node name="AppInstance" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( -490, -91 )
-theme = ExtResource( 1 )
-script = ExtResource( 2 )
-MainMenu = ExtResource( 5 )
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-490, -91)
+script = ExtResource("2")
+MainMenu = ExtResource("5")
 
 [node name="AspectRatioContainer" type="PanelContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Background" type="TextureRect" parent="AspectRatioContainer"]
-margin_right = 1920.0
-margin_bottom = 1080.0
-texture = ExtResource( 3 )
-expand = true
+layout_mode = 2
+texture = ExtResource("3_so3dr")
+expand_mode = 1
 
 [node name="Content" type="MarginContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -1,4 +1,4 @@
-﻿public enum CardTypeList
+public enum CardTypeList
 {
     LEADER,
     CHARACTER,

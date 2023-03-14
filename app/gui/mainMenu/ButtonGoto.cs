@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class ButtonGoto : Button
+public partial class ButtonGoto : Button
 {
     [Export]
     public PackedScene Scene { get; set; }

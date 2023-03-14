@@ -1,16 +1,19 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://boynil74yqbyv"]
 
-[ext_resource path="res://app/gui/game/Card.cs" type="Script" id=1]
+[ext_resource type="Script" path="res://app/gui/game/Card.cs" id="1"]
 
 [node name="Card" type="TextureRect"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_default_cursor_shape = 2
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-expand = true
+mouse_default_cursor_shape = 2
+expand_mode = 1
 stretch_mode = 5
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [connection signal="gui_input" from="." to="." method="OnGuiInput"]
 [connection signal="mouse_entered" from="." to="." method="CheckAndDownload"]

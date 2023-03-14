@@ -2,35 +2,35 @@ using Godot;
 using Serilog;
 using System;
 
-public abstract class TabSettings : Godot.Tabs
+public abstract partial class TabSettings : Godot.TabBar
 {
-    [Export]
-    public string TabName { get; set; }
+	[Export]
+	public string TabName { get; set; }
 
-    public Settings Settings { get; protected set; }
+	public Settings Settings { get; protected set; }
 
-    public override void _Ready()
-    {
-        Name = Tr(TabName);
+	public override void _Ready()
+	{
+		Name = Tr(TabName);
 
-        Settings = this.SearchParent<Settings>();
-        Settings.ConnectIfMissing("visibility_changed", this, nameof(SettingsVisibilityChanged));
-    }
+		Settings = this.SearchParent<Settings>();
+		Settings.VisibilityChanged += SettingsVisibilityChanged;
+	}
 
-    protected virtual void SettingsVisibilityChanged()
-    {
-        try
-        {
-            if (Settings.Visible)
-            {
-                Init();
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, $"Failed to init settings tab because {ex.Message}");
-        }
-    }
+	protected virtual void SettingsVisibilityChanged()
+	{
+		try
+		{
+			if (Settings.Visible)
+			{
+				Init();
+			}
+		}
+		catch (Exception ex)
+		{
+			Log.Error(ex, $"Failed to init settings tab because {ex.Message}");
+		}
+	}
 
-    public abstract void Init();
+	public abstract void Init();
 }

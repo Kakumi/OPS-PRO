@@ -3,7 +3,7 @@ using Serilog;
 using System;
 using System.Linq;
 
-public class SettingsManager : Node
+public partial class SettingsManager : Node
 {
     private ConfigFile _configFile;
     private string _path;
@@ -36,7 +36,7 @@ public class SettingsManager : Node
 
     public bool ConfigExist()
     {
-        return new File().FileExists(_path);
+        return FileAccess.FileExists(_path);
     }
 
     public void ReadConfig(IConfig config)
@@ -50,7 +50,7 @@ public class SettingsManager : Node
             var settings = property.GetCustomAttributes(true).OfType<ConfigSettings>().FirstOrDefault();
             if (settings != null)
             {
-                var value = GetConfigValue(settings.Section, property.Name, property.PropertyType);
+                var value = GetConfigValue(settings.Section, property.Name, property.PropertyType, settings.Default);
                 if (value == null || value.GetType() != property.PropertyType)
                 {
                     property.SetValue(config, property.GetValue(defaultConfig));
@@ -82,29 +82,30 @@ public class SettingsManager : Node
             var settings = property.GetCustomAttributes(true).OfType<ConfigSettings>().FirstOrDefault();
             if (settings != null)
             {
-                if (property.PropertyType == typeof(Godot.Collections.Dictionary<object, object>))
-                {
-                    var dictionary = property.GetValue(config) as Godot.Collections.Dictionary<object, object>;
-                    foreach (var pair in dictionary.ToList())
-                    {
-                        _configFile.SetValue(settings.Section.ToString(), pair.Key.ToString(), pair.Value);
-                    }
-                }
-                else
-                {
-                    _configFile.SetValue(settings.Section.ToString(), property.Name, property.GetValue(config));
-                }
+                //if (property.PropertyType == typeof(Godot.Collections.Dictionary<object, object>))
+                //{
+                //    var dictionary = property.GetValue(config) as Godot.Collections.Dictionary<object, object>;
+                //    foreach (var pair in dictionary.ToList())
+                //    {
+                //        _configFile.SetValue(settings.Section.ToString(), pair.Key.ToString(), pair.Value);
+                //    }
+                //}
+                //else
+                //{
+                //    _configFile.SetValue(settings.Section.ToString(), property.Name, property.GetValue(config).ToVariant());
+                //}
+                _configFile.SetValue(settings.Section.ToString(), property.Name, property.GetValue(config).ToVariant());
             }
         }
 
         _configFile.Save(_path);
     }
 
-    private object GetConfigValue(string section, string key, Type propertyType)
+    private object GetConfigValue(string section, string key, Type propertyType, object @default)
     {
         if (_configFile.HasSectionKey(section, key))
         {
-            return Convert.ChangeType(_configFile.GetValue(section, key), propertyType);
+            return Convert.ChangeType(_configFile.GetValue(section, key, @default.ToVariant()).Obj, propertyType);
         }
 
         return null;

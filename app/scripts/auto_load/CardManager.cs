@@ -4,12 +4,13 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-public class CardManager : Node
+public partial class CardManager : Node
 {
     //public static string CARD_FILE_JSON = @"res://app/resources/json/cards.json";
 
@@ -18,9 +19,9 @@ public class CardManager : Node
     private OPSPopup _popup;
 
     public List<CardInfo> Cards { get; private set; }
-    public Texture CardTexture { get; private set; }
-    public Texture LeaderTexture { get; private set; }
-    public Texture DonTexture { get; private set; }
+    public Texture2D CardTexture { get; private set; }
+    public Texture2D LeaderTexture { get; private set; }
+    public Texture2D DonTexture { get; private set; }
 
     private static CardManager _instance;
 
@@ -35,9 +36,9 @@ public class CardManager : Node
         ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
         Cards = new List<CardInfo>();
 
-        CardTexture = GD.Load<Texture>("res://app/resources/images/card_back.jpg");
-        LeaderTexture = GD.Load<Texture>("res://app/resources/images/leader_back.png");
-        DonTexture = GD.Load<Texture>("res://app/resources/images/don_back.jpg");
+        CardTexture = GD.Load<Texture2D>("res://app/resources/images/card_back.jpg");
+        LeaderTexture = GD.Load<Texture2D>("res://app/resources/images/leader_back.png");
+        DonTexture = GD.Load<Texture2D>("res://app/resources/images/don_back.jpg");
 
         _path = ProjectSettings.GlobalizePath($"user://cards");
         System.IO.Directory.CreateDirectory(_path);
@@ -79,6 +80,7 @@ public class CardManager : Node
         try
         {
             Cards = JsonConvert.DeserializeObject<List<CardInfo>>(e.Result);
+            var test = Cards.Select(x => CardResource.Create(x));
             Log.Information($"Loaded {Cards.Count} cards");
 
             _popup?.QueueFree();
@@ -167,14 +169,13 @@ public class CardManager : Node
 
     public string GetTexturePath(CardInfo cardInfo)
     {
-        return System.IO.Path.Combine(_path, $"{cardInfo.Id}.png");
+        return Path.Combine(_path, $"{cardInfo.Id}.png");
     }
 
     public bool TextureExists(CardInfo cardInfo)
     {
         string path = GetTexturePath(cardInfo);
-        File file = new File();
-        return file.FileExists(path);
+        return Godot.FileAccess.FileExists(path);
     }
 
     private void AskGetPicture(object[] obj)
@@ -193,7 +194,7 @@ public class CardManager : Node
         }
     }
 
-    public Texture GetTexture(CardInfo cardInfo)
+    public Texture2D GetTexture(CardInfo cardInfo)
     {
         string path = GetTexturePath(cardInfo);
         if (TextureExists(cardInfo))
@@ -205,14 +206,11 @@ public class CardManager : Node
                 Error error = image.Load(path);
                 if (error == Error.FileCorrupt)
                 {
-                    var dir = new Directory();
-                    dir.Remove(path);
+                    File.Delete(path);
                     return GetBackTexture(cardInfo);
                 }
 
-                var imageTexture = new ImageTexture();
-                imageTexture.CreateFromImage(image);
-                return imageTexture;
+                return ImageTexture.CreateFromImage(image);
             }
             catch (Exception ex)
             {
@@ -279,9 +277,19 @@ public class CardManager : Node
         NotifyTexture(cardInfo);
     }
 
-    public Texture GetBackTexture(CardInfo cardInfo)
+    public Texture2D GetBackTexture(CardInfo cardInfo)
     {
         if (cardInfo.CardTypeList == CardTypeList.LEADER)
+        {
+            return LeaderTexture;
+        }
+
+        return CardTexture;
+    }
+
+    public Texture2D GetBackTexture(CardTypeList cardTypeList)
+    {
+        if (cardTypeList == CardTypeList.LEADER)
         {
             return LeaderTexture;
         }

@@ -1,13 +1,13 @@
 using Godot;
 using System;
 
-public class OPSPopup : Popup
+public partial class OPSPopup : Popup
 {
     private string _title;
     private string _message;
 
     [Export]
-    public string Title
+    public new string Title
     {
         get => _title;
         set

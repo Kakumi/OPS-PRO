@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/One Piece OST Mother Sea.ogg-a73e79a4f901e8d12e8701e7a9065952.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ugfvmyssfq8t"
+path="res://.godot/imported/One Piece OST Mother Sea.ogg-a73e79a4f901e8d12e8701e7a9065952.oggvorbisstr"
 
 [deps]
 
 source_file="res://app/resources/sounds/background/One Piece OST Mother Sea.ogg"
-dest_files=[ "res://.import/One Piece OST Mother Sea.ogg-a73e79a4f901e8d12e8701e7a9065952.oggstr" ]
+dest_files=["res://.godot/imported/One Piece OST Mother Sea.ogg-a73e79a4f901e8d12e8701e7a9065952.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

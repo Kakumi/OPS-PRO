@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class MainMenu : Control
+public partial class MainMenu : Control
 {
     public Button DeckBuilder { get; protected set; }
     public Button Settings { get; protected set; }

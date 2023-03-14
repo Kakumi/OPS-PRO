@@ -3,12 +3,12 @@ using Serilog;
 using Serilog.Events;
 using System;
 
-public class Logger : Node
+public partial class Logger : Node
 {
     public override void _Ready()
     {
         var minLevel = LogEventLevel.Information;
-        if (Engine.EditorHint || OS.IsDebugBuild())
+        if (Engine.IsEditorHint() || OS.IsDebugBuild())
         {
             minLevel = LogEventLevel.Debug;
         }

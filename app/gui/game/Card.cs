@@ -2,18 +2,18 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public class Card : TextureRect
+public partial class Card : TextureRect
 {
     public CardInfo CardInfo { get; protected set; }
 
     [Signal]
-    public delegate void LeftClickCard(CardInfo cardInfo);
+    public delegate void LeftClickCardEventHandler(CardInfo cardInfo);
 
     [Signal]
-    public delegate void RightClickCard(CardInfo cardInfo);
+    public delegate void RightClickCardEventHandler(CardInfo cardInfo);
 
     [Signal]
-    public delegate void MiddleClickCard(CardInfo cardInfo);
+    public delegate void MiddleClickCardEventHandler(CardInfo cardInfo);
 
     private bool _textureSet = false;
 
@@ -44,10 +44,10 @@ public class Card : TextureRect
 
     private void CardTextureReceived(object[] obj)
     {
-        if (obj.Length > 1 && obj[0] is CardInfo && obj[1] is Texture)
+        if (obj.Length > 1 && obj[0] is CardInfo && obj[1] is Texture2D)
         {
             var cardInfo = (CardInfo)obj[0];
-            var texture = (Texture)obj[1];
+            var texture = (Texture2D)obj[1];
 
             if (cardInfo.Id == CardInfo.Id)
             {
@@ -85,15 +85,15 @@ public class Card : TextureRect
             InputEventMouseButton inputButton = inputEvent as InputEventMouseButton;
             if (!inputButton.Pressed)
             {
-                if (inputButton.ButtonIndex == (int)ButtonList.Left)
+                if (inputButton.ButtonIndex == MouseButton.Left)
                 {
-                    EmitSignal(nameof(LeftClickCard), CardInfo);
-                } else if (inputButton.ButtonIndex == (int)ButtonList.Right)
+                    EmitSignal(SignalName.LeftClickCard, CardInfo);
+                } else if (inputButton.ButtonIndex == MouseButton.Right)
                 {
-                    EmitSignal(nameof(RightClickCard), CardInfo);
-                } else if (inputButton.ButtonIndex == (int)ButtonList.Middle)
+                    EmitSignal(SignalName.RightClickCard, CardInfo);
+                } else if (inputButton.ButtonIndex == MouseButton.Middle)
                 {
-                    EmitSignal(nameof(MiddleClickCard), CardInfo);
+                    EmitSignal(SignalName.MiddleClickCard, CardInfo);
                 }
             }
         }

@@ -2,10 +2,15 @@ using Godot;
 using Serilog;
 using System;
 
-public class Settings : Control
+public partial class Settings : Control
 {
     public Config OriginalConfig { get; private set; }
     public Config UpdatedConfig { get; private set; }
+
+    public override void _Ready()
+    {
+        base._Ready();
+    }
 
     public override void _EnterTree()
     {

@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://app/gui/utils/TabInfoContainer.cs" id="1_y8h4i"]
+[ext_resource type="PackedScene" uid="uid://cmw685llaihhx" path="res://app/gui/utils/CardInfoTab.tscn" id="2_lcqen"]
+[ext_resource type="FontFile" path="res://app/resources/fonts/normal_font_small.tres" id="3_cpdds"]
+[ext_resource type="PackedScene" uid="uid://dlgiqprwf7o3r" path="res://app/gui/utils/TabInfo.tscn" id="4_rkesf"]
+
+[node name="TabInfoContainer" type="TabContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+drag_to_rearrange_enabled = true
+script = ExtResource("1_y8h4i")
+
+[node name="CardInfoTab" parent="." instance=ExtResource("2_lcqen")]
+layout_mode = 2
+Type = 0
+Capacity = 100
+Font = ExtResource("3_cpdds")
+UseNotifier = false
+NotifierCode = ""
+
+[node name="Chat" parent="." instance=ExtResource("4_rkesf")]
+visible = false
+layout_mode = 2
+Type = 1
+Font = ExtResource("3_cpdds")
+
+[node name="Logs" parent="." instance=ExtResource("4_rkesf")]
+visible = false
+layout_mode = 2
+Type = 2
+Font = ExtResource("3_cpdds")
+UseNotifier = true
+NotifierCode = "godot_log"

@@ -1,74 +1,54 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://h128lbci1vgn"]
 
-[ext_resource path="res://app/gui/Settings.cs" type="Script" id=1]
-[ext_resource path="res://app/gui/settings/InterfaceSettings.tscn" type="PackedScene" id=2]
-[ext_resource path="res://app/gui/settings/AudioSettings.tscn" type="PackedScene" id=3]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
+[ext_resource type="Script" path="res://app/gui/Settings.cs" id="1"]
+[ext_resource type="PackedScene" path="res://app/gui/settings/InterfaceSettings.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://app/gui/settings/AudioSettings.tscn" id="3"]
 
 [node name="Settings" type="PanelContainer"]
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -496.0
-margin_top = -315.5
-margin_right = 496.0
-margin_bottom = 315.5
-script = ExtResource( 1 )
+offset_left = -496.0
+offset_top = -315.5
+offset_right = 496.0
+offset_bottom = 315.5
+script = ExtResource("1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 985.0
-margin_bottom = 624.0
+layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
-margin_right = 978.0
-margin_bottom = 585.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/panel = SubResource( 1 )
-tab_align = 0
 
-[node name="InterfaceSettings" parent="VBoxContainer/TabContainer" instance=ExtResource( 2 )]
-margin_left = 0.0
-margin_top = 24.0
-margin_right = 0.0
-margin_bottom = 0.0
+[node name="InterfaceSettings" parent="VBoxContainer/TabContainer" instance=ExtResource("2")]
+layout_mode = 2
 TabName = "SETTINGS_TAB_INTERFACE"
 
-[node name="AudioSettings" parent="VBoxContainer/TabContainer" instance=ExtResource( 3 )]
+[node name="AudioSettings" parent="VBoxContainer/TabContainer" instance=ExtResource("3")]
 visible = false
-margin_bottom = 20.0
+layout_mode = 2
 TabName = "SETTINGS_TAB_AUDIO"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 589.0
-margin_right = 978.0
-margin_bottom = 593.0
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_top = 597.0
-margin_right = 978.0
-margin_bottom = 617.0
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
-margin_right = 978.0
-margin_bottom = 20.0
+layout_mode = 2
 alignment = 2
 
 [node name="Quit" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
-margin_left = 754.0
-margin_right = 865.0
-margin_bottom = 20.0
+layout_mode = 2
 text = "SETTINGS_QUIT"
 
 [node name="Save" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
-margin_left = 869.0
-margin_right = 978.0
-margin_bottom = 20.0
+layout_mode = 2
 text = "SETTINGS_SAVE"
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Quit" to="." method="OnQuitPressed"]
