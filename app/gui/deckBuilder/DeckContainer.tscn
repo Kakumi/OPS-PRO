@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhupk5drnmsnt"]
+[gd_scene load_steps=2 format=3 uid="uid://dhupk5drnmsnt"]
 
 [ext_resource type="Script" path="res://app/gui/deckBuilder/DeckContainer.cs" id="1"]
-[ext_resource type="PackedScene" uid="uid://boynil74yqbyv" path="res://app/gui/game/Card.tscn" id="2_28fom"]
-[ext_resource type="Texture2D" uid="uid://codlwnmugcko8" path="res://app/resources/OP01-001.png" id="3_75qh3"]
 
 [node name="DeckContainer" type="VBoxContainer"]
 offset_right = 935.0
@@ -132,14 +130,6 @@ size_flags_vertical = 3
 [node name="Deck" type="GridContainer" parent="DeckContainer/DeckPanelContainer"]
 layout_mode = 2
 columns = 10
-
-[node name="Card" parent="DeckContainer/DeckPanelContainer/Deck" instance=ExtResource("2_28fom")]
-layout_mode = 2
-texture = ExtResource("3_75qh3")
-
-[node name="Card2" parent="DeckContainer/DeckPanelContainer/Deck" instance=ExtResource("2_28fom")]
-layout_mode = 2
-texture = ExtResource("3_75qh3")
 
 [connection signal="pressed" from="PanelContainer/DeckManagerContainer/HBoxContainer/Quit" to="." method="OnQuitPressed"]
 [connection signal="pressed" from="PanelContainer/DeckManagerContainer/HBoxContainer/HandTester" to="." method="OnHandTesterPressed"]
