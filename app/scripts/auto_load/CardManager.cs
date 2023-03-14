@@ -41,9 +41,7 @@ public partial class CardManager : Node
         DonTexture = GD.Load<Texture2D>("res://app/resources/images/don_back.jpg");
 
         _path = ProjectSettings.GlobalizePath($"user://cards");
-        System.IO.Directory.CreateDirectory(_path);
-
-        NotifierManager.Instance.Listen("get_card_texture", AskGetPicture);
+        Directory.CreateDirectory(_path);
 
         FetchCards();
     }
@@ -80,6 +78,10 @@ public partial class CardManager : Node
         try
         {
             Cards = JsonConvert.DeserializeObject<List<CardResource>>(e.Result);
+            Cards.ForEach(card =>
+            {
+                card.AskDownloadTexture += Card_AskDownloadTexture;
+            });
             Log.Information($"Loaded {Cards.Count} cards");
 
             _popup?.QueueFree();
@@ -177,20 +179,9 @@ public partial class CardManager : Node
         return Godot.FileAccess.FileExists(path);
     }
 
-    private void AskGetPicture(object[] obj)
+    private void Card_AskDownloadTexture(CardResource cardResource)
     {
-        if (obj.Length > 0)
-        {
-            var cardResource = obj[0] as CardResource;
-            var download = false;
-
-            if (obj.Length > 1 && obj[1] is bool)
-            {
-                download = (bool)obj[1];
-            }
-
-            GetTextureAndNotify(cardResource, download);
-        }
+        DownloadTextureAsync(cardResource);
     }
 
     public Texture2D GetTexture(CardResource cardResource)
@@ -220,23 +211,13 @@ public partial class CardManager : Node
         return GetBackTexture(cardResource);
     }
 
-    private void NotifyTexture(CardResource cardResource)
-    {
-        NotifierManager.Instance.Send("receive_card_texture", cardResource, GetTexture(cardResource));
-    }
-
-    public void GetTextureAndNotify(CardResource cardResource, bool download)
+    public void DownloadTextureAsync(CardResource cardResource)
     {
         string path = GetTexturePath(cardResource);
 
         try
         {
-            //lock (_lock)
-            //{
-
-            //}
-
-            if (!TextureExists(cardResource) && download)
+            if (!TextureExists(cardResource))
             {
                 if (!_cardTextureDownloaders.Contains(cardResource.Id))
                 {
@@ -258,10 +239,6 @@ public partial class CardManager : Node
                     }
                 }
             }
-            else
-            {
-                NotifyTexture(cardResource);
-            }
         }
         catch (Exception ex)
         {
@@ -273,7 +250,8 @@ public partial class CardManager : Node
     {
         Log.Debug($"Download completed for card ID: {cardResource.Id}");
         _cardTextureDownloaders.Remove(cardResource.Id);
-        NotifyTexture(cardResource);
+
+        cardResource.FrontTexture = GetTexture(cardResource);
     }
 
     public Texture2D GetBackTexture(CardResource cardResource)

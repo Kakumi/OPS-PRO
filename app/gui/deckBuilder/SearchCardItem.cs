@@ -40,7 +40,7 @@ public partial class SearchCardItem : PanelContainer
 
     public void UpdatecardResource(CardResource cardResource, bool download = false)
     {
-        Card.SetcardResource(cardResource, download);
+        Card.SetCardResource(cardResource, download);
         CardNameLabel.Text = cardResource.Name;
         CardInfoLabel.Text = cardResource.Set;
     }

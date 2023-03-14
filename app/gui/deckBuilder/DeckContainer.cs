@@ -284,7 +284,7 @@ public partial class DeckContainer : VBoxContainer
     {
         var card = CardPackedScene.Instantiate<Card>();
         Deck.AddChild(card);
-        card.SetcardResource(cardResource, true);
+        card.SetCardResource(cardResource, true);
         card.LeftClickCard += (c) => DeckCardLeftClicked(cardResource, card);
         card.RightClickCard += (c) => DeckCardRightClicked(cardResource, card);
         card.MiddleClickCard += (c) => DeckCardMiddleClicked(cardResource, card);

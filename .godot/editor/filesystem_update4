@@ -2,3 +2,4 @@ res://app/gui/deckBuilder/DeckContainer.tscn
 res://app/gui/DeckBuilder.tscn
 res://app/resources/themes/main_theme.tres
 res://app/gui/utils/CardInfoPanel.tscn
+res://app/gui/utils/TabInfoContainer.tscn

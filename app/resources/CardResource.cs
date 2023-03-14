@@ -3,37 +3,59 @@ using Godot.Collections;
 
 public partial class CardResource : Resource
 {
+    public bool TextureSet { get; set; } = false;
+
     [Export]
-    public string Id { get; set; }
+    private string _id;
+    public string Id
+    {
+        set
+        {
+            _id = value;
+            if ((FrontTexture == null || FrontTexture == BackTexture) && CardManager.Instance.TextureExists(this))
+            {
+                TextureSet = true;
+                FrontTexture = CardManager.Instance.GetTexture(this);
+            }
+        }
+        get => _id;
+    }
     [Export]
     public Array<string> Images { get; set; }
 
-    private Texture _frontTexture;
+    private Texture2D _frontTexture;
     [Export]
-    public Texture FrontTexture
+    public Texture2D FrontTexture
     {
-        set { _frontTexture = value; }
+        set { 
+            _frontTexture = value;
+            EmitSignal(SignalName.FrontTextureChanged, value);
+        }
         get
         {
             if (_frontTexture == null)
             {
-                _frontTexture = GD.Load<Texture>("res://app/resources/OP01-001.png");
+                FrontTexture = CardManager.Instance.GetBackTexture(CardTypeList);
             }
 
             return _frontTexture;
         }
     }
 
-    private Texture _backTexture;
+    private Texture2D _backTexture;
     [Export]
-    public Texture BackTexture
+    public Texture2D BackTexture
     {
-        set { _backTexture = value; }
+        set
+        {
+            _backTexture = value;
+            EmitSignal(SignalName.BackTextureChanged, value);
+        }
         get
         {
             if (_backTexture == null)
             {
-                _backTexture = CardManager.Instance.GetBackTexture(CardTypeList);
+                BackTexture = CardManager.Instance.GetBackTexture(CardTypeList);
             }
 
             return _backTexture;
@@ -66,6 +88,15 @@ public partial class CardResource : Resource
     [Export]
     public new string Set { get; set; }
 
+    [Signal]
+    public delegate void FrontTextureChangedEventHandler(Texture2D texture);
+
+    [Signal]
+    public delegate void BackTextureChangedEventHandler(Texture2D texture);
+
+    [Signal]
+    public delegate void AskDownloadTextureEventHandler(CardResource cardResource);
+
     public CardTypeList CardTypeList
     {
         get
@@ -76,6 +107,14 @@ public partial class CardResource : Resource
             if (CardType == "EVENT") return CardTypeList.EVENT;
 
             return CardTypeList.NONE;
+        }
+    }
+
+    public void StartDownloading()
+    {
+        if (!TextureSet)
+        {
+            EmitSignal(SignalName.AskDownloadTexture, this);
         }
     }
 }

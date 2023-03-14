@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Threading.Tasks;
 
 public partial class Card : TextureRect
 {
@@ -15,67 +14,42 @@ public partial class Card : TextureRect
     [Signal]
     public delegate void MiddleClickCardEventHandler(CardResource cardResource);
 
-    private bool _textureSet = false;
-
     public override void _Ready()
     {
 
     }
 
-    public override void _EnterTree()
-    {
-        base._EnterTree();
-        NotifierManager.Instance.Listen("receive_card_texture", CardTextureReceived);
-    }
-
-    public override void _ExitTree()
-    {
-        base._ExitTree();
-        NotifierManager.Instance.StopListener("receive_card_texture", CardTextureReceived);
-    }
-
     public virtual void CheckAndDownload()
     {
-        if (CardResource != null && !CardManager.Instance.TextureExists(CardResource))
+        if (CardResource != null && !CardResource.TextureSet)
         {
-            NotifierManager.Instance.Send("get_card_texture", CardResource, true);
+            CardResource.StartDownloading();
         }
     }
 
-    private void CardTextureReceived(object[] obj)
+    public void SetCardResource(CardResource cardResource, bool download = false)
     {
-        if (obj.Length > 1 && obj[0] is CardResource && obj[1] is Texture2D)
+        if (cardResource != null && CardResource?.Id != cardResource?.Id)
         {
-            var cardResource = (CardResource)obj[0];
-            var texture = (Texture2D)obj[1];
-
-            if (cardResource.Id == cardResource.Id)
+            if (CardResource != null)
             {
-                Texture = texture;
-                _textureSet = true;
+                CardResource.FrontTextureChanged -= FrontTextureChanged;
+            }
+
+            CardResource = cardResource;
+            CardResource.FrontTextureChanged += FrontTextureChanged;
+            Texture = cardResource.FrontTexture;
+
+            if (!cardResource.TextureSet && download)
+            {
+                CardResource.StartDownloading();
             }
         }
     }
 
-    public void SetcardResource(CardResource cardResource, bool download = false)
+    private void FrontTextureChanged(Texture2D texture2D)
     {
-        if (cardResource != null && CardResource?.Id != cardResource?.Id)
-        {
-            CardResource = cardResource;
-            _textureSet = false;
-
-            Texture = CardManager.Instance.GetBackTexture(cardResource);
-        }
-
-        if (download && !CardManager.Instance.TextureExists(cardResource))
-        {
-            _textureSet = false;
-        }
-
-        if (!_textureSet)
-        {
-            NotifierManager.Instance.Send("get_card_texture", cardResource, download);
-        }
+        Texture = texture2D;
     }
 
     public void OnGuiInput(InputEvent inputEvent)
