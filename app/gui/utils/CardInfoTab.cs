@@ -16,7 +16,7 @@ public partial class CardInfoTab : TabInfo
 		EffectsText = GetNode<RichTextLabel>("MarginContainer/ScrollContainer/Texts/EffectsText");
 	}
 
-	public void ShowCardInfo(CardInfo cardInfo)
+	public void ShowcardResource(CardResource cardResource)
 	{
 		string info = "[color=yellow][{card_type}] {name} ({attribute})[/color]" +
 			"\n[color=yellow]{cost_text}: {cost} | Power: {power} | Color: {colors}" +
@@ -24,15 +24,15 @@ public partial class CardInfoTab : TabInfo
 			"\n[color=yellow]Set: {set} [/color]";
 
 		Dictionary<string, string> dic = new Dictionary<string, string>();
-		dic.Add("{card_type}", cardInfo.CardType);
-		dic.Add("{name}", cardInfo.Name);
-		dic.Add("{attribute}", cardInfo.Attribute);
-		dic.Add("{cost_text}", cardInfo.CardType == "LEADER" ? "Life" : "Cost");
-		dic.Add("{cost}", cardInfo.Cost + "");
-		dic.Add("{power}", cardInfo.Power + "");
-		dic.Add("{colors}", string.Join("/", cardInfo.Colors));
-		dic.Add("{types}", string.Join("/", cardInfo.Types));
-		dic.Add("{set}", cardInfo.Set);
+		dic.Add("{card_type}", cardResource.CardType);
+		dic.Add("{name}", cardResource.Name);
+		dic.Add("{attribute}", cardResource.Attribute);
+		dic.Add("{cost_text}", cardResource.CardType == "LEADER" ? "Life" : "Cost");
+		dic.Add("{cost}", cardResource.Cost + "");
+		dic.Add("{power}", cardResource.Power + "");
+		dic.Add("{colors}", string.Join("/", cardResource.Colors));
+		dic.Add("{types}", string.Join("/", cardResource.Types));
+		dic.Add("{set}", cardResource.Set);
 
 		foreach (var entry in dic)
 		{
@@ -41,7 +41,7 @@ public partial class CardInfoTab : TabInfo
 
 		InfoText.Text = info;
 
-		var effects = cardInfo.Effects.Select(x => Regex.Replace(x, @"\[(.*?)\]", "[b][$1][/b]"));
+		var effects = cardResource.Effects.Select(x => Regex.Replace(x, @"\[(.*?)\]", "[b][$1][/b]"));
 		EffectsText.Text = string.Join("\n", effects);
 	}
 }

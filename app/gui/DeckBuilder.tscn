@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bry114aad4nsh"]
 
-[ext_resource type="PackedScene" path="res://app/gui/utils/CardInfoPanel.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://bdos3ombb52gx" path="res://app/gui/utils/CardInfoPanel.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://boynil74yqbyv" path="res://app/gui/game/Card.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://app/gui/deckBuilder/SearchContainer.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://dhupk5drnmsnt" path="res://app/gui/deckBuilder/DeckContainer.tscn" id="4"]

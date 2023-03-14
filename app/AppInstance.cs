@@ -8,9 +8,6 @@ public partial class AppInstance : Control
 	[Export]
 	public PackedScene MainMenu { get; set; }
 
-	[Signal]
-	public delegate void ThemeChangedEventHandler(Theme theme);
-
 	public TextureRect Background { get; set; }
 	public Control Content { get; set; }
 
@@ -30,7 +27,6 @@ public partial class AppInstance : Control
 	public void UpdateTheme(Theme theme)
 	{
 		Theme = theme;
-		EmitSignal(SignalName.ThemeChanged, theme);
 	}
 
 	public void GoTo(PackedScene packedScene)

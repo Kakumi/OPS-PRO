@@ -1,10 +1,63 @@
 using Godot;
 using Godot.Collections;
+using System.Linq;
 
 public partial class DeckResource : Resource
 {
     [Export]
-    public Array<CardResource> Cards { get; set; }
-    [Export]
     public string Name { get; set; }
+    [Export]
+    public Dictionary<CardResource, int> Cards { get; set; }
+
+    public DeckResource(string name)
+    {
+        Name = name;
+        Cards = new Dictionary<CardResource, int>();
+    }
+
+    public void AddCard(CardResource cardResource, int amount = 1)
+    {
+        if (!Cards.ContainsKey(cardResource))
+        {
+            Cards.Add(cardResource, 0);
+        }
+
+        Cards[cardResource] += amount;
+    }
+
+    public void RemoveCard(CardResource cardResource, int amount = 1)
+    {
+        if (Cards.ContainsKey(cardResource))
+        {
+            Cards[cardResource] -= amount;
+            if (Cards[cardResource] <= 0)
+            {
+                Cards.Remove(cardResource);
+            }
+        }
+    }
+
+    public int NumberOfCards => Cards.Sum(x => x.Value);
+
+    public int NumberOfCardsTypes(params CardTypeList[] types)
+    {
+        return Cards.Where(x => types.Contains(x.Key.CardTypeList)).Sum(x => x.Value);
+    }
+
+    public DeckResource Clone(string name)
+    {
+        var deck = new DeckResource(name);
+        deck.Cards = new Dictionary<CardResource, int>(Cards.ToDictionary(entry => entry.Key, entry => entry.Value));
+
+        return deck;
+    }
+
+    public bool IsValid()
+    {
+        var totalCards = NumberOfCardsTypes(CardTypeList.CHARACTER, CardTypeList.EVENT, CardTypeList.STAGE);
+        var totalLeader = NumberOfCardsTypes(CardTypeList.LEADER);
+        var leader = Cards.FirstOrDefault(x => x.Key.CardTypeList == CardTypeList.LEADER).Key;
+
+        return totalCards == 50 && totalLeader == 1 && leader != null && Cards.All(x => x.Key.Colors.Any(y => leader.Colors.Contains(y)));
+    }
 }

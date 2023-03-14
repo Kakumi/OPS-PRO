@@ -41,7 +41,7 @@ public partial class CardInfoPanel : VBoxContainer
 
     public void CardMouseEntered(Card card)
 	{
-		ShowCardInfo(card);
+		ShowcardResource(card);
 	}
 
 	public void CardMouseExited(Card card)
@@ -49,10 +49,10 @@ public partial class CardInfoPanel : VBoxContainer
 		
 	}
 
-	public void ShowCardInfo(Card card)
+	public void ShowcardResource(Card card)
 	{
 		CardImg.Texture = card.Texture;
 
-		TabBar.CardInfoTab.ShowCardInfo(card.CardInfo);
+		TabBar.CardInfoTab.ShowcardResource(card.CardResource);
 	}
 }

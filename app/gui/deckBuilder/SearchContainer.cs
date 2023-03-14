@@ -76,7 +76,7 @@ public partial class SearchContainer : VBoxContainer
             {
                 var cardInstance = CardInfoScene.Instantiate<SearchCardItem>();
                 Cards.AddChild(cardInstance);
-                cardInstance.UpdateCardInfo(card);
+                cardInstance.UpdatecardResource(card);
 
                 cardInstance.ClickCard += CardClicked;
                 cardInstance.MouseEntered += () => CardMouseEntered(cardInstance.Card);

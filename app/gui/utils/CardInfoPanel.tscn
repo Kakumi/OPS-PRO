@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://bdos3ombb52gx"]
 
 [ext_resource type="Theme" uid="uid://c0v6lf45kst5y" path="res://app/resources/themes/main_theme.tres" id="4"]
 [ext_resource type="Script" path="res://app/gui/utils/CardInfoPanel.cs" id="5"]
-[ext_resource type="PackedScene" uid="uid://dal64kois68er" path="res://app/gui/utils/TabInfoContainer.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://app/gui/utils/TabInfoContainer.tscn" id="7"]
 
 [node name="CardInfoPanel" type="VBoxContainer"]
 offset_right = 468.0

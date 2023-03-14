@@ -23,10 +23,10 @@ public partial class DeckContainer : VBoxContainer
     public Label CardsNumber { get; protected set; }
     public Label CardsTypes { get; protected set; }
 
-    private List<Deck> _decks;
-    public List<Deck> Decks
+    private List<DeckResource> _decks;
+    public List<DeckResource> Decks
     {
-        get => _decks ?? (_decks = new List<Deck>());
+        get => _decks ?? (_decks = new List<DeckResource>());
         set
         {
             _decks = value;
@@ -63,7 +63,7 @@ public partial class DeckContainer : VBoxContainer
 
     public void CardClicked(Card card)
     {
-        AddCard(card.CardInfo);
+        AddCard(card.CardResource);
     }
 
     private void UpdateDecksOptions()
@@ -87,7 +87,7 @@ public partial class DeckContainer : VBoxContainer
         }
     }
 
-    public void SelectDeck(Deck deck)
+    public void SelectDeck(DeckResource deck)
     {
         var foundId = -1;
         for(int i = 0; i < DecksOptions.ItemCount; i++)
@@ -107,7 +107,7 @@ public partial class DeckContainer : VBoxContainer
         }
     }
 
-    private Deck GetSelectedDeck()
+    private DeckResource GetSelectedDeck()
     {
        return Decks.FirstOrDefault(x => DecksOptions.GetItemText(DecksOptions.Selected) == x.Name);
     }
@@ -238,7 +238,7 @@ public partial class DeckContainer : VBoxContainer
         }
     }
 
-    private void StoreNewDeck(Deck deck)
+    private void StoreNewDeck(DeckResource deck)
     {
         Decks.Add(deck);
         UpdateDecksOptions();
@@ -250,7 +250,7 @@ public partial class DeckContainer : VBoxContainer
         InfoMessage.Text = $"[color={color}]{message}[/color]";
     }
 
-    private void UpdateStatus(Deck deck)
+    private void UpdateStatus(DeckResource deck)
     {
         DeckStatus.Text = "Statut: " + (deck.IsValid() ? "[color=green]Valid[/color]" : "[color=red]Invalid[/color]");
 
@@ -264,7 +264,7 @@ public partial class DeckContainer : VBoxContainer
         CardsTypes.Text = sBuilderTypes.ToString();
     }
 
-    private void UpdateDeckView(Deck deck)
+    private void UpdateDeckView(DeckResource deck)
     {
         DeckName.Text = deck.Name;
 
@@ -280,19 +280,19 @@ public partial class DeckContainer : VBoxContainer
         UpdateStatus(deck);
     }
 
-    private void AddCardDeckView(CardInfo cardInfo)
+    private void AddCardDeckView(CardResource cardResource)
     {
         var card = CardPackedScene.Instantiate<Card>();
         Deck.AddChild(card);
-        card.SetCardInfo(cardInfo, true);
-        card.LeftClickCard += (c) => DeckCardLeftClicked(cardInfo, card);
-        card.RightClickCard += (c) => DeckCardRightClicked(cardInfo, card);
-        card.MiddleClickCard += (c) => DeckCardMiddleClicked(cardInfo, card);
+        card.SetcardResource(cardResource, true);
+        card.LeftClickCard += (c) => DeckCardLeftClicked(cardResource, card);
+        card.RightClickCard += (c) => DeckCardRightClicked(cardResource, card);
+        card.MiddleClickCard += (c) => DeckCardMiddleClicked(cardResource, card);
         card.MouseEntered += () => CardMouseEntered(card);
         card.MouseExited += () => CardMouseExited(card);
     }
 
-    public void AddCard(CardInfo cardInfo)
+    public void AddCard(CardResource cardResource)
     {
         try
         {
@@ -301,13 +301,13 @@ public partial class DeckContainer : VBoxContainer
             var selectedDeck = GetSelectedDeck();
             if (selectedDeck != null)
             {
-                Log.Information($"Add 1 card {cardInfo.Id} to deck {selectedDeck.Name}.");
+                Log.Information($"Add 1 card {cardResource.Id} to deck {selectedDeck.Name}.");
 
-                var error = CanCardAdded(selectedDeck, cardInfo);
+                var error = CanCardAdded(selectedDeck, cardResource);
                 if (error == ErrorAddCard.Ok)
                 {
-                    selectedDeck.AddCard(cardInfo, 1);
-                    AddCardDeckView(cardInfo);
+                    selectedDeck.AddCard(cardResource, 1);
+                    AddCardDeckView(cardResource);
                     UpdateStatus(selectedDeck);
                 } else
                 {
@@ -344,7 +344,7 @@ public partial class DeckContainer : VBoxContainer
         }
     }
 
-    private void DeckCardLeftClicked(CardInfo cardInfo, Card card)
+    private void DeckCardLeftClicked(CardResource cardResource, Card card)
     {
         try
         {
@@ -353,8 +353,8 @@ public partial class DeckContainer : VBoxContainer
             var selectedDeck = GetSelectedDeck();
             if (selectedDeck != null)
             {
-                Log.Information($"Remove 1 card {cardInfo.Id} from deck {selectedDeck.Name}.");
-                selectedDeck.RemoveCard(cardInfo);
+                Log.Information($"Remove 1 card {cardResource.Id} from deck {selectedDeck.Name}.");
+                selectedDeck.RemoveCard(cardResource);
                 UpdateStatus(selectedDeck);
                 card.QueueFree();
             }
@@ -370,14 +370,14 @@ public partial class DeckContainer : VBoxContainer
         }
     }
 
-    private void DeckCardMiddleClicked(CardInfo cardInfo, Card card)
+    private void DeckCardMiddleClicked(CardResource cardResource, Card card)
     {
 
     }
 
-    private void DeckCardRightClicked(CardInfo cardInfo, Card card)
+    private void DeckCardRightClicked(CardResource cardResource, Card card)
     {
-        AddCard(cardInfo);
+        AddCard(cardResource);
     }
 
     private void CardMouseEntered(Card card)
@@ -390,16 +390,16 @@ public partial class DeckContainer : VBoxContainer
         EmitSignal(SignalName.MouseExitCard, card);
     }
 
-    protected ErrorAddCard CanCardAdded(Deck deck, CardInfo cardInfo)
+    protected ErrorAddCard CanCardAdded(DeckResource deck, CardResource cardResource)
     {
-        if (deck == null || cardInfo == null)
+        if (deck == null || cardResource == null)
         {
             return ErrorAddCard.NullObject;
         }
 
-        if (cardInfo.CardTypeList == CardTypeList.LEADER)
+        if (cardResource.CardTypeList == CardTypeList.LEADER)
         {
-            if (deck.Cards.Count(x => x.Key.CardTypeList == cardInfo.CardTypeList) != 0)
+            if (deck.Cards.Count(x => x.Key.CardTypeList == cardResource.CardTypeList) != 0)
             {
                 return ErrorAddCard.LeaderAlreadyExist;
             }
@@ -412,7 +412,7 @@ public partial class DeckContainer : VBoxContainer
             return ErrorAddCard.DeckFull;
         }
 
-        if (deck.Cards.ContainsKey(cardInfo) && deck.Cards[cardInfo] >= 4)
+        if (deck.Cards.ContainsKey(cardResource) && deck.Cards[cardResource] >= 4)
         {
             return ErrorAddCard.CardMaxAmount;
         }

@@ -18,7 +18,7 @@ public partial class CardManager : Node
     private string _path;
     private OPSPopup _popup;
 
-    public List<CardInfo> Cards { get; private set; }
+    public List<CardResource> Cards { get; private set; }
     public Texture2D CardTexture { get; private set; }
     public Texture2D LeaderTexture { get; private set; }
     public Texture2D DonTexture { get; private set; }
@@ -34,7 +34,7 @@ public partial class CardManager : Node
         _popup = null;
 
         ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
-        Cards = new List<CardInfo>();
+        Cards = new List<CardResource>();
 
         CardTexture = GD.Load<Texture2D>("res://app/resources/images/card_back.jpg");
         LeaderTexture = GD.Load<Texture2D>("res://app/resources/images/leader_back.png");
@@ -79,8 +79,7 @@ public partial class CardManager : Node
     {
         try
         {
-            Cards = JsonConvert.DeserializeObject<List<CardInfo>>(e.Result);
-            var test = Cards.Select(x => CardResource.Create(x));
+            Cards = JsonConvert.DeserializeObject<List<CardResource>>(e.Result);
             Log.Information($"Loaded {Cards.Count} cards");
 
             _popup?.QueueFree();
@@ -96,12 +95,12 @@ public partial class CardManager : Node
         }
     }
 
-    public List<CardInfo> Search(string text, double cost, double counter, double power, string color, string set, string type, string cardtype)
+    public List<CardResource> Search(string text, double cost, double counter, double power, string color, string set, string type, string cardtype)
     {
         var number = Cards.Count;
         Log.Debug("Searching inside {Number} cards with Text: {Text}, Cost: {Cost}, Counter: {Counter}, Power: {Power}, Color: {Color}, Set: {Set}, Type: {Type}, CardType: {CardType}", number, text, cost, counter, power, color, set, type, cardtype);
         
-        List<CardInfo> filteredCards = Cards.ToList();
+        List<CardResource> filteredCards = Cards.ToList();
         if (!string.IsNullOrEmpty(text))
         {
             filteredCards = filteredCards.Where(x => x.Name.ToLower().Contains(text.ToLower()) || x.Effects.Any(y => y.ToLower().Contains(text.ToLower()))).ToList();
@@ -167,14 +166,14 @@ public partial class CardManager : Node
         return Cards.GroupBy(x => x.CardType).Select(x => x.Key).ToList();
     }
 
-    public string GetTexturePath(CardInfo cardInfo)
+    public string GetTexturePath(CardResource cardResource)
     {
-        return Path.Combine(_path, $"{cardInfo.Id}.png");
+        return Path.Combine(_path, $"{cardResource.Id}.png");
     }
 
-    public bool TextureExists(CardInfo cardInfo)
+    public bool TextureExists(CardResource cardResource)
     {
-        string path = GetTexturePath(cardInfo);
+        string path = GetTexturePath(cardResource);
         return Godot.FileAccess.FileExists(path);
     }
 
@@ -182,7 +181,7 @@ public partial class CardManager : Node
     {
         if (obj.Length > 0)
         {
-            var cardInfo = obj[0] as CardInfo;
+            var cardResource = obj[0] as CardResource;
             var download = false;
 
             if (obj.Length > 1 && obj[1] is bool)
@@ -190,24 +189,24 @@ public partial class CardManager : Node
                 download = (bool)obj[1];
             }
 
-            GetTextureAndNotify(cardInfo, download);
+            GetTextureAndNotify(cardResource, download);
         }
     }
 
-    public Texture2D GetTexture(CardInfo cardInfo)
+    public Texture2D GetTexture(CardResource cardResource)
     {
-        string path = GetTexturePath(cardInfo);
-        if (TextureExists(cardInfo))
+        string path = GetTexturePath(cardResource);
+        if (TextureExists(cardResource))
         {
             try
             {
-                //Log.Debug($"Getting image for card ID: {cardInfo.Id} at {path}");
+                //Log.Debug($"Getting image for card ID: {cardResource.Id} at {path}");
                 var image = new Image();
                 Error error = image.Load(path);
                 if (error == Error.FileCorrupt)
                 {
                     File.Delete(path);
-                    return GetBackTexture(cardInfo);
+                    return GetBackTexture(cardResource);
                 }
 
                 return ImageTexture.CreateFromImage(image);
@@ -218,17 +217,17 @@ public partial class CardManager : Node
             }
         }
 
-        return GetBackTexture(cardInfo);
+        return GetBackTexture(cardResource);
     }
 
-    private void NotifyTexture(CardInfo cardInfo)
+    private void NotifyTexture(CardResource cardResource)
     {
-        NotifierManager.Instance.Send("receive_card_texture", cardInfo, GetTexture(cardInfo));
+        NotifierManager.Instance.Send("receive_card_texture", cardResource, GetTexture(cardResource));
     }
 
-    public void GetTextureAndNotify(CardInfo cardInfo, bool download)
+    public void GetTextureAndNotify(CardResource cardResource, bool download)
     {
-        string path = GetTexturePath(cardInfo);
+        string path = GetTexturePath(cardResource);
 
         try
         {
@@ -237,31 +236,31 @@ public partial class CardManager : Node
 
             //}
 
-            if (!TextureExists(cardInfo) && download)
+            if (!TextureExists(cardResource) && download)
             {
-                if (!_cardTextureDownloaders.Contains(cardInfo.Id))
+                if (!_cardTextureDownloaders.Contains(cardResource.Id))
                 {
-                    _cardTextureDownloaders.Add(cardInfo.Id);
+                    _cardTextureDownloaders.Add(cardResource.Id);
 
-                    Log.Debug($"Image for card ID: {cardInfo.Id} doesn't exist, downloading {cardInfo.Images.First()}...");
+                    Log.Debug($"Image for card ID: {cardResource.Id} doesn't exist, downloading {cardResource.Images.First()}...");
                     try
                     {
                         using (var client = new WebClient())
                         {
-                            client.DownloadFileCompleted += (s, e) => DownloadFileCompleted(s, e, cardInfo);
-                            client.DownloadFileAsync(new Uri(cardInfo.Images.First()), path);
+                            client.DownloadFileCompleted += (s, e) => DownloadFileCompleted(s, e, cardResource);
+                            client.DownloadFileAsync(new Uri(cardResource.Images.First()), path);
                         }
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex, $"Failed to download file {cardInfo.Id} because {ex.Message}.");
-                        _cardTextureDownloaders.Remove(cardInfo.Id);
+                        Log.Error(ex, $"Failed to download file {cardResource.Id} because {ex.Message}.");
+                        _cardTextureDownloaders.Remove(cardResource.Id);
                     }
                 }
             }
             else
             {
-                NotifyTexture(cardInfo);
+                NotifyTexture(cardResource);
             }
         }
         catch (Exception ex)
@@ -270,16 +269,16 @@ public partial class CardManager : Node
         }
     }
 
-    private void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e, CardInfo cardInfo)
+    private void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e, CardResource cardResource)
     {
-        Log.Debug($"Download completed for card ID: {cardInfo.Id}");
-        _cardTextureDownloaders.Remove(cardInfo.Id);
-        NotifyTexture(cardInfo);
+        Log.Debug($"Download completed for card ID: {cardResource.Id}");
+        _cardTextureDownloaders.Remove(cardResource.Id);
+        NotifyTexture(cardResource);
     }
 
-    public Texture2D GetBackTexture(CardInfo cardInfo)
+    public Texture2D GetBackTexture(CardResource cardResource)
     {
-        if (cardInfo.CardTypeList == CardTypeList.LEADER)
+        if (cardResource.CardTypeList == CardTypeList.LEADER)
         {
             return LeaderTexture;
         }

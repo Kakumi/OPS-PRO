@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public enum TabType
 {
-    CardInfo,
+    cardResource,
     Chat,
     Log
 }

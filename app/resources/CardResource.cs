@@ -1,11 +1,13 @@
 using Godot;
 using Godot.Collections;
-using System.Linq;
 
 public partial class CardResource : Resource
 {
     [Export]
     public string Id { get; set; }
+    [Export]
+    public Array<string> Images { get; set; }
+
     private Texture _frontTexture;
     [Export]
     public Texture FrontTexture
@@ -15,7 +17,7 @@ public partial class CardResource : Resource
         {
             if (_frontTexture == null)
             {
-                _frontTexture = GD.Load<Texture>("res://app/resources/OP01-001.png"); //CardManager.Instance.GetBackTexture(CardTypeList);
+                _frontTexture = GD.Load<Texture>("res://app/resources/OP01-001.png");
             }
 
             return _frontTexture;
@@ -63,27 +65,6 @@ public partial class CardResource : Resource
     public Array<string> Effects { get; set; }
     [Export]
     public new string Set { get; set; }
-
-    public static CardResource Create(CardInfo cardInfo)
-    {
-        var resource = new CardResource();
-        resource.Id = cardInfo.Id;
-        resource.Number = cardInfo.Number;
-        resource.Rarity = cardInfo.Rarity;
-        resource.CardType = cardInfo.CardType;
-        resource.Name = cardInfo.Name;
-        resource.Cost = cardInfo.Cost;
-        resource.AttributeImage = cardInfo.AttributeImage;
-        resource.Attribute = cardInfo.Attribute;
-        resource.Power = cardInfo.Power;
-        resource.Counter = cardInfo.Counter;
-        resource.Colors = new Array<string>(cardInfo.Colors);
-        resource.Types = new Array<string>(cardInfo.Types);
-        resource.Effects = new Array<string>(cardInfo.Effects);
-        resource.Set = cardInfo.Set;
-
-        return resource;
-    }
 
     public CardTypeList CardTypeList
     {

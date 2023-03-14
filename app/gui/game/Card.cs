@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 
 public partial class Card : TextureRect
 {
-    public CardInfo CardInfo { get; protected set; }
+    public CardResource CardResource { get; protected set; }
 
     [Signal]
-    public delegate void LeftClickCardEventHandler(CardInfo cardInfo);
+    public delegate void LeftClickCardEventHandler(CardResource cardResource);
 
     [Signal]
-    public delegate void RightClickCardEventHandler(CardInfo cardInfo);
+    public delegate void RightClickCardEventHandler(CardResource cardResource);
 
     [Signal]
-    public delegate void MiddleClickCardEventHandler(CardInfo cardInfo);
+    public delegate void MiddleClickCardEventHandler(CardResource cardResource);
 
     private bool _textureSet = false;
 
@@ -36,20 +36,20 @@ public partial class Card : TextureRect
 
     public virtual void CheckAndDownload()
     {
-        if (CardInfo != null && !CardManager.Instance.TextureExists(CardInfo))
+        if (CardResource != null && !CardManager.Instance.TextureExists(CardResource))
         {
-            NotifierManager.Instance.Send("get_card_texture", CardInfo, true);
+            NotifierManager.Instance.Send("get_card_texture", CardResource, true);
         }
     }
 
     private void CardTextureReceived(object[] obj)
     {
-        if (obj.Length > 1 && obj[0] is CardInfo && obj[1] is Texture2D)
+        if (obj.Length > 1 && obj[0] is CardResource && obj[1] is Texture2D)
         {
-            var cardInfo = (CardInfo)obj[0];
+            var cardResource = (CardResource)obj[0];
             var texture = (Texture2D)obj[1];
 
-            if (cardInfo.Id == CardInfo.Id)
+            if (cardResource.Id == cardResource.Id)
             {
                 Texture = texture;
                 _textureSet = true;
@@ -57,24 +57,24 @@ public partial class Card : TextureRect
         }
     }
 
-    public void SetCardInfo(CardInfo cardInfo, bool download = false)
+    public void SetcardResource(CardResource cardResource, bool download = false)
     {
-        if (cardInfo != null && cardInfo?.Id != CardInfo?.Id)
+        if (cardResource != null && CardResource?.Id != cardResource?.Id)
         {
-            CardInfo = cardInfo;
+            CardResource = cardResource;
             _textureSet = false;
 
-            Texture = CardManager.Instance.GetBackTexture(cardInfo);
+            Texture = CardManager.Instance.GetBackTexture(cardResource);
         }
 
-        if (download && !CardManager.Instance.TextureExists(cardInfo))
+        if (download && !CardManager.Instance.TextureExists(cardResource))
         {
             _textureSet = false;
         }
 
         if (!_textureSet)
         {
-            NotifierManager.Instance.Send("get_card_texture", cardInfo, download);
+            NotifierManager.Instance.Send("get_card_texture", cardResource, download);
         }
     }
 
@@ -87,13 +87,13 @@ public partial class Card : TextureRect
             {
                 if (inputButton.ButtonIndex == MouseButton.Left)
                 {
-                    EmitSignal(SignalName.LeftClickCard, CardInfo);
+                    EmitSignal(SignalName.LeftClickCard, CardResource);
                 } else if (inputButton.ButtonIndex == MouseButton.Right)
                 {
-                    EmitSignal(SignalName.RightClickCard, CardInfo);
+                    EmitSignal(SignalName.RightClickCard, CardResource);
                 } else if (inputButton.ButtonIndex == MouseButton.Middle)
                 {
-                    EmitSignal(SignalName.MiddleClickCard, CardInfo);
+                    EmitSignal(SignalName.MiddleClickCard, CardResource);
                 }
             }
         }

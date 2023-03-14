@@ -38,11 +38,11 @@ public partial class SearchCardItem : PanelContainer
         Set("custom_styles/panel", stylebox);
     }
 
-    public void UpdateCardInfo(CardInfo cardInfo, bool download = false)
+    public void UpdatecardResource(CardResource cardResource, bool download = false)
     {
-        Card.SetCardInfo(cardInfo, download);
-        CardNameLabel.Text = cardInfo.Name;
-        CardInfoLabel.Text = cardInfo.Set;
+        Card.SetcardResource(cardResource, download);
+        CardNameLabel.Text = cardResource.Name;
+        CardInfoLabel.Text = cardResource.Set;
     }
 
     public void OnGuiInput(InputEvent inputEvent)

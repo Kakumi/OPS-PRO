@@ -19,9 +19,9 @@ public partial class DeckManager : Node
         Directory.CreateDirectory(Path3D);
     }
 
-    public List<Deck> LoadDecks()
+    public List<DeckResource> LoadDecks()
     {
-        List<Deck> decks = new List<Deck>();
+        List<DeckResource> decks = new List<DeckResource>();
         var files = Directory.GetFiles(Path3D, "*.ops").ToList<string>();
         files.ForEach(f =>
         {
@@ -29,7 +29,7 @@ public partial class DeckManager : Node
             {
                 FileInfo fileInfo = new FileInfo(f);
                 var filename = Path.GetFileNameWithoutExtension(fileInfo.Name);
-                var deck = new Deck(filename);
+                var deck = new DeckResource(filename);
 
                 var lines = File.ReadAllLines(f).ToList<string>();
                 lines.ForEach(line =>
@@ -62,14 +62,14 @@ public partial class DeckManager : Node
         return decks;
     }
 
-    public Deck Create(string name)
+    public DeckResource Create(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
             name = Guid.NewGuid().ToString();
         }
 
-        var deck = new Deck(name);
+        var deck = new DeckResource(name);
 
         var filename = GetDeckFilename(deck);
         if (File.Exists(filename))
@@ -82,7 +82,7 @@ public partial class DeckManager : Node
         return deck;
     }
 
-    public void Save(Deck deck, string newName = null)
+    public void Save(DeckResource deck, string newName = null)
     {
         if (!string.IsNullOrWhiteSpace(newName) && deck.Name != newName)
         {
@@ -107,13 +107,13 @@ public partial class DeckManager : Node
         File.WriteAllLines(filename, deck.Cards.Select(x => $"{x.Value} {x.Key.Id}"));
     }
 
-    public void Delete(Deck deck)
+    public void Delete(DeckResource deck)
     {
         var filename = GetDeckFilename(deck);
         File.Delete(filename);
     }
 
-    public Deck Duplicate(Deck deck)
+    public DeckResource Duplicate(DeckResource deck)
     {
         var newDeck = deck.Clone(Guid.NewGuid().ToString());
 
@@ -121,12 +121,12 @@ public partial class DeckManager : Node
         return newDeck;
     }
 
-    public void Clear(Deck deck)
+    public void Clear(DeckResource deck)
     {
-        deck.Cards = new Dictionary<CardInfo, int>();
+        deck.Cards = new Godot.Collections.Dictionary<CardResource, int>();
     }
 
-    private string GetDeckFilename(Deck deck)
+    private string GetDeckFilename(DeckResource deck)
     {
         return Path.Combine(Path3D, $"{deck.Name}.ops");
     }
