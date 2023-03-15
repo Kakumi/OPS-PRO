@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ciq7y1jtp85tp"]
+
+[ext_resource type="Texture2D" uid="uid://dom6r5kqac06a" path="res://app/resources/images/card_creator/types/ico_type02.png" id="1_35yg7"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorAttribute.cs" id="2_jxn26"]
+
+[resource]
+script = ExtResource("2_jxn26")
+Name = "Slash"
+Texture = ExtResource("1_35yg7")

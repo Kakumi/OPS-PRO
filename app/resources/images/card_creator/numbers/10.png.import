@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbiogrf5nwvga"
-path="res://.godot/imported/TemplateRedCard.png-68f46c29de17a0082d2bbba0939714ac.ctex"
+uid="uid://bg6clic8h01aa"
+path="res://.godot/imported/10.png-f9b3de63883dc10c020989eb50579890.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://app/resources/images/TemplateRedCard.png"
-dest_files=["res://.godot/imported/TemplateRedCard.png-68f46c29de17a0082d2bbba0939714ac.ctex"]
+source_file="res://app/resources/images/card_creator/numbers/10.png"
+dest_files=["res://.godot/imported/10.png-f9b3de63883dc10c020989eb50579890.ctex"]
 
 [params]
 

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://u5sgyncpl8sq"]
+
+[ext_resource type="Texture2D" uid="uid://cgidjgacy67ik" path="res://app/resources/images/card_creator/types/ico_type04.png" id="1_rvdhp"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorAttribute.cs" id="2_5gqry"]
+
+[resource]
+script = ExtResource("2_5gqry")
+Name = "Ranged"
+Texture = ExtResource("1_rvdhp")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1npp3jjidywh"
-path="res://.godot/imported/TemplateEmptyCard.png-d0c663da25b0eb6cbbb1c35d80b71b3c.ctex"
+uid="uid://du4k7ow7xhe38"
+path="res://.godot/imported/ico_type05.png-59eb7fecbb6534cafd5c1308dcd875ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://app/resources/images/TemplateEmptyCard.png"
-dest_files=["res://.godot/imported/TemplateEmptyCard.png-d0c663da25b0eb6cbbb1c35d80b71b3c.ctex"]
+source_file="res://app/resources/images/card_creator/types/ico_type05.png"
+dest_files=["res://.godot/imported/ico_type05.png-59eb7fecbb6534cafd5c1308dcd875ec.ctex"]
 
 [params]
 
