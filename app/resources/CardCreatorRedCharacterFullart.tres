@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c4ggwoa1gee8r"]
+
+[ext_resource type="Texture2D" uid="uid://c1gckr1yngotw" path="res://app/resources/images/card_creator/red/CharacterCardFullart.png" id="1_ow7w5"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="2_qqleu"]
+
+[resource]
+script = ExtResource("2_qqleu")
+Name = "Character (Fullart)"
+Texture = ExtResource("1_ow7w5")

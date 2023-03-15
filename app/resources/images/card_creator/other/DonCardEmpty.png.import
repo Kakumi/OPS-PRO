@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du5y8xyf8rdx3"
-path="res://.godot/imported/don_back.jpg-410b696ea7a1e8cadf3c07f7cd885f7a.ctex"
+uid="uid://bohy1v7wxdty7"
+path="res://.godot/imported/DonCardEmpty.png-4207f3901a237c809a02e7700a9589f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://app/resources/images/don_back.jpg"
-dest_files=["res://.godot/imported/don_back.jpg-410b696ea7a1e8cadf3c07f7cd885f7a.ctex"]
+source_file="res://app/resources/images/card_creator/other/DonCardEmpty.png"
+dest_files=["res://.godot/imported/DonCardEmpty.png-4207f3901a237c809a02e7700a9589f2.ctex"]
 
 [params]
 

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bx73ynhkpr27x"]
+
+[ext_resource type="Texture2D" uid="uid://cxxjuykcl1wk1" path="res://app/resources/images/card_creator/other/DonCard.png" id="1_7q87e"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="2_wm86s"]
+
+[resource]
+script = ExtResource("2_wm86s")
+Name = "Don!!"
+Texture = ExtResource("1_7q87e")

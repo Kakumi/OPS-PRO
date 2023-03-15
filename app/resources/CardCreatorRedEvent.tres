@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bahgko5dmr2nd"]
+
+[ext_resource type="Texture2D" uid="uid://b6cdojbayjypg" path="res://app/resources/images/card_creator/red/EventCard.png" id="1_i0p77"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="2_pfyj3"]
+
+[resource]
+script = ExtResource("2_pfyj3")
+Name = "Event"
+Texture = ExtResource("1_i0p77")

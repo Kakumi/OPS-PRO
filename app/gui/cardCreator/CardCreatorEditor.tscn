@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://byo7nq5sbiyr"]
+[gd_scene load_steps=5 format=3 uid="uid://byo7nq5sbiyr"]
 
 [ext_resource type="Script" path="res://app/gui/cardCreator/CardCreatorEditor.cs" id="1_hdp2w"]
 [ext_resource type="Texture2D" uid="uid://dbiogrf5nwvga" path="res://app/resources/images/TemplateRedCard.png" id="1_vd26g"]
 [ext_resource type="Texture2D" uid="uid://eaouwtbmw6t6" path="res://app/resources/test_bg_templat.jpg" id="1_x7a02"]
+[ext_resource type="Resource" uid="uid://byedgy7jwdyoc" path="res://app/resources/CardCreatorSettings.tres" id="2_ihdjs"]
 
 [node name="CardCreatorEditor" type="VBoxContainer"]
 anchors_preset = 15
@@ -14,6 +15,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
 script = ExtResource("1_hdp2w")
+CardCreatorSettings = ExtResource("2_ihdjs")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2

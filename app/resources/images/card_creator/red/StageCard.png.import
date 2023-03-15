@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7gloggtdnbqh"
-path="res://.godot/imported/don.jpg-e26d4697f2318aa86eb0ac688f740ddb.ctex"
+uid="uid://cklfhcxi5kqt5"
+path="res://.godot/imported/StageCard.png-574b7f5cb83a97b42d8af0cd76b4b3c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://app/resources/images/don.jpg"
-dest_files=["res://.godot/imported/don.jpg-e26d4697f2318aa86eb0ac688f740ddb.ctex"]
+source_file="res://app/resources/images/card_creator/red/StageCard.png"
+dest_files=["res://.godot/imported/StageCard.png-574b7f5cb83a97b42d8af0cd76b4b3c4.ctex"]
 
 [params]
 

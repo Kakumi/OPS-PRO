@@ -38,7 +38,7 @@ public partial class CardManager : Node
 
         CardTexture = GD.Load<Texture2D>("res://app/resources/images/card_back.jpg");
         LeaderTexture = GD.Load<Texture2D>("res://app/resources/images/leader_back.png");
-        DonTexture = GD.Load<Texture2D>("res://app/resources/images/don_back.jpg");
+        DonTexture = GD.Load<Texture2D>("res://app/resources/images/DonCardBack.jpg");
 
         _path = ProjectSettings.GlobalizePath($"user://cards");
         Directory.CreateDirectory(_path);

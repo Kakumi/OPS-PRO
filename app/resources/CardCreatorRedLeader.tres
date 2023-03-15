@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://7vdia0pr0tfs"]
+
+[ext_resource type="Texture2D" uid="uid://bephesry2ko3o" path="res://app/resources/images/card_creator/red/LeaderCard.png" id="1_pwn6m"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="2_n24n8"]
+
+[resource]
+script = ExtResource("2_n24n8")
+Name = "Leader"
+Texture = ExtResource("1_pwn6m")

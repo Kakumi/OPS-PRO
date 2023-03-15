@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://34iyxfc3n6ir"]
+
+[ext_resource type="Resource" uid="uid://bx73ynhkpr27x" path="res://app/resources/CardCreatorOtherDoncCard.tres" id="1_7o3qo"]
+[ext_resource type="Resource" uid="uid://w6ehx3g775wb" path="res://app/resources/CardCreatorOtherDoncCardEmpty.tres" id="2_xc6qb"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorColorResource.cs" id="6_837ej"]
+
+[resource]
+script = ExtResource("6_837ej")
+Name = "Other"
+Types = Array[Resource]([ExtResource("1_7o3qo"), ExtResource("2_xc6qb")])
