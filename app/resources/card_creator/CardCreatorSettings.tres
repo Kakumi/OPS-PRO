@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=4 format=3]
+
+[ext_resource type="Resource" path="res://app/resources/card_creator/red/CardCreatorRedResource.tres" id="1_dgebp"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorSettings.cs" id="1_xgb4u"]
+[ext_resource type="Resource" path="res://app/resources/card_creator/other/CardCreatorOtherResource.tres" id="2_hvxms"]
+
+[resource]
+script = ExtResource("1_xgb4u")
+Colors = Array[Resource]([ExtResource("1_dgebp"), ExtResource("2_hvxms")])
