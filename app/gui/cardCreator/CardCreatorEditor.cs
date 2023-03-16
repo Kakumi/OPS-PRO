@@ -46,27 +46,27 @@ public partial class CardCreatorEditor : Container
         ColorOptions = GetNode<OptionButton>("Viewer/PanelContainer/CardEditor/MarginContainer/HBoxContainer/ColorOptions");
         CardTypeOptions = GetNode<OptionButton>("Viewer/PanelContainer/CardEditor/MarginContainer/HBoxContainer/CardTypeOptions");
 
-        EditorContainer = GetNode<Container>("Viewer/PanelContainer/CardEditor/MarginContainer2");
+        EditorContainer = GetNode<Container>("Editor");
         ViewerContainer = GetNode<Container>("Viewer/CardViewer/PanelContainer/MarginContainer/BoxContainer");
 
-        FileLineEdit = EditorContainer.GetNode<LineEdit>("VBoxContainer/FileExplorerContainer/LineEdit");
+        FileLineEdit = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardImageContainer/MarginContainer/VBoxContainer/HBoxContainer/LineEdit");
 
-        EditCardName = EditorContainer.GetNode<LineEdit>("VBoxContainer/HBoxContainer/Column2/HBoxContainer/EditCardName");
-        EditTypes = EditorContainer.GetNode<LineEdit>("VBoxContainer/HBoxContainer/Column2/HBoxContainer2/EditTypes");
-        EditNumber = EditorContainer.GetNode<LineEdit>("VBoxContainer/HBoxContainer/Column2/HBoxContainer3/EditNumber");
+        EditCardName = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/EditCardName");
+        EditTypes = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/EditTypes");
+        EditNumber = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer3/EditNumber");
 
-        CostText = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column3/HBoxContainer3/CostText");
-        CounterText = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column3/HBoxContainer4/CounterText");
-        PowerText = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column3/HBoxContainer5/PowerText");
+        CostText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer3/CostText");
+        CounterText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer4/CounterText");
+        PowerText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer5/PowerText");
 
-        CardNamePx = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column2/HBoxContainer/SpinBox");
-        TypePx = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column2/HBoxContainer2/SpinBox");
-        NumberPx = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column2/HBoxContainer3/SpinBox");
-        CounterPx = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column3/HBoxContainer4/SpinBox");
-        PowerPx = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column3/HBoxContainer5/SpinBox");
+        CardNamePx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SpinBox");
+        TypePx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/SpinBox");
+        NumberPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer3/SpinBox");
+        CounterPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer4/SpinBox");
+        PowerPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer5/SpinBox");
 
-        AttributeOptions = EditorContainer.GetNode<OptionButton>("VBoxContainer/HBoxContainer/Column1/AttributeOptions");
-        RarityOptions = EditorContainer.GetNode<OptionButton>("VBoxContainer/HBoxContainer/Column1/RarityOptions");
+        AttributeOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/AttributeOptions");
+        RarityOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/RarityOptions");
 
         EditorContainer.Hide();
 

@@ -1,9 +1,10 @@
-Label
+HBoxContainer
 VBoxContainer
 MarginContainer
+ScrollContainer
+Label
 HSeparator
 PanelContainer
-HBoxContainer
 FileDialog
 Node
 CanvasLayer
