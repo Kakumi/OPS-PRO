@@ -4,17 +4,18 @@ using System;
 using System.IO;
 using System.Linq;
 
-public partial class CardCreatorEditor : VBoxContainer
+public partial class CardCreatorEditor : Container
 {
     [Export]
     public CardCreatorSettings CardCreatorSettings { get; set; }
 
+    public FileDialog FileDialog { get; private set; }
+
+    public LineEdit FileLineEdit { get; private set; }
     public string CardFolder { get; private set; }
     public Container EditorContainer { get; private set; }
+    public Container ViewerContainer { get; private set; }
     public TextureRect CustomBackground { get; private set; }
-    public TextureRect TemplateCard { get; private set; }
-    public TextureRect Attribute { get; private set; }
-    public TextureRect Cost { get; private set; }
     public OptionButton ColorOptions { get; private set; }
     public OptionButton CardTypeOptions { get; private set; }
     public OptionButton AttributeOptions { get; private set; }
@@ -22,12 +23,6 @@ public partial class CardCreatorEditor : VBoxContainer
     public LineEdit EditCardName { get; private set; }
     public LineEdit EditTypes { get; private set; }
     public LineEdit EditNumber { get; private set; }
-    public Label CardTitle { get; private set; }
-    public Label Number { get; private set; }
-    public Label Rarity { get; private set; }
-    public Label Power { get; private set; }
-    public Label Counter { get; private set; }
-    public Label Type { get; private set; }
     public SpinBox CostText { get; private set; }
     public SpinBox CounterText { get; private set; }
     public SpinBox PowerText { get; private set; }
@@ -37,45 +32,49 @@ public partial class CardCreatorEditor : VBoxContainer
     public SpinBox PowerPx { get; private set; }
     public SpinBox CounterPx { get; private set; }
 
+    public CardTemplate CardTemplate { get; private set; }
+
 
     public override void _Ready()
 	{
         CardFolder = "user://card_creator/";
-        CustomBackground = GetNode<TextureRect>("CardViewer/PanelContainer/MarginContainer/BoxContainer/CustomBackground");
-        TemplateCard = GetNode<TextureRect>("CardViewer/PanelContainer/MarginContainer/BoxContainer/Template");
-        Attribute = GetNode<TextureRect>("CardViewer/PanelContainer/MarginContainer/BoxContainer/Template/Attribute");
-        Cost = GetNode<TextureRect>("CardViewer/PanelContainer/MarginContainer/BoxContainer/Template/Cost");
 
-        ColorOptions = GetNode<OptionButton>("PanelContainer/CardEditor/MarginContainer/HBoxContainer/ColorOptions");
-        CardTypeOptions = GetNode<OptionButton>("PanelContainer/CardEditor/MarginContainer/HBoxContainer/CardTypeOptions");
-        AttributeOptions = GetNode<OptionButton>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column1/AttributeOptions");
-        RarityOptions = GetNode<OptionButton>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column1/RarityOptions");
+        FileDialog = GetNode<FileDialog>("FileDialog");
 
-        EditorContainer = GetNode<Container>("PanelContainer/CardEditor/MarginContainer2");
+        CustomBackground = GetNode<TextureRect>("Viewer/CardViewer/PanelContainer/MarginContainer/BoxContainer/CustomBackground");
 
-        EditCardName = GetNode<LineEdit>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column2/HBoxContainer/EditCardName");
-        EditTypes = GetNode<LineEdit>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column2/HBoxContainer2/EditTypes");
-        EditNumber = GetNode<LineEdit>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column2/HBoxContainer3/EditNumber");
+        ColorOptions = GetNode<OptionButton>("Viewer/PanelContainer/CardEditor/MarginContainer/HBoxContainer/ColorOptions");
+        CardTypeOptions = GetNode<OptionButton>("Viewer/PanelContainer/CardEditor/MarginContainer/HBoxContainer/CardTypeOptions");
 
-        CardTitle = TemplateCard.GetNode<Label>("CardTitle");
-        Number = TemplateCard.GetNode<Label>("Number");
-        Rarity = TemplateCard.GetNode<Label>("Rarity");
-        Power = TemplateCard.GetNode<Label>("Power");
-        Counter = TemplateCard.GetNode<Label>("Counter");
-        Type = TemplateCard.GetNode<Label>("Type");
+        EditorContainer = GetNode<Container>("Viewer/PanelContainer/CardEditor/MarginContainer2");
+        ViewerContainer = GetNode<Container>("Viewer/CardViewer/PanelContainer/MarginContainer/BoxContainer");
 
-        CostText = GetNode<SpinBox>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column3/HBoxContainer3/CostText");
-        CounterText = GetNode<SpinBox>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column3/HBoxContainer4/CounterText");
-        PowerText = GetNode<SpinBox>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column3/HBoxContainer5/PowerText");
+        FileLineEdit = EditorContainer.GetNode<LineEdit>("VBoxContainer/FileExplorerContainer/LineEdit");
 
-        CardNamePx = GetNode<SpinBox>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column2/HBoxContainer/SpinBox");
-        TypePx = GetNode<SpinBox>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column2/HBoxContainer2/SpinBox");
-        NumberPx = GetNode<SpinBox>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column2/HBoxContainer3/SpinBox");
-        PowerPx = GetNode<SpinBox>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column3/HBoxContainer4/SpinBox");
-        CounterPx = GetNode<SpinBox>("PanelContainer/CardEditor/MarginContainer2/HBoxContainer/Column3/HBoxContainer5/SpinBox");
+        EditCardName = EditorContainer.GetNode<LineEdit>("VBoxContainer/HBoxContainer/Column2/HBoxContainer/EditCardName");
+        EditTypes = EditorContainer.GetNode<LineEdit>("VBoxContainer/HBoxContainer/Column2/HBoxContainer2/EditTypes");
+        EditNumber = EditorContainer.GetNode<LineEdit>("VBoxContainer/HBoxContainer/Column2/HBoxContainer3/EditNumber");
 
-        TemplateCard.Hide();
+        CostText = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column3/HBoxContainer3/CostText");
+        CounterText = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column3/HBoxContainer4/CounterText");
+        PowerText = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column3/HBoxContainer5/PowerText");
+
+        CardNamePx = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column2/HBoxContainer/SpinBox");
+        TypePx = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column2/HBoxContainer2/SpinBox");
+        NumberPx = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column2/HBoxContainer3/SpinBox");
+        CounterPx = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column3/HBoxContainer4/SpinBox");
+        PowerPx = EditorContainer.GetNode<SpinBox>("VBoxContainer/HBoxContainer/Column3/HBoxContainer5/SpinBox");
+
+        AttributeOptions = EditorContainer.GetNode<OptionButton>("VBoxContainer/HBoxContainer/Column1/AttributeOptions");
+        RarityOptions = EditorContainer.GetNode<OptionButton>("VBoxContainer/HBoxContainer/Column1/RarityOptions");
+
         EditorContainer.Hide();
+
+        var screenSize = GetWindow().Size / 2;
+        var popupSize = FileDialog.GetWindow().Size / 2;
+        var centeredPosition = new Vector2I(screenSize.X - popupSize.X, screenSize.Y - popupSize.Y);
+
+        FileDialog.Position = centeredPosition;
 
         ColorOptions.ItemSelected += ColorOptions_ItemSelected;
         CardTypeOptions.ItemSelected += CardTypeOptions_ItemSelected;
@@ -100,60 +99,60 @@ public partial class CardCreatorEditor : VBoxContainer
 
     private void CardNamePxChanged(double value)
     {
-        CardTitle.Set("theme_override_font_sizes/font_size", value);
+        CardTemplate?.UpdateCardTitlePx(value);
     }
 
     private void NumberPxChanged(double value)
     {
-        Number.Set("theme_override_font_sizes/font_size", value);
+        CardTemplate?.UpdateCardNumberPx(value);
     }
 
     private void TypePxChanged(double value)
     {
-        Type.Set("theme_override_font_sizes/font_size", value);
+        CardTemplate?.UpdateCardTypePx(value);
     }
 
     private void PowerPxChanged(double value)
     {
-        Power.Set("theme_override_font_sizes/font_size", value);
+        CardTemplate?.UpdateCardPowerPx(value);
     }
 
     private void CounterPxChanged(double value)
     {
-        Counter.Set("theme_override_font_sizes/font_size", value);
+        CardTemplate?.UpdateCardCounterPx(value);
     }
 
     private void CostChanged(double value)
     {
         if (value < CardCreatorSettings.CostTextures.Count)
         {
-            Cost.Texture = CardCreatorSettings.CostTextures[(int) Math.Round(value)];
+            CardTemplate?.UpdateCardCost(CardCreatorSettings.CostTextures[(int)Math.Round(value)]);
         }
     }
 
     private void CounterChanged(double value)
     {
-        Counter.Text = value.ToString();
+        CardTemplate?.UpdateCardCounter(value);
     }
 
     private void PowerChanged(double value)
     {
-        Power.Text = value.ToString();
+        CardTemplate?.UpdateCardPower(value);
     }
 
     private void CardNameChanged(string newText)
     {
-        CardTitle.Text = newText;
+        CardTemplate?.UpdateCardTitle(newText);
     }
 
     private void CardTypeChanged(string newText)
     {
-        Type.Text = newText;
+        CardTemplate?.UpdateCardType(newText);
     }
 
     private void CardNumberChanged(string newText)
     {
-        Number.Text = newText;
+        CardTemplate?.UpdateCardNumber(newText);
     }
 
     private void ColorOptions_ItemSelected(long index)
@@ -167,6 +166,12 @@ public partial class CardCreatorEditor : VBoxContainer
                 CardTypeOptions.AddItem(type.Name);
             }
         }
+
+        CardTypeOptions.Selected = -1;
+        CardTypeOptions.Name = "Card type";
+
+        RemoveCurrentTemplate();
+        EditorContainer.Hide();
     }
 
     private void CardTypeOptions_ItemSelected(long index)
@@ -176,14 +181,55 @@ public partial class CardCreatorEditor : VBoxContainer
         if (color != null)
         {
             var type = color.Types.FirstOrDefault(x => x.Name == text);
-            if (type != null)
-            {
-                TemplateCard.Texture = type.Texture;
-            }
-
-            TemplateCard.Show();
-            EditorContainer.Show();
+            UpdateTemplate(type);
         }
+    }
+
+    private void RemoveCurrentTemplate()
+    {
+        ViewerContainer.GetChildren().Where(x => x is CardTemplate).ToList().ForEach(x => x.QueueFree());
+    }
+
+    private void UpdateTemplate(CardCreatorCardTypeResource type)
+    {
+        if (type != null)
+        {
+            RemoveCurrentTemplate();
+            CardTemplate = type.Template.Instantiate<CardTemplate>();
+            ViewerContainer.AddChild(CardTemplate);
+
+            EditCardName.Visible = type.HasTitle;
+            CardNamePx.Visible = type.HasTitle;
+            EditTypes.Visible = type.HasType;
+            TypePx.Visible = type.HasType;
+            EditNumber.Visible = type.HasNumber;
+            NumberPx.Visible = type.HasNumber;
+            RarityOptions.Visible = type.HasRarity;
+            AttributeOptions.Visible = type.HasAttribute;
+            CostText.Visible = type.HasCost;
+            CounterText.Visible = type.HasCounter;
+            CounterPx.Visible = type.HasCounter;
+            PowerText.Visible = type.HasPower;
+            PowerPx.Visible = type.HasPower;
+
+            CardTemplate.Texture = type.Texture;
+            CardNameChanged(EditCardName.Text);
+            CardNamePxChanged(CardNamePx.Value);
+            CardTypeChanged(EditTypes.Text);
+            TypePxChanged(TypePx.Value);
+            CardNumberChanged(EditNumber.Text);
+            NumberPxChanged(NumberPx.Value);
+            RarityOptions_ItemSelected(RarityOptions.Selected);
+            AttributeOptions_ItemSelected(AttributeOptions.Selected);
+            CostChanged(CostText.Value);
+            CounterChanged(CounterText.Value);
+            CounterPxChanged(CounterPx.Value);
+            PowerChanged(PowerText.Value);
+            PowerPxChanged(PowerPx.Value);
+        }
+
+        CardTemplate.Show();
+        EditorContainer.Show();
     }
 
     private void RarityOptions_ItemSelected(long index)
@@ -191,7 +237,7 @@ public partial class CardCreatorEditor : VBoxContainer
         var rarity = CardCreatorSettings.Rarities.FirstOrDefault(x => x.Key == RarityOptions.GetItemText((int)index));
         if (rarity.Value != null)
         {
-            Rarity.Text = rarity.Value;
+            CardTemplate?.UpdateCardRarity(rarity.Value);
         }
     }
 
@@ -200,7 +246,7 @@ public partial class CardCreatorEditor : VBoxContainer
         var attribute = CardCreatorSettings.Attributes.FirstOrDefault(x => x.Name == AttributeOptions.GetItemText((int)index));
         if (attribute != null)
         {
-            Attribute.Texture = attribute.Texture;
+            CardTemplate?.UpdateCardAttribute(attribute.Texture);
         }
     }
 
@@ -208,16 +254,16 @@ public partial class CardCreatorEditor : VBoxContainer
     {
         try
         {
-            if (!string.IsNullOrWhiteSpace(CardTitle.Text))
+            if (!string.IsNullOrWhiteSpace(EditCardName.Text))
             {
-                var name = $"{CardTitle.Text}-{DateTime.Now:yyyyMMdd-hhmmss}.png";
+                var name = $"{EditCardName.Text}-{DateTime.Now:yyyyMMdd-hhmmss}.png";
                 var isNewNameValid = name.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
                 if (!isNewNameValid)
                 {
                     throw new Exception($"Name is invalid because it contains unsupported characters for a filename ({name}).");
                 }
 
-                GetViewport().GetTexture().GetImage().GetRegion((Rect2I)TemplateCard.GetGlobalRect()).SavePng(Path.Combine(CardFolder, name));
+                GetViewport().GetTexture().GetImage().GetRegion((Rect2I)CardTemplate.GetGlobalRect()).SavePng(Path.Combine(CardFolder, name));
             }
         }
         catch (Exception ex)
@@ -230,8 +276,11 @@ public partial class CardCreatorEditor : VBoxContainer
 	{
         try
         {
-            TemplateCard.Hide();
+            RemoveCurrentTemplate();
             EditorContainer.Hide();
+
+            CustomBackground.Texture = null;
+            FileLineEdit.Text = null;
 
             ColorOptions.Clear();
             foreach (var color in CardCreatorSettings.Colors)
@@ -295,6 +344,23 @@ public partial class CardCreatorEditor : VBoxContainer
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
+        }
+    }
+
+    private void OnExploreFilePressed()
+    {
+        FileDialog.Show();
+    }
+
+    private void OnFileSelected(string path)
+    {
+        FileLineEdit.Text = path;
+
+        var image = new Image();
+        var error = image.Load(path);
+        if (error == Error.Ok)
+        {
+            CustomBackground.Texture = ImageTexture.CreateFromImage(image);
         }
     }
 }

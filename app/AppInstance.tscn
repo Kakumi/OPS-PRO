@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://app/AppInstance.cs" id="2"]
 [ext_resource type="Texture2D" uid="uid://bxeudnqrt3dta" path="res://app/resources/images/backgrounds/luffy_logo.jpg" id="3_so3dr"]
-[ext_resource type="PackedScene" path="res://app/gui/MainMenu.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://d0bsel4oaljb3" path="res://app/gui/MainMenu.tscn" id="5"]
 
 [node name="AppInstance" type="Control"]
 layout_mode = 3

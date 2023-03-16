@@ -1,9 +1,19 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bahgko5dmr2nd"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bahgko5dmr2nd"]
 
-[ext_resource type="Texture2D" uid="uid://b6cdojbayjypg" path="res://app/resources/images/card_creator/red/EventCard.png" id="1_i0p77"]
+[ext_resource type="PackedScene" uid="uid://ndvut4fjb5sn" path="res://app/gui/cardCreator/templates/EventCardTemplate.tscn" id="1_54wya"]
+[ext_resource type="Texture2D" uid="uid://bj5ijwdi6kewh" path="res://app/resources/images/card_creator/red/EventCard.png" id="1_i0p77"]
 [ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="2_pfyj3"]
 
 [resource]
 script = ExtResource("2_pfyj3")
 Name = "Event"
 Texture = ExtResource("1_i0p77")
+Template = ExtResource("1_54wya")
+HasTitle = true
+HasType = true
+HasNumber = true
+HasRarity = true
+HasAttribute = false
+HasCost = true
+HasCounter = false
+HasPower = false

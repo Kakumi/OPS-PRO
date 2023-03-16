@@ -1,9 +1,19 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://7vdia0pr0tfs"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://7vdia0pr0tfs"]
 
-[ext_resource type="Texture2D" uid="uid://bephesry2ko3o" path="res://app/resources/images/card_creator/red/LeaderCard.png" id="1_pwn6m"]
+[ext_resource type="PackedScene" uid="uid://bjnsy5lijlqa3" path="res://app/gui/cardCreator/templates/LeaderCardTemplate.tscn" id="1_c48x8"]
+[ext_resource type="Texture2D" uid="uid://cfom4x0vw2p78" path="res://app/resources/images/card_creator/red/LeaderCard.png" id="1_pwn6m"]
 [ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="2_n24n8"]
 
 [resource]
 script = ExtResource("2_n24n8")
 Name = "Leader"
 Texture = ExtResource("1_pwn6m")
+Template = ExtResource("1_c48x8")
+HasTitle = true
+HasType = true
+HasNumber = true
+HasRarity = true
+HasAttribute = true
+HasCost = true
+HasCounter = false
+HasPower = true

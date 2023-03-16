@@ -1,9 +1,19 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c4ggwoa1gee8r"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://c4ggwoa1gee8r"]
 
-[ext_resource type="Texture2D" uid="uid://c1gckr1yngotw" path="res://app/resources/images/card_creator/red/CharacterCardFullart.png" id="1_ow7w5"]
+[ext_resource type="PackedScene" uid="uid://yl1r1cb2als7" path="res://app/gui/cardCreator/templates/CharacterCardTemplate.tscn" id="1_8c0qs"]
+[ext_resource type="Texture2D" uid="uid://b4ld3ss1ege07" path="res://app/resources/images/card_creator/red/CharacterCardFullart.png" id="1_ow7w5"]
 [ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="2_qqleu"]
 
 [resource]
 script = ExtResource("2_qqleu")
 Name = "Character (Fullart)"
 Texture = ExtResource("1_ow7w5")
+Template = ExtResource("1_8c0qs")
+HasTitle = true
+HasType = true
+HasNumber = true
+HasRarity = true
+HasAttribute = true
+HasCost = true
+HasCounter = true
+HasPower = true

@@ -1,9 +1,19 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://w6ehx3g775wb"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://w6ehx3g775wb"]
 
 [ext_resource type="Texture2D" uid="uid://bohy1v7wxdty7" path="res://app/resources/images/card_creator/other/DonCardEmpty.png" id="1_af6hq"]
+[ext_resource type="PackedScene" uid="uid://cj013gx8y8oe0" path="res://app/gui/cardCreator/templates/DonCardTemplate.tscn" id="1_fj0gx"]
 [ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="2_nuymx"]
 
 [resource]
 script = ExtResource("2_nuymx")
 Name = "Don!! (No Text)"
 Texture = ExtResource("1_af6hq")
+Template = ExtResource("1_fj0gx")
+HasTitle = false
+HasType = false
+HasNumber = false
+HasRarity = false
+HasAttribute = false
+HasCost = false
+HasCounter = false
+HasPower = false

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj013gx8y8oe0"]
+
+[ext_resource type="Script" path="res://app/gui/cardCreator/templates/DonCardTemplate.cs" id="2_c78rp"]
+
+[node name="DonCardTemplate" type="TextureRect"]
+visible = false
+custom_minimum_size = Vector2(500, 700)
+size_flags_horizontal = 6
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_c78rp")
