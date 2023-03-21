@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -69,7 +69,7 @@ public partial class DeckContainer : VBoxContainer
     private void UpdateDecksOptions()
     {
         DecksOptions.Clear();
-        DecksOptions.Text = "Decks";
+        DecksOptions.Text = Tr("DECKBUILDER_DECKS");
         Decks.ForEach(d => DecksOptions.AddItem(d.Name));
 
         if (Decks.Count > 0)
@@ -123,16 +123,16 @@ public partial class DeckContainer : VBoxContainer
             {
                 DeckManager.Instance.Save(deck, DeckName.Text);
                 DecksOptions.SetItemText(DecksOptions.Selected, deck.Name);
-                ChangeInfoMessage($"Deck {deck.Name} has been saved.", "green");
+                ChangeInfoMessage(string.Format(Tr("DECKBUILDER_SAVED", deck.Name)), "green");
             }
             else
             {
-                ChangeInfoMessage($"No deck selected, unable to save. Please select one from the list below.", "red");
+                ChangeInfoMessage(Tr("DECKBUILDER_SAVED_FAILED_SELECTED"), "red");
             }
         } catch(Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeInfoMessage($"An error occured, unable to save this deck because {ex.Message}.", "red");
+            ChangeInfoMessage(string.Format(Tr("DECKBUILDER_SAVED_FAILED_EX"), ex.Message), "red");
         }
     }
 
@@ -145,12 +145,12 @@ public partial class DeckContainer : VBoxContainer
             var deck = DeckManager.Instance.Create(DeckName.Text);
             StoreNewDeck(deck);
 
-            ChangeInfoMessage($"Deck {deck.Name} has been created.", "green");
+            ChangeInfoMessage(string.Format(Tr("DECKBUILDER_CREATED"), deck.Name), "green");
         }
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeInfoMessage($"An error occured, unable to create this deck because {ex.Message}.", "red");
+            ChangeInfoMessage(string.Format(Tr("DECKBUILDER_CREATED_FAILED_EX"), ex.Message), "red");
         }
     }
 
@@ -171,21 +171,21 @@ public partial class DeckContainer : VBoxContainer
                     SelectDeck(Decks.First());
                 } else
                 {
-                    DecksOptions.Text = "Decks";
+                    DecksOptions.Text = Tr("DECKBUILDER_DECKS");
                     DeckName.Text = string.Empty;
                 }
 
-                ChangeInfoMessage($"Deck {deck.Name} has been deleted.", "green");
+                ChangeInfoMessage(Tr("DECKBUILDER_DELETED"), "green");
             }
             else
             {
-                ChangeInfoMessage($"No deck selected, unable to delete. Please select one from the list below.", "red");
+                ChangeInfoMessage(Tr("DECKBUILDER_DELETE_FAILED_SELECTED"), "red");
             }
         }
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeInfoMessage($"An error occured, unable to delete this deck because {ex.Message}.", "red");
+            ChangeInfoMessage(string.Format(Tr("DECKBUILDER_DELETED_FAILED_EX"), ex.Message), "red");
         }
     }
 
@@ -210,7 +210,7 @@ public partial class DeckContainer : VBoxContainer
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeInfoMessage($"An error occured, unable to clear this deck because {ex.Message}.", "red");
+            ChangeInfoMessage(string.Format(Tr("DECKBUILDER_CLEARED_FAILED_EX"), ex.Message), "red");
         }
     }
 
@@ -225,16 +225,16 @@ public partial class DeckContainer : VBoxContainer
             {
                 var newDeck = DeckManager.Instance.Duplicate(selectedDeck);
                 StoreNewDeck(newDeck);
-                ChangeInfoMessage($"Deck {newDeck.Name} has been created.", "green");
+                ChangeInfoMessage(string.Format(Tr("DECKBUILDER_DUPLICATED"), newDeck.Name), "green");
             } else
             {
-                ChangeInfoMessage($"No deck selected, unable to duplicate. Please select one from the list below.", "red");
+                ChangeInfoMessage(Tr("DECKBUILDER_DUPLICATED_FAILED_SELECTED"), "red");
             }
         }
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeInfoMessage($"An error occured, unable to duplicate this deck because {ex.Message}.", "red");
+            ChangeInfoMessage(string.Format(Tr("DECKBUILDER_DUPLICATED_FAILED_EX"), ex.Message), "red");
         }
     }
 
@@ -252,15 +252,15 @@ public partial class DeckContainer : VBoxContainer
 
     private void UpdateStatus(DeckResource deck)
     {
-        DeckStatus.Text = "Statut: " + (deck.IsValid() ? "[color=green]Valid[/color]" : "[color=red]Invalid[/color]");
+        DeckStatus.Text = string.Format(Tr("DECKBUILDER_STATUS"), deck.IsValid() ? $"[color=green]{Tr("DECKBUILDER_STATUS_VALID")}[/color]" : $"[color=red]{Tr("DECKBUILDER_STATUS_INVALID")}[/color]");
 
         CardsNumber.Text = $"Cards: {deck.NumberOfCards}";
 
         var sBuilderTypes = new StringBuilder();
-        sBuilderTypes.Append($"Leader: {deck.NumberOfCardsTypes(CardTypeList.LEADER)}").Append(" | ");
-        sBuilderTypes.Append($"Characters: {deck.NumberOfCardsTypes(CardTypeList.CHARACTER)}").Append(" | ");
-        sBuilderTypes.Append($"Stage: {deck.NumberOfCardsTypes(CardTypeList.STAGE)}").Append(" | ");
-        sBuilderTypes.Append($"Event: {deck.NumberOfCardsTypes(CardTypeList.EVENT)}");
+        sBuilderTypes.Append($"{Tr("DECKBUILDER_LEADER")}{deck.NumberOfCardsTypes(CardTypeList.LEADER)}").Append(" | ");
+        sBuilderTypes.Append($"{Tr("DECKBUILDER_CHARACTERS")}{deck.NumberOfCardsTypes(CardTypeList.CHARACTER)}").Append(" | ");
+        sBuilderTypes.Append($"{Tr("DECKBUILDER_EVENT")}{deck.NumberOfCardsTypes(CardTypeList.STAGE)}").Append(" | ");
+        sBuilderTypes.Append($"{Tr("DECKBUILDER_STAGE")}{deck.NumberOfCardsTypes(CardTypeList.EVENT)}");
         CardsTypes.Text = sBuilderTypes.ToString();
     }
 
@@ -315,32 +315,32 @@ public partial class DeckContainer : VBoxContainer
                     switch (error)
                     {
                         case ErrorAddCard.NullObject:
-                            ChangeInfoMessage($"An error occurred, objets are null.", "red");
+                            ChangeInfoMessage(Tr("DECKBUILDER_ADD_ERROR_NULL"), "red");
                             break;
                         case ErrorAddCard.LeaderAlreadyExist:
-                            ChangeInfoMessage($"This card cannot be added because a leader already exists.", "red");
+                            ChangeInfoMessage(Tr("DECKBUILDER_ADD_ERROR_LEADER_EXIST"), "red");
                             break;
                         case ErrorAddCard.DeckFull:
-                            ChangeInfoMessage($"This card cannot be added because the deck is full.", "red");
+                            ChangeInfoMessage(Tr("DECKBUILDER_ADD_ERROR_DECK_FULL"), "red");
                             break;
                         case ErrorAddCard.CardMaxAmount:
-                            ChangeInfoMessage($"This card cannot be added because the max amount for this card is reached.", "red");
+                            ChangeInfoMessage(Tr("DECKBUILDER_ADD_ERROR_MAX_CARD"), "red");
                             break;
                         default:
-                            ChangeInfoMessage($"An error occurred, error {error} not supported", "red");
+                            ChangeInfoMessage(string.Format(Tr("DECKBUILDER_ADD_ERROR_UNKNOWN"), error), "red");
                             break;
                     }
                 }
             }
             else
             {
-                ChangeInfoMessage($"No deck selected, unable to add this card. Please select one from the list below.", "red");
+                ChangeInfoMessage(Tr("DECKBUILDER_ADD_FAILED_SELECTED"), "red");
             }
         }
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeInfoMessage($"An error occured, unable to add this card because {ex.Message}.", "red");
+            ChangeInfoMessage(string.Format(Tr("﻿DECKBUILDER_ADD_FAILED_EX"), ex.Message), "red");
         }
     }
 
@@ -360,13 +360,13 @@ public partial class DeckContainer : VBoxContainer
             }
             else
             {
-                ChangeInfoMessage($"No deck selected, unable to remove this card. Please select one from the list below.", "red");
+                ChangeInfoMessage(Tr("DECKBUILDER_REMOVE_FAILED_SELECTED"), "red");
             }
         }
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeInfoMessage($"An error occured, unable to remove this card because {ex.Message}.", "red");
+            ChangeInfoMessage(string.Format(Tr("﻿DECKBUILDER_REMOVE_FAILED_EX"), ex.Message), "red");
         }
     }
 
@@ -428,7 +428,7 @@ public partial class DeckContainer : VBoxContainer
             if (parent == null)
             {
                 Log.Error("DeckBuilder not found, can't close pane.");
-                ChangeInfoMessage($"Failed to close the deck builder.", "red");
+                ChangeInfoMessage(Tr($"DECKBUILDER_QUIT_FAILED_PARENT"), "red");
             } else
             {
                 parent?.QueueFree();
@@ -438,7 +438,7 @@ public partial class DeckContainer : VBoxContainer
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeInfoMessage($"An error occured, {ex.Message}.", "red");
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 
@@ -451,7 +451,7 @@ public partial class DeckContainer : VBoxContainer
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeInfoMessage($"An error occured, {ex.Message}.", "red");
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 
@@ -464,7 +464,7 @@ public partial class DeckContainer : VBoxContainer
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
-            ChangeInfoMessage($"An error occured, {ex.Message}.", "red");
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 

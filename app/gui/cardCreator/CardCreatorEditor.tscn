@@ -52,21 +52,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Quitter"
-
-[node name="Reset" type="Button" parent="Viewer/PanelContainer/CardEditor/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
-text = "Reset"
-
-[node name="ExportDeck" type="Button" parent="Viewer/PanelContainer/CardEditor/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
-text = "Export"
+text = "CARDCREATOR_QUIT"
 
 [node name="HSeparator" type="HSeparator" parent="Viewer/PanelContainer/CardEditor"]
 layout_mode = 2
@@ -144,7 +130,7 @@ layout_mode = 2
 
 [node name="Card Import" type="Label" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardImageContainer"]
 layout_mode = 2
-text = "Import File"
+text = "CARDCREATOR_IMPORTFILE"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardImageContainer"]
@@ -169,7 +155,7 @@ caret_blink_interval = 0.5
 
 [node name="ExploreFile" type="Button" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardImageContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "EXPLORE_FILE"
+text = "CARDCREATOR_EXPLORE"
 
 [node name="HSeparator" type="HSeparator" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardImageContainer"]
 layout_mode = 2
@@ -179,7 +165,7 @@ layout_mode = 2
 
 [node name="Card Info" type="Label" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer"]
 layout_mode = 2
-text = "Card Info"
+text = "CARDCREATOR_CARDINFO"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer"]
@@ -199,7 +185,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-placeholder_text = "Kakumi"
+placeholder_text = "CARDCREATOR_TITLE"
 caret_blink = true
 caret_blink_interval = 0.5
 
@@ -215,7 +201,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-placeholder_text = "Whitebeard Pirates"
+placeholder_text = "CARDCREATOR_TYPE"
 caret_blink = true
 caret_blink_interval = 0.5
 
@@ -231,7 +217,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-placeholder_text = "OP01-001"
+placeholder_text = "CARDCREATOR_NUMBER"
 caret_blink = true
 caret_blink_interval = 0.5
 
@@ -240,78 +226,57 @@ layout_mode = 2
 value = 11.0
 suffix = "px"
 
-[node name="HSeparator" type="HSeparator" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="CardDetailsContainer" type="VBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Card Details" type="Label" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer"]
-layout_mode = 2
-text = "Card Details"
-horizontal_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_right = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="CostText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="CostText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 max_value = 10.0
-prefix = "Cost :"
+prefix = "CARDCREATOR_COST"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="CounterText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="CounterText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 max_value = 5000.0
 step = 1000.0
-prefix = "Counter :"
+prefix = "CARDCREATOR_COUNTER"
 
-[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 value = 21.0
 suffix = "px"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PowerText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
+[node name="PowerText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 max_value = 20000.0
 step = 500.0
-prefix = "Power :"
+prefix = "CARDCREATOR_POWER"
 
-[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
+[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
 value = 42.0
 suffix = "px"
 
-[node name="AttributeOptions" type="OptionButton" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer"]
+[node name="AttributeOptions" type="OptionButton" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 clip_text = true
 
-[node name="RarityOptions" type="OptionButton" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer"]
+[node name="RarityOptions" type="OptionButton" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 clip_text = true
 
-[node name="HSeparator" type="HSeparator" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer"]
+[node name="HSeparator" type="HSeparator" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer"]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer"]
@@ -321,18 +286,16 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Reset"
+text = "CARDCREATOR_RESET"
 
 [node name="ExportDeck" type="Button" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Export"
+text = "CARDCREATOR_SAVE"
 
 [connection signal="file_selected" from="FileDialog" to="." method="OnFileSelected"]
 [connection signal="pressed" from="Viewer/PanelContainer/CardEditor/HBoxContainer/Quit" to="." method="OnQuitPressed"]
-[connection signal="pressed" from="Viewer/PanelContainer/CardEditor/HBoxContainer/Reset" to="." method="OnResetPressed"]
-[connection signal="pressed" from="Viewer/PanelContainer/CardEditor/HBoxContainer/ExportDeck" to="." method="OnExportPressed"]
 [connection signal="pressed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardImageContainer/MarginContainer/VBoxContainer/HBoxContainer/ExploreFile" to="." method="OnExploreFilePressed"]
 [connection signal="pressed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Reset" to="." method="OnResetPressed"]
 [connection signal="pressed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/ExportDeck" to="." method="OnExportPressed"]

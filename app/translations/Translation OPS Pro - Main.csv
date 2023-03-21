@@ -1,5 +1,6 @@
 keys,en,fr
 MENU_BUTTON_DECK_BUILDER,Deck Builder,Constructeur de Deck
+MENU_BUTTON_CARD_CREATOR,Card Creator,Créateur de carte
 MENU_BUTTON_SETTINGS,Settings,Paramètres
 MENU_BUTTON_QUIT,Quit,Quitter
 SETTINGS_THEME,Theme:,Thème :
@@ -14,3 +15,92 @@ SETTINGS_TAB_AUDIO,Audio,Audio
 SETTINGS_TAB_INTERFACE,Interface,Interface
 SETTINGS_QUIT,Close,Fermer
 SETTINGS_SAVE,Save,Sauvegarder
+DECKBUILDER_QUIT,Quit,Quitter
+DECKBUILDER_HANDTESTER,Hand tester,Testeur de main
+DECKBUILDER_EXPORT,Export,Export
+DECKBUILDER_SAVE,Save,Sauvegarder
+DECKBUILDER_CREATE,Create,Créer
+DECKBUILDER_DELETE,Delete,Supprimer
+DECKBUILDER_CLEAR,Clear,Vider
+DECKBUILDER_DUPLICATE,Duplicate,Dupliquer
+DECKBUILDER_DECKNAME,Deck name...,Nom du deck...
+SEARCH_TEXT,Text,Texte
+SEARCH_COST,Cost:,Coût :
+SEARCH_COUNTER,Counter:,Counter :
+SEARCH_POWER,Power:,Power :
+SEARCH_RESET,Reset,Réinitialiser
+SEARCH_SEARCH,Search,Rechercher
+INFOTAB_INFORMATION,Information,Information
+INFOTAB_CHAT,Chat,Chat
+INFOTAB_LOGS,Logs,Logs
+CARDCREATOR_QUIT,Quit,Quitter
+CARDCREATOR_RESET,Reset,Réinitialiser
+CARDCREATOR_SAVE,Save,Enregistrer
+CARDCREATOR_IMPORTFILE,Import File,Importer un fichier
+CARDCREATOR_EXPLORE,Explore,Explorer
+CARDCREATOR_CARDINFO,Card Info,Information de la carte
+CARDCREATOR_TITLE,Kakumi,Kakumi
+CARDCREATOR_TYPE,Whitebeard Pirates,Whitebeard Pirates
+CARDCREATOR_NUMBER,OP01-001,OP01-001
+CARDCREATOR_COST,Cost:,Coût :
+CARDCREATOR_COUNTER,Counter:,Counter :
+CARDCREATOR_POWER,Power:,Power :
+INFOTAB_CARDINFO,"[color=yellow][{card_type}] {name} ({attribute})[/color]
+[color=yellow]{cost_text}: {cost} | Power: {power} | Color: {colors}
+[/color][color=yellow]Type: {types}[/color]
+[color=yellow]Set: {set} [/color]","[color=yellow][{card_type}] {name} ({attribute})[/color]
+[color=yellow]{cost_text}: {cost} | Puissance: {power} | Couleur: {colors}
+[/color][color=yellow]Type: {types}[/color]
+[color=yellow]Set: {set} [/color]"
+CARDINFO_COST,Cost,Coût 
+CARDINFO_LIFE,Life,Vie
+CARDCREATOR_SAVE_ERROR_FILENAME,Name is invalid because it contains unsupported characters for a filename ({0}).,Le nom n'est pas valide car il contient des caractères non pris en charge pour un nom de fichier ({0}).
+CARDCREATOR_COLOR,Card color,Couleur de la carte
+CARDCREATOR_RARITY,Card rarity,Rareté de la carte
+CARDCREATOR_ATTRIBUTE,Card attribute,Attribut de la carte
+CARDCREATOR_QUIT_FAIL_PARENT,Failed to close the deck builder.,Impossible de fermer le créateur de deck.
+CARDCREATOR_TYPE,Card type,Type de carte
+DECKBUILDER_DECKS,Decks,Decks
+DECKBUILDER_STATUS,Status:,Statut: 
+DECKBUILDER_STATUS_VALID,Valid,Valide
+DECKBUILDER_STATUS_INVALID,Invalid,Invalide
+DECKBUILDER_CARDS,Cards:,Cartes :
+DECKBUILDER_LEADER,Leader:,Leader :
+DECKBUILDER_CHARACTERS,Characters:,Personnages :
+DECKBUILDER_EVENT,Event:,Événement :
+DECKBUILDER_STAGE,Stage:,Terrain :
+DECKBUILDER_SAVED,Deck {0} has been saved.,Le deck {0} a été sauvegardé.
+DECKBUILDER_SAVED_FAILED_SELECTED,"No deck selected, unable to save. Please select one from the list below.","Aucun deck sélectionné, impossible de sauvegarder. Veuillez sélectionner un deck dans la liste ci-dessous."
+DECKBUILDER_SAVED_FAILED_EX,"An error occured, unable to save this deck because {0}.","Une erreur est survenue, impossible de sauvegarder ce deck car {0}."
+DECKBUILDER_CREATED,Deck {0} has been created.,Deck {0} créé avec succès.
+DECKBUILDER_CREATED_FAILED_EX,"An error occured, unable to create this deck because {0}.","Une erreur est survenue, impossible de créer ce deck car {0}."
+DECKBUILDER_DELETED_FAILED_EX,"An error occured, unable to delete this deck because {0}.","Une erreur est survenue, impossible de supprimer ce deck car {0}."
+DECKBUILDER_CLEARED_FAILED_EX,"An error occured, unable to clear this deck because {0}.","Une erreur est survenue, impossible de vider ce deck car {0}."
+DECKBUILDER_DUPLICATED_FAILED_EX,"An error occured, unable to duplicate this deck because {0}.","Une erreur est survenue, impossible de dupliquer ce deck car {0}."
+DECKBUILDER_DELETED,Deck {0} has been deleted.,Deck {0} supprimé avec succès.
+DECKBUILDER_DELETE_FAILED_SELECTED,"No deck selected, unable to delete. Please select one from the list below","Aucun deck sélectionné, impossible de supprimer. Veuillez sélectionner un deck dans la liste ci-dessous."
+DECKBUILDER_DUPLICATED,Deck {0} has been created.,Deck {0} créé avec succès.
+DECKBUILDER_DUPLICATED_FAILED_SELECTED,"No deck selected, unable to duplicate. Please select one from the list below.","Aucun deck sélectionné, impossible de dupliquer. Veuillez sélectionner un deck dans la liste ci-dessous."
+DECKBUILDER_ADD_ERROR_NULL,An error occurred (null).,Une erreur est survenue (null).
+DECKBUILDER_ADD_ERROR_LEADER_EXIST,This card cannot be added because a leader already exists.,Cette carte ne peut pas être ajoutée car un leader est déjà présent dans le deck.
+DECKBUILDER_ADD_ERROR_DECK_FULL,This card cannot be added because the deck is full.,Cette carte ne peut pas être ajoutée car le deck est complet.
+DECKBUILDER_ADD_ERROR_MAX_CARD,This card cannot be added because the max amount for this card is reached.,Cette carte ne peut pas être ajoutée car le nombre de carte maximum pour cette carte a été atteinte.
+DECKBUILDER_ADD_ERROR_UNKNOWN,"An error occurred, error {0} not supported.","Une erreur est survenue, erreur {0} non supportée."
+DECKBUILDER_ADD_FAILED_SELECTED,"No deck selected, unable to add this card. Please select one from the list below.","Aucun deck sélectionné, impossible d'ajouter la carte. Veuillez sélectionner un deck dans la liste ci-dessous."
+DECKBUILDER_ADD_FAILED_EX,"An error occured, unable to add this card because {0}.","Une erreur est survenue, impossible d'ajouter la carte car {0}."
+DECKBUILDER_REMOVE_FAILED_SELECTED,"No deck selected, unable to remove this card. Please select one from the list below.","Aucun deck sélectionné, impossible de supprimer la carte. Veuillez sélectionner un deck dans la liste ci-dessous."
+DECKBUILDER_REMOVE_FAILED_EX,"An error occured, unable to remove this card because {0}.","Une erreur est survenue, impossible de retirer la carte car {0}."
+DECKBUILDER_QUIT_FAILED_PARENT,Failed to close the deck builder.,Impossible de fermer le constructeur de deck.
+GENERAL_ERROR_OCCURED,"An error occured, {0}.","Une erreur est survenue, {0}."
+SEARCH_ALL,All,Tout
+SEARCH_RESULTS,Results: {0},Résultats: {0}
+SEARCH_COLOR,Color,Couleur
+SEARCH_SET,Set,Set
+SEARCH_TYPE,Type,Type
+SEARCH_CARDTYPE,Card Type,Type de carte
+AUTOLOAD_CARDS_LOAD_TITLE,Getting cards,Récupération des cartes
+AUTOLOAD_CARDS_LOAD_MESSAGE,Please wait while cards are being fetched from the server...,Veuillez patienter pendant que les cartes sont téléchargées du serveur...
+AUTOLOAD_CARDS_LOAD_FAILED,Fail to fetch cards from the API. Please close the application and try again.,Échec de la récupération des cartes à partir de l'API. Veuillez fermer l'application et réessayer.
+AUTOLOAD_CARDS_LOAD_FAILED_DESERIALIZE,Fail to deserialize cards from the API. Please close the application and try again.,Échec de la désérialisation des cartes à partir de l'API. Veuillez fermer l'application et réessayer.
+DECKMANAGER_ERROR_EXIST,A deck already exists for name {0}.,Un deck existe déjà pour le nom {0}.
+DECKMANAGER_ERROR_FILENAME,Name is invalid because it contains unsupported characters for a filename ({0}).,Le nom n'est pas valide car il contient des caractères non pris en charge pour un nom de fichier ({0}).

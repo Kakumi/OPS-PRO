@@ -74,7 +74,7 @@ public partial class DeckManager : Node
         var filename = GetDeckFilename(deck);
         if (File.Exists(filename))
         {
-            throw new Exception($"A deck already exists for name {filename}.");
+            throw new Exception(string.Format(Tr("DECKMANAGER_ERROR_EXIST"), filename));
         }
 
         Save(deck);
@@ -90,7 +90,7 @@ public partial class DeckManager : Node
             var isNewNameValid = newName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
             if (!isNewNameValid)
             {
-                throw new Exception($"Name is invalid because it contains unsupported characters for a filename ({newName}).");
+                throw new Exception(string.Format(Tr("DECKMANAGER_ERROR_FILENAME"), newName));
             }
 
             File.Delete(oldFilename);
@@ -100,7 +100,7 @@ public partial class DeckManager : Node
         var isNameValid = !string.IsNullOrEmpty(deck.Name) && deck.Name.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
         if (!isNameValid)
         {
-            throw new Exception($"Name is invalid because it contains unsupported characters for a filename ({deck.Name}).");
+            throw new Exception(string.Format(Tr("DECKMANAGER_ERROR_FILENAME"), deck.Name));
         }
 
         var filename = GetDeckFilename(deck);

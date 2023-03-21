@@ -32,9 +32,9 @@ public partial class SearchContainer : VBoxContainer
     public override void _Ready()
     {
         SearchText = GetNode<LineEdit>("SearchPanelContainer/SearchContainer/Column2/SearchText");
-        CostText = GetNode<SpinBox>("SearchPanelContainer/SearchContainer/Column2/HBoxContainer3/CostText");
-        CounterText = GetNode<SpinBox>("SearchPanelContainer/SearchContainer/Column2/HBoxContainer4/CounterText");
-        PowerText = GetNode<SpinBox>("SearchPanelContainer/SearchContainer/Column2/HBoxContainer5/PowerText");
+        CostText = GetNode<SpinBox>("SearchPanelContainer/SearchContainer/Column2/CostText");
+        CounterText = GetNode<SpinBox>("SearchPanelContainer/SearchContainer/Column2/CounterText");
+        PowerText = GetNode<SpinBox>("SearchPanelContainer/SearchContainer/Column2/PowerText");
 
         ColorOptions = GetNode<OptionButton>("SearchPanelContainer/SearchContainer/Column1/ColorOptions");
         SetOptions = GetNode<OptionButton>("SearchPanelContainer/SearchContainer/Column1/SetOptions");
@@ -44,17 +44,21 @@ public partial class SearchContainer : VBoxContainer
         SearchCardNumberResult = GetNode<Label>("VBoxContainer/SearchResultPanelContainer/MarginContainer/DeckInfo/SearchCardNumberResult");
         Cards = GetNode<VBoxContainer>("VBoxContainer/PanelContainer/MarginContainer/SearchResultCardsContainer/Cards");
 
-        ColorOptions.AddItem("All");
-        SetOptions.AddItem("All");
-        TypeOptions.AddItem("All");
-        CardTypeOptions.AddItem("All");
+        CostText.Prefix = Tr(CostText.Prefix);
+        CounterText.Prefix = Tr(CounterText.Prefix);
+        PowerText.Prefix = Tr(PowerText.Prefix);
+
+        ColorOptions.AddItem(Tr("SEARCH_ALL"));
+        SetOptions.AddItem(Tr("SEARCH_ALL"));
+        TypeOptions.AddItem(Tr("SEARCH_ALL"));
+        CardTypeOptions.AddItem(Tr("SEARCH_ALL"));
 
         CardManager.Instance.GetColors().ForEach(x => ColorOptions.AddItem(x));
         CardManager.Instance.GetSets().ForEach(x => SetOptions.AddItem(x));
         CardManager.Instance.GetTypes().ForEach(x => TypeOptions.AddItem(x));
         CardManager.Instance.GetCardTypes().ForEach(x => CardTypeOptions.AddItem(x));
 
-        SearchCardNumberResult.Text = "Results: 0";
+        SearchCardNumberResult.Text = string.Format(Tr("SEARCH_RESULTS"), 0);
     }
 
     public void OnSearchButtonPressed()
@@ -71,7 +75,7 @@ public partial class SearchContainer : VBoxContainer
             var seletecCardType = CardTypeOptions.Selected <= 0 ? null : CardTypeOptions.GetItemText(CardTypeOptions.Selected);
 
             var cards = CardManager.Instance.Search(SearchText.Text, CostText.Value, CounterText.Value, PowerText.Value, selectedColor, selectedSet, selectedType, seletecCardType);
-            SearchCardNumberResult.Text = $"Results: {cards.Count}";
+            SearchCardNumberResult.Text = string.Format(Tr("SEARCH_RESULTS"), cards.Count);
             cards.ForEach(card =>
             {
                 var cardInstance = CardInfoScene.Instantiate<SearchCardItem>();
@@ -116,12 +120,12 @@ public partial class SearchContainer : VBoxContainer
         TypeOptions.Selected = -1;
         CardTypeOptions.Selected = -1;
 
-        ColorOptions.Text = "Color";
-        SetOptions.Text = "Set";
-        TypeOptions.Text = "Type";
-        CardTypeOptions.Text = "Card Type";
+        ColorOptions.Text = Tr("SEARCH_COLOR");
+        SetOptions.Text = Tr("SEARCH_SET");
+        TypeOptions.Text = Tr("SEARCH_TYPE");
+        CardTypeOptions.Text = Tr("SEARCH_CARDTYPE");
 
-        SearchCardNumberResult.Text = "Results: 0";
+        SearchCardNumberResult.Text = string.Format(Tr("SEARCH_RESULTS"), 0); ;
 
         Cards.GetChildren().ToList().ForEach(x => x.QueueFree());
     }

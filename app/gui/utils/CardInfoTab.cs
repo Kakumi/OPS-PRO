@@ -18,16 +18,17 @@ public partial class CardInfoTab : TabInfo
 
 	public void ShowcardResource(CardResource cardResource)
 	{
-		string info = "[color=yellow][{card_type}] {name} ({attribute})[/color]" +
-			"\n[color=yellow]{cost_text}: {cost} | Power: {power} | Color: {colors}" +
-			"\n[/color][color=yellow]Type: {types}[/color]" +
-			"\n[color=yellow]Set: {set} [/color]";
+		string info = Tr("INFOTAB_CARDINFO");  
+		//"[color=yellow][{card_type}] {name} ({attribute})[/color]" +
+		//	"\n[color=yellow]{cost_text}: {cost} | Power: {power} | Color: {colors}" +
+		//	"\n[/color][color=yellow]Type: {types}[/color]" +
+		//	"\n[color=yellow]Set: {set} [/color]";
 
 		Dictionary<string, string> dic = new Dictionary<string, string>();
 		dic.Add("{card_type}", cardResource.CardType);
 		dic.Add("{name}", cardResource.Name);
 		dic.Add("{attribute}", cardResource.Attribute);
-		dic.Add("{cost_text}", cardResource.CardType == "LEADER" ? "Life" : "Cost");
+		dic.Add("{cost_text}", cardResource.CardType == "LEADER" ? Tr("CARDINFO_LIFE") : Tr("CARDINFO_COST"));
 		dic.Add("{cost}", cardResource.Cost + "");
 		dic.Add("{power}", cardResource.Power + "");
 		dic.Add("{colors}", string.Join("/", cardResource.Colors));

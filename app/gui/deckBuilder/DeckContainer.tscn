@@ -27,19 +27,19 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Quitter"
+text = "DECKBUILDER_QUIT"
 
 [node name="HandTester" type="Button" parent="PanelContainer/DeckManagerContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Hand Tester"
+text = "DECKBUILDER_HANDTESTER"
 
 [node name="ExportDeck" type="Button" parent="PanelContainer/DeckManagerContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Export"
+text = "DECKBUILDER_EXPORT"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/DeckManagerContainer"]
 layout_mode = 2
@@ -70,27 +70,27 @@ layout_mode = 2
 [node name="Save" type="Button" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Save"
+text = "DECKBUILDER_SAVE"
 
 [node name="Create" type="Button" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Create"
+text = "DECKBUILDER_CREATE"
 
 [node name="Delete" type="Button" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Delete"
+text = "DECKBUILDER_DELETE"
 
 [node name="Clear" type="Button" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Clear"
+text = "DECKBUILDER_CLEAR"
 
 [node name="Duplicate" type="Button" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Dupliquer"
+text = "DECKBUILDER_DUPLICATE"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/DeckManagerContainer/VBoxContainer2"]
 layout_mode = 2
@@ -102,7 +102,7 @@ size_flags_horizontal = 3
 [node name="DeckName" type="LineEdit" parent="PanelContainer/DeckManagerContainer/VBoxContainer2/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Deck name..."
+placeholder_text = "DECKBUILDER_DECKNAME"
 
 [node name="DeckContainer" type="VBoxContainer" parent="."]
 layout_mode = 2

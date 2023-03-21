@@ -12,12 +12,10 @@ public partial class DraggableWindow : Container
 
     public void OnGuiInput(InputEvent inputEvent)
     {
-        GD.Print("test");
         if (inputEvent is InputEventMouseButton)
         {
             if (inputEvent.IsPressed())
             {
-                GD.Print("set drag");
                 _dragPosition = GetGlobalMousePosition() - GlobalPosition;
             } else
             {
@@ -25,7 +23,6 @@ public partial class DraggableWindow : Container
             }
         } else if (inputEvent is InputEventMouseMotion && _dragPosition != Vector2.Zero)
         {
-            GD.Print("remove drag");
             GlobalPosition = GetGlobalMousePosition() - _dragPosition;
         }
     }

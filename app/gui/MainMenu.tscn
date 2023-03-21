@@ -11,6 +11,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -54,12 +56,13 @@ text = "MENU_BUTTON_QUIT"
 
 [node name="Settings" parent="." instance=ExtResource("3")]
 visible = false
-layout_mode = 0
-anchors_preset = 0
+layout_mode = 1
 offset_left = -553.0
 offset_top = -291.0
 offset_right = 553.0
 offset_bottom = 291.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Settings" to="." method="OnSettingsPressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Quit" to="." method="OnQuitPressed"]

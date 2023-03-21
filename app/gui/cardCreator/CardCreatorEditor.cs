@@ -55,20 +55,24 @@ public partial class CardCreatorEditor : Container
         EditTypes = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/EditTypes");
         EditNumber = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer3/EditNumber");
 
-        CostText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer3/CostText");
-        CounterText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer4/CounterText");
-        PowerText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer5/PowerText");
+        CostText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer4/CostText");
+        CounterText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer5/CounterText");
+        PowerText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer6/PowerText");
 
         CardNamePx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SpinBox");
         TypePx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/SpinBox");
         NumberPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer3/SpinBox");
-        CounterPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer4/SpinBox");
-        PowerPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/HBoxContainer5/SpinBox");
+        CounterPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer5/SpinBox");
+        PowerPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer6/SpinBox");
 
-        AttributeOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/AttributeOptions");
-        RarityOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardDetailsContainer/MarginContainer/VBoxContainer/RarityOptions");
+        AttributeOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/AttributeOptions");
+        RarityOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/RarityOptions");
 
         EditorContainer.Hide();
+
+        CostText.Prefix = Tr(CostText.Prefix);
+        CounterText.Prefix = Tr(CounterText.Prefix);
+        PowerText.Prefix = Tr(PowerText.Prefix);
 
         var screenSize = GetWindow().Size / 2;
         var popupSize = FileDialog.GetWindow().Size / 2;
@@ -168,7 +172,7 @@ public partial class CardCreatorEditor : Container
         }
 
         CardTypeOptions.Selected = -1;
-        CardTypeOptions.Name = "Card type";
+        CardTypeOptions.Name =  Tr("CARDCREATOR_TYPE");
 
         RemoveCurrentTemplate();
         EditorContainer.Hide();
@@ -260,7 +264,7 @@ public partial class CardCreatorEditor : Container
                 var isNewNameValid = name.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
                 if (!isNewNameValid)
                 {
-                    throw new Exception($"Name is invalid because it contains unsupported characters for a filename ({name}).");
+                    throw new Exception(string.Format(Tr("CARDCREATOR_SAVE_ERROR_FILENAME"), name));
                 }
 
                 GetViewport().GetTexture().GetImage().GetRegion((Rect2I)CardTemplate.GetGlobalRect()).SavePng(Path.Combine(CardFolder, name));
@@ -288,7 +292,7 @@ public partial class CardCreatorEditor : Container
                 ColorOptions.AddItem(color.Name);
             }
             ColorOptions.Selected = -1;
-            ColorOptions.Text = "Card color";
+            ColorOptions.Text = Tr("CARDCREATOR_COLOR");
 
             CardTypeOptions.Clear();
 
@@ -298,7 +302,7 @@ public partial class CardCreatorEditor : Container
                 RarityOptions.AddItem(color.Key);
             }
             RarityOptions.Selected = -1;
-            RarityOptions.Text = "Card rarity";
+            RarityOptions.Text = Tr("CARDCREATOR_RARITY");
 
             AttributeOptions.Clear();
             foreach (var color in CardCreatorSettings.Attributes)
@@ -306,7 +310,7 @@ public partial class CardCreatorEditor : Container
                 AttributeOptions.AddItem(color.Name);
             }
             AttributeOptions.Selected = -1;
-            AttributeOptions.Text = "Card attribute";
+            AttributeOptions.Text = Tr("CARDCREATOR_ATTRIBUTE");
 
             EditCardName.Text = null;
             CardNamePx.Value = 31;
@@ -334,6 +338,7 @@ public partial class CardCreatorEditor : Container
             if (parent == null)
             {
                 Log.Error("CardCreator not found, can't close pane.");
+                //ChangeInfoMessage(Tr($"CARDCREATOR_QUIT_FAIL_PARENT"), "red");
             }
             else
             {

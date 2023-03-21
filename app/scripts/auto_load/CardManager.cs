@@ -52,7 +52,7 @@ public partial class CardManager : Node
         {
             if (_popup == null)
             {
-                _popup = PopupManager.Instance.CreatePopup("Getting cards", "Please wait while cards are being fetched from the server...");
+                _popup = PopupManager.Instance.CreatePopup(Tr("AUTOLOAD_CARDS_LOAD_TITLE"), Tr("AUTOLOAD_CARDS_LOAD_MESSAGE"));
             }
 
             _popup.PopupCentered();
@@ -66,7 +66,7 @@ public partial class CardManager : Node
         {
             if (_popup != null)
             {
-                _popup.Message = $"Fail to fetch cards from the API. Please close the application and try again.";
+                _popup.Message = Tr($"AUTOLOAD_CARDS_LOAD_FAILED");
             }
 
             Log.Error(ex, $"Failed to fetch cards from the API because {ex.Message}");
@@ -90,7 +90,7 @@ public partial class CardManager : Node
         {
             if (_popup != null)
             {
-                _popup.Message = $"Fail to deserialize cards from the API. Please close the application and try again.";
+                _popup.Message = Tr("AUTOLOAD_CARDS_LOAD_FAILED_DESERIALIZE");
             }
 
             Log.Error(ex, $"Failed to deserialize cards from the API because {ex.Message}");
