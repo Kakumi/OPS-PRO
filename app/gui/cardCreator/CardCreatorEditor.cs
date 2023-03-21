@@ -172,7 +172,7 @@ public partial class CardCreatorEditor : Container
         }
 
         CardTypeOptions.Selected = -1;
-        CardTypeOptions.Name =  Tr("CARDCREATOR_TYPE");
+        CardTypeOptions.Text = Tr("CARDCREATOR_TYPE");
 
         RemoveCurrentTemplate();
         EditorContainer.Hide();

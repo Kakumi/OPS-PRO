@@ -48,17 +48,12 @@ public partial class SearchContainer : VBoxContainer
         CounterText.Prefix = Tr(CounterText.Prefix);
         PowerText.Prefix = Tr(PowerText.Prefix);
 
-        ColorOptions.AddItem(Tr("SEARCH_ALL"));
-        SetOptions.AddItem(Tr("SEARCH_ALL"));
-        TypeOptions.AddItem(Tr("SEARCH_ALL"));
-        CardTypeOptions.AddItem(Tr("SEARCH_ALL"));
-
         CardManager.Instance.GetColors().ForEach(x => ColorOptions.AddItem(x));
         CardManager.Instance.GetSets().ForEach(x => SetOptions.AddItem(x));
         CardManager.Instance.GetTypes().ForEach(x => TypeOptions.AddItem(x));
         CardManager.Instance.GetCardTypes().ForEach(x => CardTypeOptions.AddItem(x));
 
-        SearchCardNumberResult.Text = string.Format(Tr("SEARCH_RESULTS"), 0);
+        OnResetButtonPressed();
     }
 
     public void OnSearchButtonPressed()
@@ -69,10 +64,10 @@ public partial class SearchContainer : VBoxContainer
 
             Cards.GetChildren().ToList().ForEach(x => x.QueueFree());
 
-            var selectedColor = ColorOptions.Selected <= 0 ? null : ColorOptions.GetItemText(ColorOptions.Selected);
-            var selectedSet = SetOptions.Selected <= 0 ? null : SetOptions.GetItemText(SetOptions.Selected);
-            var selectedType = TypeOptions.Selected <= 0 ? null : TypeOptions.GetItemText(TypeOptions.Selected);
-            var seletecCardType = CardTypeOptions.Selected <= 0 ? null : CardTypeOptions.GetItemText(CardTypeOptions.Selected);
+            var selectedColor = ColorOptions.Selected < 0 ? null : ColorOptions.GetItemText(ColorOptions.Selected);
+            var selectedSet = SetOptions.Selected < 0 ? null : SetOptions.GetItemText(SetOptions.Selected);
+            var selectedType = TypeOptions.Selected < 0 ? null : TypeOptions.GetItemText(TypeOptions.Selected);
+            var seletecCardType = CardTypeOptions.Selected < 0 ? null : CardTypeOptions.GetItemText(CardTypeOptions.Selected);
 
             var cards = CardManager.Instance.Search(SearchText.Text, CostText.Value, CounterText.Value, PowerText.Value, selectedColor, selectedSet, selectedType, seletecCardType);
             SearchCardNumberResult.Text = string.Format(Tr("SEARCH_RESULTS"), cards.Count);
