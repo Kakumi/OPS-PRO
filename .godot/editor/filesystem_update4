@@ -5,3 +5,4 @@ res://app/gui/cardCreator/CardCreatorEditor.tscn
 res://app/translations/Translation OPS Pro - Main.en.translation
 res://app/translations/Translation OPS Pro - Main.fr.translation
 res://app/gui/MainMenu.tscn
+res://app/AppInstance.tscn

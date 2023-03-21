@@ -1,3 +1,6 @@
+Node
+SubViewport
+Window
 HBoxContainer
 VBoxContainer
 MarginContainer
@@ -6,7 +9,6 @@ Label
 HSeparator
 PanelContainer
 FileDialog
-Node
 CanvasLayer
 Button
 LinkButton
@@ -18,7 +20,6 @@ CenterContainer
 BoxContainer
 AspectRatioContainer
 SubViewportContainer
-SubViewport
 Control
 Container
 OptionButton
