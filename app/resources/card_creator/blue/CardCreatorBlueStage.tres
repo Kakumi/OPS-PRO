@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://by5d157u04sg0"]
+
+[ext_resource type="Resource" uid="uid://l3hhb2j0tp58" path="res://app/resources/card_creator/card_settings/StageCardSettings.tres" id="1_sf3f3"]
+[ext_resource type="Texture2D" uid="uid://dgsycgmd183g8" path="res://app/resources/images/card_creator/Blue/Blue Stage.png" id="2_ts3fm"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="3_r23s5"]
+
+[resource]
+script = ExtResource("3_r23s5")
+Suffix = ""
+Settings = ExtResource("1_sf3f3")
+Texture = ExtResource("2_ts3fm")

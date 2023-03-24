@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bep1psxovddgi"]
+
+[ext_resource type="Script" path="res://app/resources/CardCreatorCostResource.cs" id="1_6fwj4"]
+[ext_resource type="Texture2D" uid="uid://clu0ay7r2iye" path="res://app/resources/images/card_creator/Cost/Life4.png" id="1_uud3q"]
+[ext_resource type="Texture2D" uid="uid://ci5ygjgec7fo0" path="res://app/resources/images/card_creator/Cost/Life5.png" id="2_krjr1"]
+[ext_resource type="Texture2D" uid="uid://yb67ms2wje6m" path="res://app/resources/images/card_creator/Cost/Life6.png" id="3_1gk2x"]
+
+[resource]
+script = ExtResource("1_6fwj4")
+MinCost = 4
+MaxCost = 6
+Textures = Array[Texture2D]([ExtResource("1_uud3q"), ExtResource("2_krjr1"), ExtResource("3_1gk2x")])

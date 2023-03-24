@@ -31,8 +31,13 @@ public partial class CardCreatorEditor : Container
     public SpinBox TypePx { get; private set; }
     public SpinBox PowerPx { get; private set; }
     public SpinBox CounterPx { get; private set; }
+    public ColorPickerButton ColorPicker { get; private set; }
+    public ColorPickerButton SecondaryColorPicker { get; private set; }
 
     public CardTemplate CardTemplate { get; private set; }
+
+    public CardCreatorColorResource SelectedColorResource { get; private set; }
+    public CardCreatorCardTypeResource SelectedCardType { get; private set; }
 
 
     public override void _Ready()
@@ -67,6 +72,9 @@ public partial class CardCreatorEditor : Container
 
         AttributeOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/AttributeOptions");
         RarityOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/RarityOptions");
+
+        ColorPicker = EditorContainer.GetNode<ColorPickerButton>("MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer/ColorPicker");
+        SecondaryColorPicker = EditorContainer.GetNode<ColorPickerButton>("MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer2/ColorPicker");
 
         EditorContainer.Hide();
 
@@ -128,9 +136,13 @@ public partial class CardCreatorEditor : Container
 
     private void CostChanged(double value)
     {
-        if (value < CardCreatorSettings.CostTextures.Count)
+        if (SelectedCardType != null)
         {
-            CardTemplate?.UpdateCardCost(CardCreatorSettings.CostTextures[(int)Math.Round(value)]);
+            var realValue = value - SelectedCardType.Settings.Costs.MinCost;
+            if (realValue < SelectedCardType.Settings.Costs.Textures.Count)
+            {
+                CardTemplate?.UpdateCardCost(SelectedCardType.Settings.Costs.Textures[(int)realValue]);
+            }
         }
     }
 
@@ -161,31 +173,36 @@ public partial class CardCreatorEditor : Container
 
     private void ColorOptions_ItemSelected(long index)
     {
-        CardTypeOptions.Clear();
-        var color = CardCreatorSettings.Colors.FirstOrDefault(x => x.Name == ColorOptions.GetItemText((int)index));
-        if (color != null)
+        if (index >= 0)
         {
-            foreach (var type in color.Types)
+            CardTypeOptions.Clear();
+            SelectedColorResource = CardCreatorSettings.Colors.FirstOrDefault(x => x.Name == ColorOptions.GetItemText((int)index));
+            if (SelectedColorResource != null)
             {
-                CardTypeOptions.AddItem(type.Name);
+                foreach (var type in SelectedColorResource.Types)
+                {
+                    CardTypeOptions.AddItem(type.GetFullName());
+                }
             }
+
+            CardTypeOptions.Selected = -1;
+            CardTypeOptions.Text = Tr("CARDCREATOR_TYPE");
+
+            RemoveCurrentTemplate();
+            EditorContainer.Hide();
         }
-
-        CardTypeOptions.Selected = -1;
-        CardTypeOptions.Text = Tr("CARDCREATOR_TYPE");
-
-        RemoveCurrentTemplate();
-        EditorContainer.Hide();
     }
 
     private void CardTypeOptions_ItemSelected(long index)
     {
-        var text = CardTypeOptions.GetItemText((int) index); 
-        var color = CardCreatorSettings.Colors.FirstOrDefault(x => x.Name == ColorOptions.GetItemText(ColorOptions.Selected));
-        if (color != null)
+        if (index >= 0 && SelectedColorResource != null)
         {
-            var type = color.Types.FirstOrDefault(x => x.Name == text);
-            UpdateTemplate(type);
+            var text = CardTypeOptions.GetItemText((int)index);
+            if (SelectedColorResource != null)
+            {
+                SelectedCardType = SelectedColorResource.Types.FirstOrDefault(x => x.GetFullName() == text);
+                UpdateTemplate(SelectedCardType);
+            }
         }
     }
 
@@ -199,22 +216,25 @@ public partial class CardCreatorEditor : Container
         if (type != null)
         {
             RemoveCurrentTemplate();
-            CardTemplate = type.Template.Instantiate<CardTemplate>();
+            CardTemplate = type.Settings.Template.Instantiate<CardTemplate>();
             ViewerContainer.AddChild(CardTemplate);
 
-            EditCardName.Visible = type.HasTitle;
-            CardNamePx.Visible = type.HasTitle;
-            EditTypes.Visible = type.HasType;
-            TypePx.Visible = type.HasType;
-            EditNumber.Visible = type.HasNumber;
-            NumberPx.Visible = type.HasNumber;
-            RarityOptions.Visible = type.HasRarity;
-            AttributeOptions.Visible = type.HasAttribute;
-            CostText.Visible = type.HasCost;
-            CounterText.Visible = type.HasCounter;
-            CounterPx.Visible = type.HasCounter;
-            PowerText.Visible = type.HasPower;
-            PowerPx.Visible = type.HasPower;
+            EditCardName.Visible = type.Settings.HasTitle;
+            CardNamePx.Visible = type.Settings.HasTitle;
+            EditTypes.Visible = type.Settings.HasType;
+            TypePx.Visible = type.Settings.HasType;
+            EditNumber.Visible = type.Settings.HasNumber;
+            NumberPx.Visible = type.Settings.HasNumber;
+            RarityOptions.Visible = type.Settings.HasRarity;
+            AttributeOptions.Visible = type.Settings.HasAttribute;
+            CostText.Visible = type.Settings.HasCost;
+            CostText.MinValue = type.Settings.Costs.MinCost;
+            CostText.Value = type.Settings.Costs.MinCost;
+            CostText.MaxValue = type.Settings.Costs.MaxCost;
+            CounterText.Visible = type.Settings.HasCounter;
+            CounterPx.Visible = type.Settings.HasCounter;
+            PowerText.Visible = type.Settings.HasPower;
+            PowerPx.Visible = type.Settings.HasPower;
 
             CardTemplate.Texture = type.Texture;
             CardNameChanged(EditCardName.Text);
@@ -230,6 +250,12 @@ public partial class CardCreatorEditor : Container
             CounterPxChanged(CounterPx.Value);
             PowerChanged(PowerText.Value);
             PowerPxChanged(PowerPx.Value);
+
+            ColorPicker.Color = type.TextColor;
+            OnColorPickerColorChanged(type.TextColor);
+
+            SecondaryColorPicker.Color = type.SecondaryTextColor;
+            OnColorPickerColorSecondaryChanged(type.SecondaryTextColor);
         }
 
         CardTemplate.Show();
@@ -238,19 +264,25 @@ public partial class CardCreatorEditor : Container
 
     private void RarityOptions_ItemSelected(long index)
     {
-        var rarity = CardCreatorSettings.Rarities.FirstOrDefault(x => x.Key == RarityOptions.GetItemText((int)index));
-        if (rarity.Value != null)
+        if (index >= 0)
         {
-            CardTemplate?.UpdateCardRarity(rarity.Value);
+            var rarity = CardCreatorSettings.Rarities.FirstOrDefault(x => x.Key == RarityOptions.GetItemText((int)index));
+            if (rarity.Value != null)
+            {
+                CardTemplate?.UpdateCardRarity(rarity.Value);
+            }
         }
     }
 
     private void AttributeOptions_ItemSelected(long index)
     {
-        var attribute = CardCreatorSettings.Attributes.FirstOrDefault(x => x.Name == AttributeOptions.GetItemText((int)index));
-        if (attribute != null)
+        if (index >= 0)
         {
-            CardTemplate?.UpdateCardAttribute(attribute.Texture);
+            var attribute = CardCreatorSettings.Attributes.FirstOrDefault(x => x.Name == AttributeOptions.GetItemText((int)index));
+            if (attribute != null)
+            {
+                CardTemplate?.UpdateCardAttribute(attribute.Texture);
+            }
         }
     }
 
@@ -367,5 +399,15 @@ public partial class CardCreatorEditor : Container
         {
             CustomBackground.Texture = ImageTexture.CreateFromImage(image);
         }
+    }
+
+    private void OnColorPickerColorChanged(Color color)
+    {
+        CardTemplate?.UpdateColor(color);
+    }
+
+    private void OnColorPickerColorSecondaryChanged(Color color)
+    {
+        CardTemplate?.UpdateSecondaryColor(color);
     }
 }

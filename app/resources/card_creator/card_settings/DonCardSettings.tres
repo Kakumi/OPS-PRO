@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ybujerstycm5"]
+
+[ext_resource type="PackedScene" uid="uid://cj013gx8y8oe0" path="res://app/gui/cardCreator/templates/DonCardTemplate.tscn" id="1_04ror"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeSettingsResource.cs" id="3_w6b4p"]
+
+[resource]
+script = ExtResource("3_w6b4p")
+Name = "Don"
+Template = ExtResource("1_04ror")
+HasTitle = false
+HasType = false
+HasNumber = false
+HasRarity = false
+HasAttribute = false
+HasCost = false
+HasCounter = false
+HasPower = false

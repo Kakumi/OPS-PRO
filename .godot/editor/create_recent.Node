@@ -1,11 +1,14 @@
+Label
+HBoxContainer
+ColorPickerButton
+ColorPicker
+TextureRect
 Node
 SubViewport
 Window
-HBoxContainer
 VBoxContainer
 MarginContainer
 ScrollContainer
-Label
 HSeparator
 PanelContainer
 FileDialog
@@ -13,7 +16,6 @@ CanvasLayer
 Button
 LinkButton
 LineEdit
-TextureRect
 SpinBox
 RichTextLabel
 CenterContainer

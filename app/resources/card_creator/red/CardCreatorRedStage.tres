@@ -1,19 +1,11 @@
 [gd_resource type="Resource" load_steps=4 format=3 uid="uid://dtebfsalanbsu"]
 
-[ext_resource type="Texture2D" uid="uid://bgir8a00ckes1" path="res://app/resources/images/card_creator/red/StageCard.png" id="1_7ko86"]
-[ext_resource type="PackedScene" uid="uid://bxomc0g5c3j8k" path="res://app/gui/cardCreator/templates/StageCardTemplate.tscn" id="1_m5ah5"]
+[ext_resource type="Resource" uid="uid://l3hhb2j0tp58" path="res://app/resources/card_creator/card_settings/StageCardSettings.tres" id="1_mhtw3"]
 [ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="2_5jgq2"]
+[ext_resource type="Texture2D" uid="uid://d0a522uxg846k" path="res://app/resources/images/card_creator/Red/Red Stage.png" id="2_wfrwp"]
 
 [resource]
 script = ExtResource("2_5jgq2")
-Name = "Stage"
-Texture = ExtResource("1_7ko86")
-Template = ExtResource("1_m5ah5")
-HasTitle = true
-HasType = true
-HasNumber = true
-HasRarity = true
-HasAttribute = false
-HasCost = true
-HasCounter = false
-HasPower = false
+Suffix = ""
+Settings = ExtResource("1_mhtw3")
+Texture = ExtResource("2_wfrwp")

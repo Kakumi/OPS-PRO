@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://w6ehx3g775wb"]
+
+[ext_resource type="Resource" uid="uid://ybujerstycm5" path="res://app/resources/card_creator/card_settings/DonCardSettings.tres" id="1_peb2w"]
+[ext_resource type="Texture2D" uid="uid://bxdtka0iprnpx" path="res://app/resources/images/card_creator/Others/Card DON Empty.png" id="2_3vltq"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="3_3f0m8"]
+
+[resource]
+script = ExtResource("3_3f0m8")
+Suffix = "Empty"
+Settings = ExtResource("1_peb2w")
+Texture = ExtResource("2_3vltq")

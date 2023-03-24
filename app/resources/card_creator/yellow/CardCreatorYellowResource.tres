@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://lv5pvrs82utq"]
+
+[ext_resource type="Resource" uid="uid://ca7hx7o04a7qs" path="res://app/resources/card_creator/yellow/CardCreatorYellowLeader.tres" id="1_ugadu"]
+[ext_resource type="Resource" uid="uid://5i6s5yaakk73" path="res://app/resources/card_creator/yellow/CardCreatorYellowCharacter.tres" id="2_8dhn1"]
+[ext_resource type="Resource" uid="uid://bfu0avy27tnjn" path="res://app/resources/card_creator/yellow/CardCreatorYellowCharacterFullart.tres" id="3_bg8ik"]
+[ext_resource type="Resource" uid="uid://e4doteevyj0m" path="res://app/resources/card_creator/yellow/CardCreatorYellowEvent.tres" id="4_n5mji"]
+[ext_resource type="Resource" uid="uid://bhg6wxexxqryg" path="res://app/resources/card_creator/yellow/CardCreatorYellowStage.tres" id="5_dlrgr"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorColorResource.cs" id="6_gletc"]
+
+[resource]
+script = ExtResource("6_gletc")
+Name = "Yellow"
+Types = Array[Resource]([ExtResource("1_ugadu"), ExtResource("2_8dhn1"), ExtResource("3_bg8ik"), ExtResource("4_n5mji"), ExtResource("5_dlrgr")])

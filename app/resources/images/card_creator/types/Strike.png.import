@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bymnwk5gi0c8u"
-path="res://.godot/imported/Strike.png-b142369a20014fb4e7772c5aa351a673.ctex"
+uid="uid://chyhxi6eh7f2w"
+path="res://.godot/imported/Strike.png-e3ef339b17856d0fd89799ca62902dd8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://app/resources/images/card_creator/types/Strike.png"
-dest_files=["res://.godot/imported/Strike.png-b142369a20014fb4e7772c5aa351a673.ctex"]
+source_file="res://app/resources/images/card_creator/Types/Strike.png"
+dest_files=["res://.godot/imported/Strike.png-e3ef339b17856d0fd89799ca62902dd8.ctex"]
 
 [params]
 

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://crwgee772e6i"]
+
+[ext_resource type="Resource" uid="uid://q6l1qeojn0ks" path="res://app/resources/card_creator/card_settings/LeaderCardSettings.tres" id="1_j327m"]
+[ext_resource type="Texture2D" uid="uid://ctlk1ndku0wcu" path="res://app/resources/images/card_creator/Blue/Blue Leader.png" id="2_npqto"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="3_weyda"]
+
+[resource]
+script = ExtResource("3_weyda")
+Suffix = ""
+Settings = ExtResource("1_j327m")
+Texture = ExtResource("2_npqto")

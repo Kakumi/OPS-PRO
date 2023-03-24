@@ -1,28 +1,22 @@
-[gd_resource type="Resource" load_steps=20 format=3 uid="uid://jced01wfexgu"]
+[gd_resource type="Resource" load_steps=14 format=3 uid="uid://jced01wfexgu"]
 
 [ext_resource type="Resource" uid="uid://u5sgyncpl8sq" path="res://app/resources/card_creator/attributes/RangedAttribute.tres" id="1_dbut5"]
 [ext_resource type="Resource" path="res://app/resources/card_creator/red/CardCreatorRedResource.tres" id="1_dgebp"]
 [ext_resource type="Script" path="res://app/resources/CardCreatorSettings.cs" id="1_xgb4u"]
 [ext_resource type="Resource" path="res://app/resources/card_creator/other/CardCreatorOtherResource.tres" id="2_hvxms"]
 [ext_resource type="Resource" uid="uid://ciq7y1jtp85tp" path="res://app/resources/card_creator/attributes/SlashAttribute.tres" id="2_ir2ci"]
-[ext_resource type="Texture2D" uid="uid://br1r48qdv06wl" path="res://app/resources/images/card_creator/numbers/0.png" id="3_0sklo"]
 [ext_resource type="Resource" uid="uid://c4t3ckb6378vb" path="res://app/resources/card_creator/attributes/SpecialAttribute.tres" id="3_e2pwc"]
 [ext_resource type="Resource" uid="uid://bhknst3o0k01p" path="res://app/resources/card_creator/attributes/StrikeAttribute.tres" id="4_1fbau"]
-[ext_resource type="Texture2D" uid="uid://c278t3vxy3qud" path="res://app/resources/images/card_creator/numbers/1.png" id="4_lvsj1"]
-[ext_resource type="Texture2D" uid="uid://bspbxtgpww4mq" path="res://app/resources/images/card_creator/numbers/2.png" id="5_11nfa"]
 [ext_resource type="Resource" uid="uid://by6ikpscxwry" path="res://app/resources/card_creator/attributes/WisdomAttribute.tres" id="5_jp87h"]
-[ext_resource type="Texture2D" uid="uid://cbqjp4t1tqvwm" path="res://app/resources/images/card_creator/numbers/3.png" id="6_0usol"]
-[ext_resource type="Texture2D" uid="uid://bomrh6gn2v6p6" path="res://app/resources/images/card_creator/numbers/4.png" id="7_tjth6"]
-[ext_resource type="Texture2D" uid="uid://dknbdpemft8lf" path="res://app/resources/images/card_creator/numbers/5.png" id="8_1wmte"]
-[ext_resource type="Texture2D" uid="uid://cl6hsxfhkslkg" path="res://app/resources/images/card_creator/numbers/6.png" id="9_4p85v"]
-[ext_resource type="Texture2D" uid="uid://baspalhwyvo0c" path="res://app/resources/images/card_creator/numbers/7.png" id="10_u5em3"]
-[ext_resource type="Texture2D" uid="uid://cwodna80lfown" path="res://app/resources/images/card_creator/numbers/8.png" id="11_6v7ku"]
-[ext_resource type="Texture2D" uid="uid://pav0sf3jvcgw" path="res://app/resources/images/card_creator/numbers/9.png" id="12_5kacf"]
-[ext_resource type="Texture2D" uid="uid://bg6clic8h01aa" path="res://app/resources/images/card_creator/numbers/10.png" id="13_nqc00"]
+[ext_resource type="Resource" uid="uid://d4m1hhrmggvhs" path="res://app/resources/card_creator/blue/CardCreatorBlueResource.tres" id="7_wf71f"]
+[ext_resource type="Resource" uid="uid://c3stbbvk21uir" path="res://app/resources/card_creator/green/CardCreatorGreenResource.tres" id="8_r36wa"]
+[ext_resource type="Resource" uid="uid://kwbxk6we3sag" path="res://app/resources/card_creator/black/CardCreatorBlackResource.tres" id="9_48q1n"]
+[ext_resource type="Resource" uid="uid://bigxhsfya25l4" path="res://app/resources/card_creator/purple/CardCreatorPurpleResource.tres" id="10_xgtms"]
+[ext_resource type="Resource" uid="uid://lv5pvrs82utq" path="res://app/resources/card_creator/yellow/CardCreatorYellowResource.tres" id="11_ae67p"]
 
 [resource]
 script = ExtResource("1_xgb4u")
-Colors = Array[Resource]([ExtResource("1_dgebp"), ExtResource("2_hvxms")])
+Colors = Array[Resource]([ExtResource("1_dgebp"), ExtResource("7_wf71f"), ExtResource("8_r36wa"), ExtResource("9_48q1n"), ExtResource("10_xgtms"), ExtResource("11_ae67p"), ExtResource("2_hvxms")])
 Attributes = Array[Resource]([ExtResource("1_dbut5"), ExtResource("2_ir2ci"), ExtResource("3_e2pwc"), ExtResource("4_1fbau"), ExtResource("5_jp87h")])
 Rarities = {
 "Common": "C",
@@ -31,4 +25,3 @@ Rarities = {
 "Super Rare": "SR",
 "Uncommon": "UC"
 }
-CostTextures = Array[Texture]([ExtResource("3_0sklo"), ExtResource("4_lvsj1"), ExtResource("5_11nfa"), ExtResource("6_0usol"), ExtResource("7_tjth6"), ExtResource("8_1wmte"), ExtResource("9_4p85v"), ExtResource("10_u5em3"), ExtResource("11_6v7ku"), ExtResource("12_5kacf"), ExtResource("13_nqc00")])

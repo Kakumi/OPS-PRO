@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://l3hhb2j0tp58"]
+
+[ext_resource type="Resource" uid="uid://dly7ufohhhf54" path="res://app/resources/card_creator/costs/Costs.tres" id="1_p53wv"]
+[ext_resource type="PackedScene" uid="uid://bxomc0g5c3j8k" path="res://app/gui/cardCreator/templates/StageCardTemplate.tscn" id="2_jirau"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeSettingsResource.cs" id="3_2cujs"]
+
+[resource]
+script = ExtResource("3_2cujs")
+Name = "Stage"
+Template = ExtResource("2_jirau")
+HasTitle = true
+HasType = true
+HasNumber = true
+HasRarity = true
+HasAttribute = false
+HasCost = true
+HasCounter = false
+HasPower = false
+Costs = ExtResource("1_p53wv")

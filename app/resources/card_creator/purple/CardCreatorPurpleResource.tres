@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://bigxhsfya25l4"]
+
+[ext_resource type="Resource" uid="uid://bkmpbtwch18ns" path="res://app/resources/card_creator/purple/CardCreatorPurpleLeader.tres" id="1_142q5"]
+[ext_resource type="Resource" uid="uid://ds3vbb1k5883o" path="res://app/resources/card_creator/purple/CardCreatorPurpleCharacter.tres" id="2_e5uxr"]
+[ext_resource type="Resource" uid="uid://p8j7h7bg8q3r" path="res://app/resources/card_creator/purple/CardCreatorPurpleCharacterFullart.tres" id="3_tllp6"]
+[ext_resource type="Resource" uid="uid://cx18jtb1mawif" path="res://app/resources/card_creator/purple/CardCreatorPurpleEvent.tres" id="4_hqncn"]
+[ext_resource type="Resource" uid="uid://clxgsbam4txeq" path="res://app/resources/card_creator/purple/CardCreatorPurpleStage.tres" id="5_n01sk"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorColorResource.cs" id="6_4yv5h"]
+
+[resource]
+script = ExtResource("6_4yv5h")
+Name = "Purple"
+Types = Array[Resource]([ExtResource("1_142q5"), ExtResource("2_e5uxr"), ExtResource("3_tllp6"), ExtResource("4_hqncn"), ExtResource("5_n01sk")])

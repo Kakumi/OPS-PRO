@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://qptd6nr2s8p"]
+
+[ext_resource type="Resource" uid="uid://cb66j0k6imjc5" path="res://app/resources/card_creator/card_settings/CharacterCardSettings.tres" id="1_3d478"]
+[ext_resource type="Texture2D" uid="uid://cqo0tw25a68wb" path="res://app/resources/images/card_creator/Black/Black Character Fullart.png" id="2_mpk7p"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="3_303pi"]
+
+[resource]
+script = ExtResource("3_303pi")
+Suffix = "Fullart"
+Settings = ExtResource("1_3d478")
+Texture = ExtResource("2_mpk7p")

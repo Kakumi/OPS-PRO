@@ -11,7 +11,4 @@ public partial class CardCreatorSettings : Resource
 
     [Export]
     public Dictionary<string, string> Rarities { get; set; }
-
-    [Export]
-    public Array<Texture2D> CostTextures { get; set; }
 }

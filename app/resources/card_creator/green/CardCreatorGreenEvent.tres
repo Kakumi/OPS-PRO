@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cj1swwxg6kxj2"]
+
+[ext_resource type="Resource" uid="uid://b5a3kvent0pje" path="res://app/resources/card_creator/card_settings/EventCardSettings.tres" id="1_u6bey"]
+[ext_resource type="Texture2D" uid="uid://bskc546revkoy" path="res://app/resources/images/card_creator/Green/Green Event.png" id="2_a3dj8"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="3_dxdyv"]
+
+[resource]
+script = ExtResource("3_dxdyv")
+Suffix = ""
+Settings = ExtResource("1_u6bey")
+Texture = ExtResource("2_a3dj8")

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=13 format=3 uid="uid://dly7ufohhhf54"]
+
+[ext_resource type="Texture2D" uid="uid://d2q1ii3ir8c6v" path="res://app/resources/images/card_creator/Cost/Cost0.png" id="1_rwq6u"]
+[ext_resource type="Texture2D" uid="uid://ckm5ggfk5pnrm" path="res://app/resources/images/card_creator/Cost/Cost1.png" id="2_58xg0"]
+[ext_resource type="Texture2D" uid="uid://br5xoex87sttj" path="res://app/resources/images/card_creator/Cost/Cost2.png" id="3_jkck5"]
+[ext_resource type="Texture2D" uid="uid://bjsuc78xajvhj" path="res://app/resources/images/card_creator/Cost/Cost3.png" id="4_edpn8"]
+[ext_resource type="Texture2D" uid="uid://bxpd3edpj160g" path="res://app/resources/images/card_creator/Cost/Cost4.png" id="5_l78l4"]
+[ext_resource type="Texture2D" uid="uid://u2d8wlh6d2pq" path="res://app/resources/images/card_creator/Cost/Cost5.png" id="6_f5iyo"]
+[ext_resource type="Texture2D" uid="uid://d3np6duok28pr" path="res://app/resources/images/card_creator/Cost/Cost6.png" id="7_4upk2"]
+[ext_resource type="Texture2D" uid="uid://bp201st623k0n" path="res://app/resources/images/card_creator/Cost/Cost7.png" id="8_sa5j7"]
+[ext_resource type="Texture2D" uid="uid://bhm310qy1rrhq" path="res://app/resources/images/card_creator/Cost/Cost8.png" id="9_16l7m"]
+[ext_resource type="Texture2D" uid="uid://cn5oy08h82xko" path="res://app/resources/images/card_creator/Cost/Cost9.png" id="10_uduyo"]
+[ext_resource type="Texture2D" uid="uid://t3ur5cketdct" path="res://app/resources/images/card_creator/Cost/Cost10.png" id="11_oyxiv"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCostResource.cs" id="12_j7qef"]
+
+[resource]
+script = ExtResource("12_j7qef")
+MinCost = 0
+MaxCost = 10
+Textures = Array[Texture2D]([ExtResource("1_rwq6u"), ExtResource("2_58xg0"), ExtResource("3_jkck5"), ExtResource("4_edpn8"), ExtResource("5_l78l4"), ExtResource("6_f5iyo"), ExtResource("7_4upk2"), ExtResource("8_sa5j7"), ExtResource("9_16l7m"), ExtResource("10_uduyo"), ExtResource("11_oyxiv")])

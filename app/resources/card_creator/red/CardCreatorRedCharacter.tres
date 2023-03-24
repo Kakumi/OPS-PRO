@@ -1,19 +1,11 @@
 [gd_resource type="Resource" load_steps=4 format=3 uid="uid://c16lha4a3qsr1"]
 
-[ext_resource type="Texture2D" uid="uid://cwsvoglfvl6wy" path="res://app/resources/images/card_creator/red/CharacterCard.png" id="1_8104t"]
+[ext_resource type="Resource" uid="uid://cb66j0k6imjc5" path="res://app/resources/card_creator/card_settings/CharacterCardSettings.tres" id="1_4d3td"]
 [ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeResource.cs" id="1_hvk7m"]
-[ext_resource type="PackedScene" uid="uid://yl1r1cb2als7" path="res://app/gui/cardCreator/templates/CharacterCardTemplate.tscn" id="1_v8p5p"]
+[ext_resource type="Texture2D" uid="uid://dbs8m7dht8p51" path="res://app/resources/images/card_creator/Red/Red Character.png" id="2_llp7a"]
 
 [resource]
 script = ExtResource("1_hvk7m")
-Name = "Character"
-Texture = ExtResource("1_8104t")
-Template = ExtResource("1_v8p5p")
-HasTitle = true
-HasType = true
-HasNumber = true
-HasRarity = true
-HasAttribute = true
-HasCost = true
-HasCounter = true
-HasPower = true
+Suffix = ""
+Settings = ExtResource("1_4d3td")
+Texture = ExtResource("2_llp7a")

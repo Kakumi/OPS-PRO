@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjx3brtgt5yrp"]
+[gd_scene load_steps=6 format=3 uid="uid://bjx3brtgt5yrp"]
 
 [ext_resource type="Script" path="res://app/gui/cardCreator/CardCreatorEditor.cs" id="1_hdp2w"]
 [ext_resource type="Resource" uid="uid://jced01wfexgu" path="res://app/resources/card_creator/CardCreatorSettings.tres" id="2_teotk"]
 [ext_resource type="Shader" path="res://app/gui/cardCreator/CardCreatorRounded.gdshader" id="3_rj7ct"]
+[ext_resource type="Texture2D" uid="uid://ckm5ggfk5pnrm" path="res://app/resources/images/card_creator/Cost/Cost1.png" id="4_j4b3x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rw3jy"]
 shader = ExtResource("3_rj7ct")
@@ -24,7 +25,7 @@ CardCreatorSettings = ExtResource("2_teotk")
 title = "Open a File"
 size = Vector2i(900, 600)
 popup_window = true
-ok_button_text = "FILE_EXPLORER_OPEN"
+ok_button_text = "Ouvrir"
 dialog_hide_on_ok = true
 dialog_autowrap = true
 cancel_button_text = "FILE_EXPLORER_CANCEL"
@@ -280,6 +281,51 @@ clip_text = true
 [node name="HSeparator" type="HSeparator" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer"]
 layout_mode = 2
 
+[node name="CardStyle" type="VBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Card Style" type="Label" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle"]
+layout_mode = 2
+text = "CARDCREATOR_CARDSTYLE"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "CARDCREATOR_ITEMCOLOR"
+
+[node name="ColorPicker" type="ColorPickerButton" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " "
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "CARDCREATOR_ITEMCOLORSECONDARY"
+
+[node name="ColorPicker" type="ColorPickerButton" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " "
+
+[node name="HSeparator" type="HSeparator" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle"]
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -295,8 +341,14 @@ size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 text = "CARDCREATOR_SAVE"
 
+[node name="Cost1" type="Sprite2D" parent="."]
+position = Vector2(2256, 524)
+texture = ExtResource("4_j4b3x")
+
 [connection signal="file_selected" from="FileDialog" to="." method="OnFileSelected"]
 [connection signal="pressed" from="Viewer/PanelContainer/CardEditor/HBoxContainer/Quit" to="." method="OnQuitPressed"]
 [connection signal="pressed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardImageContainer/MarginContainer/VBoxContainer/HBoxContainer/ExploreFile" to="." method="OnExploreFilePressed"]
+[connection signal="color_changed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer/ColorPicker" to="." method="OnColorPickerColorChanged"]
+[connection signal="color_changed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer2/ColorPicker" to="." method="OnColorPickerColorSecondaryChanged"]
 [connection signal="pressed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Reset" to="." method="OnResetPressed"]
 [connection signal="pressed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/ExportDeck" to="." method="OnExportPressed"]

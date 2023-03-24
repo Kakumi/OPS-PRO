@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://q6l1qeojn0ks"]
+
+[ext_resource type="Resource" uid="uid://bep1psxovddgi" path="res://app/resources/card_creator/costs/Lifes.tres" id="1_bqnjg"]
+[ext_resource type="PackedScene" uid="uid://bjnsy5lijlqa3" path="res://app/gui/cardCreator/templates/LeaderCardTemplate.tscn" id="2_eq7jb"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeSettingsResource.cs" id="3_wrg0p"]
+
+[resource]
+script = ExtResource("3_wrg0p")
+Name = "Leader"
+Template = ExtResource("2_eq7jb")
+HasTitle = true
+HasType = true
+HasNumber = true
+HasRarity = true
+HasAttribute = true
+HasCost = true
+HasCounter = false
+HasPower = true
+Costs = ExtResource("1_bqnjg")

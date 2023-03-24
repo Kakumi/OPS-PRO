@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://d4m1hhrmggvhs"]
+
+[ext_resource type="Resource" uid="uid://crwgee772e6i" path="res://app/resources/card_creator/blue/CardCreatorBlueLeader.tres" id="1_2xup2"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorColorResource.cs" id="1_lpjgu"]
+[ext_resource type="Resource" uid="uid://debtnwxam5oro" path="res://app/resources/card_creator/blue/CardCreatorBlueCharacter.tres" id="2_pk4nu"]
+[ext_resource type="Resource" uid="uid://hp5li5gq5aia" path="res://app/resources/card_creator/blue/CardCreatorBlueCharacterFullart.tres" id="3_hpm7m"]
+[ext_resource type="Resource" uid="uid://b1d1fjs2mm6dg" path="res://app/resources/card_creator/blue/CardCreatorBlueEvent.tres" id="4_7upy0"]
+[ext_resource type="Resource" uid="uid://by5d157u04sg0" path="res://app/resources/card_creator/blue/CardCreatorBlueStage.tres" id="5_8ii0h"]
+
+[resource]
+script = ExtResource("1_lpjgu")
+Name = "Blue"
+Types = Array[Resource]([ExtResource("1_2xup2"), ExtResource("2_pk4nu"), ExtResource("3_hpm7m"), ExtResource("4_7upy0"), ExtResource("5_8ii0h")])

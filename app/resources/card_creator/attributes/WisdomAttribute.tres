@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://by6ikpscxwry"]
 
-[ext_resource type="Texture2D" uid="uid://du4k7ow7xhe38" path="res://app/resources/images/card_creator/types/ico_type05.png" id="1_k2qnp"]
+[ext_resource type="Texture2D" uid="uid://cn1jfqeo25ixd" path="res://app/resources/images/card_creator/Types/Wisdom.png" id="1_xn5mk"]
 [ext_resource type="Script" path="res://app/resources/CardCreatorAttribute.cs" id="2_okb7p"]
 
 [resource]
 script = ExtResource("2_okb7p")
 Name = "Wisdom"
-Texture = ExtResource("1_k2qnp")
+Texture = ExtResource("1_xn5mk")

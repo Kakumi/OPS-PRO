@@ -79,4 +79,17 @@ public partial class StageCardTemplate : CardTemplate
     {
         Type.Set("theme_override_font_sizes/font_size", px);
     }
+
+    public override void UpdateColor(Color color)
+    {
+        CardTitle.Modulate = color;
+        Number.Modulate = color;
+        Cost.Modulate = color;
+    }
+
+    public override void UpdateSecondaryColor(Color color)
+    {
+        Rarity.Set("theme_override_colors/font_color", color);
+        Rarity.Set("theme_override_colors/font_outline_color", color);
+    }
 }

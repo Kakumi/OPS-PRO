@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://kwbxk6we3sag"]
+
+[ext_resource type="Resource" uid="uid://brckpt6rrsium" path="res://app/resources/card_creator/black/CardCreatorBlackLeader.tres" id="1_a8lb6"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorColorResource.cs" id="1_lpjgu"]
+[ext_resource type="Resource" uid="uid://borvap64gv5m7" path="res://app/resources/card_creator/black/CardCreatorBlackCharacter.tres" id="2_0fpfh"]
+[ext_resource type="Resource" uid="uid://qptd6nr2s8p" path="res://app/resources/card_creator/black/CardCreatorBlackCharacterFullart.tres" id="3_quhca"]
+[ext_resource type="Resource" uid="uid://nyadfo4j7mkf" path="res://app/resources/card_creator/black/CardCreatorBlackEvent.tres" id="4_vd0gm"]
+[ext_resource type="Resource" uid="uid://lopikdn164t7" path="res://app/resources/card_creator/black/CardCreatorBlackStage.tres" id="5_30t5l"]
+
+[resource]
+script = ExtResource("1_lpjgu")
+Name = "Black"
+Types = Array[Resource]([ExtResource("1_a8lb6"), ExtResource("2_0fpfh"), ExtResource("3_quhca"), ExtResource("4_vd0gm"), ExtResource("5_30t5l")])

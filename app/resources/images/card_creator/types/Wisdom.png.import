@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b35fih0ia56r0"
-path="res://.godot/imported/Wisdom.png-d1e544c49984056969e45e64b1bdfc21.ctex"
+uid="uid://cn1jfqeo25ixd"
+path="res://.godot/imported/Wisdom.png-f2540182addda0ce99dba99230ccabfa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://app/resources/images/card_creator/types/Wisdom.png"
-dest_files=["res://.godot/imported/Wisdom.png-d1e544c49984056969e45e64b1bdfc21.ctex"]
+source_file="res://app/resources/images/card_creator/Types/Wisdom.png"
+dest_files=["res://.godot/imported/Wisdom.png-f2540182addda0ce99dba99230ccabfa.ctex"]
 
 [params]
 

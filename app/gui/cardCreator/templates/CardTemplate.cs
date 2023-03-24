@@ -22,4 +22,8 @@ public abstract partial class CardTemplate : TextureRect
 	public abstract void UpdateCardPowerPx(double px);
 	public abstract void UpdateCardCounterPx(double px);
 	public abstract void UpdateCardTypePx(double px);
+
+	public abstract void UpdateColor(Color color);
+
+	public abstract void UpdateSecondaryColor(Color color);
 }

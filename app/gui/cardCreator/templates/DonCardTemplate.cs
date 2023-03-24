@@ -59,4 +59,12 @@ public partial class DonCardTemplate : CardTemplate
     public override void UpdateCardTypePx(double px)
     {
     }
+
+    public override void UpdateColor(Color color)
+    {
+    }
+
+    public override void UpdateSecondaryColor(Color color)
+    {
+    }
 }
