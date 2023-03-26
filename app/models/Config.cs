@@ -46,7 +46,7 @@ public partial class Config : Resource, IConfig
             TranslationServer.SetLocale(defaultConfig.Language);
         }
 
-        if (FileAccess.FileExists(Theme))
+        if (FileAccess.FileExists(Theme) || ResourceLoader.Exists(Theme))
         {
             AppInstance.Instance.UpdateTheme(GD.Load<Theme>(Theme));
         }
@@ -56,7 +56,7 @@ public partial class Config : Resource, IConfig
             AppInstance.Instance.UpdateTheme(GD.Load<Theme>(defaultConfig.Theme));
         }
 
-        if (FileAccess.FileExists(Background))
+        if (FileAccess.FileExists(Background) || ResourceLoader.Exists(Background))
         {
             AppInstance.Instance.Background.Texture = GD.Load<Texture2D>(Background);
         }
@@ -66,7 +66,7 @@ public partial class Config : Resource, IConfig
             AppInstance.Instance.Background.Texture = GD.Load<Texture2D>(defaultConfig.Background);
         }
 
-        if (FileAccess.FileExists(BackgroundMusic))
+        if (FileAccess.FileExists(BackgroundMusic) ||  ResourceLoader.Exists(BackgroundMusic))
         {
             SoundManager.Instance.UpdateSound(BackgroundMusic, BackgroundMusicEnabled);
         }

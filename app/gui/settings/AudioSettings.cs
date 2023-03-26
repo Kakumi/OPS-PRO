@@ -1,5 +1,7 @@
 using Godot;
+using Serilog;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,13 +13,19 @@ public partial class AudioSettings : TabSettings
 	public HSlider BackgroundMusicSlider { get; protected set; }
 	public Label BackgroundMusicSliderPercent { get; protected set; }
 
-	private string _musicPath;
+	private List<string> _musicPaths;
+	private Dictionary<int, string> _musicFiles;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
-		_musicPath = "res://app/resources/sounds/background/";
+		_musicPaths = new List<string>()
+		{
+			"res://app/resources/sounds/background/",
+			"user://resources/songs/"
+		};
+		_musicFiles = new Dictionary<int, string>();
 
 		SelectMusic = GetNode<OptionButton>("MarginContainer/GridContainer/MusicSound/SelectMusic");
 		BackgroundMusicCheckbox = GetNode<CheckBox>("MarginContainer/GridContainer/MusicEnabled/BackgroundMusicCheckbox");
@@ -36,28 +44,18 @@ public partial class AudioSettings : TabSettings
 	{
 		SelectMusic.Clear();
 
-		var dir = DirAccess.Open(_musicPath);
-		var files = dir.GetFiles(@".*\.ogg$");
-		for (int i = 0; i < files.Count; i++)
-		{
-			var file = files[i];
-			var name = Path.GetFileNameWithoutExtension(file);
-			SelectMusic.AddItem(name, i);
-
-			if (file == Settings.OriginalConfig.BackgroundMusic)
-			{
-				SelectMusic.Selected = i;
-			}
-		}
+		SearchFiles(_musicPaths, @".*\.ogg", SelectMusic, ref _musicFiles, Settings.OriginalConfig.BackgroundMusic);
 	}
 
 	private void OnSelectMusicItemSelected(int idx)
 	{
-		var musicName = SelectMusic.GetItemText(idx);
-		var music = Path.Combine(_musicPath, $"{musicName}.ogg");
-		Settings.UpdatedConfig.BackgroundMusic = music;
-		Settings.UpdatedConfig.ApplyChanges();
-	}
+		if (_musicFiles.ContainsKey(idx))
+        {
+			var file = _musicFiles[idx];
+			Settings.UpdatedConfig.BackgroundMusic = file;
+			Settings.UpdatedConfig.ApplyChanges();
+		}
+    }
 
 	private void OnBackgroundMusicSliderValueChanged(float value)
 	{

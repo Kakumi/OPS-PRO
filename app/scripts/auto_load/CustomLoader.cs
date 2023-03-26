@@ -13,7 +13,7 @@ public partial class CustomLoader : Node
     {
         try
         {
-            var dir = DirAccess.Open("res://app/translations/");
+            var dir = DirAccess.Open("user://resources/translations/"); //DirAccess.Open("res://app/translations/");
             var files = dir.GetFiles(@".*\.translation");
             files.ForEach(x =>
             {

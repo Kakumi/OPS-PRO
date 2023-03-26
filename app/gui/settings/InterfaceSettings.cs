@@ -11,16 +11,30 @@ public partial class InterfaceSettings : TabSettings
 	public OptionButton SelectLang { get; protected set; }
 	public OptionButton SelectBackground { get; protected set; }
 
-	private string _themePath;
-	private string _backgroundPath;
+	private List<string> _themePaths;
+	private Dictionary<int, string> _themeFiles;
+	private List<string> _backgroundPaths;
+	private Dictionary<int, string> _backgroundFiles;
 	private Dictionary<string, string> _languages;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
-		_themePath = "res://app/resources/themes/";
-		_backgroundPath = "res://app/resources/images/backgrounds/";
+		_themePaths = new List<string>()
+		{
+			"res://app/resources/themes/",
+			"user://resources/themes/"
+		};
+		_themeFiles = new Dictionary<int, string>();
+
+		_backgroundPaths = new List<string>()
+		{
+			"res://app/resources/images/backgrounds/",
+			"user://resources/backgrounds/"
+		};
+		_backgroundFiles = new Dictionary<int, string>();
+
 		_languages = new Dictionary<string, string>();
 
 		SelectTheme = GetNode<OptionButton>("MarginContainer/GridContainer/Theme/SelectTheme");
@@ -38,39 +52,17 @@ public partial class InterfaceSettings : TabSettings
 	private void InitThemes()
 	{
 		SelectTheme.Clear();
+		_themeFiles = new Dictionary<int, string>();
 
-		var dir = DirAccess.Open(_themePath);
-		var files = dir.GetFiles(@".*_theme\.tres$");
-		for(int i = 0; i < files.Count; i++)
-		{
-			var file = files[i];
-			var name = Path.GetFileNameWithoutExtension(file);
-			SelectTheme.AddItem(name, i);
-
-			if (file == Settings.OriginalConfig.Theme)
-			{
-				SelectTheme.Selected = i;
-			}
-		}
+		SearchFiles(_themePaths, @".*_theme\.tres", SelectTheme, ref _themeFiles, Settings.OriginalConfig.Theme);
 	}
 
 	private void InitBackgrounds()
 	{
 		SelectBackground.Clear();
+		_backgroundFiles = new Dictionary<int, string>();
 
-		var dir = DirAccess.Open(_backgroundPath);
-		var files = dir.GetFiles(@".*\.jpg$");
-		for (int i = 0; i < files.Count; i++)
-		{
-			var file = files[i];
-			var name = Path.GetFileNameWithoutExtension(file);
-			SelectBackground.AddItem(name, i);
-
-			if (file == Settings.OriginalConfig.Background)
-			{
-				SelectBackground.Selected = i;
-			}
-		}
+		SearchFiles(_backgroundPaths, @".*\.jpg", SelectBackground, ref _backgroundFiles, Settings.OriginalConfig.Background);
 	}
 
 	private void InitLanguages()
@@ -96,19 +88,23 @@ public partial class InterfaceSettings : TabSettings
 
 	public void OnSelectThemeItemSelected(int idx)
 	{
-		var themeName = SelectTheme.GetItemText(idx);
-		var theme = Path.Combine(_themePath, $"{themeName}.tres");
-		Settings.UpdatedConfig.Theme = theme;
-		Settings.UpdatedConfig.ApplyChanges();
-	}
+        if (_themeFiles.ContainsKey(idx))
+        {
+            var file = _themeFiles[idx];
+            Settings.UpdatedConfig.Theme = file;
+            Settings.UpdatedConfig.ApplyChanges();
+        }
+    }
 
 	public void OnSelectBackgroundItemSelected(int idx)
 	{
-		var backgoundName = SelectBackground.GetItemText(idx);
-		var background = Path.Combine(_backgroundPath, $"{backgoundName}.jpg");
-		Settings.UpdatedConfig.Background = background;
-		Settings.UpdatedConfig.ApplyChanges();
-	}
+        if (_backgroundFiles.ContainsKey(idx))
+        {
+            var file = _backgroundFiles[idx];
+            Settings.UpdatedConfig.Background = file;
+            Settings.UpdatedConfig.ApplyChanges();
+        }
+    }
 
 	public void OnSelectLangItemSelected(int idx)
 	{

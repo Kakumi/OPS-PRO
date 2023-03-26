@@ -4,6 +4,7 @@ using Serilog.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 public static class Extension
@@ -110,18 +111,24 @@ public static class Extension
         List<string> files = new List<string>();
         Regex regex = new Regex(pattern);
 
+        Log.Information($"Getting files at {directory.GetCurrentDir()} and pattern: {pattern}");
+
         directory.ListDirBegin();
         string file;
         while((file = directory.GetNext()) != null)
         {
+            Log.Debug($"Found file {file}");
+            var filepath = Path.Combine(directory.GetCurrentDir(), file.Replace(".import", string.Empty));
+
             if (string.IsNullOrEmpty(file))
             {
                 break;
             }
 
-            if (!directory.CurrentIsDir() && regex.IsMatch(file))
+            if (!directory.CurrentIsDir() && regex.IsMatch(file) && !files.Contains(filepath))
             {
-                files.Add(Path.Combine(directory.GetCurrentDir(), file));
+                Log.Debug($"Valid pattern for file {file}");
+                files.Add(filepath);
             }
         }
 

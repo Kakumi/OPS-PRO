@@ -57,12 +57,9 @@ metadata/_edit_use_anchors_ = true
 [node name="Power" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.618
-anchor_top = 0.00428571
-anchor_right = 0.872
-anchor_bottom = 0.0914286
-offset_left = -5.0
-offset_right = -5.0
+anchor_left = 0.608
+anchor_right = 0.862
+anchor_bottom = 0.0871429
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 42
 horizontal_alignment = 2
