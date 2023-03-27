@@ -1,10 +1,11 @@
+SubViewport
+TextureRect
+SubViewportContainer
 Label
 HBoxContainer
 ColorPickerButton
 ColorPicker
-TextureRect
 Node
-SubViewport
 Window
 VBoxContainer
 MarginContainer
@@ -21,7 +22,6 @@ RichTextLabel
 CenterContainer
 BoxContainer
 AspectRatioContainer
-SubViewportContainer
 Control
 Container
 OptionButton

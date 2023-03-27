@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=3]
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://cchraig0qt2mm"]
 
 [ext_resource type="Resource" uid="uid://7vdia0pr0tfs" path="res://app/resources/card_creator/red/CardCreatorRedLeader.tres" id="1_53cr6"]
 [ext_resource type="Resource" uid="uid://c16lha4a3qsr1" path="res://app/resources/card_creator/red/CardCreatorRedCharacter.tres" id="1_j105u"]
@@ -9,5 +9,5 @@
 
 [resource]
 script = ExtResource("1_lpjgu")
-Name = "Red"
+Name = "CARDCREATOR_COLOR_RED"
 Types = Array[Resource]([ExtResource("1_53cr6"), ExtResource("1_j105u"), ExtResource("2_5ubou"), ExtResource("4_a1tpc"), ExtResource("5_8a4ta")])

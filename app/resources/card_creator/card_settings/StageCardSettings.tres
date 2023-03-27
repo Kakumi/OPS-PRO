@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3_2cujs")
-Name = "Stage"
+Name = "CARDCREATOR_TYPE_STAGE"
 Template = ExtResource("2_jirau")
 HasTitle = true
 HasType = true

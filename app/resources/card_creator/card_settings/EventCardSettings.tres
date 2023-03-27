@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3_f2j62")
-Name = "Event"
+Name = "CARDCREATOR_TYPE_EVENT"
 Template = ExtResource("2_0mr1m")
 HasTitle = true
 HasType = true

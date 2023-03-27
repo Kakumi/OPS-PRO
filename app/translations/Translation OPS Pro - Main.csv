@@ -104,3 +104,22 @@ AUTOLOAD_CARDS_LOAD_FAILED,Fail to fetch cards from the API. Please close the ap
 AUTOLOAD_CARDS_LOAD_FAILED_DESERIALIZE,Fail to deserialize cards from the API. Please close the application and try again.,Échec de la désérialisation des cartes à partir de l'API. Veuillez fermer l'application et réessayer.
 DECKMANAGER_ERROR_EXIST,A deck already exists for name {0}.,Un deck existe déjà pour le nom {0}.
 DECKMANAGER_ERROR_FILENAME,Name is invalid because it contains unsupported characters for a filename ({0}).,Le nom n'est pas valide car il contient des caractères non pris en charge pour un nom de fichier ({0}).
+FILE_EXPLORER_OPEN,Open,Ouvrir
+FILE_EXPLORER_CANCEL,Cancel,Annuler
+CARDCREATOR_CARDSTYLE,Card Style,Style de la carte
+CARDCREATOR_ITEMCOLOR,Elements color,Couleur des éléments
+CARDCREATOR_ITEMCOLORSECONDARY,Secondary elements color,Couleur des éléments secondaires
+CARDCREATOR_COLOR_RED,Red,Rouge
+CARDCREATOR_COLOR_BLUE,Blue,Bleu
+CARDCREATOR_COLOR_GREEN,Green,Vert
+CARDCREATOR_COLOR_PURPLE,Purple,Violet
+CARDCREATOR_COLOR_BLACK,Black,Noir
+CARDCREATOR_COLOR_YELLOW,Yellow,Jaune
+CARDCREATOR_COLOR_OTHER,Other,Autre
+CARDCREATOR_TYPE_CHARACTER,Character,Personnage
+CARDCREATOR_TYPE_LEADER,Leader,Leader
+CARDCREATOR_TYPE_EVENT,Event,Événement
+CARDCREATOR_TYPE_STAGE,Stage,Terrain
+CARDCREATOR_TYPE_DON,Don!! Card,Carte Don!!
+CARDCREATOR_TYPE_SUFFIX_FULLART,Fullart,Fullart
+CARDCREATOR_TYPE_SUFFIX_EMPTY,Empty,Vide

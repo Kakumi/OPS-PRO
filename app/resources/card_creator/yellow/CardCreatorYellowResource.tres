@@ -9,5 +9,5 @@
 
 [resource]
 script = ExtResource("6_gletc")
-Name = "Yellow"
+Name = "CARDCREATOR_COLOR_YELLOW"
 Types = Array[Resource]([ExtResource("1_ugadu"), ExtResource("2_8dhn1"), ExtResource("3_bg8ik"), ExtResource("4_n5mji"), ExtResource("5_dlrgr")])

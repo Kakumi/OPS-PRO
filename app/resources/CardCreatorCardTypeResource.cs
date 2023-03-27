@@ -5,8 +5,13 @@ using System.Linq;
 
 public partial class CardCreatorCardTypeResource : Resource
 {
+    private string _suffix;
     [Export]
-    public string Suffix { get; set; }
+    public string Suffix
+    {
+        get => Tr(_suffix);
+        set => _suffix = value;
+    }
 
     [Export]
     public Color TextColor { get; set; } = new Color(255, 255, 255, 1);

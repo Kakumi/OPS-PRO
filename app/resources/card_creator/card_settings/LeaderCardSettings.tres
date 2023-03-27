@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3_wrg0p")
-Name = "Leader"
+Name = "CARDCREATOR_TYPE_LEADER"
 Template = ExtResource("2_eq7jb")
 HasTitle = true
 HasType = true

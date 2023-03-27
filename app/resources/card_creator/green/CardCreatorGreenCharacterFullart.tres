@@ -6,6 +6,8 @@
 
 [resource]
 script = ExtResource("3_wl0hj")
-Suffix = "Fullart"
+Suffix = "CARDCREATOR_TYPE_SUFFIX_FULLART"
+TextColor = Color(255, 255, 255, 1)
+SecondaryTextColor = Color(0, 0, 0, 1)
 Settings = ExtResource("1_fgyd8")
 Texture = ExtResource("2_c6n6k")

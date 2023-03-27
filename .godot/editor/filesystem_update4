@@ -1,4 +1,4 @@
-res://app/gui/cardCreator/templates/CharacterCardTemplate.tscn
+res://app/gui/cardCreator/CardCreatorEditor.tscn
 res://app/resources/themes/main_theme.tres
 res://app/resources/card_creator/costs/Lifes.tres
 res://app/resources/card_creator/costs/Costs.tres
@@ -8,7 +8,19 @@ res://app/resources/card_creator/black/CardCreatorBlackResource.tres
 res://app/resources/card_creator/purple/CardCreatorPurpleResource.tres
 res://app/resources/card_creator/yellow/CardCreatorYellowResource.tres
 res://app/resources/card_creator/CardCreatorSettings.tres
-res://app/gui/cardCreator/templates/LeaderCardTemplate.tscn
-res://app/AppInstance.tscn
-res://app/gui/CardCreator.tscn
-res://app/gui/cardCreator/CardCreatorEditor.tscn
+res://app/resources/card_creator/yellow/CardCreatorYellowCharacterFullart.tres
+res://app/resources/card_creator/red/CardCreatorRedCharacterFullart.tres
+res://app/resources/card_creator/purple/CardCreatorPurpleCharacterFullart.tres
+res://app/resources/card_creator/green/CardCreatorGreenCharacterFullart.tres
+res://app/resources/card_creator/blue/CardCreatorBlueCharacterFullart.tres
+res://app/resources/card_creator/black/CardCreatorBlackCharacterFullart.tres
+res://app/resources/card_creator/red/CardCreatorRedResource.tres
+res://app/resources/card_creator/other/CardCreatorOtherDonCardEmpty.tres
+res://app/resources/card_creator/card_settings/CharacterCardSettings.tres
+res://app/resources/card_creator/card_settings/DonCardSettings.tres
+res://app/resources/card_creator/card_settings/EventCardSettings.tres
+res://app/resources/card_creator/card_settings/LeaderCardSettings.tres
+res://app/resources/card_creator/card_settings/StageCardSettings.tres
+res://app/resources/card_creator/other/CardCreatorOtherResource.tres
+res://app/translations/Translation OPS Pro - Main.en.translation
+res://app/translations/Translation OPS Pro - Main.fr.translation

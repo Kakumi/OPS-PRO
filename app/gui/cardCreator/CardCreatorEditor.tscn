@@ -1,13 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjx3brtgt5yrp"]
+[gd_scene load_steps=3 format=3 uid="uid://bjx3brtgt5yrp"]
 
 [ext_resource type="Script" path="res://app/gui/cardCreator/CardCreatorEditor.cs" id="1_hdp2w"]
 [ext_resource type="Resource" uid="uid://jced01wfexgu" path="res://app/resources/card_creator/CardCreatorSettings.tres" id="2_teotk"]
-[ext_resource type="Shader" path="res://app/gui/cardCreator/CardCreatorRounded.gdshader" id="3_rj7ct"]
-[ext_resource type="Texture2D" uid="uid://ckm5ggfk5pnrm" path="res://app/resources/images/card_creator/Cost/Cost1.png" id="4_j4b3x"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rw3jy"]
-shader = ExtResource("3_rj7ct")
-shader_parameter/corner_radius = 80.0
 
 [node name="CardCreatorEditor" type="HBoxContainer"]
 anchors_preset = 15
@@ -105,7 +99,6 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="CustomBackground" type="TextureRect" parent="Viewer/CardViewer/PanelContainer/MarginContainer/BoxContainer"]
-material = SubResource("ShaderMaterial_rw3jy")
 custom_minimum_size = Vector2(500, 700)
 layout_mode = 2
 expand_mode = 1
@@ -340,10 +333,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 text = "CARDCREATOR_SAVE"
-
-[node name="Cost1" type="Sprite2D" parent="."]
-position = Vector2(2256, 524)
-texture = ExtResource("4_j4b3x")
 
 [connection signal="file_selected" from="FileDialog" to="." method="OnFileSelected"]
 [connection signal="pressed" from="Viewer/PanelContainer/CardEditor/HBoxContainer/Quit" to="." method="OnQuitPressed"]

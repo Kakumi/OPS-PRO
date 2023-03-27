@@ -3,8 +3,13 @@ using System;
 
 public partial class CardCreatorCardTypeSettingsResource : Resource
 {
+    private string _name;
     [Export]
-    public string Name { get; set; }
+    public string Name
+    {
+        get => Tr(_name); 
+        set => _name = value;
+    }
 
     [Export]
     public PackedScene Template { get; set; }
