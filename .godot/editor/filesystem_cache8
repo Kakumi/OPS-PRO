@@ -17,10 +17,10 @@ MainMenu.cs::CSharpScript::-1::1677800238::0::1::::<><>::
 MainMenu.tscn::PackedScene::8917148192022306874::1679442065::0::1::::<><>::res://app/gui/mainMenu/ButtonGoto.tscn<>res://app/gui/MainMenu.cs<>uid://h128lbci1vgn<>uid://bry114aad4nsh<>uid://b411iehs8mi8s
 Settings.cs::CSharpScript::-1::1677846051::0::1::::<><>::
 Settings.tscn::PackedScene::546694596479600893::1677803716::0::1::::<><>::res://app/gui/Settings.cs<>res://app/gui/settings/InterfaceSettings.tscn<>res://app/gui/settings/AudioSettings.tscn
-::res://app/gui/cardCreator/::1679919893
-CardCreatorEditor.cs::CSharpScript::-1::1679681562::0::1::::<><>::
+::res://app/gui/cardCreator/::1679923118
+CardCreatorEditor.cs::CSharpScript::-1::1679923118::0::1::::<><>::
 CardCreatorEditor.gdshader::Shader::-1::1678837927::0::1::::<><>::
-CardCreatorEditor.tscn::PackedScene::3067303748917579985::1679919893::0::1::::<><>::res://app/gui/cardCreator/CardCreatorEditor.cs<>uid://jced01wfexgu
+CardCreatorEditor.tscn::PackedScene::3067303748917579985::1679922897::0::1::::<><>::res://app/gui/cardCreator/CardCreatorEditor.cs<>uid://jced01wfexgu
 CardCreatorRounded.gdshader::Shader::-1::1678897149::0::1::::<><>::
 ::res://app/gui/cardCreator/templates/::1679872378
 CardTemplate.cs::CSharpScript::-1::1679681031::0::1::::<><>::
@@ -75,11 +75,11 @@ IConfig.cs::CSharpScript::-1::1677770237::0::1::::<><>::
 ServerConfig.cs::CSharpScript::-1::1677770237::0::1::::<><>::
 ServerFile.cs::CSharpScript::-1::1677770237::0::1::::<><>::
 TabType.cs::CSharpScript::-1::1678817339::0::1::::<><>::
-::res://app/resources/::1679680942
+::res://app/resources/::1679920567
 CardCreatorAttribute.cs::CSharpScript::-1::1678917684::0::1::::<><>::
-CardCreatorCardTypeResource.cs::CSharpScript::-1::1679680942::0::1::::<><>::
-CardCreatorCardTypeSettingsResource.cs::CSharpScript::-1::1679673799::0::1::::<><>::
-CardCreatorColorResource.cs::CSharpScript::-1::1679670989::0::1::::<><>::
+CardCreatorCardTypeResource.cs::CSharpScript::-1::1679920543::0::1::::<><>::
+CardCreatorCardTypeSettingsResource.cs::CSharpScript::-1::1679920529::0::1::::<><>::
+CardCreatorColorResource.cs::CSharpScript::-1::1679920567::0::1::::<><>::
 CardCreatorCostResource.cs::CSharpScript::-1::1679673276::0::1::::<><>::
 CardCreatorSettings.cs::CSharpScript::-1::1679675992::0::1::::<><>::
 CardResource.cs::CSharpScript::-1::1678820967::0::1::::<><>::
@@ -311,9 +311,9 @@ SecurityLoad.cs::CSharpScript::-1::1679443092::0::1::::<><>::
 SettingsManager.cs::CSharpScript::-1::1679441263::0::1::::<><>::
 SoundManager.cs::CSharpScript::-1::1677771734::0::1::::<><>::
 SoundManager.tscn::PackedScene::-1::1677770236::0::1::::<><>::res://app/scripts/auto_load/SoundManager.cs<>res://app/resources/sounds/background/One Piece OST Overtaken.ogg
-::res://app/translations/::1679442001
-Translation OPS Pro - Main.csv::Translation::640825249604834678::1679919970::1679919988::1::::<><>::
-Translation OPS Pro - Main.en.translation::OptimizedTranslation::9008878792990581952::1679919988::0::1::::<><>::
-Translation OPS Pro - Main.fr.translation::OptimizedTranslation::6917136582745097459::1679919988::0::1::::<><>::
+::res://app/translations/::1679919988
+Translation OPS Pro - Main.csv::Translation::640825249604834678::1679923469::1679923484::1::::<><>::
+Translation OPS Pro - Main.en.translation::OptimizedTranslation::9008878792990581952::1679923484::0::1::::<><>::
+Translation OPS Pro - Main.fr.translation::OptimizedTranslation::6917136582745097459::1679923484::0::1::::<><>::
 ::res://Properties/::1677770897
 launchSettings.json::JSON::-1::1677804647::0::1::::<><>::

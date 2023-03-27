@@ -50,6 +50,12 @@ size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 text = "CARDCREATOR_QUIT"
 
+[node name="Open Folder" type="Button" parent="Viewer/PanelContainer/CardEditor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "CARDCREATOR_OPENFOLDER"
+
 [node name="HSeparator" type="HSeparator" parent="Viewer/PanelContainer/CardEditor"]
 layout_mode = 2
 
@@ -76,7 +82,7 @@ layout_mode = 2
 [node name="InfoContainer" type="MarginContainer" parent="Viewer/PanelContainer/CardEditor"]
 layout_mode = 2
 
-[node name="InfoLabel" type="RichTextLabel" parent="Viewer/PanelContainer/CardEditor/InfoContainer"]
+[node name="InfoMessage" type="RichTextLabel" parent="Viewer/PanelContainer/CardEditor/InfoContainer"]
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
@@ -173,10 +179,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
+[node name="NameContainer" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="EditCardName" type="LineEdit" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="EditCardName" type="LineEdit" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/NameContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -184,15 +190,15 @@ placeholder_text = "CARDCREATOR_TITLE"
 caret_blink = true
 caret_blink_interval = 0.5
 
-[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/NameContainer"]
 layout_mode = 2
 value = 31.0
 suffix = "px"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
+[node name="TypeContainer" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="EditTypes" type="LineEdit" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="EditTypes" type="LineEdit" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/TypeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -200,15 +206,15 @@ placeholder_text = "CARDCREATOR_TYPE"
 caret_blink = true
 caret_blink_interval = 0.5
 
-[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/TypeContainer"]
 layout_mode = 2
 value = 14.0
 suffix = "px"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
+[node name="NumberContainer" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="EditNumber" type="LineEdit" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="EditNumber" type="LineEdit" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/NumberContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -216,25 +222,25 @@ placeholder_text = "CARDCREATOR_NUMBER"
 caret_blink = true
 caret_blink_interval = 0.5
 
-[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/NumberContainer"]
 layout_mode = 2
 value = 11.0
 suffix = "px"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
+[node name="CostContainer" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="CostText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="CostText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/CostContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 max_value = 10.0
 prefix = "CARDCREATOR_COST"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
+[node name="CounterContainer" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="CounterText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
+[node name="CounterText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/CounterContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -242,15 +248,15 @@ max_value = 5000.0
 step = 1000.0
 prefix = "CARDCREATOR_COUNTER"
 
-[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
+[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/CounterContainer"]
 layout_mode = 2
 value = 21.0
 suffix = "px"
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
+[node name="PowerContainer" type="HBoxContainer" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PowerText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer6"]
+[node name="PowerText" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/PowerContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -258,7 +264,7 @@ max_value = 20000.0
 step = 500.0
 prefix = "CARDCREATOR_POWER"
 
-[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer6"]
+[node name="SpinBox" type="SpinBox" parent="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/PowerContainer"]
 layout_mode = 2
 value = 42.0
 suffix = "px"
@@ -336,6 +342,7 @@ text = "CARDCREATOR_SAVE"
 
 [connection signal="file_selected" from="FileDialog" to="." method="OnFileSelected"]
 [connection signal="pressed" from="Viewer/PanelContainer/CardEditor/HBoxContainer/Quit" to="." method="OnQuitPressed"]
+[connection signal="pressed" from="Viewer/PanelContainer/CardEditor/HBoxContainer/Open Folder" to="." method="OnOpenFolderPressed"]
 [connection signal="pressed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardImageContainer/MarginContainer/VBoxContainer/HBoxContainer/ExploreFile" to="." method="OnExploreFilePressed"]
 [connection signal="color_changed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer/ColorPicker" to="." method="OnColorPickerColorChanged"]
 [connection signal="color_changed" from="Editor/MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer2/ColorPicker" to="." method="OnColorPickerColorSecondaryChanged"]

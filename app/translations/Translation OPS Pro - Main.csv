@@ -123,3 +123,6 @@ CARDCREATOR_TYPE_STAGE,Stage,Terrain
 CARDCREATOR_TYPE_DON,Don!! Card,Carte Don!!
 CARDCREATOR_TYPE_SUFFIX_FULLART,Fullart,Fullart
 CARDCREATOR_TYPE_SUFFIX_EMPTY,Empty,Vide
+CARDCREATOR_OPENFOLDER,Open Folder,Ouvrir le dossier
+CARDCREATOR_ERROR_FILL_CARDNAME,"Card name is empty, please fill in to export your card.","Le nom de la carte est vide, veuillez le remplir pour exporter votre carte."
+CARDCREATOR_FILE_EXPORTED,File exported at {0}.,Fichier exporté à {0}.

@@ -33,11 +33,18 @@ public partial class CardCreatorEditor : Container
     public SpinBox CounterPx { get; private set; }
     public ColorPickerButton ColorPicker { get; private set; }
     public ColorPickerButton SecondaryColorPicker { get; private set; }
+    public Container NameContainer { get; private set; }
+    public Container TypeContainer { get; private set; }
+    public Container NumberContainer { get; private set; }
+    public Container CostContainer { get; private set; }
+    public Container CounterContainer { get; private set; }
+    public Container PowerContainer { get; private set; }
 
     public CardTemplate CardTemplate { get; private set; }
 
     public CardCreatorColorResource SelectedColorResource { get; private set; }
     public CardCreatorCardTypeResource SelectedCardType { get; private set; }
+    public RichTextLabel InfoMessage { get; private set; }
 
 
     public override void _Ready()
@@ -56,25 +63,34 @@ public partial class CardCreatorEditor : Container
 
         FileLineEdit = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardImageContainer/MarginContainer/VBoxContainer/HBoxContainer/LineEdit");
 
-        EditCardName = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/EditCardName");
-        EditTypes = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/EditTypes");
-        EditNumber = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer3/EditNumber");
+        NameContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/NameContainer");
+        TypeContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/TypeContainer");
+        NumberContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/NumberContainer");
+        CostContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/CostContainer");
+        CounterContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/CounterContainer");
+        PowerContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/PowerContainer");
 
-        CostText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer4/CostText");
-        CounterText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer5/CounterText");
-        PowerText = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer6/PowerText");
+        EditCardName = NameContainer.GetNode<LineEdit>("EditCardName");
+        EditTypes = TypeContainer.GetNode<LineEdit>("EditTypes");
+        EditNumber = NumberContainer.GetNode<LineEdit>("EditNumber");
 
-        CardNamePx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SpinBox");
-        TypePx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/SpinBox");
-        NumberPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer3/SpinBox");
-        CounterPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer5/SpinBox");
-        PowerPx = EditorContainer.GetNode<SpinBox>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/HBoxContainer6/SpinBox");
+        CostText = CostContainer.GetNode<SpinBox>("CostText");
+        CounterText = CounterContainer.GetNode<SpinBox>("CounterText");
+        PowerText = PowerContainer.GetNode<SpinBox>("PowerText");
+
+        CardNamePx = NameContainer.GetNode<SpinBox>("SpinBox");
+        TypePx = TypeContainer.GetNode<SpinBox>("SpinBox");
+        NumberPx = NumberContainer.GetNode<SpinBox>("SpinBox");
+        CounterPx = CounterContainer.GetNode<SpinBox>("SpinBox");
+        PowerPx = PowerContainer.GetNode<SpinBox>("SpinBox");
 
         AttributeOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/AttributeOptions");
         RarityOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/RarityOptions");
 
         ColorPicker = EditorContainer.GetNode<ColorPickerButton>("MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer/ColorPicker");
         SecondaryColorPicker = EditorContainer.GetNode<ColorPickerButton>("MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer2/ColorPicker");
+
+        InfoMessage = GetNode<RichTextLabel>("Viewer/PanelContainer/CardEditor/InfoContainer/InfoMessage");
 
         EditorContainer.Hide();
 
@@ -111,31 +127,43 @@ public partial class CardCreatorEditor : Container
 
     private void CardNamePxChanged(double value)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateCardTitlePx(value);
     }
 
     private void NumberPxChanged(double value)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateCardNumberPx(value);
     }
 
     private void TypePxChanged(double value)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateCardTypePx(value);
     }
 
     private void PowerPxChanged(double value)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateCardPowerPx(value);
     }
 
     private void CounterPxChanged(double value)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateCardCounterPx(value);
     }
 
     private void CostChanged(double value)
     {
+        InfoMessage.Text = null;
+
         if (SelectedCardType != null)
         {
             var realValue = value - SelectedCardType.Settings.Costs.MinCost;
@@ -148,61 +176,95 @@ public partial class CardCreatorEditor : Container
 
     private void CounterChanged(double value)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateCardCounter(value);
     }
 
     private void PowerChanged(double value)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateCardPower(value);
     }
 
     private void CardNameChanged(string newText)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateCardTitle(newText);
     }
 
     private void CardTypeChanged(string newText)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateCardType(newText);
     }
 
     private void CardNumberChanged(string newText)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateCardNumber(newText);
     }
 
     private void ColorOptions_ItemSelected(long index)
     {
-        if (index >= 0)
+        try
         {
-            CardTypeOptions.Clear();
-            SelectedColorResource = CardCreatorSettings.Colors.FirstOrDefault(x => x.Name == ColorOptions.GetItemText((int)index));
-            if (SelectedColorResource != null)
+            InfoMessage.Text = null;
+
+            Log.Information($"Color item selected");
+            if (index >= 0)
             {
-                foreach (var type in SelectedColorResource.Types)
+                CardTypeOptions.Clear();
+                SelectedColorResource = CardCreatorSettings.Colors.FirstOrDefault(x => x.Name == ColorOptions.GetItemText((int)index));
+                if (SelectedColorResource != null)
                 {
-                    CardTypeOptions.AddItem(type.GetFullName());
+                    Log.Information($"Update color ({SelectedColorResource.Name})");
+                    foreach (var type in SelectedColorResource.Types)
+                    {
+                        CardTypeOptions.AddItem(type.GetFullName());
+                    }
                 }
+
+                CardTypeOptions.Selected = -1;
+                CardTypeOptions.Text = Tr("CARDCREATOR_TYPE");
+
+                RemoveCurrentTemplate();
+                EditorContainer.Hide();
             }
-
-            CardTypeOptions.Selected = -1;
-            CardTypeOptions.Text = Tr("CARDCREATOR_TYPE");
-
-            RemoveCurrentTemplate();
-            EditorContainer.Hide();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 
     private void CardTypeOptions_ItemSelected(long index)
     {
-        if (index >= 0 && SelectedColorResource != null)
+        try
         {
-            var text = CardTypeOptions.GetItemText((int)index);
-            if (SelectedColorResource != null)
+            InfoMessage.Text = null;
+
+            Log.Information($"Card type item selected");
+            if (index >= 0 && SelectedColorResource != null)
             {
-                SelectedCardType = SelectedColorResource.Types.FirstOrDefault(x => x.GetFullName() == text);
-                UpdateTemplate(SelectedCardType);
+                var text = CardTypeOptions.GetItemText((int)index);
+                if (SelectedColorResource != null)
+                {
+                    Log.Information($"Update card type ({text})");
+                    SelectedCardType = SelectedColorResource.Types.FirstOrDefault(x => x.GetFullName() == text);
+                    UpdateTemplate(SelectedCardType);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 
@@ -213,29 +275,31 @@ public partial class CardCreatorEditor : Container
 
     private void UpdateTemplate(CardCreatorCardTypeResource type)
     {
+        Log.Information($"Update template");
+        InfoMessage.Text = null;
+
         if (type != null)
         {
+            Log.Debug($"Remove current template");
             RemoveCurrentTemplate();
+            Log.Debug($"Add new template");
             CardTemplate = type.Settings.Template.Instantiate<CardTemplate>();
             ViewerContainer.AddChild(CardTemplate);
 
-            EditCardName.Visible = type.Settings.HasTitle;
-            CardNamePx.Visible = type.Settings.HasTitle;
-            EditTypes.Visible = type.Settings.HasType;
-            TypePx.Visible = type.Settings.HasType;
-            EditNumber.Visible = type.Settings.HasNumber;
-            NumberPx.Visible = type.Settings.HasNumber;
+            Log.Debug($"Hide or Show options based on new template");
+            NameContainer.Visible = type.Settings.HasTitle;
+            TypeContainer.Visible = type.Settings.HasType;
+            NumberContainer.Visible = type.Settings.HasNumber;
             RarityOptions.Visible = type.Settings.HasRarity;
             AttributeOptions.Visible = type.Settings.HasAttribute;
-            CostText.Visible = type.Settings.HasCost;
+            CostContainer.Visible = type.Settings.HasCost;
             CostText.MinValue = type.Settings.Costs.MinCost;
             CostText.Value = type.Settings.Costs.MinCost;
             CostText.MaxValue = type.Settings.Costs.MaxCost;
-            CounterText.Visible = type.Settings.HasCounter;
-            CounterPx.Visible = type.Settings.HasCounter;
-            PowerText.Visible = type.Settings.HasPower;
-            PowerPx.Visible = type.Settings.HasPower;
+            CounterContainer.Visible = type.Settings.HasCounter;
+            PowerContainer.Visible = type.Settings.HasPower;
 
+            Log.Debug($"Update pixels, texts and values to the new template");
             CardTemplate.Texture = type.Texture;
             CardNameChanged(EditCardName.Text);
             CardNamePxChanged(CardNamePx.Value);
@@ -251,6 +315,7 @@ public partial class CardCreatorEditor : Container
             PowerChanged(PowerText.Value);
             PowerPxChanged(PowerPx.Value);
 
+            Log.Debug($"Update colors");
             ColorPicker.Color = type.TextColor;
             OnColorPickerColorChanged(type.TextColor);
 
@@ -264,25 +329,49 @@ public partial class CardCreatorEditor : Container
 
     private void RarityOptions_ItemSelected(long index)
     {
-        if (index >= 0)
+        try
         {
-            var rarity = CardCreatorSettings.Rarities.FirstOrDefault(x => x.Key == RarityOptions.GetItemText((int)index));
-            if (rarity.Value != null)
+            InfoMessage.Text = null;
+
+            Log.Information($"Rarity item selected");
+            if (index >= 0)
             {
-                CardTemplate?.UpdateCardRarity(rarity.Value);
+                var rarity = CardCreatorSettings.Rarities.FirstOrDefault(x => x.Key == RarityOptions.GetItemText((int)index));
+                if (rarity.Value != null)
+                {
+                    Log.Information($"Update rarity ({rarity})");
+                    CardTemplate?.UpdateCardRarity(rarity.Value);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 
     private void AttributeOptions_ItemSelected(long index)
     {
-        if (index >= 0)
+        try
         {
-            var attribute = CardCreatorSettings.Attributes.FirstOrDefault(x => x.Name == AttributeOptions.GetItemText((int)index));
-            if (attribute != null)
+            InfoMessage.Text = null;
+
+            Log.Information($"Attribute item selected");
+            if (index >= 0)
             {
-                CardTemplate?.UpdateCardAttribute(attribute.Texture);
+                var attribute = CardCreatorSettings.Attributes.FirstOrDefault(x => x.Name == AttributeOptions.GetItemText((int)index));
+                if (attribute != null)
+                {
+                    Log.Information($"Update attribute ({attribute})");
+                    CardTemplate?.UpdateCardAttribute(attribute.Texture);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 
@@ -290,7 +379,13 @@ public partial class CardCreatorEditor : Container
     {
         try
         {
-            if (!string.IsNullOrWhiteSpace(EditCardName.Text))
+            InfoMessage.Text = null;
+
+            Log.Information($"Start exporting image");
+            if (string.IsNullOrWhiteSpace(EditCardName.Text))
+            {
+                ChangeInfoMessage(Tr("CARDCREATOR_ERROR_FILL_CARDNAME"), "red");
+            } else
             {
                 var name = $"{EditCardName.Text}-{DateTime.Now:yyyyMMdd-hhmmss}.png";
                 var isNewNameValid = name.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
@@ -299,12 +394,19 @@ public partial class CardCreatorEditor : Container
                     throw new Exception(string.Format(Tr("CARDCREATOR_SAVE_ERROR_FILENAME"), name));
                 }
 
-                GetViewport().GetTexture().GetImage().GetRegion((Rect2I)CardTemplate.GetGlobalRect()).SavePng(Path.Combine(CardFolder, name));
+                string outputFile = Path.Combine(CardFolder, name);
+                string outputFileGlobal = ProjectSettings.GlobalizePath(outputFile);
+
+                Log.Information($"File created and exported at {outputFileGlobal}");
+                ChangeInfoMessage(string.Format(Tr("CARDCREATOR_FILE_EXPORTED"), outputFileGlobal));
+
+                GetViewport().GetTexture().GetImage().GetRegion((Rect2I)CardTemplate.GetGlobalRect()).SavePng(outputFile);
             }
         }
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 
@@ -312,11 +414,19 @@ public partial class CardCreatorEditor : Container
 	{
         try
         {
+            InfoMessage.Text = null;
+
+            Log.Information($"Reset card creator menu");
+
+            Log.Debug($"Hide and remove current template");
+
             RemoveCurrentTemplate();
             EditorContainer.Hide();
 
             CustomBackground.Texture = null;
             FileLineEdit.Text = null;
+
+            Log.Debug($"Reinit color option buttons");
 
             ColorOptions.Clear();
             foreach (var color in CardCreatorSettings.Colors)
@@ -326,7 +436,11 @@ public partial class CardCreatorEditor : Container
             ColorOptions.Selected = -1;
             ColorOptions.Text = Tr("CARDCREATOR_COLOR");
 
+            Log.Debug($"Clear card type options");
+
             CardTypeOptions.Clear();
+
+            Log.Debug($"Reinit rarity option buttons");
 
             RarityOptions.Clear();
             foreach (var color in CardCreatorSettings.Rarities)
@@ -336,6 +450,8 @@ public partial class CardCreatorEditor : Container
             RarityOptions.Selected = -1;
             RarityOptions.Text = Tr("CARDCREATOR_RARITY");
 
+            Log.Debug($"Reinit attribute option buttons");
+
             AttributeOptions.Clear();
             foreach (var color in CardCreatorSettings.Attributes)
             {
@@ -343,6 +459,8 @@ public partial class CardCreatorEditor : Container
             }
             AttributeOptions.Selected = -1;
             AttributeOptions.Text = Tr("CARDCREATOR_ATTRIBUTE");
+
+            Log.Debug($"Reinit default values and size");
 
             EditCardName.Text = null;
             CardNamePx.Value = 31;
@@ -359,6 +477,7 @@ public partial class CardCreatorEditor : Container
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 
@@ -366,6 +485,10 @@ public partial class CardCreatorEditor : Container
     {
         try
         {
+            InfoMessage.Text = null;
+
+            Log.Information($"Quit card creator");
+
             var parent = this.SearchParent<CardCreator>();
             if (parent == null)
             {
@@ -381,33 +504,88 @@ public partial class CardCreatorEditor : Container
         catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
+        }
+    }
+
+    private void OnOpenFolderPressed()
+    {
+        try
+        {
+            InfoMessage.Text = null;
+
+            var path = ProjectSettings.GlobalizePath(CardFolder);
+
+            Log.Information($"Open folder for created cards at {path}");
+
+            OS.ShellOpen(path);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 
     private void OnExploreFilePressed()
     {
-        FileDialog.Show();
+        try
+        {
+            InfoMessage.Text = null;
+
+            Log.Information($"Start explore file");
+            FileDialog.Show();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
+        }
     }
 
     private void OnFileSelected(string path)
     {
-        FileLineEdit.Text = path;
-
-        var image = new Image();
-        var error = image.Load(path);
-        if (error == Error.Ok)
+        try
         {
-            CustomBackground.Texture = ImageTexture.CreateFromImage(image);
+            InfoMessage.Text = null;
+
+            Log.Information($"File {path} selected");
+            FileLineEdit.Text = path;
+
+            var image = new Image();
+            var error = image.Load(path);
+            if (error == Error.Ok)
+            {
+                CustomBackground.Texture = ImageTexture.CreateFromImage(image);
+                Log.Information($"File impoted as image");
+            }
+            else
+            {
+                Log.Error($"An error occured with this file {path}, error type: {error}");
+            }
+        } catch(Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ChangeInfoMessage(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), "red");
         }
     }
 
     private void OnColorPickerColorChanged(Color color)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateColor(color);
     }
 
     private void OnColorPickerColorSecondaryChanged(Color color)
     {
+        InfoMessage.Text = null;
+
         CardTemplate?.UpdateSecondaryColor(color);
+    }
+
+    private void ChangeInfoMessage(string message, string color = "white")
+    {
+        InfoMessage.Text = $"[color={color}]{message}[/color]";
     }
 }

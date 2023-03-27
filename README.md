@@ -5,11 +5,11 @@ OPS PRO
 - Add silent to tabs (like logs)
 
 # TODO
-- Card Creator: Translation messages
-- Card Creator: Logs
-- Card Creator: Messages
-- Card Creator: Translation for resources
 
 # Done
 - Card Creator: Support others colors
 - Deck Builder: Translation messages
+- Card Creator: Translation for resources
+- Card Creator: Translation messages
+- Card Creator: Logs
+- Card Creator: Messages
