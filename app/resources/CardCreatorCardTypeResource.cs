@@ -14,7 +14,13 @@ public partial class CardCreatorCardTypeResource : Resource
     }
 
     [Export]
+    public bool HasColor { get; set; } = true;
+
+    [Export]
     public Color TextColor { get; set; } = new Color(255, 255, 255, 1);
+
+    [Export]
+    public bool HasSecondaryColor { get; set; } = true;
 
     [Export]
     public Color SecondaryTextColor { get; set; } = new Color(0, 0, 0, 1);

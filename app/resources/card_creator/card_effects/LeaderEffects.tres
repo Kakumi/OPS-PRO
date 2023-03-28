@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bn16s78ku58wp"]
+
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardEffectsResource.cs" id="2_ipk28"]
+
+[resource]
+script = ExtResource("2_ipk28")
+ToggableBackgroundColor = true
+Values = null

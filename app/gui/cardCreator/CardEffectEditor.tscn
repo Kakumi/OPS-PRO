@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbspxbajubvwa"]
+
+[ext_resource type="Texture2D" uid="uid://dqrnnmssgmlx7" path="res://app/resources/images/others/chevron-arrow-up.png" id="1_bve1y"]
+[ext_resource type="Script" path="res://app/gui/cardCreator/CardEffectEditor.cs" id="1_v08sn"]
+[ext_resource type="Texture2D" uid="uid://cvo7kyrg15ca3" path="res://app/resources/images/others/chevron-arrow-down.png" id="2_eifhc"]
+[ext_resource type="Texture2D" uid="uid://uv77eh6eyydm" path="res://app/resources/images/others/chevron-arrow-up-disabled.png" id="2_vk4i1"]
+[ext_resource type="Texture2D" uid="uid://1dtu3buvu17y" path="res://app/resources/images/others/trash.png" id="3_ojv6w"]
+[ext_resource type="Texture2D" uid="uid://c4pol4fvm12rw" path="res://app/resources/images/others/chevron-arrow-down-disabled.png" id="4_4wb6w"]
+
+[node name="CardEffectEditor" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v08sn")
+
+[node name="GoUp" type="TextureButton" parent="."]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("1_bve1y")
+texture_pressed = ExtResource("1_bve1y")
+texture_hover = ExtResource("1_bve1y")
+texture_disabled = ExtResource("2_vk4i1")
+texture_focused = ExtResource("1_bve1y")
+
+[node name="GoDown" type="TextureButton" parent="."]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("2_eifhc")
+texture_pressed = ExtResource("2_eifhc")
+texture_hover = ExtResource("2_eifhc")
+texture_disabled = ExtResource("4_4wb6w")
+texture_focused = ExtResource("2_eifhc")
+
+[node name="Visibility" type="CheckBox" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+button_pressed = true
+
+[node name="EffectName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Blocker"
+
+[node name="Delete" type="TextureButton" parent="."]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_ojv6w")
+
+[connection signal="pressed" from="GoUp" to="." method="OnGoUpPressed"]
+[connection signal="pressed" from="GoDown" to="." method="OnGoDownPressed"]
+[connection signal="toggled" from="Visibility" to="." method="OnVisibilityToggled"]
+[connection signal="pressed" from="Delete" to="." method="OnDeletePressed"]

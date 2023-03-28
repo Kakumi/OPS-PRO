@@ -7,5 +7,9 @@
 [resource]
 script = ExtResource("3_e2upd")
 Suffix = ""
+HasColor = false
+TextColor = Color(255, 255, 255, 1)
+HasSecondaryColor = false
+SecondaryTextColor = Color(0, 0, 0, 1)
 Settings = ExtResource("1_ro7mr")
 Texture = ExtResource("2_h31qy")

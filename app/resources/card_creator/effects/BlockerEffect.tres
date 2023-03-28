@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://85lpopns7ms8"]
+
+[ext_resource type="PackedScene" uid="uid://6f2e0i1ej5wn" path="res://app/gui/cardCreator/templates/texts/BlockerContainer.tscn" id="1_4ai5f"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorEffectResource.cs" id="1_5gtch"]
+
+[resource]
+script = ExtResource("1_5gtch")
+EffectName = "Blocker"
+HasText = false
+HasDon = false
+HasDamage = false
+TemplateText = ExtResource("1_4ai5f")

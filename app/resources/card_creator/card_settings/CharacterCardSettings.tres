@@ -1,7 +1,8 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cb66j0k6imjc5"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://cb66j0k6imjc5"]
 
 [ext_resource type="Resource" uid="uid://dly7ufohhhf54" path="res://app/resources/card_creator/costs/Costs.tres" id="1_vs2an"]
 [ext_resource type="PackedScene" uid="uid://yl1r1cb2als7" path="res://app/gui/cardCreator/templates/CharacterCardTemplate.tscn" id="2_8bgw4"]
+[ext_resource type="Resource" uid="uid://b28gqq4nmav3p" path="res://app/resources/card_creator/card_effects/CharacterEffects.tres" id="2_xqkok"]
 [ext_resource type="Script" path="res://app/resources/CardCreatorCardTypeSettingsResource.cs" id="3_4ak6b"]
 
 [resource]
@@ -17,3 +18,4 @@ HasCost = true
 HasCounter = true
 HasPower = true
 Costs = ExtResource("1_vs2an")
+Effects = ExtResource("2_xqkok")

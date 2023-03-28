@@ -9,6 +9,9 @@ public partial class CardCreatorEditor : Container
     [Export]
     public CardCreatorSettings CardCreatorSettings { get; set; }
 
+    [Export]
+    public PackedScene CardEffectEditor { get; set; }
+
     public FileDialog FileDialog { get; private set; }
 
     public LineEdit FileLineEdit { get; private set; }
@@ -20,6 +23,7 @@ public partial class CardCreatorEditor : Container
     public OptionButton CardTypeOptions { get; private set; }
     public OptionButton AttributeOptions { get; private set; }
     public OptionButton RarityOptions { get; private set; }
+    public OptionButton EffectsOptions { get; private set; }
     public LineEdit EditCardName { get; private set; }
     public LineEdit EditTypes { get; private set; }
     public LineEdit EditNumber { get; private set; }
@@ -33,12 +37,19 @@ public partial class CardCreatorEditor : Container
     public SpinBox CounterPx { get; private set; }
     public ColorPickerButton ColorPicker { get; private set; }
     public ColorPickerButton SecondaryColorPicker { get; private set; }
+    public CheckButton ToggleBGEffectButton { get; private set; }
     public Container NameContainer { get; private set; }
     public Container TypeContainer { get; private set; }
     public Container NumberContainer { get; private set; }
     public Container CostContainer { get; private set; }
     public Container CounterContainer { get; private set; }
     public Container PowerContainer { get; private set; }
+    public Container CardInfoContainer { get; private set; }
+    public Container CardEffectContainer { get; private set; }
+    public Container EffectEditorContainer { get; private set; }
+    public Container CardStyleContainer { get; private set; }
+    public Container CardColorContainer { get; private set; }
+    public Container CardSecondaryColorContainer { get; private set; }
 
     public CardTemplate CardTemplate { get; private set; }
 
@@ -60,15 +71,21 @@ public partial class CardCreatorEditor : Container
 
         EditorContainer = GetNode<Container>("Editor");
         ViewerContainer = GetNode<Container>("Viewer/CardViewer/PanelContainer/MarginContainer/BoxContainer");
+        CardInfoContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer");
+        CardEffectContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardEffectContainer");
+        EffectEditorContainer = CardEffectContainer.GetNode<Container>("MarginContainer/VBoxContainer/ScrollContainer/EffectsEditor");
+        CardStyleContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardStyleContainer");
 
         FileLineEdit = EditorContainer.GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/CardImageContainer/MarginContainer/VBoxContainer/HBoxContainer/LineEdit");
 
-        NameContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/NameContainer");
-        TypeContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/TypeContainer");
-        NumberContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/NumberContainer");
-        CostContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/CostContainer");
-        CounterContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/CounterContainer");
-        PowerContainer = EditorContainer.GetNode<Container>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/PowerContainer");
+        NameContainer = CardInfoContainer.GetNode<Container>("MarginContainer/VBoxContainer/NameContainer");
+        TypeContainer = CardInfoContainer.GetNode<Container>("MarginContainer/VBoxContainer/TypeContainer");
+        NumberContainer = CardInfoContainer.GetNode<Container>("MarginContainer/VBoxContainer/NumberContainer");
+        CostContainer = CardInfoContainer.GetNode<Container>("MarginContainer/VBoxContainer/CostContainer");
+        CounterContainer = CardInfoContainer.GetNode<Container>("MarginContainer/VBoxContainer/CounterContainer");
+        PowerContainer = CardInfoContainer.GetNode<Container>("MarginContainer/VBoxContainer/PowerContainer");
+        CardColorContainer = CardStyleContainer.GetNode<Container>("MarginContainer/VBoxContainer/Color");
+        CardSecondaryColorContainer = CardStyleContainer.GetNode<Container>("MarginContainer/VBoxContainer/SecondaryColor");
 
         EditCardName = NameContainer.GetNode<LineEdit>("EditCardName");
         EditTypes = TypeContainer.GetNode<LineEdit>("EditTypes");
@@ -84,11 +101,14 @@ public partial class CardCreatorEditor : Container
         CounterPx = CounterContainer.GetNode<SpinBox>("SpinBox");
         PowerPx = PowerContainer.GetNode<SpinBox>("SpinBox");
 
-        AttributeOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/AttributeOptions");
-        RarityOptions = EditorContainer.GetNode<OptionButton>("MarginContainer/ScrollContainer/VBoxContainer/CardInfoContainer/MarginContainer/VBoxContainer/RarityOptions");
+        AttributeOptions = CardInfoContainer.GetNode<OptionButton>("MarginContainer/VBoxContainer/AttributeOptions");
+        RarityOptions = CardInfoContainer.GetNode<OptionButton>("MarginContainer/VBoxContainer/RarityOptions");
+        EffectsOptions = CardEffectContainer.GetNode<OptionButton>("MarginContainer/VBoxContainer/HBoxContainer/EffectsOptions");
 
-        ColorPicker = EditorContainer.GetNode<ColorPickerButton>("MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer/ColorPicker");
-        SecondaryColorPicker = EditorContainer.GetNode<ColorPickerButton>("MarginContainer/ScrollContainer/VBoxContainer/CardStyle/MarginContainer/VBoxContainer/HBoxContainer2/ColorPicker");
+        ColorPicker = CardColorContainer.GetNode<ColorPickerButton>("ColorPicker");
+        SecondaryColorPicker = CardSecondaryColorContainer.GetNode<ColorPickerButton>("ColorPicker");
+
+        ToggleBGEffectButton = CardEffectContainer.GetNode<CheckButton>("MarginContainer/VBoxContainer/ToggleBGEffectButton");
 
         InfoMessage = GetNode<RichTextLabel>("Viewer/PanelContainer/CardEditor/InfoContainer/InfoMessage");
 
@@ -164,7 +184,7 @@ public partial class CardCreatorEditor : Container
     {
         InfoMessage.Text = null;
 
-        if (SelectedCardType != null)
+        if (SelectedCardType != null && SelectedCardType.Settings.Costs != null)
         {
             var realValue = value - SelectedCardType.Settings.Costs.MinCost;
             if (realValue < SelectedCardType.Settings.Costs.Textures.Count)
@@ -286,6 +306,9 @@ public partial class CardCreatorEditor : Container
             CardTemplate = type.Settings.Template.Instantiate<CardTemplate>();
             ViewerContainer.AddChild(CardTemplate);
 
+            CardInfoContainer.Visible = type.Settings.HasTitle || type.Settings.HasType || type.Settings.HasNumber ||
+                type.Settings.HasRarity || type.Settings.HasAttribute || type.Settings.HasCost;
+
             Log.Debug($"Hide or Show options based on new template");
             NameContainer.Visible = type.Settings.HasTitle;
             TypeContainer.Visible = type.Settings.HasType;
@@ -293,9 +316,12 @@ public partial class CardCreatorEditor : Container
             RarityOptions.Visible = type.Settings.HasRarity;
             AttributeOptions.Visible = type.Settings.HasAttribute;
             CostContainer.Visible = type.Settings.HasCost;
-            CostText.MinValue = type.Settings.Costs.MinCost;
-            CostText.Value = type.Settings.Costs.MinCost;
-            CostText.MaxValue = type.Settings.Costs.MaxCost;
+            if (type.Settings.HasCost)
+            {
+                CostText.MinValue = type.Settings.Costs.MinCost;
+                CostText.Value = type.Settings.Costs.MinCost;
+                CostText.MaxValue = type.Settings.Costs.MaxCost;
+            }
             CounterContainer.Visible = type.Settings.HasCounter;
             PowerContainer.Visible = type.Settings.HasPower;
 
@@ -315,12 +341,33 @@ public partial class CardCreatorEditor : Container
             PowerChanged(PowerText.Value);
             PowerPxChanged(PowerPx.Value);
 
+            CardStyleContainer.Visible = type.HasColor || type.HasSecondaryColor;
+
             Log.Debug($"Update colors");
+            CardColorContainer.Visible = type.HasColor;
             ColorPicker.Color = type.TextColor;
             OnColorPickerColorChanged(type.TextColor);
 
+            CardSecondaryColorContainer.Visible = type.HasSecondaryColor;
             SecondaryColorPicker.Color = type.SecondaryTextColor;
             OnColorPickerColorSecondaryChanged(type.SecondaryTextColor);
+
+            CardEffectContainer.Visible = type.Settings.Effects?.Values != null && type.Settings.Effects.Values.Count > 0;
+
+            ToggleBGEffectButton.Visible = type.Settings.Effects?.ToggableBackgroundColor ?? false;
+
+            EffectEditorContainer.GetChildren().ToList().ForEach(x => x.QueueFree());
+
+            if (CardEffectContainer.Visible)
+            {
+                EffectsOptions.Clear();
+                foreach(var effect in type.Settings.Effects.Values)
+                {
+                    EffectsOptions.AddItem(effect.EffectName);
+                }
+                EffectsOptions.Selected = -1;
+                EffectsOptions.Text = Tr("");
+            }
         }
 
         CardTemplate.Show();
@@ -587,5 +634,30 @@ public partial class CardCreatorEditor : Container
     private void ChangeInfoMessage(string message, string color = "white")
     {
         InfoMessage.Text = $"[color={color}]{message}[/color]";
+    }
+
+    private void OnAddEffectButtonPressed()
+    {
+        if (SelectedCardType != null && SelectedColorResource != null)
+        {
+            var effectName = EffectsOptions.GetItemText(EffectsOptions.Selected);
+            var effectRes = SelectedCardType.Settings.Effects.Values.FirstOrDefault(x => x.EffectName == effectName);
+            if (effectRes != null)
+            {
+                var instance = effectRes.TemplateText.Instantiate<TemplateCardEffect>();
+                var cardEffectEditor = CardEffectEditor.Instantiate<CardEffectEditor>();
+                if (instance != null && cardEffectEditor != null)
+                {
+                    CardTemplate?.AddEffect(instance);
+                    cardEffectEditor.TemplateCardEffect = instance;
+                    EffectEditorContainer.AddChild(cardEffectEditor);
+                }
+            }
+        }
+    }
+
+    private void OnToggleBGEffect(bool active)
+    {
+        CardTemplate?.UpdateEffectBackgroundVisibility(active);
     }
 }

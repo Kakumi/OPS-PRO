@@ -7,7 +7,9 @@
 [resource]
 script = ExtResource("3_3f0m8")
 Suffix = "CARDCREATOR_TYPE_SUFFIX_EMPTY"
+HasColor = false
 TextColor = Color(255, 255, 255, 1)
+HasSecondaryColor = false
 SecondaryTextColor = Color(0, 0, 0, 1)
 Settings = ExtResource("1_peb2w")
 Texture = ExtResource("2_3vltq")

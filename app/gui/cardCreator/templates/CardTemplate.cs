@@ -26,4 +26,7 @@ public abstract partial class CardTemplate : TextureRect
 	public abstract void UpdateColor(Color color);
 
 	public abstract void UpdateSecondaryColor(Color color);
+
+	public abstract void UpdateEffectBackgroundVisibility(bool visible);
+	public abstract void AddEffect(TemplateCardEffect effect);
 }

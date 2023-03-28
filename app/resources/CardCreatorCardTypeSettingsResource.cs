@@ -40,4 +40,7 @@ public partial class CardCreatorCardTypeSettingsResource : Resource
 
     [Export]
     public CardCreatorCostResource Costs { get; set; }
+
+    [Export]
+    public CardCreatorCardEffectsResource Effects { get; set; }
 }

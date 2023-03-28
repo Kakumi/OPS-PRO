@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjnsy5lijlqa3"]
+[gd_scene load_steps=4 format=3 uid="uid://bjnsy5lijlqa3"]
 
 [ext_resource type="Script" path="res://app/gui/cardCreator/templates/LeaderCardTemplate.cs" id="2_pxfrp"]
+[ext_resource type="FontFile" uid="uid://d3q4av7163x6t" path="res://app/resources/fonts/card_creator/Roboto-Medium.ttf" id="3_teg0r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2xq4"]
+bg_color = Color(1, 1, 1, 0.498039)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="LeaderCardTemplate" type="TextureRect"]
 custom_minimum_size = Vector2(500, 700)
@@ -15,6 +23,7 @@ anchor_left = 0.122
 anchor_top = 0.854286
 anchor_right = 0.882
 anchor_bottom = 0.935714
+theme_override_fonts/font = ExtResource("3_teg0r")
 theme_override_font_sizes/font_size = 31
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -32,6 +41,7 @@ anchor_bottom = 0.961428
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("3_teg0r")
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -47,6 +57,7 @@ anchor_top = 0.925714
 anchor_right = 0.876
 anchor_bottom = 0.974286
 theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("3_teg0r")
 theme_override_font_sizes/font_size = 11
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -58,10 +69,12 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.608
+anchor_top = 0.0114286
 anchor_right = 0.862
 anchor_bottom = 0.0871429
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 42
+theme_override_fonts/font = ExtResource("3_teg0r")
+theme_override_font_sizes/font_size = 43
 horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
@@ -75,12 +88,27 @@ anchor_left = 0.31
 anchor_top = 0.902857
 anchor_right = 0.692
 anchor_bottom = 0.984286
+theme_override_fonts/font = ExtResource("3_teg0r")
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
+
+[node name="CardTextPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.062
+anchor_top = 0.821
+anchor_right = 0.938
+anchor_bottom = 0.821429
+offset_top = -40.7
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_r2xq4")
+
+[node name="EffectList" type="VBoxContainer" parent="CardTextPanel"]
+layout_mode = 2
 
 [node name="Attribute" type="TextureRect" parent="."]
 layout_mode = 1

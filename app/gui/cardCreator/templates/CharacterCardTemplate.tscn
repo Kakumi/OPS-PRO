@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://yl1r1cb2als7"]
+[gd_scene load_steps=4 format=3 uid="uid://yl1r1cb2als7"]
 
 [ext_resource type="Script" path="res://app/gui/cardCreator/templates/CharacterCardTemplate.cs" id="2_86s12"]
+[ext_resource type="StyleBox" uid="uid://chl40dsef1dy5" path="res://app/resources/card_creator/styles/CardEffectsBackground.tres" id="3_1o08d"]
+[ext_resource type="FontFile" uid="uid://d3q4av7163x6t" path="res://app/resources/fonts/card_creator/Roboto-Medium.ttf" id="3_27672"]
 
 [node name="CharacterCardTemplate" type="TextureRect"]
 custom_minimum_size = Vector2(500, 700)
@@ -8,6 +10,7 @@ size_flags_horizontal = 6
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("2_86s12")
+metadata/_edit_lock_ = true
 
 [node name="CardTitle" type="Label" parent="."]
 layout_mode = 0
@@ -15,6 +18,7 @@ anchor_left = 0.122
 anchor_top = 0.854286
 anchor_right = 0.882
 anchor_bottom = 0.935714
+theme_override_fonts/font = ExtResource("3_27672")
 theme_override_font_sizes/font_size = 31
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -32,6 +36,7 @@ anchor_bottom = 0.961428
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("3_27672")
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -43,10 +48,11 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.72
-anchor_top = 0.925714
-anchor_right = 0.876
+anchor_top = 0.928571
+anchor_right = 0.872
 anchor_bottom = 0.974286
 theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("3_27672")
 theme_override_font_sizes/font_size = 11
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -58,13 +64,14 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.006
-anchor_top = 0.291428
+anchor_top = 0.292857
 anchor_right = 0.119999
-anchor_bottom = 0.291428
+anchor_bottom = 0.292857
 offset_top = 84.0002
 offset_right = 27.0003
 offset_bottom = 141.0
 rotation = -1.5708
+theme_override_fonts/font = ExtResource("3_27672")
 theme_override_font_sizes/font_size = 21
 vertical_alignment = 1
 clip_text = true
@@ -75,10 +82,12 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.608
+anchor_top = 0.0114286
 anchor_right = 0.862
 anchor_bottom = 0.0871429
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 42
+theme_override_fonts/font = ExtResource("3_27672")
+theme_override_font_sizes/font_size = 43
 horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
@@ -92,12 +101,27 @@ anchor_left = 0.31
 anchor_top = 0.902857
 anchor_right = 0.692
 anchor_bottom = 0.984286
+theme_override_fonts/font = ExtResource("3_27672")
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
+
+[node name="CardTextPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.062
+anchor_top = 0.821
+anchor_right = 0.938
+anchor_bottom = 0.821429
+offset_top = -40.7
+grow_vertical = 0
+theme_override_styles/panel = ExtResource("3_1o08d")
+
+[node name="EffectList" type="VBoxContainer" parent="CardTextPanel"]
+layout_mode = 2
 
 [node name="Attribute" type="TextureRect" parent="."]
 layout_mode = 1

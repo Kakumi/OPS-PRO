@@ -8,6 +8,7 @@ public partial class EventCardTemplate : CardTemplate
     public Label Rarity { get; private set; }
     public Label Type { get; private set; }
     public TextureRect Cost { get; private set; }
+    public Container EffectList { get; private set; }
 
     public override void _Ready()
     {
@@ -18,6 +19,7 @@ public partial class EventCardTemplate : CardTemplate
         Rarity = GetNode<Label>("Rarity");
         Type = GetNode<Label>("Type");
         Cost = GetNode<TextureRect>("Cost");
+        EffectList = GetNode<Container>("EffectList");
     }
 
     public override void UpdateCardTitle(string cardTitle)
@@ -91,5 +93,14 @@ public partial class EventCardTemplate : CardTemplate
     {
         Rarity.Set("theme_override_colors/font_color", color);
         Rarity.Set("theme_override_colors/font_outline_color", color);
+    }
+
+    public override void AddEffect(TemplateCardEffect effect)
+    {
+        EffectList.AddChild(effect);
+    }
+
+    public override void UpdateEffectBackgroundVisibility(bool visible)
+    {
     }
 }

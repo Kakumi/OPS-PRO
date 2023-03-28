@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=14 format=3 uid="uid://jced01wfexgu"]
 
 [ext_resource type="Resource" uid="uid://u5sgyncpl8sq" path="res://app/resources/card_creator/attributes/RangedAttribute.tres" id="1_dbut5"]
-[ext_resource type="Resource" path="res://app/resources/card_creator/red/CardCreatorRedResource.tres" id="1_dgebp"]
+[ext_resource type="Resource" uid="uid://cchraig0qt2mm" path="res://app/resources/card_creator/red/CardCreatorRedResource.tres" id="1_dgebp"]
 [ext_resource type="Script" path="res://app/resources/CardCreatorSettings.cs" id="1_xgb4u"]
-[ext_resource type="Resource" path="res://app/resources/card_creator/other/CardCreatorOtherResource.tres" id="2_hvxms"]
+[ext_resource type="Resource" uid="uid://3cg1kg8gcr3o" path="res://app/resources/card_creator/other/CardCreatorOtherResource.tres" id="2_hvxms"]
 [ext_resource type="Resource" uid="uid://ciq7y1jtp85tp" path="res://app/resources/card_creator/attributes/SlashAttribute.tres" id="2_ir2ci"]
 [ext_resource type="Resource" uid="uid://c4t3ckb6378vb" path="res://app/resources/card_creator/attributes/SpecialAttribute.tres" id="3_e2pwc"]
 [ext_resource type="Resource" uid="uid://bhknst3o0k01p" path="res://app/resources/card_creator/attributes/StrikeAttribute.tres" id="4_1fbau"]

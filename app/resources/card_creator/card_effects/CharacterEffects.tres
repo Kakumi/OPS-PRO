@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b28gqq4nmav3p"]
+
+[ext_resource type="Resource" uid="uid://85lpopns7ms8" path="res://app/resources/card_creator/effects/BlockerEffect.tres" id="1_kjgb1"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardEffectsResource.cs" id="2_bpk5g"]
+
+[resource]
+script = ExtResource("2_bpk5g")
+ToggableBackgroundColor = true
+Values = Array[Resource]([ExtResource("1_kjgb1")])

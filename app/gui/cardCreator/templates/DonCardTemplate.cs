@@ -67,4 +67,12 @@ public partial class DonCardTemplate : CardTemplate
     public override void UpdateSecondaryColor(Color color)
     {
     }
+
+    public override void AddEffect(TemplateCardEffect effect)
+    {
+    }
+
+    public override void UpdateEffectBackgroundVisibility(bool visible)
+    {
+    }
 }

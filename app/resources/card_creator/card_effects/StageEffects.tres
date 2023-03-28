@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://0ld4eu6t1hec"]
+
+[ext_resource type="PackedScene" uid="uid://6f2e0i1ej5wn" path="res://app/gui/cardCreator/templates/texts/BlockerContainer.tscn" id="1_hlkoi"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorCardEffectsResource.cs" id="2_12b3p"]
+
+[resource]
+script = ExtResource("2_12b3p")
+Scenes = Array[PackedScene]([ExtResource("1_hlkoi")])

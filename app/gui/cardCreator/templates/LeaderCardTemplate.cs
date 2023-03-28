@@ -10,6 +10,8 @@ public partial class LeaderCardTemplate : CardTemplate
     public Label Type { get; private set; }
     public TextureRect Attribute { get; private set; }
     public TextureRect Cost { get; private set; }
+    public PanelContainer CardTextPanel { get; private set; }
+    public Container EffectList { get; private set; }
 
     public override void _Ready()
     {
@@ -22,6 +24,8 @@ public partial class LeaderCardTemplate : CardTemplate
         Type = GetNode<Label>("Type");
         Attribute = GetNode<TextureRect>("Attribute");
         Cost = GetNode<TextureRect>("Cost");
+        CardTextPanel = GetNode<PanelContainer>("CardTextPanel");
+        EffectList = CardTextPanel.GetNode<Container>("EffectList");
     }
 
     public override void UpdateCardTitle(string cardTitle)
@@ -99,5 +103,26 @@ public partial class LeaderCardTemplate : CardTemplate
     {
         Rarity.Set("theme_override_colors/font_color", color);
         Rarity.Set("theme_override_colors/font_outline_color", color);
+    }
+
+    public override void AddEffect(TemplateCardEffect effect)
+    {
+        EffectList.AddChild(effect);
+    }
+
+    public override void UpdateEffectBackgroundVisibility(bool visible)
+    {
+        var stylebox = CardTextPanel.GetThemeStylebox("panel") as StyleBoxFlat;
+        if (stylebox != null)
+        {
+            if (visible)
+            {
+                stylebox.BgColor = new Color(stylebox.BgColor.R, stylebox.BgColor.G, stylebox.BgColor.B, 0.5f);
+            }
+            else
+            {
+                stylebox.BgColor = new Color(stylebox.BgColor.R, stylebox.BgColor.G, stylebox.BgColor.B, 0f);
+            }
+        }
     }
 }
