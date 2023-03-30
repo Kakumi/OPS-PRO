@@ -1,3 +1,10 @@
+TextureRect
+Node
+Control
+MarginContainer
+Container
+BoxContainer
+AspectRatioContainer
 CheckBox
 TextureButton
 Label
@@ -7,11 +14,7 @@ VBoxContainer
 ScrollContainer
 Button
 OptionButton
-AspectRatioContainer
-MarginContainer
 HFlowContainer
-Control
-TextureRect
 PanelContainer
 TextEdit
 RichTextLabel
@@ -19,7 +22,6 @@ SubViewport
 SubViewportContainer
 ColorPickerButton
 ColorPicker
-Node
 Window
 HSeparator
 FileDialog
@@ -28,6 +30,3 @@ LinkButton
 LineEdit
 SpinBox
 CenterContainer
-BoxContainer
-Container
-GridContainer

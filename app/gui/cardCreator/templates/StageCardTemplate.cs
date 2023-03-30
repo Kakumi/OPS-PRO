@@ -95,12 +95,37 @@ public partial class StageCardTemplate : CardTemplate
         Rarity.Set("theme_override_colors/font_outline_color", color);
     }
 
-    public override void AddEffect(TemplateCardEffect effect)
+    public override bool AddEffect(TemplateCardEffect effect)
     {
         EffectList.AddChild(effect);
+        return true;
     }
 
     public override void UpdateEffectBackgroundVisibility(bool visible)
     {
+    }
+
+    public override bool MoveUp(TemplateCardEffect effect)
+    {
+        var indexOf = EffectList.GetChildren().IndexOf(effect);
+        if (indexOf > 0)
+        {
+            EffectList.MoveChild(effect, indexOf - 1);
+            return true;
+        }
+
+        return false;
+    }
+
+    public override bool MoveDown(TemplateCardEffect effect)
+    {
+        var indexOf = EffectList.GetChildren().IndexOf(effect);
+        if (indexOf < (EffectList.GetChildCount() - 1))
+        {
+            EffectList.MoveChild(effect, indexOf + 1);
+            return true;
+        }
+
+        return false;
     }
 }

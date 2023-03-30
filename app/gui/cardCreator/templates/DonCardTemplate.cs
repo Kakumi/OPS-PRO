@@ -68,11 +68,22 @@ public partial class DonCardTemplate : CardTemplate
     {
     }
 
-    public override void AddEffect(TemplateCardEffect effect)
+    public override bool AddEffect(TemplateCardEffect effect)
     {
+        return false;
     }
 
     public override void UpdateEffectBackgroundVisibility(bool visible)
     {
+    }
+
+    public override bool MoveUp(TemplateCardEffect effect)
+    {
+        return false;
+    }
+
+    public override bool MoveDown(TemplateCardEffect effect)
+    {
+        return false;
     }
 }

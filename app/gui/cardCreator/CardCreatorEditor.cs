@@ -57,7 +57,6 @@ public partial class CardCreatorEditor : Container
     public CardCreatorCardTypeResource SelectedCardType { get; private set; }
     public RichTextLabel InfoMessage { get; private set; }
 
-
     public override void _Ready()
 	{
         CardFolder = "user://card_creator/";
@@ -648,11 +647,65 @@ public partial class CardCreatorEditor : Container
                 var cardEffectEditor = CardEffectEditor.Instantiate<CardEffectEditor>();
                 if (instance != null && cardEffectEditor != null)
                 {
-                    CardTemplate?.AddEffect(instance);
-                    cardEffectEditor.TemplateCardEffect = instance;
-                    EffectEditorContainer.AddChild(cardEffectEditor);
+                    if (CardTemplate?.AddEffect(instance) ?? false)
+                    {
+                        cardEffectEditor.TemplateCardEffect = instance;
+                        EffectEditorContainer.AddChild(cardEffectEditor);
+                        cardEffectEditor.EffectName.Text = effectRes.EffectName;
+                        cardEffectEditor.CardEffectDeleted += CardEffectEditor_CardEffectDeleted;
+                        cardEffectEditor.ClickGoUp += CardEffectEditor_ClickGoUp;
+                        cardEffectEditor.ClickGoDown += CardEffectEditor_ClickGoDown;
+
+                        //Refresh on add
+                        RefreshCardEffectEditors();
+                    }
                 }
             }
+        }
+    }
+
+    private void CardEffectEditor_ClickGoUp(CardEffectEditor cardEffectEditor)
+    {
+        if (CardTemplate?.MoveUp(cardEffectEditor.TemplateCardEffect) ?? false)
+        {
+            var indexOf = EffectEditorContainer.GetChildren().IndexOf(cardEffectEditor);
+            if (indexOf > 0)
+            {
+                EffectEditorContainer.MoveChild(cardEffectEditor, indexOf - 1);
+                RefreshCardEffectEditors();
+            }
+        }
+    }
+
+    private void CardEffectEditor_ClickGoDown(CardEffectEditor cardEffectEditor)
+    {
+        if (CardTemplate?.MoveDown(cardEffectEditor.TemplateCardEffect) ?? false)
+        {
+            var indexOf = EffectEditorContainer.GetChildren().IndexOf(cardEffectEditor);
+            if (indexOf < (EffectEditorContainer.GetChildCount() - 1))
+            {
+                EffectEditorContainer.MoveChild(cardEffectEditor, indexOf + 1);
+                RefreshCardEffectEditors();
+            }
+        }
+    }
+
+    //Refresh on delete
+    private void CardEffectEditor_CardEffectDeleted(TemplateCardEffect templateCardEffect)
+    {
+        RefreshCardEffectEditors();
+    }
+
+    private void RefreshCardEffectEditors()
+    {
+        //Bug la suppression n'est pas retirée à ce moment
+        var elements = EffectEditorContainer.GetChildren().OfType<CardEffectEditor>().Where(x => !x.IsQueuedForDeletion());
+        var elementsNb = elements.Count();
+
+        foreach (var cardEffect in elements)
+        {
+            var indexOf = EffectEditorContainer.GetChildren().IndexOf(cardEffect);
+            cardEffect.Refresh(indexOf, elementsNb);
         }
     }
 

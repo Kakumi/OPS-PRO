@@ -8,7 +8,6 @@
 offset_right = 305.0
 offset_bottom = 78.0
 script = ExtResource("1_feht4")
-EffectName = "Blocker"
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 2
@@ -30,6 +29,6 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("4_8uypb")
 theme_override_font_sizes/font_size = 17
-text = "             (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+text = "            (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
 autowrap_mode = 2
 metadata/_edit_lock_ = true

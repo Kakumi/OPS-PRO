@@ -105,9 +105,10 @@ public partial class LeaderCardTemplate : CardTemplate
         Rarity.Set("theme_override_colors/font_outline_color", color);
     }
 
-    public override void AddEffect(TemplateCardEffect effect)
+    public override bool AddEffect(TemplateCardEffect effect)
     {
         EffectList.AddChild(effect);
+        return true;
     }
 
     public override void UpdateEffectBackgroundVisibility(bool visible)
@@ -124,5 +125,29 @@ public partial class LeaderCardTemplate : CardTemplate
                 stylebox.BgColor = new Color(stylebox.BgColor.R, stylebox.BgColor.G, stylebox.BgColor.B, 0f);
             }
         }
+    }
+
+    public override bool MoveUp(TemplateCardEffect effect)
+    {
+        var indexOf = EffectList.GetChildren().IndexOf(effect);
+        if (indexOf > 0)
+        {
+            EffectList.MoveChild(effect, indexOf - 1);
+            return true;
+        }
+
+        return false;
+    }
+
+    public override bool MoveDown(TemplateCardEffect effect)
+    {
+        var indexOf = EffectList.GetChildren().IndexOf(effect);
+        if (indexOf < (EffectList.GetChildCount() - 1))
+        {
+            EffectList.MoveChild(effect, indexOf + 1);
+            return true;
+        }
+
+        return false;
     }
 }
