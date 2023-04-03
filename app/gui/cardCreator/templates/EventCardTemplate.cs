@@ -19,7 +19,7 @@ public partial class EventCardTemplate : CardTemplate
         Rarity = GetNode<Label>("Rarity");
         Type = GetNode<Label>("Type");
         Cost = GetNode<TextureRect>("Cost");
-        EffectList = GetNode<Container>("EffectList");
+        EffectList = GetNode<Container>("MarginContainer/EffectList");
     }
 
     public override void UpdateCardTitle(string cardTitle)

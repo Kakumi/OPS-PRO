@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c363swetqfkbu"]
+
+[ext_resource type="PackedScene" uid="uid://pxir2u1kjtlm" path="res://app/gui/cardCreator/templates/texts/NormalContainer.tscn" id="1_7ccpb"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorEffectResource.cs" id="2_80qg4"]
+
+[resource]
+script = ExtResource("2_80qg4")
+EffectName = "CARDCREATOR_EFFECT_SIMPLE"
+HasText = true
+HasDon = false
+HasDamage = false
+TemplateText = ExtResource("1_7ccpb")

@@ -27,7 +27,7 @@ public partial class CharacterCardTemplate : CardTemplate
         Attribute = GetNode<TextureRect>("Attribute");
         Cost = GetNode<TextureRect>("Cost");
         CardTextPanel = GetNode<PanelContainer>("CardTextPanel");
-        EffectList = CardTextPanel.GetNode<Container>("EffectList");
+        EffectList = CardTextPanel.GetNode<Container>("MarginContainer/EffectList");
     }
 
     public override void UpdateCardTitle(string cardTitle)

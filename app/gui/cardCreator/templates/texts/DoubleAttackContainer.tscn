@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5bb5140xrcb3"]
+
+[ext_resource type="Script" path="res://app/gui/cardCreator/templates/texts/DoubleAttackContainer.cs" id="1_1dcuu"]
+[ext_resource type="Texture2D" uid="uid://c04li757kd11o" path="res://app/resources/images/card_creator/Keywords/DoubleAttack.png" id="2_imwhp"]
+[ext_resource type="FontFile" uid="uid://bgyxmjmaqbpoa" path="res://app/resources/fonts/card_creator/MBodoni-Italic.otf" id="3_83gxn"]
+
+[node name="DoubleAttackContainer" type="MarginContainer"]
+offset_right = 305.0
+offset_bottom = 78.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_1dcuu")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 2
+offset_right = 111.0
+offset_bottom = 24.0
+texture = ExtResource("2_imwhp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DefaultText" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_83gxn")
+theme_override_font_sizes/font_size = 17
+text = "                    (This card deals 2 damage.)"
+autowrap_mode = 2
+metadata/_edit_lock_ = true

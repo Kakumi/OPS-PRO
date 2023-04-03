@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://pxir2u1kjtlm"]
+
+[ext_resource type="Script" path="res://app/gui/cardCreator/templates/texts/NormalContainer.cs" id="1_a5oq3"]
+[ext_resource type="FontFile" uid="uid://d3q4av7163x6t" path="res://app/resources/fonts/card_creator/Roboto-Medium.ttf" id="2_00ylh"]
+
+[node name="NormalContainer" type="MarginContainer"]
+offset_right = 305.0
+offset_bottom = 78.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_a5oq3")
+
+[node name="DefaultText" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_00ylh")
+theme_override_font_sizes/font_size = 17
+autowrap_mode = 2
+metadata/_edit_lock_ = true

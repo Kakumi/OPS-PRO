@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://v72nvamv6lpn"]
+
+[ext_resource type="PackedScene" uid="uid://bn68hkuwxeu6w" path="res://app/gui/cardCreator/templates/texts/BanishContainer.tscn" id="1_p3wv8"]
+[ext_resource type="Script" path="res://app/resources/CardCreatorEffectResource.cs" id="2_36qvb"]
+
+[resource]
+script = ExtResource("2_36qvb")
+EffectName = "CARDCREATOR_EFFECT_BANISH"
+HasText = false
+HasDon = false
+HasDamage = false
+TemplateText = ExtResource("1_p3wv8")

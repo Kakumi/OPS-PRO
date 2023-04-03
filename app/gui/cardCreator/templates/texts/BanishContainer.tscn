@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn68hkuwxeu6w"]
+
+[ext_resource type="Script" path="res://app/gui/cardCreator/templates/texts/BanishContainer.cs" id="1_stn80"]
+[ext_resource type="Texture2D" uid="uid://csxabqbo7bno8" path="res://app/resources/images/card_creator/Keywords/Banish.png" id="2_fyer2"]
+[ext_resource type="FontFile" uid="uid://bgyxmjmaqbpoa" path="res://app/resources/fonts/card_creator/MBodoni-Italic.otf" id="3_myhi5"]
+
+[node name="BanishContainer" type="MarginContainer"]
+offset_right = 305.0
+offset_bottom = 78.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_stn80")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 2
+offset_right = 65.0
+offset_bottom = 24.0
+texture = ExtResource("2_fyer2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DefaultText" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_myhi5")
+theme_override_font_sizes/font_size = 17
+text = "            (When a character deals damage, the target card is trashed without activating its Trigger.)"
+autowrap_mode = 2
+metadata/_edit_lock_ = true

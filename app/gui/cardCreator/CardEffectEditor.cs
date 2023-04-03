@@ -2,14 +2,18 @@ using Godot;
 using System;
 using System.Linq;
 
-public partial class CardEffectEditor : HBoxContainer
+public partial class CardEffectEditor : VBoxContainer
 {
 	public TemplateCardEffect TemplateCardEffect { get; set; }
-    public TextureButton GoUp { get; private set; }
+
+	public Container Default { get; private set; }
+	public Container Extra { get; private set; }
+	public TextureButton GoUp { get; private set; }
 	public TextureButton GoDown { get; private set; }
 	public CheckBox Visibility { get; private set; }
 	public Label EffectName { get; private set; }
 	public TextureButton Delete { get; private set; }
+	public TextEdit TextEffect { get; private set; }
 
 	[Signal]
 	public delegate void CardEffectDeletedEventHandler(TemplateCardEffect templateCardEffect);
@@ -22,30 +26,23 @@ public partial class CardEffectEditor : HBoxContainer
 
 	public override void _Ready()
 	{
-		GoUp = GetNode<TextureButton>("GoUp");
-		GoDown = GetNode<TextureButton>("GoDown");
-		Visibility = GetNode<CheckBox>("Visibility");
-		EffectName = GetNode<Label>("EffectName");
-		Delete = GetNode<TextureButton>("Delete");
+		Default = GetNode<Container>("Default");
+		Extra = GetNode<Container>("MarginContainer/Extra");
+
+		GoUp = Default.GetNode<TextureButton>("GoUp");
+		GoDown = Default.GetNode<TextureButton>("GoDown");
+		Visibility = Default.GetNode<CheckBox>("Visibility");
+		EffectName = Default.GetNode<Label>("EffectName");
+		Delete = Default.GetNode<TextureButton>("Delete");
+
+		TextEffect = Extra.GetNode<TextEdit>("TextEdit");
 	}
 
-	public void Refresh(int position, int count)
-    {
-		UpdateArrows(position, count);
-    }
-
-	public void UpdateArrows(int position, int count)
-    {
-		if (count == 1)
-		{
-			GoUp.Disabled = true;
-			GoDown.Disabled = true;
-		}
-		else
-		{
-			GoUp.Disabled = position == 0;
-			GoDown.Disabled = position == (count - 1);
-		}
+	public void Update(CardCreatorEffectResource effectRes)
+	{
+		EffectName.Text = effectRes.EffectName;
+		Extra.Visible = effectRes.HasDamage || effectRes.HasDon || effectRes.HasText;
+		TextEffect.Visible = effectRes.HasText;
 	}
 
 	private void OnGoUpPressed()
@@ -71,4 +68,9 @@ public partial class CardEffectEditor : HBoxContainer
     {
 		TemplateCardEffect.Visible = visible;
 	}
+
+	private void OnTextEditChanged()
+    {
+		TemplateCardEffect?.UpdateText(TextEffect.Text);
+    }
 }

@@ -651,7 +651,7 @@ public partial class CardCreatorEditor : Container
                     {
                         cardEffectEditor.TemplateCardEffect = instance;
                         EffectEditorContainer.AddChild(cardEffectEditor);
-                        cardEffectEditor.EffectName.Text = effectRes.EffectName;
+                        cardEffectEditor.Update(effectRes);
                         cardEffectEditor.CardEffectDeleted += CardEffectEditor_CardEffectDeleted;
                         cardEffectEditor.ClickGoUp += CardEffectEditor_ClickGoUp;
                         cardEffectEditor.ClickGoDown += CardEffectEditor_ClickGoDown;
@@ -698,14 +698,13 @@ public partial class CardCreatorEditor : Container
 
     private void RefreshCardEffectEditors()
     {
-        //Bug la suppression n'est pas retirée à ce moment
-        var elements = EffectEditorContainer.GetChildren().OfType<CardEffectEditor>().Where(x => !x.IsQueuedForDeletion());
+        var elements = EffectEditorContainer.GetChildren().OfType<CardEffectEditor>().Where(x => !x.IsQueuedForDeletion()).ToList();
         var elementsNb = elements.Count();
 
         foreach (var cardEffect in elements)
         {
-            var indexOf = EffectEditorContainer.GetChildren().IndexOf(cardEffect);
-            cardEffect.Refresh(indexOf, elementsNb);
+            cardEffect.GoUp.Disabled = elements.First() == cardEffect;
+            cardEffect.GoDown.Disabled = elements.Last() == cardEffect;
         }
     }
 
