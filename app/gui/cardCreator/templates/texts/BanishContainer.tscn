@@ -34,5 +34,6 @@ theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("3_myhi5")
 theme_override_font_sizes/font_size = 17
 text = "            (When a character deals damage, the target card is trashed without activating its Trigger.)"
+vertical_alignment = 1
 autowrap_mode = 2
 metadata/_edit_lock_ = true

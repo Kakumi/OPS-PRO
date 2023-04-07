@@ -61,8 +61,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "CARDCREATOR_EFFECT_EDIT_TEXT"
 
+[node name="DonEditor" type="SpinBox" parent="MarginContainer/Extra"]
+layout_mode = 2
+max_value = 9.0
+alignment = 2
+prefix = "CARDCREATOR_EFFECT_EDIT_DON"
+
 [connection signal="pressed" from="Default/GoUp" to="." method="OnGoUpPressed"]
 [connection signal="pressed" from="Default/GoDown" to="." method="OnGoDownPressed"]
 [connection signal="toggled" from="Default/Visibility" to="." method="OnVisibilityToggled"]
 [connection signal="pressed" from="Default/Delete" to="." method="OnDeletePressed"]
 [connection signal="text_changed" from="MarginContainer/Extra/TextEdit" to="." method="OnTextEditChanged"]
+[connection signal="value_changed" from="MarginContainer/Extra/DonEditor" to="." method="OnDonEditorValueChanged"]

@@ -14,6 +14,7 @@ public partial class CardEffectEditor : VBoxContainer
 	public Label EffectName { get; private set; }
 	public TextureButton Delete { get; private set; }
 	public TextEdit TextEffect { get; private set; }
+	public SpinBox DonEditor { get; private set; }
 
 	[Signal]
 	public delegate void CardEffectDeletedEventHandler(TemplateCardEffect templateCardEffect);
@@ -36,6 +37,7 @@ public partial class CardEffectEditor : VBoxContainer
 		Delete = Default.GetNode<TextureButton>("Delete");
 
 		TextEffect = Extra.GetNode<TextEdit>("TextEdit");
+		DonEditor = Extra.GetNode<SpinBox>("DonEditor");
 	}
 
 	public void Update(CardCreatorEffectResource effectRes)
@@ -43,6 +45,7 @@ public partial class CardEffectEditor : VBoxContainer
 		EffectName.Text = effectRes.EffectName;
 		Extra.Visible = effectRes.HasDamage || effectRes.HasDon || effectRes.HasText;
 		TextEffect.Visible = effectRes.HasText;
+		DonEditor.Visible = effectRes.HasDon;
 	}
 
 	private void OnGoUpPressed()
@@ -73,4 +76,9 @@ public partial class CardEffectEditor : VBoxContainer
     {
 		TemplateCardEffect?.UpdateText(TextEffect.Text);
     }
+
+	private void OnDonEditorValueChanged(float value)
+	{
+		TemplateCardEffect?.UpdateDon((int) value);
+	}
 }

@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://6vsgo3fx43mn"]
+
+[ext_resource type="Script" path="res://app/gui/cardCreator/templates/texts/ActivateMainContainer.cs" id="1_ab7yy"]
+[ext_resource type="Texture2D" uid="uid://b7wbouuxtexub" path="res://app/resources/images/card_creator/Keywords/ActivateMain.png" id="2_sx008"]
+[ext_resource type="Texture2D" uid="uid://dqvcenbp1srpy" path="res://app/resources/images/card_creator/Keywords/Don.png" id="3_jfb4x"]
+[ext_resource type="FontFile" uid="uid://d3q4av7163x6t" path="res://app/resources/fonts/card_creator/Roboto-Medium.ttf" id="4_it4gy"]
+
+[node name="ActivateMainContainer" type="MarginContainer"]
+offset_right = 305.0
+offset_bottom = 78.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_ab7yy")
+defaultSpace = "                             "
+spaceDon = "                  "
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 2
+offset_right = 104.0
+offset_bottom = 20.0
+texture = ExtResource("2_sx008")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DonTexture" type="TextureRect" parent="Control"]
+layout_mode = 2
+offset_left = 108.0
+offset_right = 173.0
+offset_bottom = 20.0
+texture = ExtResource("3_jfb4x")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Control/DonTexture"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.830769
+anchor_top = 0.116667
+anchor_right = 0.984615
+anchor_bottom = 1.11667
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_it4gy")
+theme_override_font_sizes/font_size = 13
+text = "1"
+metadata/_edit_use_anchors_ = true
+
+[node name="DefaultText" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("4_it4gy")
+theme_override_font_sizes/font_size = 15
+vertical_alignment = 1
+autowrap_mode = 2
+metadata/_edit_lock_ = true

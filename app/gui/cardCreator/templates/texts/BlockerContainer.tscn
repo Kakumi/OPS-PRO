@@ -34,5 +34,6 @@ theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("4_8uypb")
 theme_override_font_sizes/font_size = 17
 text = "            (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+vertical_alignment = 1
 autowrap_mode = 2
 metadata/_edit_lock_ = true

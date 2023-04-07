@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://b28gqq4nmav3p"]
+[gd_resource type="Resource" load_steps=8 format=3 uid="uid://b28gqq4nmav3p"]
 
 [ext_resource type="Resource" uid="uid://c363swetqfkbu" path="res://app/resources/card_creator/effects/NormalEffect.tres" id="1_178cq"]
 [ext_resource type="Resource" uid="uid://85lpopns7ms8" path="res://app/resources/card_creator/effects/BlockerEffect.tres" id="1_kjgb1"]
@@ -6,8 +6,9 @@
 [ext_resource type="Script" path="res://app/resources/CardCreatorCardEffectsResource.cs" id="2_bpk5g"]
 [ext_resource type="Resource" uid="uid://56afbvh6ofr2" path="res://app/resources/card_creator/effects/DoubleAttackEffect.tres" id="3_b8idt"]
 [ext_resource type="Resource" uid="uid://dlhuxtcxwtkfg" path="res://app/resources/card_creator/effects/RushEffect.tres" id="4_vr7kc"]
+[ext_resource type="Resource" uid="uid://dslfxpobntjyb" path="res://app/resources/card_creator/effects/ActivateMainEffect.tres" id="6_vqhrl"]
 
 [resource]
 script = ExtResource("2_bpk5g")
 ToggableBackgroundColor = true
-Values = Array[Resource]([ExtResource("1_178cq"), ExtResource("1_kjgb1"), ExtResource("2_aveeu"), ExtResource("3_b8idt"), ExtResource("4_vr7kc")])
+Values = Array[Resource]([ExtResource("1_178cq"), ExtResource("1_kjgb1"), ExtResource("2_aveeu"), ExtResource("3_b8idt"), ExtResource("4_vr7kc"), ExtResource("6_vqhrl")])

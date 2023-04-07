@@ -1,17 +1,18 @@
+SpinBox
+Control
+Label
+TextureRect
 Tree
 MarginContainer
 TextEdit
 HBoxContainer
 VBoxContainer
-TextureRect
 Node
-Control
 Container
 BoxContainer
 AspectRatioContainer
 CheckBox
 TextureButton
-Label
 CheckButton
 ScrollContainer
 Button
@@ -29,5 +30,3 @@ FileDialog
 CanvasLayer
 LinkButton
 LineEdit
-SpinBox
-CenterContainer
