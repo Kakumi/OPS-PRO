@@ -1,4 +1,3 @@
-res://app/gui/cardCreator/templates/texts/ActivateMainContainer.tscn
 res://app/resources/fonts/normal_font_small.tres
 res://app/resources/themes/main_theme.tres
 res://app/resources/card_creator/costs/Lifes.tres
@@ -15,13 +14,7 @@ res://app/resources/card_creator/black/CardCreatorBlackResource.tres
 res://app/resources/card_creator/purple/CardCreatorPurpleResource.tres
 res://app/resources/card_creator/yellow/CardCreatorYellowResource.tres
 res://app/resources/card_creator/CardCreatorSettings.tres
-res://app/gui/cardCreator/templates/texts/BlockerContainer.tscn
-res://app/gui/cardCreator/templates/texts/BanishContainer.tscn
-res://app/gui/cardCreator/templates/texts/DoubleAttackContainer.tscn
-res://app/gui/cardCreator/templates/texts/NormalContainer.tscn
-res://app/gui/cardCreator/templates/texts/RushContainer.tscn
-res://app/resources/card_creator/effects/ActivateMainEffect.tres
-res://app/gui/cardCreator/CardEffectEditor.tscn
-res://app/AppInstance.tscn
-res://app/gui/CardCreator.tscn
-res://app/gui/cardCreator/CardCreatorEditor.tscn
+res://app/gui/game/Gameboard.tscn
+res://app/gui/GameView.tscn
+res://app/gui/game/Playmat.tscn
+res://app/gui/MainMenu.tscn

@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkvbntgj7a8ub"]
+
+[ext_resource type="PackedScene" uid="uid://dyl137viaosl7" path="res://app/gui/game/Playmat.tscn" id="1_r0vu4"]
+
+[node name="Gameboard" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OpponentSide" type="Control" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OpponentPlaymat" parent="OpponentSide" instance=ExtResource("1_r0vu4")]
+layout_mode = 1
+size_flags_vertical = 3
+
+[node name="ButtonsContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ButtonsContainer"]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="ButtonsContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="ButtonsContainer/MarginContainer/Buttons"]
+layout_mode = 2
+text = "Test 1"
+
+[node name="Button2" type="Button" parent="ButtonsContainer/MarginContainer/Buttons"]
+layout_mode = 2
+text = "Test 2"
+
+[node name="MySide" type="Control" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MyPlaymat" parent="MySide" instance=ExtResource("1_r0vu4")]
+layout_mode = 1
+size_flags_vertical = 3

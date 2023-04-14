@@ -1,12 +1,16 @@
-SpinBox
-Control
-Label
 TextureRect
-Tree
+HFlowContainer
+Button
+CenterContainer
 MarginContainer
-TextEdit
+PanelContainer
+Control
 HBoxContainer
 VBoxContainer
+Label
+SpinBox
+Tree
+TextEdit
 Node
 Container
 BoxContainer
@@ -15,10 +19,7 @@ CheckBox
 TextureButton
 CheckButton
 ScrollContainer
-Button
 OptionButton
-HFlowContainer
-PanelContainer
 RichTextLabel
 SubViewport
 SubViewportContainer
@@ -29,4 +30,3 @@ HSeparator
 FileDialog
 CanvasLayer
 LinkButton
-LineEdit
