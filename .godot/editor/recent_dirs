@@ -1,4 +1,5 @@
 res://app/gui/game
+res://app/resources/shaders
 res://app/gui
 res://app/gui/cardCreator/templates/texts
 res://app/gui/cardCreator

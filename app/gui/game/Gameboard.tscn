@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkvbntgj7a8ub"]
+[gd_scene load_steps=3 format=3 uid="uid://bkvbntgj7a8ub"]
 
 [ext_resource type="PackedScene" uid="uid://dyl137viaosl7" path="res://app/gui/game/Playmat.tscn" id="1_r0vu4"]
+[ext_resource type="Script" path="res://app/gui/game/Gameboard.cs" id="1_sv63v"]
 
 [node name="Gameboard" type="VBoxContainer"]
 anchors_preset = 15
@@ -8,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_sv63v")
 
 [node name="OpponentSide" type="Control" parent="."]
 layout_mode = 2
@@ -15,7 +17,6 @@ size_flags_vertical = 3
 
 [node name="OpponentPlaymat" parent="OpponentSide" instance=ExtResource("1_r0vu4")]
 layout_mode = 1
-size_flags_vertical = 3
 
 [node name="ButtonsContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -42,3 +43,6 @@ size_flags_vertical = 3
 [node name="MyPlaymat" parent="MySide" instance=ExtResource("1_r0vu4")]
 layout_mode = 1
 size_flags_vertical = 3
+
+[connection signal="pressed" from="ButtonsContainer/MarginContainer/Buttons/Button" to="." method="Test1"]
+[connection signal="pressed" from="ButtonsContainer/MarginContainer/Buttons/Button2" to="." method="Test2"]

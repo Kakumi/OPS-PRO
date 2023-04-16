@@ -211,6 +211,15 @@ public partial class CardManager : Node
         return GetBackTexture(cardResource);
     }
 
+    public CardScript GetCardScript(CardResource cardResource)
+    {
+        var path = @$"res://app/resources/card_scripts/{cardResource.Id.ToLower().Replace("-", "_")}.cs";
+        var csharScript = GD.Load<CSharpScript>(path);
+        var script = (CardScript)csharScript?.New();
+
+        return script;
+    }
+
     public void DownloadTextureAsync(CardResource cardResource)
     {
         string path = GetTexturePath(cardResource);

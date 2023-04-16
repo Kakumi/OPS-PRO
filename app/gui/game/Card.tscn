@@ -17,3 +17,4 @@ script = ExtResource("1")
 
 [connection signal="gui_input" from="." to="." method="OnGuiInput"]
 [connection signal="mouse_entered" from="." to="." method="CheckAndDownload"]
+[connection signal="resized" from="." to="." method="OnResized"]

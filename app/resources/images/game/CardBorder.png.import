@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdxkcw4tdvh68"
-path="res://.godot/imported/Default Playmat.png-707af562942f632407c551733921dc1e.ctex"
+uid="uid://ccmaikc1glq5g"
+path="res://.godot/imported/CardBorder.png-7ab19bb67051c9abaf77a8c0a506469d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://app/resources/images/playmats/Default Playmat.png"
-dest_files=["res://.godot/imported/Default Playmat.png-707af562942f632407c551733921dc1e.ctex"]
+source_file="res://app/resources/images/game/CardBorder.png"
+dest_files=["res://.godot/imported/CardBorder.png-7ab19bb67051c9abaf77a8c0a506469d.ctex"]
 
 [params]
 

@@ -4,6 +4,8 @@ using System;
 public partial class Card : TextureRect
 {
     public CardResource CardResource { get; protected set; }
+    public bool Rested { get; protected set; }
+    public bool Flipped { get; protected set; }
 
     [Signal]
     public delegate void LeftClickCardEventHandler(CardResource cardResource);
@@ -16,15 +18,8 @@ public partial class Card : TextureRect
 
     public override void _Ready()
     {
-
-    }
-
-    public virtual void CheckAndDownload()
-    {
-        if (CardResource != null && !CardResource.TextureSet)
-        {
-            CardResource.StartDownloading();
-        }
+        Rested = false;
+        Flipped = false;
     }
 
     public void SetCardResource(CardResource cardResource, bool download = false)
@@ -47,9 +42,22 @@ public partial class Card : TextureRect
         }
     }
 
+    #region Download & Input
+
+    public virtual void CheckAndDownload()
+    {
+        if (CardResource != null && !CardResource.TextureSet)
+        {
+            CardResource.StartDownloading();
+        }
+    }
+
     private void FrontTextureChanged(Texture2D texture2D)
     {
-        Texture = texture2D;
+        if (!Flipped)
+        {
+            Texture = texture2D;
+        }
     }
 
     public void OnGuiInput(InputEvent inputEvent)
@@ -71,5 +79,38 @@ public partial class Card : TextureRect
                 }
             }
         }
+    }
+
+    #endregion
+
+    private void OnResized()
+    {
+        PivotOffset = new Vector2(Size.X / 2, Size.Y / 2);
+    }
+
+    public void ToggleRest()
+    {
+        if (Rested)
+        {
+            RotationDegrees = 0;
+        } else
+        {
+            RotationDegrees = 90;
+        }
+
+        Rested = !Rested;
+    }
+
+    public void ToggleFlip()
+    {
+        if (Flipped)
+        {
+            Texture = CardResource.FrontTexture;
+        } else
+        {
+            Texture = CardResource.BackTexture;
+        }
+
+        Flipped = !Flipped;
     }
 }
