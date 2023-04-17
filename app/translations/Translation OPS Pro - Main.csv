@@ -126,3 +126,54 @@ CARDCREATOR_TYPE_SUFFIX_EMPTY,Empty,Vide
 CARDCREATOR_OPENFOLDER,Open Folder,Ouvrir le dossier
 CARDCREATOR_ERROR_FILL_CARDNAME,"Card name is empty, please fill in to export your card.","Le nom de la carte est vide, veuillez le remplir pour exporter votre carte."
 CARDCREATOR_FILE_EXPORTED,File exported at {0}.,Fichier exporté à {0}.
+CARDCREATOR_CARDEFFECTS,Card Effects,Effets de la carte
+CARDCREATOR_ADD_EFFECT,Add effect,Ajouter l'effet
+CARDCREATOR_BG_EFFECT_TOGGLE,Show background effects color,Afficher la couleur de fond pour les effets
+CARDCREATOR_EFFECT_EDIT_TEXT,Effect...,Effet...
+CARDCREATOR_EFFECT_EDIT_DON,Number of DON!!,Nombre de DON!!
+CARDCREATOR_EFFECT_EDIT_DAMAGE,Damage,Dommage
+CARDCREATOR_EFFECT_ONCEPERTURN,Once Per Turn,Once Per Turn
+CARDCREATOR_EFFECT_COUNTER,Counter,Counter
+CARDCREATOR_EFFECT_DON1,DON!! X1,DON!! X2
+CARDCREATOR_EFFECT_DON2,DON!! X2,DON!! X3
+CARDCREATOR_EFFECT_ONPLAY,On Play,On Play
+CARDCREATOR_EFFECT_MAIN,Main,Main
+CARDCREATOR_EFFECT_ENDTURN,End of Your Turn,End of Your Turn
+CARDCREATOR_EFFECT_YOURTURN,Your Turn,Your Turn
+CARDCREATOR_EFFECT_ONKO,On K.O.,On K.O.
+CARDCREATOR_EFFECT_WHENATTACKING,When Attacking,When Attacking
+CARDCREATOR_EFFECT_ONBLOCK,On Block,On Block
+CARDCREATOR_EFFECT_ACTIVATEMAIN,Activate: Main,Activate: Main
+CARDCREATOR_EFFECT_OPPONENTTURN,Opponent's Turn,Opponent's Turn
+CARDCREATOR_EFFECT_BLOCKER,Blocker,Blocker
+CARDCREATOR_EFFECT_RUSH,Rush,Rush
+CARDCREATOR_EFFECT_BANISH,Banish,Banish
+CARDCREATOR_EFFECT_DOUBLEATTACK,Double Attack,Double Attack
+CARDCREATOR_EFFECT_TRIGGER,Trigger,Trigger
+CARDCREATOR_EFFECT_SIMPLE,Simple,Simple
+CARDCREATOR_EFFECT_EMPTY,Empty line,Ligne vide
+MENU_BUTTON_PLAY,Play,Jouer
+GAME_SLOT_PLACEHOLDER_LEADER,LEADER CARD,CARTE LEADER
+GAME_SLOT_PLACEHOLDER_CHARACTER,CHARACTER CARD,CARTE PERSONNAGE
+GAME_SLOT_PLACEHOLDER_STAGE,STAGE CARD,CARTE TERRAIN
+GAME_SLOT_PLACEHOLDER_DECK,DECK,DECK
+GAME_SLOT_PLACEHOLDER_TRASH,TRASH,POUBELLE
+GAME_SLOT_PLACEHOLDER_COST,COST CARD,CARTE COÛT
+GAME_SLOT_PLACEHOLDER_DONDECK,DON DECK,DECK DON
+GAME_SLOT_PLACEHOLDER_LIFE,LIFE CARD,CARTE VIE
+GAME_SLOT_TOOLTIP_LEADER,Your leader card is a card with your life points and defines the color of your deck.,"Votre carte leader, c'est une carte avec vos points de vie et qui défini la couleur de votre deck. Vous devez la protéger."
+GAME_SLOT_TOOLTIP_CHARACTER,"Your character card allows you to attack, block or activate other special effects.","Votre carte personnage permet d'attaquer, bloqué ou activer d'autres effets spéciaux."
+GAME_SLOT_TOOLTIP_STAGE,Your stage card allows you to add a special effect to your cards.,Votre carte terrain permet d'ajouter un effet particulier à vos cartes.
+GAME_SLOT_TOOLTIP_DECK,"Your deck, contains all your unplayed cards.","Votre deck, contient toutes vos cartes pas encore jouées."
+GAME_SLOT_TOOLTIP_TRASH,"Your trash can, destroyed or sacrificed cards are sent to the trash.","Votre poubelle, les cartes détruires ou sacrifiées sont envoyées à la poubelle."
+GAME_SLOT_TOOLTIP_COST,Your cost area is the DON cards you have at your disposal.,Votre zone de coût sont les cartes DON que vous avez à votre disposition.
+GAME_SLOT_TOOLTIP_DONDECK,Your DON deck is the set of your not yet obtained DON cards.,Votre DON deck est l'ensemble de vos cartes DON pas encore obtenues.
+GAME_SLOT_TOOLTIP_LIFE,"Your life card area displays your remaining life count. Each direct hit will take a card from this area and potentially apply a trigger effect. If you have no cards left, you will die.","Votre zone de carte vie affiche votre nombre de vie restante. Chaque dégat direct vous prendrez une carte dans cette zone et appliquer potentiellement un effet trigger. Si vous n'avez plus de carte, vous mourrez."
+GAME_BUTTON_QUIT,Abandon,Abandonner
+GAME_DON_COUNTER,"DON!! Deck: {0}
+Available DON!! Cards: {1}
+Rested DON!! Cards: {2}","Deck DON!!: {0}
+Cartes DON!! disponible(s) : {1}
+Cartes DON!! utilisée(s) : {2}"
+GAME_LIFE_COUNTER,Life: {0},Vie : {0}
+GAME_BUTTON_TOGGLEINFO,Hide/Show Information,Cacher/Afficher les informations

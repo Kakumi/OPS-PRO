@@ -1,7 +1,10 @@
-res://app/gui/game/Playmat.tscn
 res://app/resources/fonts/normal_font_small.tres
 res://app/resources/themes/main_theme.tres
-res://app/gui/game/SlotCard.tscn
-res://app/gui/GameView.tscn
+res://app/gui/game/Playmat.tscn
+res://app/gui/game/HandContainer.tscn
 res://app/gui/game/Gameboard.tscn
-res://app/gui/game/PlaymatTest.tscn
+res://app/gui/GameView.tscn
+res://app/gui/game/SlotCard.tscn
+res://app/gui/game/GamePlayerInfo.tscn
+res://app/translations/Translation OPS Pro - Main.en.translation
+res://app/translations/Translation OPS Pro - Main.fr.translation

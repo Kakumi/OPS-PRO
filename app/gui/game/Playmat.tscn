@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dyl137viaosl7"]
+[gd_scene load_steps=6 format=3 uid="uid://dyl137viaosl7"]
 
 [ext_resource type="Script" path="res://app/gui/game/Playmat.cs" id="1_86oap"]
+[ext_resource type="Texture2D" uid="uid://baoayj2nb21ve" path="res://app/resources/images/card_back.jpg" id="3_6ce0x"]
+[ext_resource type="Texture2D" uid="uid://dwpepikesyu1i" path="res://app/resources/images/DonCard.png" id="4_c33al"]
 [ext_resource type="PackedScene" uid="uid://b3rc5limli0tv" path="res://app/gui/game/SlotCard.tscn" id="5_skdxf"]
+[ext_resource type="Texture2D" uid="uid://du5y8xyf8rdx3" path="res://app/resources/images/DonCardBack.jpg" id="5_x04xc"]
 
 [node name="Playmat" type="PanelContainer"]
 anchors_preset = 15
@@ -37,6 +40,9 @@ offset_right = 0.819946
 tooltip_text = "GAME_SLOT_TOOLTIP_DECK"
 metadata/_edit_lock_ = true
 
+[node name="Card" parent="Control/DeckSlotCard/MarginContainer" index="0"]
+texture = ExtResource("3_6ce0x")
+
 [node name="TrashSlotCard" parent="Control" instance=ExtResource("5_skdxf")]
 layout_mode = 1
 anchor_left = 0.847
@@ -50,7 +56,10 @@ offset_bottom = -0.340088
 tooltip_text = "GAME_SLOT_TOOLTIP_TRASH"
 metadata/_edit_lock_ = true
 
-[node name="CostCard" parent="Control" instance=ExtResource("5_skdxf")]
+[node name="Card" parent="Control/TrashSlotCard/MarginContainer" index="0"]
+texture = ExtResource("3_6ce0x")
+
+[node name="CostSlotCard" parent="Control" instance=ExtResource("5_skdxf")]
 layout_mode = 1
 anchor_left = 0.446094
 anchor_top = 0.6875
@@ -64,14 +73,20 @@ tooltip_text = "GAME_SLOT_TOOLTIP_COST"
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="Control/CostCard"]
-layout_mode = 0
-anchor_left = 1.13527
+[node name="Card" parent="Control/CostSlotCard/MarginContainer" index="0"]
+texture = ExtResource("4_c33al")
+
+[node name="Label" type="Label" parent="Control/CostSlotCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.64252
 anchor_top = 0.0106762
-anchor_right = 2.90821
-anchor_bottom = 0.989324
-text = "Available DON!! Cards : 7
+anchor_right = -0.120774
+anchor_bottom = 0.989325
+text = "DON!! Deck : 0
+Available DON!! Cards : 7
 Rested DON!! Cards : 3"
+horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
@@ -88,27 +103,35 @@ offset_bottom = 0.0
 tooltip_text = "GAME_SLOT_TOOLTIP_DONDECK"
 metadata/_edit_lock_ = true
 
-[node name="LifesSlots" type="Control" parent="Control"]
-layout_mode = 1
+[node name="Card" parent="Control/DonDeckSlotCard/MarginContainer" index="0"]
+texture = ExtResource("5_x04xc")
+
+[node name="LifeSlotCard" parent="Control" instance=ExtResource("5_skdxf")]
+layout_mode = 2
+anchors_preset = 0
 anchor_left = 0.0421875
 anchor_top = 0.0601852
 anchor_right = 0.15
 anchor_bottom = 0.32037
-tooltip_text = "GAME_SLOT_TOOLTIP_LIFE"
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="LastLifeSlotCard" parent="Control/LifesSlots" instance=ExtResource("5_skdxf")]
-layout_mode = 2
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
+tooltip_text = "GAME_SLOT_TOOLTIP_LIFE"
+metadata/_edit_use_anchors_ = true
+
+[node name="Card" parent="Control/LifeSlotCard/MarginContainer" index="0"]
+texture = ExtResource("3_6ce0x")
+
+[node name="Label" type="Label" parent="Control/LifeSlotCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.04348
+anchor_top = 0.0284698
+anchor_right = 1.96618
+anchor_bottom = 0.982208
+text = "Life : 5"
+vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="CharactersSlots" type="HBoxContainer" parent="Control"]
@@ -121,7 +144,7 @@ tooltip_text = "GAME_SLOT_TOOLTIP_CHARACTER"
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="CharacterSlotCard" parent="Control/CharactersSlots" instance=ExtResource("5_skdxf")]
+[node name="CharacterSlotCard1" parent="Control/CharactersSlots" instance=ExtResource("5_skdxf")]
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -140,3 +163,11 @@ size_flags_horizontal = 3
 [node name="CharacterSlotCard5" parent="Control/CharactersSlots" instance=ExtResource("5_skdxf")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[connection signal="resized" from="." to="." method="OnResized"]
+
+[editable path="Control/DeckSlotCard"]
+[editable path="Control/TrashSlotCard"]
+[editable path="Control/CostSlotCard"]
+[editable path="Control/DonDeckSlotCard"]
+[editable path="Control/LifeSlotCard"]

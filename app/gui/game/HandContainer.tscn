@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd5cf4jcvrtmn"]
+
+[ext_resource type="PackedScene" uid="uid://boynil74yqbyv" path="res://app/gui/game/Card.tscn" id="1_pdpyt"]
+[ext_resource type="Script" path="res://app/gui/game/HandContainer.cs" id="1_whhio"]
+
+[node name="HandContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_whhio")
+CardScene = ExtResource("1_pdpyt")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Hand" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2

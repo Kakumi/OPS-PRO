@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkvbntgj7a8ub"]
+[gd_scene load_steps=5 format=3 uid="uid://bkvbntgj7a8ub"]
 
 [ext_resource type="PackedScene" uid="uid://dyl137viaosl7" path="res://app/gui/game/Playmat.tscn" id="1_r0vu4"]
 [ext_resource type="Script" path="res://app/gui/game/Gameboard.cs" id="1_sv63v"]
+[ext_resource type="PackedScene" uid="uid://bd5cf4jcvrtmn" path="res://app/gui/game/HandContainer.tscn" id="2_e552a"]
+[ext_resource type="PackedScene" uid="uid://eq7exvwfk0sm" path="res://app/gui/game/GamePlayerInfo.tscn" id="4_hyxxa"]
 
 [node name="Gameboard" type="VBoxContainer"]
 anchors_preset = 15
@@ -11,12 +13,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sv63v")
 
-[node name="OpponentSide" type="Control" parent="."]
+[node name="OpponentHandContainer" parent="." instance=ExtResource("2_e552a")]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="OpponentHBox" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="OpponentPlaymat" parent="OpponentSide" instance=ExtResource("1_r0vu4")]
+[node name="OpponentSide" type="Control" parent="OpponentHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="OpponentPlaymat" parent="OpponentHBox/OpponentSide" instance=ExtResource("1_r0vu4")]
 layout_mode = 1
+
+[node name="OpponentPlayerInfo" parent="OpponentHBox" instance=ExtResource("4_hyxxa")]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="ButtonsContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -24,25 +41,64 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="ButtonsContainer"]
 layout_mode = 2
 
-[node name="Buttons" type="HBoxContainer" parent="ButtonsContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ButtonsContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="MainButtons" type="HBoxContainer" parent="ButtonsContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons"]
+layout_mode = 2
+text = "GAME_BUTTON_QUIT"
+
+[node name="ToggleInfo" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons"]
+layout_mode = 2
+text = "GAME_BUTTON_TOGGLEINFO"
+
+[node name="VSeparator" type="VSeparator" parent="ButtonsContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="GameButtons" type="HBoxContainer" parent="ButtonsContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 alignment = 1
 
-[node name="Button" type="Button" parent="ButtonsContainer/MarginContainer/Buttons"]
+[node name="Button3" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
 layout_mode = 2
-text = "Test 1"
+text = "Test Flip"
 
-[node name="Button2" type="Button" parent="ButtonsContainer/MarginContainer/Buttons"]
+[node name="Button2" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
 layout_mode = 2
-text = "Test 2"
+text = "Test Rest"
 
-[node name="MySide" type="Control" parent="."]
+[node name="Button4" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
+layout_mode = 2
+text = "Test Draw"
+
+[node name="MyHBox" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MyPlaymat" parent="MySide" instance=ExtResource("1_r0vu4")]
+[node name="MyPlayerInfo" parent="MyHBox" instance=ExtResource("4_hyxxa")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MySide" type="Control" parent="MyHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="MyPlaymat" parent="MyHBox/MySide" instance=ExtResource("1_r0vu4")]
 layout_mode = 1
 size_flags_vertical = 3
 
-[connection signal="pressed" from="ButtonsContainer/MarginContainer/Buttons/Button" to="." method="Test1"]
-[connection signal="pressed" from="ButtonsContainer/MarginContainer/Buttons/Button2" to="." method="Test2"]
+[node name="MyHandContainer" parent="." instance=ExtResource("2_e552a")]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons/Quit" to="." method="OnQuitPressed"]
+[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons/ToggleInfo" to="." method="OnToggleInfoPressed"]
+[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button3" to="." method="Test1"]
+[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button2" to="." method="Test2"]
+[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button4" to="." method="TestDraw"]

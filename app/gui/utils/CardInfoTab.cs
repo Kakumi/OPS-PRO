@@ -18,31 +18,34 @@ public partial class CardInfoTab : TabInfo
 
 	public void ShowcardResource(CardResource cardResource)
 	{
-		string info = Tr("INFOTAB_CARDINFO");  
-		//"[color=yellow][{card_type}] {name} ({attribute})[/color]" +
-		//	"\n[color=yellow]{cost_text}: {cost} | Power: {power} | Color: {colors}" +
-		//	"\n[/color][color=yellow]Type: {types}[/color]" +
-		//	"\n[color=yellow]Set: {set} [/color]";
+		if (cardResource != null)
+        {
+			string info = Tr("INFOTAB_CARDINFO");
 
-		Dictionary<string, string> dic = new Dictionary<string, string>();
-		dic.Add("{card_type}", cardResource.CardType);
-		dic.Add("{name}", cardResource.Name);
-		dic.Add("{attribute}", cardResource.Attribute);
-		dic.Add("{cost_text}", cardResource.CardType == "LEADER" ? Tr("CARDINFO_LIFE") : Tr("CARDINFO_COST"));
-		dic.Add("{cost}", cardResource.Cost + "");
-		dic.Add("{power}", cardResource.Power + "");
-		dic.Add("{colors}", string.Join("/", cardResource.Colors));
-		dic.Add("{types}", string.Join("/", cardResource.Types));
-		dic.Add("{set}", cardResource.Set);
+			Dictionary<string, string> dic = new Dictionary<string, string>();
+			dic.Add("{card_type}", cardResource.CardType);
+			dic.Add("{name}", cardResource.Name);
+			dic.Add("{attribute}", cardResource.Attribute);
+			dic.Add("{cost_text}", cardResource.CardType == "LEADER" ? Tr("CARDINFO_LIFE") : Tr("CARDINFO_COST"));
+			dic.Add("{cost}", cardResource.Cost + "");
+			dic.Add("{power}", cardResource.Power + "");
+			dic.Add("{colors}", string.Join("/", cardResource.Colors));
+			dic.Add("{types}", string.Join("/", cardResource.Types));
+			dic.Add("{set}", cardResource.Set);
 
-		foreach (var entry in dic)
-		{
-			info = info.Replace(entry.Key, entry.Value);
+			foreach (var entry in dic)
+			{
+				info = info.Replace(entry.Key, entry.Value);
+			}
+
+			InfoText.Text = info;
+
+			var effects = cardResource.Effects.Select(x => Regex.Replace(x, @"\[(.*?)\]", "[b][$1][/b]"));
+			EffectsText.Text = string.Join("\n", effects);
+		} else
+        {
+			InfoText.Text = null;
+			EffectsText.Text = null;
 		}
-
-		InfoText.Text = info;
-
-		var effects = cardResource.Effects.Select(x => Regex.Replace(x, @"\[(.*?)\]", "[b][$1][/b]"));
-		EffectsText.Text = string.Join("\n", effects);
 	}
 }

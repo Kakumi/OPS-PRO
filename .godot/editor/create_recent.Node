@@ -1,9 +1,13 @@
+HBoxContainer
+VSeparator
 Label
+VBoxContainer
+MarginContainer
+PanelContainer
+Panel
 Control
 VFlowContainer
 AspectRatioContainer
-MarginContainer
-HBoxContainer
 NinePatchRect
 TextureRect
 ReferenceRect
@@ -11,8 +15,6 @@ CenterContainer
 ColorRect
 HFlowContainer
 Button
-PanelContainer
-VBoxContainer
 SpinBox
 Tree
 TextEdit
@@ -28,5 +30,3 @@ RichTextLabel
 SubViewport
 SubViewportContainer
 ColorPickerButton
-ColorPicker
-Window

@@ -26,7 +26,6 @@ SecurityLoad="*res://app/scripts/auto_load/SecurityLoad.cs"
 Logger="*res://app/scripts/auto_load/Logger.cs"
 SettingsManager="*res://app/scripts/auto_load/SettingsManager.cs"
 PopupManager="*res://app/scripts/auto_load/PopupManager.tscn"
-CustomLoader="*res://app/scripts/auto_load/CustomLoader.cs"
 SoundManager="*res://app/scripts/auto_load/SoundManager.tscn"
 CardManager="*res://app/scripts/auto_load/CardManager.cs"
 DeckManager="*res://app/scripts/auto_load/DeckManager.cs"
@@ -49,6 +48,10 @@ project/assembly_name="OPS Pro"
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://app/translations/Translation OPS Pro - Main.en.translation", "res://app/translations/Translation OPS Pro - Main.fr.translation")
 
 [locale]
 
