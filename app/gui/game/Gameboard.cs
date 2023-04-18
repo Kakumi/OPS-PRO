@@ -40,17 +40,17 @@ public partial class Gameboard : VBoxContainer
 		MyPlaymat.CardDrawn += MyPlaymat_CardDrawn;
         MyPlaymat.GameFinished += MyPlaymat_GameFinished;
 
-        MyHandContainer.InvokeCard += MyHandContainer_InvokeCard;
+        //MyHandContainer.InvokeCard += MyHandContainer_InvokeCard;
 
 		var deck = DeckManager.Instance.LoadDecks().Where(x => x.IsValid()).First();
 		MyPlaymat.Init(deck);
 	}
 
-    private void MyHandContainer_InvokeCard(Card card)
+    private void MyHandContainer_InvokeCard(SlotCard slotCard)
     {
-		if (MyPlaymat.AddCharacter(card.CardResource))
+		if (MyPlaymat.AddCharacter(slotCard.Card.CardResource))
 		{
-			card.QueueFree();
+			slotCard.QueueFree();
 		}
 	}
 
@@ -69,9 +69,10 @@ public partial class Gameboard : VBoxContainer
 		if (cardResource != null)
         {
 			Log.Information($"Card drawn, add it to the hand.");
-			var card = MyHandContainer.AddCard(cardResource);
-			card.MouseEntered += () => MyPlaymat_MouseEnterCard(card);
-			card.MouseExited += () => MyPlaymat_MouseExitCard(card);
+			var slotCard = MyHandContainer.AddCard(cardResource);
+			slotCard.MouseEntered += () => MyPlaymat_MouseEnterCard(slotCard.Card);
+			slotCard.MouseExited += () => MyPlaymat_MouseExitCard(slotCard.Card);
+			slotCard.OnInvokCard += (x) => MyHandContainer_InvokeCard(slotCard);
 		} else
         {
 			Log.Warning($"Card drawn but null (game finished ?)");
@@ -172,7 +173,7 @@ public partial class Gameboard : VBoxContainer
 
 	private void TestPopup()
 	{
-		ShowCardsDialog(MyHandContainer.Hand.GetChildren().OfType<Card>().Select(x => x.CardResource).ToList(), CardSelectorSource.Hand);
+		ShowCardsDialog(MyHandContainer.Hand.GetChildren().OfType<SlotCard>().Select(x => x.Card.CardResource).ToList(), CardSelectorSource.Hand);
     }
 
 	private void OnSelectCardDialogConfirmed()

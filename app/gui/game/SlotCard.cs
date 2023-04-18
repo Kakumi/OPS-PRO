@@ -4,10 +4,25 @@ using System;
 
 public partial class SlotCard : TextureRect
 {
+	private bool _border;
+	[Export]
+	public bool Border
+    {
+		get => _border;
+		set
+        {
+			_border = value;
+			SelfModulate = new Color(SelfModulate.R, SelfModulate.G, SelfModulate.B, value ? 1f : 0f);
+        }
+    }
+
 	public Guid Guid { get; private set; }
 	public Card Card { get; private set; }
 	public bool Selected { get; private set; }
 	public MenuButton Options { get; private set; }
+
+	[Signal]
+	public delegate void OnInvokCardEventHandler(CardResource cardResource);
 
 	public override void _Ready()
 	{
@@ -15,18 +30,20 @@ public partial class SlotCard : TextureRect
 		Card = GetNode<Card>("MarginContainer/Card");
 		Options = GetNode<MenuButton>("Options");
 		Options.GetPopup().IdPressed += OnOptionsPressed;
+		Options.GetPopup().VisibilityChanged += OnOptionsPopupVisibilityChanged;
 
 		Selected = false;
-		//Card.CardResourceUpdated += Card_CardResourceUpdated;
-		//Card_CardResourceUpdated(Card.CardResource);
 	}
 
-    private void Card_CardResourceUpdated(CardResource cardResource)
-    {
-		//Options.Disabled = cardResource == null;
-    }
+	private void OnLeftClickCard(CardResource cardResource)
+	{
+		if (!Options.Disabled)
+        {
+			Options.ShowPopup();
+		}
+	}
 
-    public void ToggleSelection()
+	public void ToggleSelection()
     {
 		Selected = !Selected;
 		if (Selected)
@@ -50,6 +67,21 @@ public partial class SlotCard : TextureRect
 
 	private void OnOptionsPressed(long id)
 	{
+		if (id == 0)
+        {
+			EmitSignal(SignalName.OnInvokCard, Card.CardResource);
+        }
+	}
 
+	private void OnOptionsPopupVisibilityChanged()
+	{
+		if (Options.GetPopup().Visible)
+		{
+			Select();
+		}
+		else
+		{
+			Unselect();
+		}
 	}
 }
