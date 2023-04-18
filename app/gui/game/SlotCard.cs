@@ -7,19 +7,26 @@ public partial class SlotCard : TextureRect
 	public Guid Guid { get; private set; }
 	public Card Card { get; private set; }
 	public bool Selected { get; private set; }
-	public OptionButton Options { get; private set; }
+	public MenuButton Options { get; private set; }
 
 	public override void _Ready()
 	{
 		Guid = Guid.NewGuid();
 		Card = GetNode<Card>("MarginContainer/Card");
-		Options = GetNode<OptionButton>("Options");
+		Options = GetNode<MenuButton>("Options");
+		Options.GetPopup().IdPressed += OnOptionsPressed;
 
 		Selected = false;
-		Options.Hide();
+		//Card.CardResourceUpdated += Card_CardResourceUpdated;
+		//Card_CardResourceUpdated(Card.CardResource);
 	}
 
-	public void ToggleSelection()
+    private void Card_CardResourceUpdated(CardResource cardResource)
+    {
+		//Options.Disabled = cardResource == null;
+    }
+
+    public void ToggleSelection()
     {
 		Selected = !Selected;
 		if (Selected)
@@ -41,21 +48,8 @@ public partial class SlotCard : TextureRect
 		SelfModulate = new Color(255, 255, 255, 1);
 	}
 
-	private void OnLeftClickCard(CardResource cardResource)
-    {
-		Options.Show();
-	}
-
-	private void OnOptionsToggled(bool pressed)
-    {
-		if (!pressed)
-		{
-			Options.Hide();
-		}
-    }
-
-	private void OnMouseExited()
+	private void OnOptionsPressed(long id)
 	{
-		Options.Hide();
+
 	}
 }

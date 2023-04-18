@@ -1,3 +1,4 @@
+MenuButton
 OptionButton
 ConfirmationDialog
 AcceptDialog
@@ -30,4 +31,3 @@ Container
 BoxContainer
 CheckBox
 TextureButton
-CheckButton

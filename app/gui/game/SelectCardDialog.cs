@@ -60,6 +60,7 @@ public partial class SelectCardDialog : AcceptDialog
 			instance.ShowSource = showSource;
 			instance.CustomMinimumSize = new Vector2(CardWidth, CardHeight);
 
+			instance.SlotCard.Options.Disabled = true;
 			instance.SlotCard.Card.LeftClickCard += (x) => CardClicked(instance.SlotCard, x);
 			instance.SlotCard.Card.MouseEntered += () => EmitSignal(SignalName.MouseEnterCard, instance.SlotCard.Card);
 			instance.SlotCard.Card.MouseExited += () => EmitSignal(SignalName.MouseExitCard, instance.SlotCard.Card);

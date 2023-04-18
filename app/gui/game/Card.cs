@@ -16,6 +16,9 @@ public partial class Card : TextureRect
     [Signal]
     public delegate void MiddleClickCardEventHandler(CardResource cardResource);
 
+    [Signal]
+    public delegate void CardResourceUpdatedEventHandler(CardResource cardResource);
+
     public override void _Ready()
     {
         Rested = false;
@@ -28,6 +31,7 @@ public partial class Card : TextureRect
         {
             Texture = null;
             CardResource = null;
+            EmitSignal(SignalName.CardResourceUpdated, cardResource);
         } else if (CardResource?.Id != cardResource?.Id)
         {
             if (CardResource != null)
@@ -52,6 +56,8 @@ public partial class Card : TextureRect
             {
                 CardResource.StartDownloading();
             }
+
+            EmitSignal(SignalName.CardResourceUpdated, cardResource);
         }
     }
 
