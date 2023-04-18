@@ -6,6 +6,7 @@ using System.Linq;
 
 public partial class Gameboard : VBoxContainer
 {
+	public SelectCardDialog SelectCardDialog { get; private set; }
 	public Playmat OpponentPlaymat { get; private set; }
 	public HandContainer OpponentHandContainer { get; private set; }
 	public GamePlayerInfo OpponentPlayerInfo { get; private set; }
@@ -21,6 +22,8 @@ public partial class Gameboard : VBoxContainer
 
 	public override void _Ready()
 	{
+		SelectCardDialog = GetNode<SelectCardDialog>("SelectCardDialog");
+
 		OpponentPlaymat = GetNode<Playmat>("OpponentHBox/OpponentSide/OpponentPlaymat");
 		OpponentHandContainer = GetNode<HandContainer>("OpponentHandContainer");
 		OpponentPlayerInfo = GetNode<GamePlayerInfo>("OpponentHBox/OpponentPlayerInfo");
@@ -37,8 +40,18 @@ public partial class Gameboard : VBoxContainer
 		MyPlaymat.CardDrawn += MyPlaymat_CardDrawn;
         MyPlaymat.GameFinished += MyPlaymat_GameFinished;
 
+        MyHandContainer.InvokeCard += MyHandContainer_InvokeCard;
+
 		var deck = DeckManager.Instance.LoadDecks().Where(x => x.IsValid()).First();
 		MyPlaymat.Init(deck);
+	}
+
+    private void MyHandContainer_InvokeCard(Card card)
+    {
+		if (MyPlaymat.AddCharacter(card.CardResource))
+		{
+			card.QueueFree();
+		}
 	}
 
     private void MyPlaymat_GameFinished(bool victory)
@@ -85,7 +98,18 @@ public partial class Gameboard : VBoxContainer
         EmitSignal(SignalName.MouseExitCard, card);
     }
 
-    private void Test1()
+	private void OnSelectDialogMouseEntered(Card card)
+	{
+		EmitSignal(SignalName.MouseEnterCard, card);
+	}
+
+	private void OnSelectDialogMouseExited(Card card)
+	{
+		EmitSignal(SignalName.MouseExitCard, card);
+	}
+
+
+	private void Test1()
     {
         MyPlaymat.LeaderSlotCard.Card.ToggleFlip();
     }
@@ -126,5 +150,39 @@ public partial class Gameboard : VBoxContainer
 	private void TestDraw()
     {
 		MyPlaymat.DrawCard();
+	}
+
+	private void ShowCardsDialog(List<CardResource> cardResources, CardSelectorSource source)
+	{
+		SelectCardDialog.SetCards(cardResources, source);
+		SelectCardDialog.Cancellable = true;
+		SelectCardDialog.Selection = 0;
+		SelectCardDialog.Title = string.Format(Tr("GAME_VIEW_CARD_TITLE"), cardResources.Count, Tr(source.GetTrKey()).ToLower());
+		SelectCardDialog.PopupCentered();
+	}
+
+	private void ShowSelectCardDialog(List<Tuple<CardResource, Guid, CardSelectorSource>> cards, int selection, CardSelectorAction action, bool cancellable = false)
+	{
+		SelectCardDialog.SetCards(cards);
+		SelectCardDialog.Cancellable = cancellable;
+		SelectCardDialog.Selection = selection;
+		SelectCardDialog.Title = string.Format(Tr("GAME_SELECT_CARD_TITLE"), selection, Tr(action.GetTrKey()).ToLower());
+		SelectCardDialog.PopupCentered();
+	}
+
+	private void TestPopup()
+	{
+		ShowCardsDialog(MyHandContainer.Hand.GetChildren().OfType<Card>().Select(x => x.CardResource).ToList(), CardSelectorSource.Hand);
     }
+
+	private void OnSelectCardDialogConfirmed()
+    {
+		if (SelectCardDialog.Selection > 0)
+        {
+			SelectCardDialog.Visible = SelectCardDialog.Selection == SelectCardDialog.GetSelecteds().Count();
+		} else
+        {
+			SelectCardDialog.Hide();
+		}
+	}
 }

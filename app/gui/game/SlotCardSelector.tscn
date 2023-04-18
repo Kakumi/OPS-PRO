@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnounn1418bsl"]
+
+[ext_resource type="PackedScene" uid="uid://b3rc5limli0tv" path="res://app/gui/game/SlotCard.tscn" id="1_loeo2"]
+[ext_resource type="Script" path="res://app/gui/game/SlotCardSelector.cs" id="2_q2jfr"]
+
+[node name="SlotCardSelector" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1713.0
+offset_bottom = -799.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_q2jfr")
+
+[node name="SourceLabel" type="Label" parent="."]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="SlotCard" parent="." instance=ExtResource("1_loeo2")]
+layout_mode = 2
+size_flags_vertical = 3

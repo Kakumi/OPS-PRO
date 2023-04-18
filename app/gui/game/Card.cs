@@ -24,7 +24,11 @@ public partial class Card : TextureRect
 
     public void SetCardResource(CardResource cardResource, bool download = false)
     {
-        if (cardResource != null && CardResource?.Id != cardResource?.Id)
+        if (cardResource == null)
+        {
+            Texture = null;
+            CardResource = null;
+        } else if (CardResource?.Id != cardResource?.Id)
         {
             if (CardResource != null)
             {
@@ -34,6 +38,15 @@ public partial class Card : TextureRect
             CardResource = cardResource;
             CardResource.FrontTextureChanged += FrontTextureChanged;
             Texture = cardResource.FrontTexture;
+            if (Flipped)
+            {
+                ToggleFlip();
+            }
+
+            if (Rested)
+            {
+                ToggleRest();
+            }
 
             if (!cardResource.TextureSet && download)
             {

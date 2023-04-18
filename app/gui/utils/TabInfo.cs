@@ -78,9 +78,10 @@ public partial class TabInfo : TabBar
 	{
 		switch (Type)
 		{
-			case TabType.cardResource: return Tr("INFOTAB_INFORMATION");
+			case TabType.CardInfo: return Tr("INFOTAB_INFORMATION");
 			case TabType.Chat: return Tr("INFOTAB_CHAT");
 			case TabType.Log: return Tr("INFOTAB_LOGS");
+			case TabType.Game: return Tr("INFOTAB_GAME");
 		}
 
 		return "None";

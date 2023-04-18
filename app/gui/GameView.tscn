@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://ndtnmv1rb3gp"]
+[gd_scene load_steps=6 format=3 uid="uid://ndtnmv1rb3gp"]
 
 [ext_resource type="PackedScene" uid="uid://bdos3ombb52gx" path="res://app/gui/utils/CardInfoPanel.tscn" id="1_6npsf"]
 [ext_resource type="Script" path="res://app/gui/GameView.cs" id="1_nncif"]
 [ext_resource type="PackedScene" uid="uid://bkvbntgj7a8ub" path="res://app/gui/game/Gameboard.tscn" id="2_5w7gj"]
+[ext_resource type="PackedScene" uid="uid://dr5oryxtn1ya5" path="res://app/gui/utils/TabInfo.tscn" id="3_remmt"]
+[ext_resource type="FontFile" uid="uid://dqj36yxww4awi" path="res://app/resources/fonts/normal_font_small.tres" id="4_edymd"]
 
 [node name="GameView" type="HBoxContainer"]
 anchors_preset = 15
@@ -15,6 +17,15 @@ script = ExtResource("1_nncif")
 [node name="CardInfoPanel" parent="." instance=ExtResource("1_6npsf")]
 layout_mode = 2
 HoverCardNodePath = Array[NodePath]([NodePath("../VBoxContainer/Gameboard")])
+
+[node name="Game" parent="CardInfoPanel/TabBar" index="4" instance=ExtResource("3_remmt")]
+visible = false
+layout_mode = 2
+Type = 3
+Capacity = 100
+Font = ExtResource("4_edymd")
+UseNotifier = true
+NotifierCode = "godot_game"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -34,3 +45,6 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[editable path="CardInfoPanel"]
+[editable path="CardInfoPanel/TabBar"]

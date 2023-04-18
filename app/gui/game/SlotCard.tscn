@@ -1,8 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3rc5limli0tv"]
+[gd_scene load_steps=9 format=3 uid="uid://b3rc5limli0tv"]
 
 [ext_resource type="Texture2D" uid="uid://ccmaikc1glq5g" path="res://app/resources/images/game/CardBorder.png" id="1_gdul3"]
 [ext_resource type="Script" path="res://app/gui/game/SlotCard.cs" id="2_ej7wd"]
 [ext_resource type="PackedScene" uid="uid://boynil74yqbyv" path="res://app/gui/game/Card.tscn" id="2_iyg5q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nmn1u"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0p2h"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dgo0"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rxhv"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjmso"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.203922, 0.203922, 0.203922, 1)
 
 [node name="SlotCard" type="TextureRect"]
 anchors_preset = -1
@@ -35,3 +70,29 @@ theme_override_constants/margin_bottom = 8
 
 [node name="Card" parent="MarginContainer" instance=ExtResource("2_iyg5q")]
 layout_mode = 2
+
+[node name="Options" type="OptionButton" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -103.5
+offset_right = 103.5
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_nmn1u")
+theme_override_styles/normal = SubResource("StyleBoxFlat_a0p2h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5dgo0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1rxhv")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cjmso")
+item_count = 2
+selected = 0
+popup/item_0/text = "Invoquer"
+popup/item_0/id = 0
+popup/item_1/text = "Attaquer"
+popup/item_1/id = 1
+
+[connection signal="mouse_exited" from="." to="." method="OnMouseExited"]
+[connection signal="LeftClickCard" from="MarginContainer/Card" to="." method="OnLeftClickCard"]
+[connection signal="toggled" from="Options" to="." method="OnOptionsToggled"]

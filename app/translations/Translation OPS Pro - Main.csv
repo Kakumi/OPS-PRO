@@ -33,6 +33,7 @@ SEARCH_SEARCH,Search,Rechercher
 INFOTAB_INFORMATION,Information,Information
 INFOTAB_CHAT,Chat,Chat
 INFOTAB_LOGS,Logs,Logs
+INFOTAB_GAME,Current Game,Partie en cours
 CARDCREATOR_QUIT,Quit,Quitter
 CARDCREATOR_RESET,Reset,Réinitialiser
 CARDCREATOR_SAVE,Save,Enregistrer
@@ -177,3 +178,22 @@ Cartes DON!! disponible(s) : {1}
 Cartes DON!! utilisée(s) : {2}"
 GAME_LIFE_COUNTER,Life: {0},Vie : {0}
 GAME_BUTTON_TOGGLEINFO,Hide/Show Information,Cacher/Afficher les informations
+GAME_SELECT_CARD_TITLE,Select {0} card(s) to {1},Sélectionner {0} carte(s) à {1}
+GAME_VIEW_CARD_TITLE,{0} card(s) inside {1},{0} carte(s) dans {1}
+GAME_SELECT_CARD_TRASH,throw,jeter
+GAME_SELECT_CARD_DISCARD,discard,défausser
+GAME_SELECT_CARD_ATTACK,attack,attaquer
+GAME_SOURCE_HAND,Hand,Main
+GAME_SOURCE_DECK,Deck,Deck
+GAME_SOURCE_TRASH,Trash,Poubelle
+GAME_SOURCE_LIFE,Life,Vie
+GAME_SOURCE_DONDECK,DON!! deck,Deck DON!!
+GAME_SOURCE_COSTDECK,Active DON!! card(s),Carte(s) DON!! active(s)
+GAME_SOURCE_BOARD,Board,Plateau
+GAME_SOURCE_OPPONENT_HAND,Hand (Opponent),Main (Adversaire)
+GAME_SOURCE_OPPONENT_DECK,Deck (Opponent),Deck (Adversaire)
+GAME_SOURCE_OPPONENT_TRASH,Trash (Opponent),Poubelle (Adversaire)
+GAME_SOURCE_OPPONENT_LIFE,Life (Opponent),Vie (Adversaire)
+GAME_SOURCE_OPPONENT_DONDECK,DON!! deck (Opponent),Deck DON!! (Adversaire)
+GAME_SOURCE_OPPONENT_COSTDECK,Active DON!! card(s) (Opponent),Carte(s) DON!! active(s) (Adversaire)
+GAME_SOURCE_OPPONENT_BOARD,Board (Opponent),Plateau (Adversaire)

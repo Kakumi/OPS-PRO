@@ -166,4 +166,39 @@ public static class Extension
 
         return default(Variant);
     }
+
+    public static string GetTrKey(this CardSelectorSource source)
+    {
+        switch (source)
+        {
+            case CardSelectorSource.Hand: return "GAME_SOURCE_HAND";
+            case CardSelectorSource.Deck: return "GAME_SOURCE_DECK";
+            case CardSelectorSource.Trash: return "GAME_SOURCE_TRASH";
+            case CardSelectorSource.Life: return "GAME_SOURCE_LIFE";
+            case CardSelectorSource.DonDeck: return "GAME_SOURCE_DONDECK";
+            case CardSelectorSource.CostDeck: return "GAME_SOURCE_COSTDECK";
+            case CardSelectorSource.Board: return "GAME_SOURCE_BOARD";
+            case CardSelectorSource.OpponentHand: return "GAME_SOURCE_OPPONENT_HAND";
+            case CardSelectorSource.OpponentDeck: return "GAME_SOURCE_OPPONENT_DECK";
+            case CardSelectorSource.OpponentTrash: return "GAME_SOURCE_OPPONENT_TRASH";
+            case CardSelectorSource.OpponentLife: return "GAME_SOURCE_OPPONENT_LIFE";
+            case CardSelectorSource.OpponentDonDeck: return "GAME_SOURCE_OPPONENT_DONDECK";
+            case CardSelectorSource.OpponentCostDeck: return "GAME_SOURCE_OPPONENT_COSTDECK";
+            case CardSelectorSource.OpponentBoard: return "GAME_SOURCE_OPPONENT_BOARD";
+        }
+
+        return "none";
+    }
+
+    public static string GetTrKey(this CardSelectorAction action)
+    {
+        switch (action)
+        {
+            case CardSelectorAction.Throw: return "GAME_SELECT_CARD_TRASH";
+            case CardSelectorAction.Discard: return "GAME_SELECT_CARD_DISCARD";
+            case CardSelectorAction.Attack: return "GAME_SELECT_CARD_ATTACK";
+        }
+
+        return "none";
+    }
 }

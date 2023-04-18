@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkvbntgj7a8ub"]
+[gd_scene load_steps=7 format=3 uid="uid://bkvbntgj7a8ub"]
 
 [ext_resource type="PackedScene" uid="uid://dyl137viaosl7" path="res://app/gui/game/Playmat.tscn" id="1_r0vu4"]
 [ext_resource type="Script" path="res://app/gui/game/Gameboard.cs" id="1_sv63v"]
 [ext_resource type="PackedScene" uid="uid://bd5cf4jcvrtmn" path="res://app/gui/game/HandContainer.tscn" id="2_e552a"]
+[ext_resource type="PackedScene" uid="uid://bnounn1418bsl" path="res://app/gui/game/SlotCardSelector.tscn" id="3_h6wij"]
+[ext_resource type="PackedScene" uid="uid://bw7m62bgcc0pv" path="res://app/gui/game/SelectCardDialog.tscn" id="3_j2em0"]
 [ext_resource type="PackedScene" uid="uid://eq7exvwfk0sm" path="res://app/gui/game/GamePlayerInfo.tscn" id="4_hyxxa"]
 
 [node name="Gameboard" type="VBoxContainer"]
@@ -12,6 +14,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sv63v")
+
+[node name="SelectCardDialog" parent="." instance=ExtResource("3_j2em0")]
+visible = false
+CardScene = ExtResource("3_h6wij")
 
 [node name="OpponentHandContainer" parent="." instance=ExtResource("2_e552a")]
 layout_mode = 2
@@ -75,6 +81,10 @@ text = "Test Rest"
 layout_mode = 2
 text = "Test Draw"
 
+[node name="Button5" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
+layout_mode = 2
+text = "Test Select"
+
 [node name="MyHBox" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
@@ -97,8 +107,12 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
 
+[connection signal="MouseEnterCard" from="SelectCardDialog" to="." method="OnSelectDialogMouseEntered"]
+[connection signal="MouseExitCard" from="SelectCardDialog" to="." method="OnSelectDialogMouseExited"]
+[connection signal="confirmed" from="SelectCardDialog" to="." method="OnSelectCardDialogConfirmed"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons/Quit" to="." method="OnQuitPressed"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons/ToggleInfo" to="." method="OnToggleInfoPressed"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button3" to="." method="Test1"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button2" to="." method="Test2"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button4" to="." method="TestDraw"]
+[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button5" to="." method="TestPopup"]

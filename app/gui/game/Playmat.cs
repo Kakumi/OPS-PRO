@@ -46,6 +46,9 @@ public partial class Playmat : PanelContainer
 	[Signal]
 	public delegate void LifeChangedEventHandler(Array<CardResource> cards);
 
+	[Signal]
+	public delegate void  CharactersChangedEventHandler(Array<CardResource> cards);
+
 	public override void _Ready()
 	{
 		LeaderSlotCard = GetNode<SlotCard>("Control/LeaderSlotCard");
@@ -78,8 +81,8 @@ public partial class Playmat : PanelContainer
 		LifeSlotCard.Card.MouseExited += () => OnCardMouseExited(LifeSlotCard.Card);
 		CharactersSlots.ForEach(x =>
 		{
-			x.Card.MouseEntered += () => OnCardMouseEntered(LeaderSlotCard.Card);
-			x.Card.MouseExited += () => OnCardMouseExited(LeaderSlotCard.Card);
+			x.Card.MouseEntered += () => OnCardMouseEntered(x.Card);
+			x.Card.MouseExited += () => OnCardMouseExited(x.Card);
 		});
 
         DeckChanged += Playmat_DeckChanged;
@@ -185,6 +188,31 @@ public partial class Playmat : PanelContainer
 		EmitSignal(SignalName.LifeChanged, new Array<CardResource>(Lifes));
 
 		return cardResource;
+	}
+
+	private List<CardResource> GetCharacters()
+    {
+		return CharactersSlots.Where(x => x.Card.CardResource != null).Select(x => x.Card.CardResource).ToList();
+	}
+
+	public bool AddCharacter(CardResource cardResource)
+	{
+		var emptySlot = CharactersSlots.FirstOrDefault(x => x.Card.CardResource == null);
+		if (emptySlot == null)
+        {
+			return false;
+        }
+
+		emptySlot.Card.SetCardResource(cardResource);
+
+		EmitSignal(SignalName.CharactersChanged, new Array<CardResource>(GetCharacters()));
+
+		return true;
+	}
+
+	public void RemoveCharacter(CardResource cardResource)
+	{
+		EmitSignal(SignalName.CharactersChanged, new Array<CardResource>(GetCharacters()));
 	}
 
 	public void ShuffleDeck()
