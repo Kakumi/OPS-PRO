@@ -1,9 +1,10 @@
+RichTextLabel
+VBoxContainer
 MenuButton
 OptionButton
 ConfirmationDialog
 AcceptDialog
 Label
-VBoxContainer
 PanelContainer
 ScrollContainer
 HScrollBar
@@ -30,4 +31,3 @@ Node
 Container
 BoxContainer
 CheckBox
-TextureButton

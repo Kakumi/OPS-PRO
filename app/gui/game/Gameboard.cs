@@ -39,12 +39,18 @@ public partial class Gameboard : VBoxContainer
         MyPlaymat.MouseExitCard += MyPlaymat_MouseExitCard;
 		MyPlaymat.CardDrawn += MyPlaymat_CardDrawn;
         MyPlaymat.GameFinished += MyPlaymat_GameFinished;
+        MyPlaymat.UpdateMessage += MyPlaymat_UpdateMessage;
 
         //MyHandContainer.InvokeCard += MyHandContainer_InvokeCard;
 
 		var deck = DeckManager.Instance.LoadDecks().Where(x => x.IsValid()).First();
 		MyPlaymat.Init(deck);
 	}
+
+    private void MyPlaymat_UpdateMessage(string message, string color)
+    {
+		MyPlayerInfo.UpdateMessage(message, color);
+    }
 
     private void MyHandContainer_InvokeCard(SlotCard slotCard)
     {
@@ -162,7 +168,7 @@ public partial class Gameboard : VBoxContainer
 		SelectCardDialog.PopupCentered();
 	}
 
-	private void ShowSelectCardDialog(List<Tuple<CardResource, Guid, CardSelectorSource>> cards, int selection, CardSelectorAction action, bool cancellable = false)
+	private void ShowSelectCardDialog(List<Tuple<CardResource, Guid, CardSelectorSource>> cards, int selection, CardSelectorAction action, Action<List<Tuple<CardResource, Guid, CardSelectorSource>>> command, bool cancellable = false)
 	{
 		SelectCardDialog.SetCards(cards);
 		SelectCardDialog.Cancellable = cancellable;

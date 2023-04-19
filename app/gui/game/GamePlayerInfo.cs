@@ -3,13 +3,15 @@ using System;
 
 public partial class GamePlayerInfo : PanelContainer
 {
-	// Called when the node enters the scene tree for the first time.
+    public RichTextLabel InfoMessage { get; private set; }
+
 	public override void _Ready()
 	{
+        InfoMessage = GetNode<RichTextLabel>("MarginContainer/VBoxContainer/Bottom/RichTextLabel");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public void UpdateMessage(string message, string color)
+    {
+        InfoMessage.Text = $"[center][color={color}]{Tr(message)}[/color][/center]";
+    }
 }

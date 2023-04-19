@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -47,7 +48,10 @@ public partial class Playmat : PanelContainer
 	public delegate void LifeChangedEventHandler(Array<CardResource> cards);
 
 	[Signal]
-	public delegate void  CharactersChangedEventHandler(Array<CardResource> cards);
+	public delegate void CharactersChangedEventHandler(Array<CardResource> cards);
+
+	[Signal]
+	public delegate void UpdateMessageEventHandler(string message, string color);
 
 	public override void _Ready()
 	{
@@ -223,6 +227,7 @@ public partial class Playmat : PanelContainer
 
 	public List<CardResource> DrawCard(int amount = 1)
 	{
+		ChangeMessage("Draw 1 card failed");
 		Log.Information("Draw {Amount} cards", amount);
 		var cards = RemoveDeckCards(amount);
 		cards.ForEach(x =>
@@ -241,5 +246,10 @@ public partial class Playmat : PanelContainer
 	private void OnCardMouseExited(Card card)
 	{
 		EmitSignal(SignalName.MouseExitCard, card);
+	}
+
+	private void ChangeMessage(string message, string color = "red")
+	{
+		EmitSignal(SignalName.UpdateMessage, message, color);
 	}
 }
