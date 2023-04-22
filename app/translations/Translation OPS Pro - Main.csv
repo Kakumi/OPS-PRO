@@ -180,9 +180,11 @@ GAME_LIFE_COUNTER,Life: {0},Vie : {0}
 GAME_BUTTON_TOGGLEINFO,Hide/Show Information,Cacher/Afficher les informations
 GAME_SELECT_CARD_TITLE,Select {0} card(s) to {1},Sélectionner {0} carte(s) à {1}
 GAME_VIEW_CARD_TITLE,{0} card(s) inside {1},{0} carte(s) dans {1}
-GAME_SELECT_CARD_TRASH,throw,jeter
-GAME_SELECT_CARD_DISCARD,discard,défausser
-GAME_SELECT_CARD_ATTACK,attack,attaquer
+GAME_ACTION_SEE,See,Voir
+GAME_ACTION_TRASH,Throw,Jeter
+GAME_ACTION_DISCARD,Discard,Défausser
+GAME_ACTION_ATTACK,Attack,Attaquer
+GAME_ACTION_SUMMON,Summon,Invoquer
 GAME_SOURCE_HAND,Hand,Main
 GAME_SOURCE_DECK,Deck,Deck
 GAME_SOURCE_TRASH,Trash,Poubelle

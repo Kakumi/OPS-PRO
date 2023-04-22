@@ -6,58 +6,29 @@ using System.Linq;
 
 public partial class Gameboard : VBoxContainer
 {
+	[Export]
+	public NodePath GameViewPath { get; set; }
+
+	public GameView GameView { get; set; }
+
 	public SelectCardDialog SelectCardDialog { get; private set; }
-	public Playmat OpponentPlaymat { get; private set; }
-	public HandContainer OpponentHandContainer { get; private set; }
-	public GamePlayerInfo OpponentPlayerInfo { get; private set; }
-	public Playmat MyPlaymat { get; private set; }
-	public HandContainer MyHandContainer { get; private set; }
-	public GamePlayerInfo MyPlayerInfo { get; private set; }
-
-	[Signal]
-	public delegate void MouseEnterCardEventHandler(Card card);
-
-	[Signal]
-	public delegate void MouseExitCardEventHandler(Card card);
+	public PlayerArea OpponentArea { get; private set; }
+	public PlayerArea PlayerArea { get; private set; }
 
 	public override void _Ready()
 	{
+		GameView = GetNode<GameView>(GameViewPath);
+
 		SelectCardDialog = GetNode<SelectCardDialog>("SelectCardDialog");
 
-		OpponentPlaymat = GetNode<Playmat>("OpponentHBox/OpponentSide/OpponentPlaymat");
-		OpponentHandContainer = GetNode<HandContainer>("OpponentHandContainer");
-		OpponentPlayerInfo = GetNode<GamePlayerInfo>("OpponentHBox/OpponentPlayerInfo");
-		MyPlaymat = GetNode<Playmat>("MyHBox/MySide/MyPlaymat");
-		MyHandContainer = GetNode<HandContainer>("MyHandContainer");
-		MyPlayerInfo = GetNode<GamePlayerInfo>("MyHBox/MyPlayerInfo");
+		OpponentArea = GetNode<PlayerArea>("OpponentArea");
+		PlayerArea = GetNode<PlayerArea>("PlayerArea");
 
-		OpponentPlaymat.MouseEnterCard += OpponentPlaymat_MouseEnterCard;
-        OpponentPlaymat.MouseExitCard += OpponentPlaymat_MouseExitCard;
-		OpponentPlaymat.GameFinished += OpponentPlaymat_GameFinished;
-
-		MyPlaymat.MouseEnterCard += MyPlaymat_MouseEnterCard;
-        MyPlaymat.MouseExitCard += MyPlaymat_MouseExitCard;
-		MyPlaymat.CardDrawn += MyPlaymat_CardDrawn;
-        MyPlaymat.GameFinished += MyPlaymat_GameFinished;
-        MyPlaymat.UpdateMessage += MyPlaymat_UpdateMessage;
-
-        //MyHandContainer.InvokeCard += MyHandContainer_InvokeCard;
+		OpponentArea.Playmat.GameFinished += OpponentPlaymat_GameFinished;
+		PlayerArea.Playmat.GameFinished += MyPlaymat_GameFinished;
 
 		var deck = DeckManager.Instance.LoadDecks().Where(x => x.IsValid()).First();
-		MyPlaymat.Init(deck);
-	}
-
-    private void MyPlaymat_UpdateMessage(string message, string color)
-    {
-		MyPlayerInfo.UpdateMessage(message, color);
-    }
-
-    private void MyHandContainer_InvokeCard(SlotCard slotCard)
-    {
-		if (MyPlaymat.AddCharacter(slotCard.Card.CardResource))
-		{
-			slotCard.QueueFree();
-		}
+		PlayerArea.Playmat.Init(deck);
 	}
 
     private void MyPlaymat_GameFinished(bool victory)
@@ -70,60 +41,25 @@ public partial class Gameboard : VBoxContainer
 		throw new NotImplementedException();
 	}
 
-	private void MyPlaymat_CardDrawn(CardResource cardResource)
-    {
-		if (cardResource != null)
-        {
-			Log.Information($"Card drawn, add it to the hand.");
-			var slotCard = MyHandContainer.AddCard(cardResource);
-			slotCard.MouseEntered += () => MyPlaymat_MouseEnterCard(slotCard.Card);
-			slotCard.MouseExited += () => MyPlaymat_MouseExitCard(slotCard.Card);
-			slotCard.OnInvokCard += (x) => MyHandContainer_InvokeCard(slotCard);
-		} else
-        {
-			Log.Warning($"Card drawn but null (game finished ?)");
-		}
-	}
-
-    private void OpponentPlaymat_MouseEnterCard(Card card)
-    {
-        EmitSignal(SignalName.MouseEnterCard, card);
-    }
-
-    private void OpponentPlaymat_MouseExitCard(Card card)
-    {
-        EmitSignal(SignalName.MouseExitCard, card);
-    }
-
-    private void MyPlaymat_MouseEnterCard(Card card)
-    {
-        EmitSignal(SignalName.MouseEnterCard, card);
-    }
-
-    private void MyPlaymat_MouseExitCard(Card card)
-    {
-        EmitSignal(SignalName.MouseExitCard, card);
-    }
-
 	private void OnSelectDialogMouseEntered(Card card)
 	{
-		EmitSignal(SignalName.MouseEnterCard, card);
+		GameView.CardInfoPanel.ShowcardResource(card);
 	}
 
 	private void OnSelectDialogMouseExited(Card card)
 	{
-		EmitSignal(SignalName.MouseExitCard, card);
+		GameView.CardInfoPanel.ShowcardResource(card);
 	}
 
 
 	private void Test1()
     {
-        MyPlaymat.LeaderSlotCard.Card.ToggleFlip();
+		PlayerArea.Playmat.LeaderSlotCard.Card.ToggleFlip();
     }
 
     private void Test2()
     {
-        MyPlaymat.LeaderSlotCard.Card.ToggleRest();
+		PlayerArea.Playmat.LeaderSlotCard.Card.ToggleRest();
 	}
 
 	public void OnQuitPressed()
@@ -150,16 +86,16 @@ public partial class Gameboard : VBoxContainer
 	private void OnToggleInfoPressed()
 	{
 		Log.Debug($"Toggle players info area");
-		OpponentPlayerInfo.Visible = !OpponentPlayerInfo.Visible;
-		MyPlayerInfo.Visible = !MyPlayerInfo.Visible;
+		OpponentArea.PlayerInfo.Visible = !OpponentArea.PlayerInfo.Visible;
+		PlayerArea.PlayerInfo.Visible = !PlayerArea.PlayerInfo.Visible;
 	}
 
 	private void TestDraw()
     {
-		MyPlaymat.DrawCard();
+		PlayerArea.Playmat.DrawCard();
 	}
 
-	private void ShowCardsDialog(List<CardResource> cardResources, CardSelectorSource source)
+	public void ShowCardsDialog(List<CardResource> cardResources, CardSelectorSource source)
 	{
 		SelectCardDialog.SetCards(cardResources, source);
 		SelectCardDialog.Cancellable = true;
@@ -168,7 +104,7 @@ public partial class Gameboard : VBoxContainer
 		SelectCardDialog.PopupCentered();
 	}
 
-	private void ShowSelectCardDialog(List<Tuple<CardResource, Guid, CardSelectorSource>> cards, int selection, CardSelectorAction action, Action<List<Tuple<CardResource, Guid, CardSelectorSource>>> command, bool cancellable = false)
+	public void ShowSelectCardDialog(List<Tuple<CardResource, Guid, CardSelectorSource>> cards, int selection, CardSelectorAction action, Action<List<Tuple<CardResource, Guid, CardSelectorSource>>> command, bool cancellable = false)
 	{
 		SelectCardDialog.SetCards(cards);
 		SelectCardDialog.Cancellable = cancellable;
@@ -179,7 +115,7 @@ public partial class Gameboard : VBoxContainer
 
 	private void TestPopup()
 	{
-		ShowCardsDialog(MyHandContainer.Hand.GetChildren().OfType<SlotCard>().Select(x => x.Card.CardResource).ToList(), CardSelectorSource.Hand);
+		ShowCardsDialog(PlayerArea.Hand.Hand.GetChildren().OfType<SlotCard>().Select(x => x.Card.CardResource).ToList(), CardSelectorSource.Hand);
     }
 
 	private void OnSelectCardDialogConfirmed()

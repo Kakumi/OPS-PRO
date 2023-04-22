@@ -1,5 +1,6 @@
-RichTextLabel
 VBoxContainer
+HBoxContainer
+RichTextLabel
 MenuButton
 OptionButton
 ConfirmationDialog
@@ -10,7 +11,6 @@ ScrollContainer
 HScrollBar
 MarginContainer
 Button
-HBoxContainer
 HSeparator
 Popup
 VSeparator
@@ -30,4 +30,3 @@ TextEdit
 Node
 Container
 BoxContainer
-CheckBox

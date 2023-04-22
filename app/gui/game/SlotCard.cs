@@ -38,7 +38,7 @@ public partial class SlotCard : TextureRect
 	public MenuButton Options { get; private set; }
 
 	[Signal]
-	public delegate void OnInvokCardEventHandler(CardResource cardResource);
+	public delegate void CardActionEventHandler(SlotCard slotCard, GameSlotCardActionResource resource, int id);
 
 	public override void _Ready()
 	{
@@ -99,10 +99,7 @@ public partial class SlotCard : TextureRect
 
 	private void OnOptionsPressed(long id)
 	{
-		if (id == 0)
-        {
-			EmitSignal(SignalName.OnInvokCard, Card.CardResource);
-        }
+		EmitSignal(SignalName.CardAction, this, CardActionResource, (int) id);
 	}
 
 	private void OnOptionsPopupVisibilityChanged()

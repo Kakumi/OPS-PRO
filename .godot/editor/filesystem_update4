@@ -1,7 +1,14 @@
-res://app/gui/game/GamePlayerInfo.tscn
 res://app/resources/fonts/normal_font_small.tres
 res://app/resources/themes/main_theme.tres
-res://app/resources/GameSlotCardActionResource.cs
 res://app/resources/game/slot_action/DeckAction.tres
+res://app/gui/game/PlayerArea.tscn
+res://app/gui/game/Gameboard.tscn
+res://app/gui/game/OpponentArea.tscn
 res://app/gui/game/Playmat.tscn
-res://app/gui/game/SlotCard.tscn
+res://app/resources/game/slot_action/InvokeAction.tres
+res://app/resources/game/slot_action/SummonAction.tres
+res://app/translations/Translation OPS Pro - Main.en.translation
+res://app/translations/Translation OPS Pro - Main.fr.translation
+res://app/resources/game/slot_action/TrashAction.tres
+res://app/resources/game/slot_action/OpponentTrashAction.tres
+res://app/gui/GameView.tscn

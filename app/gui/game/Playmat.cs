@@ -7,6 +7,11 @@ using System.Linq;
 
 public partial class Playmat : PanelContainer
 {
+	[Export]
+	public NodePath PlayerAreaPath { get; set; }
+
+	public PlayerArea PlayerArea { get; private set; }
+
 	private List<CardResource> Deck { get; set; }
 	private List<CardResource> Trash { get; set; }
 	private Stack<CardResource> Lifes { get; set; }
@@ -50,11 +55,10 @@ public partial class Playmat : PanelContainer
 	[Signal]
 	public delegate void CharactersChangedEventHandler(Array<CardResource> cards);
 
-	[Signal]
-	public delegate void UpdateMessageEventHandler(string message, string color);
-
 	public override void _Ready()
 	{
+		PlayerArea = GetNode<PlayerArea>(PlayerAreaPath);
+
 		LeaderSlotCard = GetNode<SlotCard>("Control/LeaderSlotCard");
 		StageSlotCard = GetNode<SlotCard>("Control/StageSlotCard");
 		DeckSlotCard = GetNode<SlotCard>("Control/DeckSlotCard");
@@ -231,6 +235,16 @@ public partial class Playmat : PanelContainer
 		var cards = RemoveDeckCards(amount);
 		cards.ForEach(x =>
 		{
+			if (x != null)
+			{
+				Log.Information($"Card drawn, add it to the hand.");
+				_ = PlayerArea.Hand.AddCard(x);
+			}
+			else
+			{
+				Log.Warning($"Card drawn but null (game finished ?)");
+			}
+
 			EmitSignal(SignalName.CardDrawn, x);
 		});
 
@@ -249,6 +263,74 @@ public partial class Playmat : PanelContainer
 
 	private void ChangeMessage(string message, string color = "red")
 	{
-		EmitSignal(SignalName.UpdateMessage, message, color);
+		PlayerArea.PlayerInfo.UpdateMessage(message, color);
 	}
+
+	public void OnCardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
+    {
+		if (Enum.IsDefined(typeof(CardSelectorAction), id))
+        {
+			CardSelectorAction action = (CardSelectorAction)id;
+			Log.Debug("Card action clicked for source {Source} and action {Action}", resource.Source, action);
+
+			switch (action)
+            {
+                case CardSelectorAction.See:
+					SeeCards(slotCard, resource);
+                    break;
+                case CardSelectorAction.Throw:
+                    break;
+                case CardSelectorAction.Discard:
+                    break;
+                case CardSelectorAction.Attack:
+                    break;
+                case CardSelectorAction.Summon:
+					SummonCards(slotCard, resource);
+                    break;
+				default:
+					Log.Error("Card action invalid for id {Id}, not implemented.", id);
+					break;
+            }
+        }
+        else
+        {
+			Log.Error("Can't parse card action id {Id}, it doesn't exist.", id);
+        }
+    }
+
+    private void SummonCards(SlotCard slotCard, GameSlotCardActionResource resource)
+	{
+		Log.Debug("Executing summon method for source {Source}", resource.Source);
+
+		if (AddCharacter(slotCard.Card.CardResource))
+		{
+			Log.Information("Card '{Name}' summoned", slotCard.Card.CardResource.Name);
+			slotCard.QueueFree();
+        } else
+		{
+			Log.Warning("Unable to add the card '{Name}' (area is full ?)", slotCard.Card.CardResource.Name);
+		}
+    }
+
+    private void SeeCards(SlotCard slotCard, GameSlotCardActionResource resource)
+    {
+		Log.Debug("Executing see method for source {Source}", resource.Source);
+
+        switch (resource.Source)
+        {
+            case CardSelectorSource.Deck:
+				var cards = Deck.OrderBy(x => Guid.NewGuid()).ToList();
+				PlayerArea.Gameboard.ShowCardsDialog(cards, resource.Source);
+				break;
+            case CardSelectorSource.Trash:
+				PlayerArea.Gameboard.ShowCardsDialog(Trash, resource.Source);
+				break;
+            case CardSelectorSource.OpponentTrash:
+				PlayerArea.Gameboard.ShowCardsDialog(PlayerArea.Gameboard.OpponentArea.Playmat.Trash, resource.Source);
+				break;
+			default:
+				Log.Warning("No cards to see because not supported.");
+				break;
+        }
+    }
 }

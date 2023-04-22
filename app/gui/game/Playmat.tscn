@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyl137viaosl7"]
+[gd_scene load_steps=8 format=3 uid="uid://dyl137viaosl7"]
 
 [ext_resource type="Script" path="res://app/gui/game/Playmat.cs" id="1_86oap"]
 [ext_resource type="Texture2D" uid="uid://baoayj2nb21ve" path="res://app/resources/images/card_back.jpg" id="3_6ce0x"]
 [ext_resource type="Resource" uid="uid://ra6jph4aacsc" path="res://app/resources/game/slot_action/DeckAction.tres" id="3_kx7l7"]
 [ext_resource type="Texture2D" uid="uid://dwpepikesyu1i" path="res://app/resources/images/DonCard.png" id="4_c33al"]
+[ext_resource type="Resource" uid="uid://4jcymiio1eq6" path="res://app/resources/game/slot_action/TrashAction.tres" id="5_1862e"]
 [ext_resource type="PackedScene" uid="uid://b3rc5limli0tv" path="res://app/gui/game/SlotCard.tscn" id="5_skdxf"]
 [ext_resource type="Texture2D" uid="uid://du5y8xyf8rdx3" path="res://app/resources/images/DonCardBack.jpg" id="5_x04xc"]
 
@@ -56,6 +57,7 @@ offset_top = 0.539978
 offset_right = 0.819946
 offset_bottom = -0.340088
 tooltip_text = "GAME_SLOT_TOOLTIP_TRASH"
+CardActionResource = ExtResource("5_1862e")
 metadata/_edit_lock_ = true
 
 [node name="Card" parent="Control/TrashSlotCard/MarginContainer" index="0"]
@@ -167,6 +169,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [connection signal="resized" from="." to="." method="OnResized"]
+[connection signal="CardAction" from="Control/LeaderSlotCard" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/StageSlotCard" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/DeckSlotCard" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/TrashSlotCard" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/CostSlotCard" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/DonDeckSlotCard" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/LifeSlotCard" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/CharactersSlots/CharacterSlotCard1" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/CharactersSlots/CharacterSlotCard2" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/CharactersSlots/CharacterSlotCard3" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/CharactersSlots/CharacterSlotCard4" to="." method="OnCardAction"]
+[connection signal="CardAction" from="Control/CharactersSlots/CharacterSlotCard5" to="." method="OnCardAction"]
 
 [editable path="Control/DeckSlotCard"]
 [editable path="Control/TrashSlotCard"]

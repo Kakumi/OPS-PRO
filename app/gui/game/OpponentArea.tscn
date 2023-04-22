@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://nhdhdw63bwrn"]
+
+[ext_resource type="Script" path="res://app/gui/game/PlayerArea.cs" id="1_0q4f5"]
+[ext_resource type="PackedScene" uid="uid://bd5cf4jcvrtmn" path="res://app/gui/game/HandContainer.tscn" id="1_c6e2r"]
+[ext_resource type="PackedScene" uid="uid://dyl137viaosl7" path="res://app/gui/game/Playmat.tscn" id="2_28plc"]
+[ext_resource type="PackedScene" uid="uid://eq7exvwfk0sm" path="res://app/gui/game/GamePlayerInfo.tscn" id="3_6dd3q"]
+[ext_resource type="Resource" uid="uid://cuvsduinlwfms" path="res://app/resources/game/slot_action/OpponentTrashAction.tres" id="4_p8rva"]
+
+[node name="OpponentArea" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0q4f5")
+
+[node name="HandContainer" parent="." instance=ExtResource("1_c6e2r")]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+PlayerAreaPath = NodePath("..")
+
+[node name="PlaymatContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="PlaymatContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Playmat" parent="PlaymatContainer/Control" instance=ExtResource("2_28plc")]
+layout_mode = 1
+PlayerAreaPath = NodePath("../../..")
+
+[node name="TrashSlotCard" parent="PlaymatContainer/Control/Playmat/Control" index="3"]
+CardActionResource = ExtResource("4_p8rva")
+
+[node name="PlayerInfo" parent="PlaymatContainer" instance=ExtResource("3_6dd3q")]
+layout_mode = 2
+size_flags_horizontal = 3
+PlayerAreaPath = NodePath("../..")
+
+[editable path="PlaymatContainer/Control/Playmat"]
+[editable path="PlaymatContainer/Control/Playmat/Control/DeckSlotCard"]
+[editable path="PlaymatContainer/Control/Playmat/Control/TrashSlotCard"]
+[editable path="PlaymatContainer/Control/Playmat/Control/CostSlotCard"]
+[editable path="PlaymatContainer/Control/Playmat/Control/DonDeckSlotCard"]
+[editable path="PlaymatContainer/Control/Playmat/Control/LifeSlotCard"]

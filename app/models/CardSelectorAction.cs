@@ -6,5 +6,6 @@ public enum CardSelectorAction
     See,
     Throw,
     Discard,
-    Attack
+    Attack,
+    Summon
 }

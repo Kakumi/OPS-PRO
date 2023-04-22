@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbov34wkhwtfj"]
+
+[ext_resource type="Script" path="res://app/gui/game/PlayerArea.cs" id="1_vls8e"]
+[ext_resource type="PackedScene" uid="uid://bd5cf4jcvrtmn" path="res://app/gui/game/HandContainer.tscn" id="1_x3d3t"]
+[ext_resource type="PackedScene" uid="uid://dyl137viaosl7" path="res://app/gui/game/Playmat.tscn" id="2_osd0n"]
+[ext_resource type="PackedScene" uid="uid://eq7exvwfk0sm" path="res://app/gui/game/GamePlayerInfo.tscn" id="3_rno1e"]
+[ext_resource type="Resource" uid="uid://t03f5pswk5ca" path="res://app/resources/game/slot_action/HandAction.tres" id="5_6esdm"]
+
+[node name="PlayerArea" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vls8e")
+
+[node name="PlaymatContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerInfo" parent="PlaymatContainer" instance=ExtResource("3_rno1e")]
+layout_mode = 2
+size_flags_horizontal = 3
+PlayerAreaPath = NodePath("../..")
+
+[node name="Control" type="Control" parent="PlaymatContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Playmat" parent="PlaymatContainer/Control" instance=ExtResource("2_osd0n")]
+layout_mode = 1
+PlayerAreaPath = NodePath("../../..")
+
+[node name="HandContainer" parent="." instance=ExtResource("1_x3d3t")]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+CardActionResource = ExtResource("5_6esdm")
+PlayerAreaPath = NodePath("..")

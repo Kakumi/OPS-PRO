@@ -16,7 +16,7 @@ script = ExtResource("1_nncif")
 
 [node name="CardInfoPanel" parent="." instance=ExtResource("1_6npsf")]
 layout_mode = 2
-HoverCardNodePath = Array[NodePath]([NodePath("../VBoxContainer/Gameboard")])
+HoverCardNodePath = Array[NodePath]([])
 
 [node name="Game" parent="CardInfoPanel/TabBar" index="4" instance=ExtResource("3_remmt")]
 visible = false
@@ -45,6 +45,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+GameViewPath = NodePath("../..")
 
 [editable path="CardInfoPanel"]
 [editable path="CardInfoPanel/TabBar"]
