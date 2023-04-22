@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dyl137viaosl7"]
+[gd_scene load_steps=7 format=3 uid="uid://dyl137viaosl7"]
 
 [ext_resource type="Script" path="res://app/gui/game/Playmat.cs" id="1_86oap"]
 [ext_resource type="Texture2D" uid="uid://baoayj2nb21ve" path="res://app/resources/images/card_back.jpg" id="3_6ce0x"]
+[ext_resource type="Resource" uid="uid://ra6jph4aacsc" path="res://app/resources/game/slot_action/DeckAction.tres" id="3_kx7l7"]
 [ext_resource type="Texture2D" uid="uid://dwpepikesyu1i" path="res://app/resources/images/DonCard.png" id="4_c33al"]
 [ext_resource type="PackedScene" uid="uid://b3rc5limli0tv" path="res://app/gui/game/SlotCard.tscn" id="5_skdxf"]
 [ext_resource type="Texture2D" uid="uid://du5y8xyf8rdx3" path="res://app/resources/images/DonCardBack.jpg" id="5_x04xc"]
@@ -38,6 +39,7 @@ anchor_right = 0.954
 offset_left = -0.740112
 offset_right = 0.819946
 tooltip_text = "GAME_SLOT_TOOLTIP_DECK"
+CardActionResource = ExtResource("3_kx7l7")
 metadata/_edit_lock_ = true
 
 [node name="Card" parent="Control/DeckSlotCard/MarginContainer" index="0"]

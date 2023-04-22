@@ -30,11 +30,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-item_count = 2
-popup/item_0/text = "Invoquer"
-popup/item_0/id = 0
-popup/item_1/text = "Attaquer"
-popup/item_1/id = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

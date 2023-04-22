@@ -103,13 +103,13 @@ public partial class Playmat : PanelContainer
 	private void Playmat_TrashChanged(Array<CardResource> cards)
 	{
 		Log.Debug("Trash changed, update card slot");
-		DeckSlotCard.Card.Visible = cards.Count > 0;
+		TrashSlotCard.Card.Visible = cards.Count > 0;
 	}
 
     private void Playmat_DeckChanged(Array<CardResource> cards)
 	{
 		Log.Debug("Deck changed, update card slot");
-		TrashSlotCard.Card.Visible = cards.Count > 0;
+		DeckSlotCard.Card.Visible = cards.Count > 0;
 	}
 
     private void Playmat_LifeChanged(Array<CardResource> cards)
@@ -142,7 +142,7 @@ public partial class Playmat : PanelContainer
         {
 			for(int i = 0; i < deckCard.Value; i++)
             {
-				Deck.Add(deckCard.Key);
+				AddDeckCard(deckCard.Key);
 			}
         }
 
@@ -227,7 +227,6 @@ public partial class Playmat : PanelContainer
 
 	public List<CardResource> DrawCard(int amount = 1)
 	{
-		ChangeMessage("Draw 1 card failed");
 		Log.Information("Draw {Amount} cards", amount);
 		var cards = RemoveDeckCards(amount);
 		cards.ForEach(x =>

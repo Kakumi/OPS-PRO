@@ -12,6 +12,12 @@ public partial class GamePlayerInfo : PanelContainer
 
     public void UpdateMessage(string message, string color)
     {
-        InfoMessage.Text = $"[center][color={color}]{Tr(message)}[/color][/center]";
+        if (message == null)
+        {
+            InfoMessage.Text = null;
+        } else
+        {
+            InfoMessage.Text = $"[center][color={color}]{Tr(message)}[/color][/center]";
+        }
     }
 }

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ra6jph4aacsc"]
+
+[ext_resource type="Script" path="res://app/resources/GameSlotCardActionResource.cs" id="1_t6x4a"]
+
+[resource]
+script = ExtResource("1_t6x4a")
+Source = 1
+Actions = Array[int]([0])

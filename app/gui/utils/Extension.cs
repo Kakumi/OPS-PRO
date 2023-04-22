@@ -194,6 +194,7 @@ public static class Extension
     {
         switch (action)
         {
+            case CardSelectorAction.See: return "GAME_SELECT_CARD_SEE";
             case CardSelectorAction.Throw: return "GAME_SELECT_CARD_TRASH";
             case CardSelectorAction.Discard: return "GAME_SELECT_CARD_DISCARD";
             case CardSelectorAction.Attack: return "GAME_SELECT_CARD_ATTACK";

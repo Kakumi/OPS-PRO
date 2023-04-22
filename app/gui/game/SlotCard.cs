@@ -1,9 +1,25 @@
 using Godot;
 using Serilog;
 using System;
+using System.Linq;
 
 public partial class SlotCard : TextureRect
 {
+	private GameSlotCardActionResource _cardActionResource;
+	[Export]
+	public GameSlotCardActionResource CardActionResource
+    {
+		get => _cardActionResource;
+		set
+        {
+			_cardActionResource = value;
+			if (Options != null)
+            {
+				CardActionUpdated(value);
+			}
+        }
+	}
+
 	private bool _border;
 	[Export]
 	public bool Border
@@ -33,6 +49,22 @@ public partial class SlotCard : TextureRect
 		Options.GetPopup().VisibilityChanged += OnOptionsPopupVisibilityChanged;
 
 		Selected = false;
+		CardActionUpdated(CardActionResource);
+	}
+
+	private void CardActionUpdated(GameSlotCardActionResource gameSlotCardActionResource)
+    {
+		var validResource = gameSlotCardActionResource != null && gameSlotCardActionResource.Actions != null && gameSlotCardActionResource.Actions.Count > 0;
+		Options.Disabled = !validResource;
+
+		if (validResource)
+		{
+			Options.GetPopup().Clear();
+			gameSlotCardActionResource.Actions.ToList().ForEach(x =>
+			{
+				Options.GetPopup().AddItem(Tr(x.GetTrKey()), (int)x);
+			});
+		}
 	}
 
 	private void OnLeftClickCard(CardResource cardResource)
