@@ -15,7 +15,10 @@ grow_vertical = 2
 script = ExtResource("1_sv63v")
 
 [node name="SelectCardDialog" parent="." instance=ExtResource("3_j2em0")]
+process_mode = 3
 visible = false
+transient = false
+always_on_top = true
 CardScene = ExtResource("3_h6wij")
 
 [node name="OpponentArea" parent="." instance=ExtResource("4_yxl4f")]
@@ -67,6 +70,9 @@ text = "Test Draw"
 layout_mode = 2
 text = "Test Select"
 
+[node name="NextPhaseButton" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
+layout_mode = 2
+
 [node name="PlayerArea" parent="." instance=ExtResource("4_yx464")]
 layout_mode = 2
 size_flags_vertical = 3
@@ -81,3 +87,4 @@ GameboardPath = NodePath("..")
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button2" to="." method="Test2"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button4" to="." method="TestDraw"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button5" to="." method="TestPopup"]
+[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/NextPhaseButton" to="." method="OnNextPhaseButtonPressed"]

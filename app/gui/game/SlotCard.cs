@@ -5,20 +5,8 @@ using System.Linq;
 
 public partial class SlotCard : TextureRect
 {
-	private GameSlotCardActionResource _cardActionResource;
 	[Export]
-	public GameSlotCardActionResource CardActionResource
-    {
-		get => _cardActionResource;
-		set
-        {
-			_cardActionResource = value;
-			if (Options != null)
-            {
-				CardActionUpdated(value);
-			}
-        }
-	}
+	public GameSlotCardActionResource CardActionResource { get; set; }
 
 	private bool _border;
 	[Export]
@@ -49,21 +37,24 @@ public partial class SlotCard : TextureRect
 		Options.GetPopup().VisibilityChanged += OnOptionsPopupVisibilityChanged;
 
 		Selected = false;
-		CardActionUpdated(CardActionResource);
 	}
-
-	private void CardActionUpdated(GameSlotCardActionResource gameSlotCardActionResource)
+	
+	public void CardActionUpdated(IPhase phase)
     {
-		var validResource = gameSlotCardActionResource != null && gameSlotCardActionResource.Actions != null && gameSlotCardActionResource.Actions.Count > 0;
-		Options.Disabled = !validResource;
+		if (phase != null)
+        {
+			var hasOptions = CardActionResource != null && CardActionResource.Actions.Any(x => phase.IsActionAllowed(CardActionResource.Source, x));
+			Options.Disabled = !hasOptions;
 
-		if (validResource)
-		{
-			Options.GetPopup().Clear();
-			gameSlotCardActionResource.Actions.ToList().ForEach(x =>
+			if (hasOptions)
 			{
-				Options.GetPopup().AddItem(Tr(x.GetTrKey()), (int)x);
-			});
+				Options.GetPopup().Clear();
+				CardActionResource.Actions.ToList().ForEach(x =>
+				{
+					Options.GetPopup().AddItem(Tr(x.GetTrKey()), (int)x);
+					Options.GetPopup().SetItemDisabled((int)x, !phase.IsActionAllowed(CardActionResource.Source, x));
+				});
+			}
 		}
 	}
 

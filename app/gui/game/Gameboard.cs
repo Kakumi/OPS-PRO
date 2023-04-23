@@ -14,6 +14,8 @@ public partial class Gameboard : VBoxContainer
 	public SelectCardDialog SelectCardDialog { get; private set; }
 	public PlayerArea OpponentArea { get; private set; }
 	public PlayerArea PlayerArea { get; private set; }
+	public Button NextPhaseButton { get; private set; }
+	public int TurnCounter { get; private set; }
 
 	public override void _Ready()
 	{
@@ -27,8 +29,20 @@ public partial class Gameboard : VBoxContainer
 		OpponentArea.Playmat.GameFinished += OpponentPlaymat_GameFinished;
 		PlayerArea.Playmat.GameFinished += MyPlaymat_GameFinished;
 
+		NextPhaseButton = GetNode<Button>("ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/NextPhaseButton");
+
+		#region Test
+
 		var deck = DeckManager.Instance.LoadDecks().Where(x => x.IsValid()).First();
 		PlayerArea.Playmat.Init(deck);
+		OpponentArea.FirstToPlay = false;
+		PlayerArea.UpdatePhase(new OpponentPhase());
+		PlayerArea.FirstToPlay = true;
+		PlayerArea.UpdatePhase(new DrawPhase());
+
+		#endregion
+
+		TurnCounter = 0;
 	}
 
     private void MyPlaymat_GameFinished(bool victory)
@@ -128,4 +142,14 @@ public partial class Gameboard : VBoxContainer
 			SelectCardDialog.Hide();
 		}
 	}
+
+	private void OnNextPhaseButtonPressed()
+    {
+		PlayerArea.UpdatePhase(PlayerArea.CurrentPhase.NextPhase());
+    }
+
+	public void IncrementTurn()
+    {
+		TurnCounter++;
+    }
 }

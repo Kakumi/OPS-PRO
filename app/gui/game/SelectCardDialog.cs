@@ -8,13 +8,13 @@ public partial class SelectCardDialog : AcceptDialog
 	[Export]
 	public bool Cancellable { get; set; }
 
-	[Export(PropertyHint.Range)]
+	[Export(PropertyHint.Range, "0,120,")]
 	public int Selection { get; set; } = 0;
 
-	[Export(PropertyHint.Range)]
+	[Export(PropertyHint.Range, "0,9999,")]
 	public int CardWidth { get; set; } = 207;
 
-	[Export(PropertyHint.Range)]
+	[Export(PropertyHint.Range, "0,9999,")]
 	public int CardHeight { get; set; } = 281;
 
 	[Export]

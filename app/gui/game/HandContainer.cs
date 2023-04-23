@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class HandContainer : PanelContainer
@@ -33,7 +34,8 @@ public partial class HandContainer : PanelContainer
 		instance.MouseExited += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
 		instance.SizeFlagsHorizontal = SizeFlags.ExpandFill;
 		instance.CardActionResource = CardActionResource;
-        instance.CardAction += Instance_CardAction;
+		instance.CardActionUpdated(PlayerArea.CurrentPhase);
+		instance.CardAction += Instance_CardAction;
 
 		return instance;
 	}
@@ -41,6 +43,10 @@ public partial class HandContainer : PanelContainer
     private void Instance_CardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
     {
 		PlayerArea.Playmat.OnCardAction(slotCard, resource, id);
-
 	}
+
+	public List<SlotCard> GetCards()
+    {
+		return Hand.GetChildren().OfType<SlotCard>().ToList();
+    }
 }
