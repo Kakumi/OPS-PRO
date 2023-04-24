@@ -98,7 +98,6 @@ public partial class SelectCardDialog : AcceptDialog
 
 	private void OnSelectCardDialogConfirmed()
     {
-		var test = GetSelecteds();
 		if (GetSelecteds().Count == Selection)
         {
 			Hide();
