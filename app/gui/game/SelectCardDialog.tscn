@@ -26,4 +26,5 @@ vertical_scroll_mode = 0
 layout_mode = 2
 
 [connection signal="canceled" from="." to="." method="OnCanceled"]
+[connection signal="confirmed" from="." to="." method="OnSelectCardDialogConfirmed"]
 [connection signal="visibility_changed" from="." to="." method="OnVisibilityChanged"]

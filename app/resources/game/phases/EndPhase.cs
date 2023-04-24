@@ -28,15 +28,15 @@ public class EndPhase : IPhase
     public void OnPhaseStarted(PlayerArea playerArea)
     {
         playerArea.UpdatePhase(NextPhase());
-        PlayerArea opponentArea;
-        if (playerArea.Gameboard.PlayerArea == playerArea)
-        {
-            opponentArea = playerArea.Gameboard.OpponentArea;
-        } else
-        {
-            opponentArea = playerArea.Gameboard.PlayerArea;
-        }
+        //PlayerArea opponentArea;
+        //if (playerArea.Gameboard.PlayerArea == playerArea)
+        //{
+        //    opponentArea = playerArea.Gameboard.OpponentArea;
+        //} else
+        //{
+        //    opponentArea = playerArea.Gameboard.PlayerArea;
+        //}
 
-        opponentArea.UpdatePhase(new DrawPhase());
+        //opponentArea.UpdatePhase(new DrawPhase());
     }
 }

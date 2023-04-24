@@ -30,13 +30,14 @@ public partial class SelectCardDialog : AcceptDialog
 	[Signal]
 	public delegate void MouseExitCardEventHandler(Card card);
 
+	[Signal]
+	public delegate void CloseDialogEventHandler(Card card);
+
 	private bool _canceled;
 
 	public override void _Ready()
 	{
 		Cards = GetNode<Container>("MarginContainer/VBoxContainer/HScrollBar/Cards");
-
-		GetOkButton().Disabled = Selection > 0;
 	}
 
 	public void SetCards(List<CardResource> cards, CardSelectorSource source)
@@ -67,12 +68,20 @@ public partial class SelectCardDialog : AcceptDialog
 		});
 	}
 
-	public List<SlotCard> GetSelecteds()
+	public List<SlotCardSelector> GetSelecteds()
     {
-		return Cards.GetChildren().ToList().OfType<SlotCard>().Where(x => x.Selected).ToList();
+		return Cards.GetChildren().ToList().OfType<SlotCardSelector>().Where(x => x.SlotCard.Selected).ToList();
 	}
 
-    private void CardClicked(SlotCard instance, CardResource x)
+	public List<Tuple<CardResource, Guid, CardSelectorSource>> GetResult()
+	{
+        return Cards.GetChildren().ToList().OfType<SlotCardSelector>().Where(x => x.SlotCard.Selected).Select(x =>
+        {
+			return new Tuple<CardResource, Guid, CardSelectorSource>(x.SlotCard.Card.CardResource, x.TargetGuid, x.Source);
+		}).ToList();
+	}
+
+	private void CardClicked(SlotCard instance, CardResource x)
     {
 		if (Selection > 0)
 		{
@@ -87,12 +96,29 @@ public partial class SelectCardDialog : AcceptDialog
 		_canceled = true;
     }
 
+	private void OnSelectCardDialogConfirmed()
+    {
+		var test = GetSelecteds();
+		if (GetSelecteds().Count == Selection)
+        {
+			Hide();
+        }
+    }
+
 	private void OnVisibilityChanged()
 	{
 		if (!Cancellable && _canceled)
 		{
 			_canceled = false;
 			PopupCentered();
+		}
+
+		if (!Visible)
+        {
+			EmitSignal(SignalName.CloseDialog);
+        } else
+        {
+			GetOkButton().Disabled = Selection > 0 && GetSelecteds().Count != Selection;
 		}
 	}
 }

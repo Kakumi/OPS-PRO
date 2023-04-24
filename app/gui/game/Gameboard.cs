@@ -3,6 +3,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class Gameboard : VBoxContainer
 {
@@ -118,29 +119,26 @@ public partial class Gameboard : VBoxContainer
 		SelectCardDialog.PopupCentered();
 	}
 
-	public void ShowSelectCardDialog(List<Tuple<CardResource, Guid, CardSelectorSource>> cards, int selection, CardSelectorAction action, Action<List<Tuple<CardResource, Guid, CardSelectorSource>>> command, bool cancellable = false)
+	public async Task<List<Tuple<CardResource, Guid, CardSelectorSource>>> ShowSelectCardDialog(List<Tuple<CardResource, Guid, CardSelectorSource>> cards, int selection, CardSelectorAction action, bool cancellable = false)
 	{
 		SelectCardDialog.SetCards(cards);
 		SelectCardDialog.Cancellable = cancellable;
 		SelectCardDialog.Selection = selection;
 		SelectCardDialog.Title = string.Format(Tr("GAME_SELECT_CARD_TITLE"), selection, Tr(action.GetTrKey()).ToLower());
 		SelectCardDialog.PopupCentered();
+
+		await ToSignal(SelectCardDialog, SelectCardDialog.SignalName.CloseDialog);
+
+		return SelectCardDialog.GetResult();
 	}
 
-	private void TestPopup()
+	private async void TestPopup()
 	{
-		ShowCardsDialog(PlayerArea.Hand.Hand.GetChildren().OfType<SlotCard>().Select(x => x.Card.CardResource).ToList(), CardSelectorSource.Hand);
-    }
-
-	private void OnSelectCardDialogConfirmed()
-    {
-		if (SelectCardDialog.Selection > 0)
+		//ShowCardsDialog(PlayerArea.Hand.Hand.GetChildren().OfType<SlotCard>().Select(x => x.Card.CardResource).ToList(), CardSelectorSource.Hand);
+		var result = await ShowSelectCardDialog(PlayerArea.Hand.Hand.GetChildren().OfType<SlotCard>().Select(x =>
         {
-			SelectCardDialog.Visible = SelectCardDialog.Selection == SelectCardDialog.GetSelecteds().Count();
-		} else
-        {
-			SelectCardDialog.Hide();
-		}
+			return new Tuple<CardResource, Guid, CardSelectorSource>(x.Card.CardResource, x.Guid, x.CardActionResource.Source);
+		}).ToList(), 2, CardSelectorAction.Throw);
 	}
 
 	private void OnNextPhaseButtonPressed()
