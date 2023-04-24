@@ -80,7 +80,6 @@ GameboardPath = NodePath("..")
 
 [connection signal="MouseEnterCard" from="SelectCardDialog" to="." method="OnSelectDialogMouseEntered"]
 [connection signal="MouseExitCard" from="SelectCardDialog" to="." method="OnSelectDialogMouseExited"]
-[connection signal="confirmed" from="SelectCardDialog" to="." method="OnSelectCardDialogConfirmed"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons/Quit" to="." method="OnQuitPressed"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons/ToggleInfo" to="." method="OnToggleInfoPressed"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button3" to="." method="Test1"]

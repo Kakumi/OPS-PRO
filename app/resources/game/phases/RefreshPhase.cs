@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class DonPhase : IPhase
+public class RefreshPhase : IPhase
 {
     public string GetTrKeyNextPhase()
     {
-        return "PHASE_DON_GO_NEXT";
+        return "PHASE_REFRESH_GO_NEXT";
     }
 
     public bool IsActionAllowed(CardSelectorSource source, CardSelectorAction action)
@@ -18,7 +18,7 @@ public class DonPhase : IPhase
 
     public IPhase NextPhase()
     {
-        return new MainPhase();
+        return new DrawPhase();
     }
 
     public void OnPhaseEnded(PlayerArea playerArea)
@@ -27,14 +27,18 @@ public class DonPhase : IPhase
 
     public void OnPhaseStarted(PlayerArea playerArea)
     {
-        if (playerArea.FirstToPlay && playerArea.Gameboard.TurnCounter == 1)
+        playerArea.Playmat.UnrestCostDeck();
+        playerArea.Playmat.CharactersSlots.ForEach(x =>
         {
-            playerArea.Playmat.DrawDonCard(1);
-        } else
-        {
-            playerArea.Playmat.DrawDonCard(2);
-        }
+            if (x.Card.Rested)
+            {
+                x.Card.ToggleRest();
+            }
+        });
 
-        playerArea.UpdatePhase(NextPhase());
+        if (playerArea.Playmat.LeaderSlotCard.Card.Rested)
+        {
+            playerArea.Playmat.LeaderSlotCard.Card.ToggleRest();
+        }
     }
 }

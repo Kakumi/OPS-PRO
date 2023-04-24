@@ -18,7 +18,7 @@ public class EndPhase : IPhase
 
     public IPhase NextPhase()
     {
-        return new OpponentPhase();
+        return new RefreshPhase(); //new OpponentPhase();
     }
 
     public void OnPhaseEnded(PlayerArea playerArea)

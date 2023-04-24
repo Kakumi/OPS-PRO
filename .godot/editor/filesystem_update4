@@ -4,3 +4,7 @@ res://app/resources/themes/main_theme.tres
 res://app/resources/game/slot_action/DeckAction.tres
 res://app/resources/game/slot_action/TrashAction.tres
 res://app/resources/game/slot_action/OpponentTrashAction.tres
+res://app/gui/game/Gameboard.tscn
+res://app/translations/Translation OPS Pro - Main.en.translation
+res://app/translations/Translation OPS Pro - Main.fr.translation
+res://app/gui/game/Playmat.tscn

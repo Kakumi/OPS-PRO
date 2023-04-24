@@ -32,6 +32,8 @@ public partial class Gameboard : VBoxContainer
 
 		NextPhaseButton = GetNode<Button>("ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/NextPhaseButton");
 
+		TurnCounter = 0;
+
 		#region Test
 
 		var deck = DeckManager.Instance.LoadDecks().Where(x => x.IsValid()).First();
@@ -42,11 +44,9 @@ public partial class Gameboard : VBoxContainer
 		PlayerArea.UpdatePhase(new DrawPhase());
 
 		#endregion
-
-		TurnCounter = 0;
 	}
 
-    private void MyPlaymat_GameFinished(bool victory)
+	private void MyPlaymat_GameFinished(bool victory)
     {
         throw new NotImplementedException();
 	}

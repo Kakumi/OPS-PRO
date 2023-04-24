@@ -12,11 +12,39 @@ public partial class Playmat : PanelContainer
 
 	public PlayerArea PlayerArea { get; private set; }
 
-	private List<CardResource> Deck { get; set; }
-	private List<CardResource> Trash { get; set; }
-	private Stack<CardResource> Lifes { get; set; }
-	private List<CardResource> DonDeck { get; set; }
-	private List<CardResource> CostArea { get; set; }
+	private List<CardResource> _deck;
+	private List<CardResource> _trash;
+	private Stack<CardResource> _lifes;
+	private int _cardsDonDeck;
+	public int CardsDonDeck
+    {
+		get => _cardsDonDeck;
+		set
+        {
+			_cardsDonDeck = value;
+			UpdateDonText();
+		}
+	}
+	private int _cardsCostDeck;
+	public int CardsCostDeck
+	{
+		get => _cardsCostDeck;
+		set
+		{
+			_cardsCostDeck = value;
+			UpdateDonText();
+		}
+	}
+	private int _cardsRestedCostDeck;
+	public int CardsRestedCostDeck
+	{
+		get => _cardsRestedCostDeck;
+		set
+		{
+			_cardsRestedCostDeck = value;
+			UpdateDonText();
+		}
+	}
 
 	public SlotCard LeaderSlotCard { get; private set; }
 	public SlotCard StageSlotCard { get; private set; }
@@ -130,15 +158,16 @@ public partial class Playmat : PanelContainer
 		var leaderCardResource = cards.First(x => x.Key.CardTypeList == CardTypeList.LEADER);
 		LeaderSlotCard.Card.SetCardResource(leaderCardResource.Key);
 
-		Deck = new List<CardResource>();
+		_deck = new List<CardResource>();
 		DeckSlotCard.Card.Hide();
-		Trash = new List<CardResource>();
+		_trash = new List<CardResource>();
 		TrashSlotCard.Card.Hide();
-		Lifes = new Stack<CardResource>();
+		_lifes = new Stack<CardResource>();
 		LifeSlotCard.Card.Hide();
-		DonDeck = new List<CardResource>();
+		CardsDonDeck = 10;
+		CardsCostDeck = 0;
+		CardsRestedCostDeck = 0;
 		DonDeckSlotCard.Card.Hide();
-		CostArea = new List<CardResource>();
 		CostSlotCard.Card.Hide();
 
 		var deckCards = cards.Where(x => x.Key.CardTypeList == CardTypeList.CHARACTER || x.Key.CardTypeList == CardTypeList.STAGE || x.Key.CardTypeList == CardTypeList.EVENT);
@@ -162,18 +191,18 @@ public partial class Playmat : PanelContainer
 
 	public void AddDeckCard(CardResource cardResource)
     {
-		Deck.Add(cardResource);
-		EmitSignal(SignalName.DeckChanged, new Array<CardResource>(Deck));
+		_deck.Add(cardResource);
+		EmitSignal(SignalName.DeckChanged, new Array<CardResource>(_deck));
 	}
 
 	private List<CardResource> RemoveDeckCards(int amount = 1)
 	{
-		if (Deck.Count >= amount)
+		if (_deck.Count >= amount)
 		{
 			Log.Information("Remove {Amount} cards from deck", amount);
-			var cards = Deck.Take(amount).ToList();
-			Deck.RemoveRange(0, amount);
-			EmitSignal(SignalName.DeckChanged, new Array<CardResource>(Deck));
+			var cards = _deck.Take(amount).ToList();
+			_deck.RemoveRange(0, amount);
+			EmitSignal(SignalName.DeckChanged, new Array<CardResource>(_deck));
 
 			return cards;
 		}
@@ -185,15 +214,15 @@ public partial class Playmat : PanelContainer
 	public void AddLifeCard(CardResource cardResource)
 	{
 		Log.Information("Add 1 life card");
-		Lifes.Push(cardResource);
-		EmitSignal(SignalName.LifeChanged, new Array<CardResource>(Lifes));
+		_lifes.Push(cardResource);
+		EmitSignal(SignalName.LifeChanged, new Array<CardResource>(_lifes));
 	}
 
 	public CardResource RemoveLifeCard()
 	{
 		Log.Information("Remove 1 life card");
-		var cardResource = Lifes.Pop();
-		EmitSignal(SignalName.LifeChanged, new Array<CardResource>(Lifes));
+		var cardResource = _lifes.Pop();
+		EmitSignal(SignalName.LifeChanged, new Array<CardResource>(_lifes));
 
 		return cardResource;
 	}
@@ -208,10 +237,18 @@ public partial class Playmat : PanelContainer
 		var emptySlot = CharactersSlots.FirstOrDefault(x => x.Card.CardResource == null);
 		if (emptySlot == null)
         {
+			ChangeMessage(Tr("GAME_CHARACTERS_FULL"));
+			return false;
+        }
+
+		if (cardResource.Cost > CardsCostDeck)
+		{
+			ChangeMessage(Tr("GAME_CHARACTERS_NOT_ENOUGH_DON"));
 			return false;
         }
 
 		emptySlot.Card.SetCardResource(cardResource);
+		UseDonCard(cardResource.Cost);
 
 		EmitSignal(SignalName.CharactersChanged, new Array<CardResource>(GetCharacters()));
 
@@ -226,7 +263,57 @@ public partial class Playmat : PanelContainer
 	public void ShuffleDeck()
 	{
 		Log.Information("Shuffle Deck");
-		Deck = Deck.OrderBy(a => System.Guid.NewGuid()).ToList();
+		_deck = _deck.OrderBy(a => System.Guid.NewGuid()).ToList();
+	}
+
+	public void DrawDonCard(int amount = 1)
+    {
+		if (amount > CardsDonDeck)
+        {
+			amount = CardsDonDeck;
+        } else if (amount < 0)
+        {
+			amount = 1;
+        }
+
+		if (amount != 0)
+		{
+			Log.Debug("Draw {Amount} from the don deck.", amount);
+			CardsDonDeck -= amount;
+			CardsCostDeck += amount;
+		} else
+        {
+			Log.Debug($"Don't draw don card because don deck is empty.");
+        }
+    }
+
+	public bool UseDonCard(int amount = 1)
+	{
+		if (amount < 0)
+		{
+			amount = 1;
+		}
+
+		if (CardsCostDeck >= amount)
+		{
+			Log.Debug("Use {Amount} card(s) from the cost area.", amount);
+			CardsCostDeck -= amount;
+			CardsRestedCostDeck += amount;
+
+			return true;
+		} else
+        {
+			Log.Debug($"Can't use don card because cost deck has not enough don cards.");
+			ChangeMessage(string.Format(Tr("GAME_NOT_ENOUGH_DON"), amount));
+        }
+
+		return false;
+	}
+
+	public void UnrestCostDeck()
+    {
+		CardsCostDeck += CardsRestedCostDeck;
+		CardsRestedCostDeck = 0;
 	}
 
 	public List<CardResource> DrawCard(int amount = 1)
@@ -319,18 +406,25 @@ public partial class Playmat : PanelContainer
         switch (resource.Source)
         {
             case CardSelectorSource.Deck:
-				var cards = Deck.OrderBy(x => Guid.NewGuid()).ToList();
+				var cards = _deck.OrderBy(x => Guid.NewGuid()).ToList();
 				PlayerArea.Gameboard.ShowCardsDialog(cards, resource.Source);
 				break;
             case CardSelectorSource.Trash:
-				PlayerArea.Gameboard.ShowCardsDialog(Trash, resource.Source);
+				PlayerArea.Gameboard.ShowCardsDialog(_trash, resource.Source);
 				break;
             case CardSelectorSource.OpponentTrash:
-				PlayerArea.Gameboard.ShowCardsDialog(PlayerArea.Gameboard.OpponentArea.Playmat.Trash, resource.Source);
+				PlayerArea.Gameboard.ShowCardsDialog(PlayerArea.Gameboard.OpponentArea.Playmat._trash, resource.Source);
 				break;
 			default:
 				Log.Warning("No cards to see because not supported.");
 				break;
         }
     }
+
+	private void UpdateDonText()
+    {
+		CostLabel.Text = string.Format(Tr("GAME_DON_COUNTER"), CardsDonDeck, CardsCostDeck, CardsRestedCostDeck);
+		DonDeckSlotCard.Card.Visible = CardsDonDeck > 0;
+		CostSlotCard.Card.Visible = CardsCostDeck > 0;
+	}
 }

@@ -199,3 +199,10 @@ GAME_SOURCE_OPPONENT_LIFE,Life (Opponent),Vie (Adversaire)
 GAME_SOURCE_OPPONENT_DONDECK,DON!! deck (Opponent),Deck DON!! (Adversaire)
 GAME_SOURCE_OPPONENT_COSTDECK,Active DON!! card(s) (Opponent),Carte(s) DON!! active(s) (Adversaire)
 GAME_SOURCE_OPPONENT_BOARD,Board (Opponent),Plateau (Adversaire)
+PHASE_DRAW_GO_NEXT,Don!! Phase,Phase Don!!
+PHASE_DON_GO_NEXT,Main Phase,Main Phase
+PHASE_MAIN_GO_NEXT,End Turn,Fin de tour
+PHASE_END_GO_NEXT,Opponent's Turn...,Tour de l'adversaire...
+GAME_NOT_ENOUGH_DON,You don't have enough Don!! card(s) to do that. ({0} necessary),Vous n'avez pas assez de carte(s) Don!! pour faire ça. ({0} nécessaire).
+GAME_CHARACTERS_FULL,You can't summon this character because your characters area is full.,Vous ne pouvez pas invoquer ce personnage parce que votre zone de personnage est pleine.
+GAME_CHARACTERS_NOT_ENOUGH_DON,You can't summon this character because you don't have enough Don!! card(s).,Vous ne pouvez pas invoquer ce personnage car vous n'avez pas assez de carte(s) Don !!
