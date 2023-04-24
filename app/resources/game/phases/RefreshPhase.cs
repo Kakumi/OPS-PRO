@@ -21,11 +21,12 @@ public class RefreshPhase : IPhase
         return new DrawPhase();
     }
 
-    public void OnPhaseEnded(PlayerArea playerArea)
+    public Task OnPhaseEnded(PlayerArea playerArea)
     {
+        return Task.CompletedTask;
     }
 
-    public void OnPhaseStarted(PlayerArea playerArea)
+    public Task OnPhaseStarted(PlayerArea playerArea)
     {
         playerArea.Playmat.UnrestCostDeck();
         playerArea.Playmat.CharactersSlots.ForEach(x =>
@@ -40,5 +41,12 @@ public class RefreshPhase : IPhase
         {
             playerArea.Playmat.LeaderSlotCard.Card.ToggleRest();
         }
+
+        return Task.CompletedTask;
+    }
+
+    public bool IsAutoNextPhase()
+    {
+        return true;
     }
 }

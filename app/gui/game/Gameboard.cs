@@ -18,7 +18,7 @@ public partial class Gameboard : VBoxContainer
 	public Button NextPhaseButton { get; private set; }
 	public int TurnCounter { get; private set; }
 
-	public override void _Ready()
+	public override async void _Ready()
 	{
 		GameView = GetNode<GameView>(GameViewPath);
 
@@ -39,9 +39,9 @@ public partial class Gameboard : VBoxContainer
 		var deck = DeckManager.Instance.LoadDecks().Where(x => x.IsValid()).First();
 		PlayerArea.Playmat.Init(deck);
 		OpponentArea.FirstToPlay = false;
-		PlayerArea.UpdatePhase(new OpponentPhase());
+		await PlayerArea.UpdatePhase(new OpponentPhase());
 		PlayerArea.FirstToPlay = true;
-		PlayerArea.UpdatePhase(new DrawPhase());
+		await PlayerArea.UpdatePhase(new DrawPhase());
 
 		#endregion
 	}
@@ -119,6 +119,12 @@ public partial class Gameboard : VBoxContainer
 		SelectCardDialog.PopupCentered();
 	}
 
+	public async Task<List<Tuple<CardResource, Guid, CardSelectorSource>>> ShowSelectCardDialog(List<SlotCard> cards, int selection, CardSelectorAction action, bool cancellable = false)
+	{
+		var cardsFormated = cards.Select(x => new Tuple<CardResource, Guid, CardSelectorSource>(x.Card.CardResource, x.Guid, x.CardActionResource.Source)).ToList();
+		return await ShowSelectCardDialog(cardsFormated, selection, action, cancellable);
+	}
+
 	public async Task<List<Tuple<CardResource, Guid, CardSelectorSource>>> ShowSelectCardDialog(List<Tuple<CardResource, Guid, CardSelectorSource>> cards, int selection, CardSelectorAction action, bool cancellable = false)
 	{
 		SelectCardDialog.SetCards(cards);
@@ -141,9 +147,9 @@ public partial class Gameboard : VBoxContainer
 		}).ToList(), 2, CardSelectorAction.Throw);
 	}
 
-	private void OnNextPhaseButtonPressed()
+	private async void OnNextPhaseButtonPressed()
     {
-		PlayerArea.UpdatePhase(PlayerArea.CurrentPhase.NextPhase());
+		await PlayerArea.UpdatePhase(PlayerArea.CurrentPhase.NextPhase());
     }
 
 	public void IncrementTurn()

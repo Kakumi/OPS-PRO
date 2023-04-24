@@ -21,11 +21,12 @@ public class DonPhase : IPhase
         return new MainPhase();
     }
 
-    public void OnPhaseEnded(PlayerArea playerArea)
+    public Task OnPhaseEnded(PlayerArea playerArea)
     {
+        return Task.CompletedTask;
     }
 
-    public void OnPhaseStarted(PlayerArea playerArea)
+    public Task OnPhaseStarted(PlayerArea playerArea)
     {
         if (playerArea.FirstToPlay && playerArea.Gameboard.TurnCounter == 1)
         {
@@ -35,6 +36,11 @@ public class DonPhase : IPhase
             playerArea.Playmat.DrawDonCard(2);
         }
 
-        playerArea.UpdatePhase(NextPhase());
+        return Task.CompletedTask;
+    }
+
+    public bool IsAutoNextPhase()
+    {
+        return true;
     }
 }

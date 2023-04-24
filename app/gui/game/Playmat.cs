@@ -338,6 +338,12 @@ public partial class Playmat : PanelContainer
 		return cards;
 	}
 
+	public void TrashCard(CardResource cardResource)
+    {
+		_trash.Add(cardResource);
+		TrashSlotCard.Card.Show();
+    }
+
 	private void OnCardMouseEntered(Card card)
     {
 		EmitSignal(SignalName.MouseEnterCard, card);

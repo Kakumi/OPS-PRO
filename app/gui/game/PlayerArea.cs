@@ -1,6 +1,7 @@
 using Godot;
 using Serilog;
 using System;
+using System.Threading.Tasks;
 
 public partial class PlayerArea : VBoxContainer
 {
@@ -37,13 +38,13 @@ public partial class PlayerArea : VBoxContainer
 		Gameboard.GameView.CardInfoPanel.ShowcardResource(card);
 	}
 
-	public void UpdatePhase(IPhase phase)
+	public async Task UpdatePhase(IPhase phase)
 	{
 		Log.Debug("Update phase from {CurrentPhase} to {Phase}", CurrentPhase, phase);
 
 		if (CurrentPhase != null)
 		{
-			CurrentPhase.OnPhaseEnded(this);
+			await CurrentPhase.OnPhaseEnded(this);
 		}
 
 		CurrentPhase = phase;
@@ -52,8 +53,12 @@ public partial class PlayerArea : VBoxContainer
 		Gameboard.NextPhaseButton.Text = Tr(phase.GetTrKeyNextPhase());
 		Gameboard.NextPhaseButton.Disabled = phase.NextPhase() == null;
 
-		phase.OnPhaseStarted(this);
+		await phase.OnPhaseStarted(this);
 
+		if (phase.IsAutoNextPhase())
+        {
+			await UpdatePhase(phase.NextPhase());
+        }
 	}
 
 	public void UpdateSlotCardsAction(IPhase phase)

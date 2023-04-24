@@ -21,11 +21,18 @@ public class OpponentPhase : IPhase
         return null;
     }
 
-    public void OnPhaseEnded(PlayerArea playerArea)
+    public Task OnPhaseEnded(PlayerArea playerArea)
     {
+        return Task.CompletedTask;
     }
 
-    public void OnPhaseStarted(PlayerArea playerArea)
+    public Task OnPhaseStarted(PlayerArea playerArea)
     {
+        return Task.CompletedTask;
+    }
+
+    public bool IsAutoNextPhase()
+    {
+        return false;
     }
 }

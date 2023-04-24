@@ -21,13 +21,14 @@ public class EndPhase : IPhase
         return new RefreshPhase(); //new OpponentPhase();
     }
 
-    public void OnPhaseEnded(PlayerArea playerArea)
+    public Task OnPhaseEnded(PlayerArea playerArea)
     {
+        return Task.CompletedTask;
     }
 
-    public void OnPhaseStarted(PlayerArea playerArea)
+    public Task OnPhaseStarted(PlayerArea playerArea)
     {
-        playerArea.UpdatePhase(NextPhase());
+        return Task.CompletedTask;
         //PlayerArea opponentArea;
         //if (playerArea.Gameboard.PlayerArea == playerArea)
         //{
@@ -38,5 +39,10 @@ public class EndPhase : IPhase
         //}
 
         //opponentArea.UpdatePhase(new DrawPhase());
+    }
+
+    public bool IsAutoNextPhase()
+    {
+        return true;
     }
 }

@@ -21,11 +21,12 @@ public class DrawPhase : IPhase
         return new DonPhase();
     }
 
-    public void OnPhaseEnded(PlayerArea playerArea)
+    public Task OnPhaseEnded(PlayerArea playerArea)
     {
+        return Task.CompletedTask;
     }
 
-    public void OnPhaseStarted(PlayerArea playerArea)
+    public Task OnPhaseStarted(PlayerArea playerArea)
     {
         if (playerArea.FirstToPlay)
         {
@@ -37,6 +38,11 @@ public class DrawPhase : IPhase
             playerArea.Playmat.DrawCard();
         }
 
-        playerArea.UpdatePhase(NextPhase());
+        return Task.CompletedTask;
+    }
+
+    public bool IsAutoNextPhase()
+    {
+        return true;
     }
 }
