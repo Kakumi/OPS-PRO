@@ -109,7 +109,10 @@ public partial class SelectCardDialog : AcceptDialog
 		if (!Cancellable && _canceled)
 		{
 			_canceled = false;
-			PopupCentered();
+			if (!Visible)
+			{
+				PopupCentered();
+			}
 		}
 
 		if (!Visible)
