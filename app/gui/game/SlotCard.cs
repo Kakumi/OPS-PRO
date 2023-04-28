@@ -52,7 +52,8 @@ public partial class SlotCard : TextureRect
 				CardActionResource.Actions.ToList().ForEach(x =>
 				{
 					Options.GetPopup().AddItem(Tr(x.GetTrKey()), (int)x);
-					Options.GetPopup().SetItemDisabled((int)x, !phase.IsActionAllowed(CardActionResource.Source, x));
+					var index = Options.GetPopup().GetItemIndex((int)x);
+					Options.GetPopup().SetItemDisabled(index, !phase.IsActionAllowed(CardActionResource.Source, x));
 				});
 			}
 		}

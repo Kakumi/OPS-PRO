@@ -1,0 +1,96 @@
+[gd_scene load_steps=3 format=3 uid="uid://rmh0e5r1i64b"]
+
+[ext_resource type="PackedScene" uid="uid://du0pbkb24dh5o" path="res://app/gui/rooms/RoomInfo.tscn" id="1_7bldr"]
+[ext_resource type="Script" path="res://app/gui/RoomSelector.cs" id="1_ffrct"]
+
+[node name="RoomSelector" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ffrct")
+RoomInfoScene = ExtResource("1_7bldr")
+
+[node name="InfoContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="InfoContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InfoContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Player" type="VBoxContainer" parent="InfoContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="InfoContainer/MarginContainer/HBoxContainer/Player"]
+layout_mode = 2
+text = "ROOMS_CONNECTED_USER"
+vertical_alignment = 1
+
+[node name="Settings" type="VBoxContainer" parent="InfoContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ShowPasswords" type="CheckBox" parent="InfoContainer/MarginContainer/HBoxContainer/Settings"]
+layout_mode = 2
+button_pressed = true
+text = "ROOMS_SHOW_PASSWORDS"
+
+[node name="Buttons" type="VBoxContainer" parent="InfoContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Quit" type="Button" parent="InfoContainer/MarginContainer/HBoxContainer/Buttons"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "ROOMS_QUIT"
+
+[node name="Create" type="Button" parent="InfoContainer/MarginContainer/HBoxContainer/Buttons"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "ROOMS_CREATE"
+
+[node name="Refresh" type="Button" parent="InfoContainer/MarginContainer/HBoxContainer/Buttons"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "ROOMS_REFRESH"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Messages" type="Control" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="NoRoom" type="Label" parent="PanelContainer/Messages"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "No Rooms Available"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="RoomsContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="toggled" from="InfoContainer/MarginContainer/HBoxContainer/Settings/ShowPasswords" to="." method="OnShowPasswordsToggled"]
+[connection signal="pressed" from="InfoContainer/MarginContainer/HBoxContainer/Buttons/Quit" to="." method="OnQuitPressed"]
+[connection signal="toggled" from="InfoContainer/MarginContainer/HBoxContainer/Buttons/Create" to="." method="OnCreatePressed"]
+[connection signal="pressed" from="InfoContainer/MarginContainer/HBoxContainer/Buttons/Refresh" to="." method="OnRefreshPressed"]

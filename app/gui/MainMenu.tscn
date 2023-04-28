@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0bsel4oaljb3"]
+[gd_scene load_steps=8 format=3 uid="uid://d0bsel4oaljb3"]
 
 [ext_resource type="PackedScene" path="res://app/gui/mainMenu/ButtonGoto.tscn" id="1"]
 [ext_resource type="Script" path="res://app/gui/MainMenu.cs" id="2"]
 [ext_resource type="PackedScene" uid="uid://h128lbci1vgn" path="res://app/gui/Settings.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://ndtnmv1rb3gp" path="res://app/gui/GameView.tscn" id="3_keuiq"]
 [ext_resource type="PackedScene" uid="uid://bry114aad4nsh" path="res://app/gui/DeckBuilder.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://rmh0e5r1i64b" path="res://app/gui/RoomSelector.tscn" id="4_3f835"]
 [ext_resource type="PackedScene" uid="uid://b411iehs8mi8s" path="res://app/gui/CardCreator.tscn" id="4_c8xcf"]
 
 [node name="MainMenu" type="Control"]
@@ -39,6 +40,11 @@ size_flags_vertical = 6
 layout_mode = 2
 text = "MENU_BUTTON_PLAY"
 Scene = ExtResource("3_keuiq")
+
+[node name="Play2" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("1")]
+layout_mode = 2
+text = "Test Rooms"
+Scene = ExtResource("4_3f835")
 
 [node name="DeckBuilder" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("1")]
 layout_mode = 2

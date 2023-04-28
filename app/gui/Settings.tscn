@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://h128lbci1vgn"]
+[gd_scene load_steps=5 format=3 uid="uid://h128lbci1vgn"]
 
 [ext_resource type="Script" path="res://app/gui/Settings.cs" id="1"]
 [ext_resource type="PackedScene" path="res://app/gui/settings/InterfaceSettings.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://app/gui/settings/AudioSettings.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://c6u2utbxd7c53" path="res://app/gui/settings/AudioSettings.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://bcjxxfcyr2q8r" path="res://app/gui/settings/GameSettings.tscn" id="4_fxl2l"]
 
 [node name="Settings" type="PanelContainer"]
 anchors_preset = 8
@@ -32,6 +33,11 @@ TabName = "SETTINGS_TAB_INTERFACE"
 visible = false
 layout_mode = 2
 TabName = "SETTINGS_TAB_AUDIO"
+
+[node name="GameSettings" parent="VBoxContainer/TabContainer" instance=ExtResource("4_fxl2l")]
+visible = false
+layout_mode = 2
+TabName = "SETTINGS_TAG_GAME"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2

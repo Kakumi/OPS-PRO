@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://du0pbkb24dh5o"]
+
+[ext_resource type="Texture2D" uid="uid://dlnsmi2ksgq1q" path="res://app/resources/images/others/padlock.png" id="1_2t81t"]
+[ext_resource type="Script" path="res://app/gui/rooms/RoomInfo.cs" id="1_f0wa3"]
+
+[node name="RoomInfo" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f0wa3")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Username" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="TexturePassword" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_2t81t")
+stretch_mode = 5
+
+[node name="JoinButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "ROOM_JOIN"
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2

@@ -27,6 +27,9 @@ public partial class Config : Resource, IConfig
     [ConfigSettings("Audio", "res://app/resources/sounds/background/One Piece OST Overtaken.ogg")]
     public string BackgroundMusic { get; set; }
 
+    [ConfigSettings("Game", "User", true)]
+    public string Username { get; set; }
+
     public void ApplyChanges()
     {
         Log.Information($"Applying changes from the config...");
@@ -35,6 +38,7 @@ public partial class Config : Resource, IConfig
         Log.Debug($"Setting background to {Background}");
         Log.Debug($"Setting music volume to {BackgroundMusicVolume}");
         Log.Debug($"Setting sound to {BackgroundMusic} (enabled: {BackgroundMusicEnabled})");
+        Log.Debug($"Setting username to {Username}");
 
         var defaultConfig = (Config) new Config().CreateDefaultConfig();
         if (TranslationServer.GetLoadedLocales().Any(x => x.ToLower() == Language.ToLower()))
@@ -74,6 +78,12 @@ public partial class Config : Resource, IConfig
         {
             Log.Warning($"Sound not found, set to default");
             SoundManager.Instance.UpdateSound(defaultConfig.BackgroundMusic, BackgroundMusicEnabled);
+        }
+
+        if (string.IsNullOrWhiteSpace(Username))
+        {
+            Log.Warning($"Username invalid, set to default");
+            Username = defaultConfig.Username;
         }
 
         AudioServer.SetBusVolumeDb(0, Mathf.LinearToDb(BackgroundMusicVolume));

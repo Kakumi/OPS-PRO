@@ -1,8 +1,9 @@
+res://app/gui/rooms
+res://app/gui
 res://app/gui/game
 res://app/resources/game/slot_action
 res://app/translations
 res://app/resources/shaders
-res://app/gui
 res://app/gui/cardCreator/templates/texts
 res://app/gui/cardCreator
 res://app/resources/card_creator/styles
