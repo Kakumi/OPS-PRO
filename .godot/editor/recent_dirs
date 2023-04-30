@@ -1,4 +1,6 @@
 res://app/gui/rooms
+res://app/gui/utils
+res://app/scripts/auto_load
 res://app/gui
 res://app/gui/game
 res://app/resources/game/slot_action
@@ -12,11 +14,9 @@ res://app/resources/card_creator/card_effects
 C:/Users/manga/Desktop/OPS Pro/app
 res://
 C:/Users/manga/Desktop/OPS Pro
-res://app/scripts/auto_load
 res://app/resources/card_creator
 res://app/resources/card_creator/costs
 res://app/resources/images/card_creator/red
 res://app/gui/cardCreator/templates
 res://app/resources/card_creator/attributes
 res://app/resources
-res://app/gui/deckBuilder

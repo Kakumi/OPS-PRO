@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://dss5yj3kykc0i"]
+
+[ext_resource type="Script" path="res://app/gui/utils/OPSWindow.cs" id="1_bi43m"]
+
+[node name="OPSWindow" type="Window"]
+size = Vector2i(176, 100)
+wrap_controls = true
+transient = true
+exclusive = true
+unresizable = true
+script = ExtResource("1_bi43m")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[connection signal="close_requested" from="." to="." method="OnCloseRequested"]

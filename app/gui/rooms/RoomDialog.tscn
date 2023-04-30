@@ -1,0 +1,118 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7024kgkqj2fj"]
+
+[ext_resource type="Script" path="res://app/gui/rooms/RoomDialog.cs" id="1_ade2f"]
+
+[node name="RoomDialog" type="Window"]
+size = Vector2i(547, 250)
+wrap_controls = true
+transient = true
+exclusive = true
+unresizable = true
+script = ExtResource("1_ade2f")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CreatorInfo" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/CreatorInfo"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/CreatorInfo"]
+layout_mode = 2
+disabled = true
+
+[node name="VSContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VSContainer"]
+layout_mode = 2
+text = "ROOMS_VS"
+
+[node name="OpponentInfo" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OpponentInfo"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OpponentInfo"]
+layout_mode = 2
+disabled = true
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OpponentInfo"]
+layout_mode = 2
+text = "Exclure"
+
+[node name="OpponentInfoEmpty" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OpponentInfoEmpty"]
+layout_mode = 2
+text = "ROOMS_WAITING_PLAYER"
+
+[node name="DeckSelectContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/DeckSelectContainer"]
+layout_mode = 2
+text = "ROOMS_SELECT_DECK"
+
+[node name="DeckOptions" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/DeckSelectContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeftContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Buttons/LeftContainer"]
+layout_mode = 2
+text = "ROOMS_ROOM_LEAVE"
+
+[node name="RightContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Ready" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Buttons/RightContainer"]
+layout_mode = 2
+disabled = true
+text = "ROOMS_ROOM_READY"
+
+[node name="Start" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Buttons/RightContainer"]
+layout_mode = 2
+disabled = true
+text = "ROOMS_ROOM_START"
+
+[connection signal="about_to_popup" from="." to="." method="OnAboutToPopup"]
+[connection signal="close_requested" from="." to="." method="OnCloseRequested"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OpponentInfo/Button" to="." method="OnExcludePressed"]
+[connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/DeckSelectContainer/DeckOptions" to="." method="OnDeckSelected"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Buttons/LeftContainer/Quit" to="." method="OnQuitPressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Buttons/RightContainer/Ready" to="." method="OnReadyPressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Buttons/RightContainer/Start" to="." method="OnReadyPressed"]

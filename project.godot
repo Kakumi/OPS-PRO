@@ -30,6 +30,7 @@ SoundManager="*res://app/scripts/auto_load/SoundManager.tscn"
 CardManager="*res://app/scripts/auto_load/CardManager.cs"
 DeckManager="*res://app/scripts/auto_load/DeckManager.cs"
 DiscordManager="*res://app/scripts/auto_load/DiscordManager.cs"
+GameSocketConnector="*res://app/scripts/auto_load/GameSocketConnector.cs"
 
 [display]
 

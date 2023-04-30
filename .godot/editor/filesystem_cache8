@@ -1,5 +1,5 @@
 2a60927148abd1d33b818b535e306557
-::res://::1682670839
+::res://::1682883013
 Blocker.png::CompressedTexture2D::7921432685677916299::1679948152::1679948169::1::::<><>::
 Card Example.png::CompressedTexture2D::5799584854092008898::1679940975::1679941013::1::::<><>::
 default_bus_layout.tres::AudioBusLayout::-1::1677770236::0::1::::<><>::
@@ -11,7 +11,7 @@ README.md::TextFile::-1::1679923503::0::1::::<><>::
 ::res://app/::1680893075
 AppInstance.cs::CSharpScript::-1::1679682735::0::1::::<><>::
 AppInstance.tscn::PackedScene::4326939361751047718::1680893075::0::1::::<><>::res://app/AppInstance.cs<>uid://bxeudnqrt3dta<>uid://d0bsel4oaljb3
-::res://app/gui/::1682675541
+::res://app/gui/::1682882759
 CardCreator.cs::CSharpScript::-1::1678827650::0::1::::<><>::
 CardCreator.tscn::PackedScene::4477164120734211844::1680893076::0::1::::<><>::res://app/gui/CardCreator.cs<>uid://bjx3brtgt5yrp
 DeckBuilder.cs::CSharpScript::-1::1677805108::0::1::::<><>::
@@ -19,12 +19,12 @@ DeckBuilder.tscn::PackedScene::3630802687272860215::1678824521::0::1::::<><>::ui
 DraggableWindow.cs::CSharpScript::-1::1679440958::0::1::::<><>::
 GameView.cs::CSharpScript::-1::1682215478::0::1::::<><>::
 GameView.tscn::PackedScene::919825602665131875::1682214445::0::1::::<><>::uid://bdos3ombb52gx<>res://app/gui/GameView.cs<>uid://bkvbntgj7a8ub<>uid://dr5oryxtn1ya5<>uid://dqj36yxww4awi
-MainMenu.cs::CSharpScript::-1::1677800238::0::1::::<><>::
-MainMenu.tscn::PackedScene::8917148192022306874::1682673283::0::1::::<><>::res://app/gui/mainMenu/ButtonGoto.tscn<>res://app/gui/MainMenu.cs<>uid://h128lbci1vgn<>uid://ndtnmv1rb3gp<>uid://bry114aad4nsh<>uid://rmh0e5r1i64b<>uid://b411iehs8mi8s
-RoomSelector.cs::CSharpScript::-1::1682675426::0::1::::<><>::
-RoomSelector.tscn::PackedScene::1218452795937286743::1682675507::0::1::::<><>::uid://du0pbkb24dh5o<>res://app/gui/RoomSelector.cs
+MainMenu.cs::CSharpScript::-1::1682679028::0::1::::<><>::
+MainMenu.tscn::PackedScene::8917148192022306874::1682882759::0::1::::<><>::res://app/gui/mainMenu/ButtonGoto.tscn<>res://app/gui/MainMenu.cs<>uid://h128lbci1vgn<>uid://ndtnmv1rb3gp<>uid://bry114aad4nsh<>uid://rmh0e5r1i64b<>uid://b411iehs8mi8s
+RoomSelector.cs::CSharpScript::-1::1682880772::0::1::::<><>::
+RoomSelector.tscn::PackedScene::1218452795937286743::1682882759::0::1::::<><>::uid://du0pbkb24dh5o<>res://app/gui/RoomSelector.cs<>uid://dss5yj3kykc0i<>uid://d0ww8lfi73p3<>uid://c7024kgkqj2fj
 Settings.cs::CSharpScript::-1::1682675199::0::1::::<><>::
-Settings.tscn::PackedScene::546694596479600893::1682675541::0::1::::<><>::res://app/gui/Settings.cs<>res://app/gui/settings/InterfaceSettings.tscn<>uid://c6u2utbxd7c53<>uid://bcjxxfcyr2q8r
+Settings.tscn::PackedScene::546694596479600893::1682675569::0::1::::<><>::res://app/gui/Settings.cs<>res://app/gui/settings/InterfaceSettings.tscn<>uid://c6u2utbxd7c53<>uid://bcjxxfcyr2q8r
 ::res://app/gui/cardCreator/::1681603343
 CardCreatorEditor.cs::CSharpScript::-1::1680539749::0::1::::<><>::
 CardCreatorEditor.gdshader::Shader::-1::1681603343::0::1::::<><>::
@@ -65,7 +65,7 @@ SearchCardItem.cs::CSharpScript::-1::1678819891::0::1::::<><>::
 SearchCardItem.tscn::PackedScene::2004923533066887899::1678825202::0::1::::<><>::res://app/gui/deckBuilder/SearchCardItem.cs<>uid://boynil74yqbyv
 SearchContainer.cs::CSharpScript::-1::1679680270::0::1::::<><>::
 SearchContainer.tscn::PackedScene::1817137539229630623::1679442161::0::1::::<><>::uid://3tg2edqu8iyd<>res://app/gui/deckBuilder/SearchContainer.cs
-::res://app/gui/game/::1682673297
+::res://app/gui/game/::1682678780
 Card.cs::CSharpScript::-1::1681846089::0::1::::<><>::
 Card.tscn::PackedScene::3419413796521115369::1681470288::0::1::::<><>::res://app/gui/game/Card.cs
 Gameboard.cs::CSharpScript::-1::1682352154::0::1::::<><>::
@@ -79,7 +79,7 @@ PlayerArea.cs::CSharpScript::-1::1682352024::0::1::::<><>::
 PlayerArea.tscn::PackedScene::7259678799979051999::1682214445::0::1::::<><>::res://app/gui/game/PlayerArea.cs<>uid://bd5cf4jcvrtmn<>uid://dyl137viaosl7<>uid://eq7exvwfk0sm<>uid://t03f5pswk5ca
 Playmat.cs::CSharpScript::-1::1682352275::0::1::::<><>::
 Playmat.tscn::PackedScene::8868132811280155278::1682350289::0::1::::<><>::res://app/gui/game/Playmat.cs<>uid://baoayj2nb21ve<>uid://ra6jph4aacsc<>uid://dwpepikesyu1i<>uid://4jcymiio1eq6<>uid://b3rc5limli0tv<>uid://du5y8xyf8rdx3
-SelectCardDialog.cs::CSharpScript::-1::1682346619::0::1::::<><>::
+SelectCardDialog.cs::CSharpScript::-1::1682678780::0::1::::<><>::
 SelectCardDialog.tscn::PackedScene::3997420715334627239::1682346481::0::1::::<><>::res://app/gui/game/SelectCardDialog.cs
 SlotCard.cs::CSharpScript::-1::1682673297::0::1::::<><>::
 SlotCard.tscn::PackedScene::4386978325855259503::1682214445::0::1::::<><>::uid://ccmaikc1glq5g<>res://app/gui/game/SlotCard.cs<>uid://boynil74yqbyv
@@ -88,25 +88,31 @@ SlotCardSelector.tscn::PackedScene::3329015219042589371::1681842775::0::1::::<><
 ::res://app/gui/mainMenu/::1677262214
 ButtonGoto.cs::CSharpScript::-1::1677770237::0::1::::<><>::
 ButtonGoto.tscn::PackedScene::-1::1677770237::0::1::::<><>::res://app/gui/mainMenu/ButtonGoto.cs
-::res://app/gui/rooms/::1682674416
-RoomInfo.cs::CSharpScript::-1::1682674416::0::1::::<><>::
-RoomInfo.tscn::PackedScene::8615561436420790190::1682673358::0::1::::<><>::uid://dlnsmi2ksgq1q<>res://app/gui/rooms/RoomInfo.cs
-::res://app/gui/settings/::1682675505
+::res://app/gui/rooms/::1682882815
+CreateRoomDialog.cs::CSharpScript::-1::1682874253::0::1::::<><>::
+CreateRoomDialog.tscn::PackedScene::263552786574923242::1682882763::0::1::::<><>::res://app/gui/rooms/CreateRoomDialog.cs
+RoomDialog.cs::CSharpScript::-1::1682880705::0::1::::<><>::
+RoomDialog.tscn::PackedScene::7072185489461117991::1682882760::0::1::::<><>::res://app/gui/rooms/RoomDialog.cs
+RoomInfo.cs::CSharpScript::-1::1682882815::0::1::::<><>::
+RoomInfo.tscn::PackedScene::8615561436420790190::1682882763::0::1::::<><>::uid://dlnsmi2ksgq1q<>res://app/gui/rooms/RoomInfo.cs
+::res://app/gui/settings/::1682675599
 AudioSettings.cs::CSharpScript::-1::1679857832::0::1::::<><>::
 AudioSettings.tscn::PackedScene::6991659150467935984::1677804651::0::1::::<><>::res://app/gui/settings/AudioSettings.cs
+GameSettings.cs::CSharpScript::-1::1682675599::0::1::::<><>::
 GameSettings.tscn::PackedScene::2546815601669753371::1682675330::0::1::::<><>::res://app/gui/settings/GameSettings.cs
 InterfaceSettings.cs::CSharpScript::-1::1679871530::0::1::::<><>::
 InterfaceSettings.tscn::PackedScene::-1::1677770237::0::1::::<><>::res://app/gui/settings/InterfaceSettings.cs
-GameSettings.cs::CSharpScript::-1::1682675495::0::1::::<><>::
-TabSettings.cs::CSharpScript::-1::1682675505::0::1::::<><>::
-::res://app/gui/utils/::1682157603
+TabSettings.cs::CSharpScript::-1::1682675577::0::1::::<><>::
+::res://app/gui/utils/::1682715178
 CardInfoPanel.cs::CSharpScript::-1::1682157603::0::1::::<><>::
 CardInfoPanel.tscn::PackedScene::2627032165175705839::1678818157::0::1::::<><>::uid://c0v6lf45kst5y<>res://app/gui/utils/CardInfoPanel.cs<>res://app/gui/utils/TabInfoContainer.tscn
 CardInfoTab.cs::CSharpScript::-1::1681757865::0::1::::<><>::
 CardInfoTab.tscn::PackedScene::5848513719491729830::1677850287::0::1::::<><>::uid://dr5oryxtn1ya5<>res://app/gui/utils/CardInfoTab.cs
 Extension.cs::CSharpScript::-1::1682156079::0::1::::<><>::
 OPSPopup.cs::CSharpScript::-1::1677800290::0::1::::<><>::
-OPSPopup.tscn::PackedScene::3160250905221644894::1681764554::0::1::::<><>::res://app/gui/utils/OPSPopup.cs
+OPSPopup.tscn::PackedScene::3160250905221644894::1682699632::0::1::::<><>::res://app/gui/utils/OPSPopup.cs
+OPSWindow.cs::CSharpScript::-1::1682715178::0::1::::<><>::
+OPSWindow.tscn::PackedScene::8461684921425170930::1682715095::0::1::::<><>::res://app/gui/utils/OPSWindow.cs
 TabInfo.cs::CSharpScript::-1::1681758635::0::1::::<><>::
 TabInfo.tscn::PackedScene::8415285418915360830::1677850008::0::1::::<><>::res://app/gui/utils/TabInfo.cs
 TabInfoContainer.cs::CSharpScript::-1::1678819398::0::1::::<><>::
@@ -115,8 +121,8 @@ TabInfoContainer.tscn::PackedScene::5825765927952311036::1678821830::0::1::::<><
 CardSelectorAction.cs::CSharpScript::-1::1682155923::0::1::::<><>::
 CardSelectorSource.cs::CSharpScript::-1::1681841125::0::1::::<><>::
 CardTypeList.cs::CSharpScript::-1::1677770237::0::1::::<><>::
-Config.cs::CSharpScript::-1::1679871322::0::1::::<><>::
-ConfigSettings.cs::CSharpScript::-1::1677844441::0::1::::<><>::
+Config.cs::CSharpScript::-1::1682674972::0::1::::<><>::
+ConfigSettings.cs::CSharpScript::-1::1682675418::0::1::::<><>::
 DiscordLogger.cs::CSharpScript::-1::1679682337::0::1::::<><>::
 GodotSink.cs::CSharpScript::-1::1678821619::0::1::::<><>::
 IConfig.cs::CSharpScript::-1::1677770237::0::1::::<><>::
@@ -138,42 +144,42 @@ DeckResource.cs::CSharpScript::-1::1678819498::0::1::::<><>::
 GameSlotCardActionResource.cs::CSharpScript::-1::1682155927::0::1::::<><>::
 OP01-001.png::CompressedTexture2D::5762386188225195669::1676995689::1677770321::1::::<><>::
 test_bg_templat.jpg::CompressedTexture2D::281642313256317681::1678826323::1678826337::1::::<><>::
-::res://app/resources/card_creator/::1682672555
-CardCreatorSettings.tres::Resource::636077927858305004::1682672555::0::1::::<><>::uid://u5sgyncpl8sq<>uid://cchraig0qt2mm<>res://app/resources/CardCreatorSettings.cs<>uid://3cg1kg8gcr3o<>uid://ciq7y1jtp85tp<>uid://c4t3ckb6378vb<>uid://bhknst3o0k01p<>uid://by6ikpscxwry<>uid://d4m1hhrmggvhs<>uid://c3stbbvk21uir<>uid://kwbxk6we3sag<>uid://bigxhsfya25l4<>uid://lv5pvrs82utq
+::res://app/resources/card_creator/::1682873920
+CardCreatorSettings.tres::Resource::636077927858305004::1682873920::0::1::::<><>::uid://u5sgyncpl8sq<>uid://cchraig0qt2mm<>res://app/resources/CardCreatorSettings.cs<>uid://3cg1kg8gcr3o<>uid://ciq7y1jtp85tp<>uid://c4t3ckb6378vb<>uid://bhknst3o0k01p<>uid://by6ikpscxwry<>uid://d4m1hhrmggvhs<>uid://c3stbbvk21uir<>uid://kwbxk6we3sag<>uid://bigxhsfya25l4<>uid://lv5pvrs82utq
 ::res://app/resources/card_creator/attributes/::1679675800
 RangedAttribute.tres::Resource::1466813106769914560::1679675775::0::1::::<><>::uid://bv67c1uov2vft<>res://app/resources/CardCreatorAttribute.cs
 SlashAttribute.tres::Resource::5369369343772655909::1679675783::0::1::::<><>::uid://d3uneu0472l76<>res://app/resources/CardCreatorAttribute.cs
 SpecialAttribute.tres::Resource::6849245185827065775::1679675788::0::1::::<><>::uid://cnpromni0vbq6<>res://app/resources/CardCreatorAttribute.cs
 StrikeAttribute.tres::Resource::2899208873764281223::1679675794::0::1::::<><>::uid://chyhxi6eh7f2w<>res://app/resources/CardCreatorAttribute.cs
 WisdomAttribute.tres::Resource::121630972089474570::1679675800::0::1::::<><>::uid://cn1jfqeo25ixd<>res://app/resources/CardCreatorAttribute.cs
-::res://app/resources/card_creator/black/::1682672555
+::res://app/resources/card_creator/black/::1682873920
 CardCreatorBlackCharacter.tres::Resource::3405434810358361240::1679678608::0::1::::<><>::uid://cb66j0k6imjc5<>uid://dayi21rktkbpw<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorBlackCharacterFullart.tres::Resource::33974935114095105::1679919719::0::1::::<><>::uid://cb66j0k6imjc5<>uid://cqo0tw25a68wb<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorBlackEvent.tres::Resource::962005676348509113::1679678618::0::1::::<><>::uid://b5a3kvent0pje<>uid://bicc512hr80bm<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorBlackLeader.tres::Resource::3584394784512436180::1679678624::0::1::::<><>::uid://q6l1qeojn0ks<>uid://dqv2noqv5sy56<>res://app/resources/CardCreatorCardTypeResource.cs
-CardCreatorBlackResource.tres::Resource::747407111350702318::1682672555::0::1::::<><>::uid://brckpt6rrsium<>res://app/resources/CardCreatorColorResource.cs<>uid://borvap64gv5m7<>uid://qptd6nr2s8p<>uid://nyadfo4j7mkf<>uid://lopikdn164t7
+CardCreatorBlackResource.tres::Resource::747407111350702318::1682873920::0::1::::<><>::uid://brckpt6rrsium<>res://app/resources/CardCreatorColorResource.cs<>uid://borvap64gv5m7<>uid://qptd6nr2s8p<>uid://nyadfo4j7mkf<>uid://lopikdn164t7
 CardCreatorBlackStage.tres::Resource::801904140312501778::1679678628::0::1::::<><>::uid://l3hhb2j0tp58<>uid://bhlejuvvhqdld<>res://app/resources/CardCreatorCardTypeResource.cs
-::res://app/resources/card_creator/blue/::1682672555
+::res://app/resources/card_creator/blue/::1682873920
 CardCreatorBlueCharacter.tres::Resource::7443259832630255608::1679677137::0::1::::<><>::uid://cb66j0k6imjc5<>uid://bw0griaiggcsy<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorBlueCharacterFullart.tres::Resource::524129192119178048::1679919713::0::1::::<><>::uid://cb66j0k6imjc5<>uid://bg6rbe2si7k32<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorBlueEvent.tres::Resource::4219111824085505768::1679677143::0::1::::<><>::uid://b5a3kvent0pje<>uid://carmlon4gm3h8<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorBlueLeader.tres::Resource::176818815469753998::1679677151::0::1::::<><>::uid://q6l1qeojn0ks<>uid://ctlk1ndku0wcu<>res://app/resources/CardCreatorCardTypeResource.cs
-CardCreatorBlueResource.tres::Resource::9221102586478851492::1682672555::0::1::::<><>::uid://crwgee772e6i<>res://app/resources/CardCreatorColorResource.cs<>uid://debtnwxam5oro<>uid://hp5li5gq5aia<>uid://b1d1fjs2mm6dg<>uid://by5d157u04sg0
+CardCreatorBlueResource.tres::Resource::9221102586478851492::1682873920::0::1::::<><>::uid://crwgee772e6i<>res://app/resources/CardCreatorColorResource.cs<>uid://debtnwxam5oro<>uid://hp5li5gq5aia<>uid://b1d1fjs2mm6dg<>uid://by5d157u04sg0
 CardCreatorBlueStage.tres::Resource::4133114471325021605::1679677158::0::1::::<><>::uid://l3hhb2j0tp58<>uid://dgsycgmd183g8<>res://app/resources/CardCreatorCardTypeResource.cs
-::res://app/resources/card_creator/card_effects/::1682672555
-CharacterEffects.tres::Resource::4350037688242677307::1682672555::0::1::::<><>::uid://c363swetqfkbu<>uid://85lpopns7ms8<>uid://v72nvamv6lpn<>res://app/resources/CardCreatorCardEffectsResource.cs<>uid://56afbvh6ofr2<>uid://dlhuxtcxwtkfg<>uid://dslfxpobntjyb
-EventEffects.tres::Resource::5383199878754887585::1682672555::0::1::::<><>::res://app/resources/CardCreatorCardEffectsResource.cs
-LeaderEffects.tres::Resource::3354465575867174063::1682672555::0::1::::<><>::res://app/resources/CardCreatorCardEffectsResource.cs
-StageEffects.tres::Resource::1777663427671416070::1682672555::0::1::::<><>::res://app/resources/CardCreatorCardEffectsResource.cs
+::res://app/resources/card_creator/card_effects/::1682873920
+CharacterEffects.tres::Resource::4350037688242677307::1682873920::0::1::::<><>::uid://c363swetqfkbu<>uid://85lpopns7ms8<>uid://v72nvamv6lpn<>res://app/resources/CardCreatorCardEffectsResource.cs<>uid://56afbvh6ofr2<>uid://dlhuxtcxwtkfg<>uid://dslfxpobntjyb
+EventEffects.tres::Resource::5383199878754887585::1682873920::0::1::::<><>::res://app/resources/CardCreatorCardEffectsResource.cs
+LeaderEffects.tres::Resource::3354465575867174063::1682873920::0::1::::<><>::res://app/resources/CardCreatorCardEffectsResource.cs
+StageEffects.tres::Resource::1777663427671416070::1682873920::0::1::::<><>::res://app/resources/CardCreatorCardEffectsResource.cs
 ::res://app/resources/card_creator/card_settings/::1680026660
 CharacterCardSettings.tres::Resource::4908925550272460742::1680026637::0::1::::<><>::uid://dly7ufohhhf54<>uid://yl1r1cb2als7<>uid://b28gqq4nmav3p<>res://app/resources/CardCreatorCardTypeSettingsResource.cs
 DonCardSettings.tres::Resource::1687827274266560046::1679950726::0::1::::<><>::uid://cj013gx8y8oe0<>res://app/resources/CardCreatorCardTypeSettingsResource.cs
 EventCardSettings.tres::Resource::4493805036357204362::1680026645::0::1::::<><>::uid://dly7ufohhhf54<>uid://ndvut4fjb5sn<>uid://cixwrr6rtdfoj<>res://app/resources/CardCreatorCardTypeSettingsResource.cs
 LeaderCardSettings.tres::Resource::1187732373347812738::1680026653::0::1::::<><>::uid://bep1psxovddgi<>uid://bn16s78ku58wp<>uid://bjnsy5lijlqa3<>res://app/resources/CardCreatorCardTypeSettingsResource.cs
 StageCardSettings.tres::Resource::830317471314891233::1680026660::0::1::::<><>::uid://dly7ufohhhf54<>uid://bxomc0g5c3j8k<>uid://0ld4eu6t1hec<>res://app/resources/CardCreatorCardTypeSettingsResource.cs
-::res://app/resources/card_creator/costs/::1682672555
-Costs.tres::Resource::7982863341413415605::1682672555::0::1::::<><>::uid://d2q1ii3ir8c6v<>uid://ckm5ggfk5pnrm<>uid://br5xoex87sttj<>uid://bjsuc78xajvhj<>uid://bxpd3edpj160g<>uid://u2d8wlh6d2pq<>uid://d3np6duok28pr<>uid://bp201st623k0n<>uid://bhm310qy1rrhq<>uid://cn5oy08h82xko<>uid://t3ur5cketdct<>res://app/resources/CardCreatorCostResource.cs
-Lifes.tres::Resource::2699748134891713480::1682672555::0::1::::<><>::res://app/resources/CardCreatorCostResource.cs<>uid://clu0ay7r2iye<>uid://ci5ygjgec7fo0<>uid://yb67ms2wje6m
+::res://app/resources/card_creator/costs/::1682873920
+Costs.tres::Resource::7982863341413415605::1682873920::0::1::::<><>::uid://d2q1ii3ir8c6v<>uid://ckm5ggfk5pnrm<>uid://br5xoex87sttj<>uid://bjsuc78xajvhj<>uid://bxpd3edpj160g<>uid://u2d8wlh6d2pq<>uid://d3np6duok28pr<>uid://bp201st623k0n<>uid://bhm310qy1rrhq<>uid://cn5oy08h82xko<>uid://t3ur5cketdct<>res://app/resources/CardCreatorCostResource.cs
+Lifes.tres::Resource::2699748134891713480::1682873920::0::1::::<><>::res://app/resources/CardCreatorCostResource.cs<>uid://clu0ay7r2iye<>uid://ci5ygjgec7fo0<>uid://yb67ms2wje6m
 ::res://app/resources/card_creator/effects/::1680891851
 ActivateMainEffect.tres::Resource::8445714859623268317::1680891851::0::1::::<><>::uid://6vsgo3fx43mn<>res://app/resources/CardCreatorEffectResource.cs
 BanishEffect.tres::Resource::1541689482218923903::1680540177::0::1::::<><>::uid://bn68hkuwxeu6w<>res://app/resources/CardCreatorEffectResource.cs
@@ -181,23 +187,23 @@ BlockerEffect.tres::Resource::2378858605620821557::1680537293::0::1::::<><>::uid
 DoubleAttackEffect.tres::Resource::2169670033810622961::1680537310::0::1::::<><>::uid://b5bb5140xrcb3<>res://app/resources/CardCreatorEffectResource.cs
 NormalEffect.tres::Resource::6803858082292494438::1680540307::0::1::::<><>::uid://pxir2u1kjtlm<>res://app/resources/CardCreatorEffectResource.cs
 RushEffect.tres::Resource::7947046390599653936::1680537333::0::1::::<><>::uid://dml3qm8bxk4b4<>res://app/resources/CardCreatorEffectResource.cs
-::res://app/resources/card_creator/green/::1682672555
+::res://app/resources/card_creator/green/::1682873920
 CardCreatorGreenCharacter.tres::Resource::2623032839505189888::1679678712::0::1::::<><>::uid://cb66j0k6imjc5<>uid://b02usighlwf04<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorGreenCharacterFullart.tres::Resource::5417621354608809544::1679919707::0::1::::<><>::uid://cb66j0k6imjc5<>uid://dbk6i2suwg51m<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorGreenEvent.tres::Resource::5459348166428415465::1679678722::0::1::::<><>::uid://b5a3kvent0pje<>uid://bskc546revkoy<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorGreenLeader.tres::Resource::1438927051189455523::1679678728::0::1::::<><>::uid://q6l1qeojn0ks<>uid://dhhe4mq3olqmq<>res://app/resources/CardCreatorCardTypeResource.cs
-CardCreatorGreenResource.tres::Resource::6776443282936376049::1682672555::0::1::::<><>::uid://ura6hs8wbbp0<>uid://bdmu75t83kr7m<>uid://cjgloxuv0efv1<>uid://cj1swwxg6kxj2<>uid://bmfbdnwqx1a8v<>res://app/resources/CardCreatorColorResource.cs
+CardCreatorGreenResource.tres::Resource::6776443282936376049::1682873920::0::1::::<><>::uid://ura6hs8wbbp0<>uid://bdmu75t83kr7m<>uid://cjgloxuv0efv1<>uid://cj1swwxg6kxj2<>uid://bmfbdnwqx1a8v<>res://app/resources/CardCreatorColorResource.cs
 CardCreatorGreenStage.tres::Resource::3239075488042244279::1679678735::0::1::::<><>::uid://l3hhb2j0tp58<>uid://ch8xidabitwni<>res://app/resources/CardCreatorCardTypeResource.cs
-::res://app/resources/card_creator/other/::1682672555
+::res://app/resources/card_creator/other/::1682873920
 CardCreatorOtherDonCard.tres::Resource::4068567804441219771::1680028058::0::1::::<><>::uid://ybujerstycm5<>uid://b3vv6nolh243j<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorOtherDonCardEmpty.tres::Resource::1608406890549211045::1680028062::0::1::::<><>::uid://ybujerstycm5<>uid://bxdtka0iprnpx<>res://app/resources/CardCreatorCardTypeResource.cs
-CardCreatorOtherResource.tres::Resource::1969827645980966554::1682672555::0::1::::<><>::uid://bx73ynhkpr27x<>uid://w6ehx3g775wb<>res://app/resources/CardCreatorColorResource.cs
-::res://app/resources/card_creator/purple/::1682672555
+CardCreatorOtherResource.tres::Resource::1969827645980966554::1682873920::0::1::::<><>::uid://bx73ynhkpr27x<>uid://w6ehx3g775wb<>res://app/resources/CardCreatorColorResource.cs
+::res://app/resources/card_creator/purple/::1682873920
 CardCreatorPurpleCharacter.tres::Resource::8481740749503605874::1679678832::0::1::::<><>::uid://cb66j0k6imjc5<>uid://dclasdpppgkjm<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorPurpleCharacterFullart.tres::Resource::1121561135946275473::1679919701::0::1::::<><>::uid://cb66j0k6imjc5<>uid://c1r5yxh6xmqxd<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorPurpleEvent.tres::Resource::6442879326258778413::1679678848::0::1::::<><>::uid://b5a3kvent0pje<>uid://duxmc71j615wd<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorPurpleLeader.tres::Resource::3113995225838179664::1679678856::0::1::::<><>::uid://q6l1qeojn0ks<>uid://c2xyq3kxqeo1l<>res://app/resources/CardCreatorCardTypeResource.cs
-CardCreatorPurpleResource.tres::Resource::2961727644948552867::1682672555::0::1::::<><>::uid://bkmpbtwch18ns<>uid://ds3vbb1k5883o<>uid://p8j7h7bg8q3r<>uid://cx18jtb1mawif<>uid://clxgsbam4txeq<>res://app/resources/CardCreatorColorResource.cs
+CardCreatorPurpleResource.tres::Resource::2961727644948552867::1682873920::0::1::::<><>::uid://bkmpbtwch18ns<>uid://ds3vbb1k5883o<>uid://p8j7h7bg8q3r<>uid://cx18jtb1mawif<>uid://clxgsbam4txeq<>res://app/resources/CardCreatorColorResource.cs
 CardCreatorPurpleStage.tres::Resource::5592795835102922588::1679678863::0::1::::<><>::uid://l3hhb2j0tp58<>uid://cbb8g5kexnl1y<>res://app/resources/CardCreatorCardTypeResource.cs
 ::res://app/resources/card_creator/red/::1679919784
 CardCreatorRedCharacter.tres::Resource::6662427444666058276::1679675717::0::1::::<><>::uid://cb66j0k6imjc5<>res://app/resources/CardCreatorCardTypeResource.cs<>uid://dbs8m7dht8p51
@@ -206,22 +212,22 @@ CardCreatorRedEvent.tres::Resource::2401254269691243857::1679675733::0::1::::<><
 CardCreatorRedLeader.tres::Resource::2289591405907194368::1679675741::0::1::::<><>::uid://q6l1qeojn0ks<>uid://bxdxbvj7tg4w0<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorRedResource.tres::Resource::4928702318431388232::1679919784::0::1::::<><>::uid://7vdia0pr0tfs<>uid://c16lha4a3qsr1<>res://app/resources/CardCreatorColorResource.cs<>uid://c4ggwoa1gee8r<>uid://bahgko5dmr2nd<>uid://dtebfsalanbsu
 CardCreatorRedStage.tres::Resource::8501178183101053508::1679675748::0::1::::<><>::uid://l3hhb2j0tp58<>res://app/resources/CardCreatorCardTypeResource.cs<>uid://d0a522uxg846k
-::res://app/resources/card_creator/styles/::1682672555
-CardEffectsBackground.tres::StyleBoxFlat::5288677051350915706::1682672555::0::1::::<><>::
-::res://app/resources/card_creator/yellow/::1682672555
+::res://app/resources/card_creator/styles/::1682873920
+CardEffectsBackground.tres::StyleBoxFlat::5288677051350915706::1682873920::0::1::::<><>::
+::res://app/resources/card_creator/yellow/::1682873920
 CardCreatorYellowCharacter.tres::Resource::2124096315015714260::1679681044::0::1::::<><>::uid://cb66j0k6imjc5<>uid://yiphf474utry<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorYellowCharacterFullart.tres::Resource::2780171523119560427::1679919671::0::1::::<><>::uid://cb66j0k6imjc5<>uid://cshjhqw4kud8w<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorYellowEvent.tres::Resource::340830485846460690::1679681064::0::1::::<><>::uid://b5a3kvent0pje<>uid://c42oo71nrmume<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorYellowLeader.tres::Resource::4839369251274436130::1679681285::0::1::::<><>::uid://q6l1qeojn0ks<>uid://cc2rlbrbmqebb<>res://app/resources/CardCreatorCardTypeResource.cs
-CardCreatorYellowResource.tres::Resource::817278639660228686::1682672555::0::1::::<><>::uid://ca7hx7o04a7qs<>uid://5i6s5yaakk73<>uid://bfu0avy27tnjn<>uid://e4doteevyj0m<>uid://bhg6wxexxqryg<>res://app/resources/CardCreatorColorResource.cs
+CardCreatorYellowResource.tres::Resource::817278639660228686::1682873920::0::1::::<><>::uid://ca7hx7o04a7qs<>uid://5i6s5yaakk73<>uid://bfu0avy27tnjn<>uid://e4doteevyj0m<>uid://bhg6wxexxqryg<>res://app/resources/CardCreatorColorResource.cs
 CardCreatorYellowStage.tres::Resource::2892051585218025290::1679681080::0::1::::<><>::uid://l3hhb2j0tp58<>uid://cor65h8r0hky3<>res://app/resources/CardCreatorCardTypeResource.cs
 ::res://app/resources/card_scripts/::1681469850
 op01_001.cs::CSharpScript::-1::1681469850::0::1::::<><>::
-::res://app/resources/fonts/::1682672555
+::res://app/resources/fonts/::1682873920
 bold_font.tres::FontFile::-1::1677770237::0::1::::<><>::res://app/resources/fonts/Oswald-Bold.ttf
 bold_font_small.tres::FontFile::-1::1677770237::0::1::::<><>::res://app/resources/fonts/Oswald-Bold.ttf
 normal_font.tres::FontFile::-1::1677770237::0::1::::<><>::res://app/resources/fonts/Oswald-Regular.ttf
-normal_font_small.tres::FontFile::8302619681603896380::1682672555::0::1::::<><>::uid://cwwq0e1edxehl
+normal_font_small.tres::FontFile::8302619681603896380::1682873920::0::1::::<><>::uid://cwwq0e1edxehl
 Oswald-Bold.ttf::FontFile::5510855468987540736::1330473600::1677770319::1::::<><>::
 Oswald-ExtraLight.ttf::FontFile::5785993659610662120::1330473600::1677770319::1::::<><>::
 Oswald-Light.ttf::FontFile::1877003755565297980::1330473600::1677770319::1::::<><>::
@@ -240,12 +246,12 @@ IPhase.cs::CSharpScript::-1::1682351670::0::1::::<><>::
 MainPhase.cs::CSharpScript::-1::1682351771::0::1::::<><>::
 OpponentPhase.cs::CSharpScript::-1::1682351777::0::1::::<><>::
 RefreshPhase.cs::CSharpScript::-1::1682351957::0::1::::<><>::
-::res://app/resources/game/slot_action/::1682672555
-DeckAction.tres::Resource::1195109440748968270::1682672555::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
+::res://app/resources/game/slot_action/::1682873920
+DeckAction.tres::Resource::1195109440748968270::1682873920::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
 HandAction.tres::Resource::1386908077461330540::1682155943::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
-OpponentTrashAction.tres::Resource::6221069499665285438::1682672555::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
-TrashAction.tres::Resource::2054220801350583807::1682672555::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
-::res://app/resources/images/::1681643377
+OpponentTrashAction.tres::Resource::6221069499665285438::1682873920::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
+TrashAction.tres::Resource::2054220801350583807::1682873920::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
+::res://app/resources/images/::1682882215
 card_back.jpg::CompressedTexture2D::2415365346316614782::1676992280::1677770320::1::::<><>::
 DonCard.png::CompressedTexture2D::8734652368148159916::1678844145::1678844183::1::::<><>::
 DonCardBack.jpg::CompressedTexture2D::8626487640871308782::1676992301::1678844192::1::::<><>::
@@ -261,76 +267,6 @@ sunny1.jpg::CompressedTexture2D::2656109439081400828::1676931585::1677770320::1:
 sunny2.jpg::CompressedTexture2D::6998098382567500736::1676931612::1677770320::1::::<><>::
 sunny_wave.jpg::CompressedTexture2D::555404854314677637::1676931691::1677770321::1::::<><>::
 zoro_sanji_onigashima.jpg::CompressedTexture2D::4439893020837072827::1676931696::1677770322::1::::<><>::
-::res://app/resources/images/card_creator/::1679678549
-BackgroundMap.png::CompressedTexture2D::8634266687477982975::1679618588::1679662556::1::::<><>::
-::res://app/resources/images/card_creator/Black/::1679662559
-Black Character Fullart.png::CompressedTexture2D::5926317207642654185::1679616330::1679662557::1::::<><>::
-Black Character.png::CompressedTexture2D::7209342461903219864::1679616037::1679662558::1::::<><>::
-Black Event.png::CompressedTexture2D::2952236603767074122::1679616941::1679662558::1::::<><>::
-Black Leader.png::CompressedTexture2D::8327298817287277707::1679618808::1679662559::1::::<><>::
-Black Stage.png::CompressedTexture2D::2900710768442221781::1679617574::1679662559::1::::<><>::
-::res://app/resources/images/card_creator/Blue/::1679662563
-Blue Character Fullart.png::CompressedTexture2D::2872583683201001595::1679616363::1679662559::1::::<><>::
-Blue Character.png::CompressedTexture2D::3982579768592831252::1679616350::1679662560::1::::<><>::
-Blue Event.png::CompressedTexture2D::4808684793586878751::1679617074::1679662561::1::::<><>::
-Blue Leader.png::CompressedTexture2D::6129791840292721080::1679618787::1679662563::1::::<><>::
-Blue Stage.png::CompressedTexture2D::7619015025744912869::1679617564::1679662562::1::::<><>::
-::res://app/resources/images/card_creator/Cost/::1679663570
-Cost0.png::CompressedTexture2D::9088984265363127507::1679663460::1679663568::1::::<><>::
-Cost1.png::CompressedTexture2D::5501334884720839002::1679616548::1679663568::1::::<><>::
-Cost2.png::CompressedTexture2D::3642984097276506059::1679616556::1679663568::1::::<><>::
-Cost3.png::CompressedTexture2D::3056498720222750899::1679616568::1679663568::1::::<><>::
-Cost4.png::CompressedTexture2D::4031962122308809812::1679616584::1679663568::1::::<><>::
-Cost5.png::CompressedTexture2D::1459757327163598370::1679616590::1679663568::1::::<><>::
-Cost6.png::CompressedTexture2D::9152352887366233675::1679616599::1679663568::1::::<><>::
-Cost7.png::CompressedTexture2D::3496556869301168311::1679616606::1679663570::1::::<><>::
-Cost8.png::CompressedTexture2D::2904262967573540586::1679616615::1679663570::1::::<><>::
-Cost9.png::CompressedTexture2D::5748121928680398918::1679616625::1679663570::1::::<><>::
-Cost10.png::CompressedTexture2D::1392636883838564603::1679616634::1679663568::1::::<><>::
-Life4.png::CompressedTexture2D::164344865826702524::1679663390::1679663570::1::::<><>::
-Life5.png::CompressedTexture2D::5397751853866735145::1679663402::1679663570::1::::<><>::
-Life6.png::CompressedTexture2D::1688536656590750530::1679663413::1679663570::1::::<><>::
-::res://app/resources/images/card_creator/Green/::1679662565
-Green Character Fullart.png::CompressedTexture2D::7251992632260245512::1679616376::1679662564::1::::<><>::
-Green Character.png::CompressedTexture2D::4198126887938388675::1679616451::1679662564::1::::<><>::
-Green Event.png::CompressedTexture2D::3670640226365637604::1679617088::1679662564::1::::<><>::
-Green Leader.png::CompressedTexture2D::7665329913106680352::1679618797::1679662565::1::::<><>::
-Green Stage.png::CompressedTexture2D::5333698673548218450::1679617555::1679662565::1::::<><>::
-::res://app/resources/images/card_creator/Keywords/::1680890900
-ActivateMain.png::CompressedTexture2D::4677966791240568245::1680861914::1680890823::1::::<><>::
-Banish.png::CompressedTexture2D::6083723869605385017::1680536646::1680536780::1::::<><>::
-Blocker.png::CompressedTexture2D::2920810865806044190::1679948152::1680536442::1::::<><>::
-Don.png::CompressedTexture2D::8325764744349589162::1680862013::1680890900::1::::<><>::
-DoubleAttack.png::CompressedTexture2D::6588113315035198370::1680536693::1680536780::1::::<><>::
-Rush.png::CompressedTexture2D::2052743939537792257::1680536728::1680536780::1::::<><>::
-::res://app/resources/images/card_creator/Others/::1679678491
-Card DON Empty.png::CompressedTexture2D::4008128740435959553::1654701536::1679678491::1::::<><>::
-Card DON.png::CompressedTexture2D::4396391359793464029::1679678404::1679678491::1::::<><>::
-Playmat Template.png::CompressedTexture2D::3336347964740586084::1679617763::1679662548::1::::<><>::
-::res://app/resources/images/card_creator/Purple/::1679662553
-Purple Character Fullart.png::CompressedTexture2D::6634711312921180737::1679616390::1679662552::1::::<><>::
-Purple Character.png::CompressedTexture2D::7322380219384254374::1679616436::1679662552::1::::<><>::
-Purple Event.png::CompressedTexture2D::8611253509047855047::1679617101::1679662551::1::::<><>::
-Purple Leader.png::CompressedTexture2D::6716908101653743415::1679618773::1679662553::1::::<><>::
-Purple Stage.png::CompressedTexture2D::4847110555664567440::1679617539::1679662547::1::::<><>::
-::res://app/resources/images/card_creator/Red/::1679662548
-Red Character Fullart.png::CompressedTexture2D::2770807098531279847::1679616402::1679662547::1::::<><>::
-Red Character.png::CompressedTexture2D::7268636470304935210::1679616413::1679662547::1::::<><>::
-Red Event.png::CompressedTexture2D::1101754995501111203::1679617121::1679662547::1::::<><>::
-Red Leader.png::CompressedTexture2D::4008356615630745625::1679618762::1679662548::1::::<><>::
-Red Stage.png::CompressedTexture2D::8915854318329445476::1679617522::1679662545::1::::<><>::
-::res://app/resources/images/card_creator/Types/::1679662546
-Ranged.png::CompressedTexture2D::3926330022992407545::1679616678::1679662546::1::::<><>::
-Slash.png::CompressedTexture2D::9166634782555567427::1679616713::1679662546::1::::<><>::
-Special.png::CompressedTexture2D::5717319841743596219::1679616703::1679662542::1::::<><>::
-Strike.png::CompressedTexture2D::5314174899427139824::1679616722::1679662542::1::::<><>::
-Wisdom.png::CompressedTexture2D::5739526385416786065::1679616693::1679662542::1::::<><>::
-::res://app/resources/images/card_creator/Yellow/::1679662542
-Yellow Character Fullart.png::CompressedTexture2D::6051251026332516708::1679616300::1679662542::1::::<><>::
-Yellow Character.png::CompressedTexture2D::1701970833703661398::1679616281::1679662541::1::::<><>::
-Yellow Event.png::CompressedTexture2D::6864932792788147068::1679617010::1679662541::1::::<><>::
-Yellow Leader.png::CompressedTexture2D::4970009165478994771::1679618820::1679662542::1::::<><>::
-Yellow Stage.png::CompressedTexture2D::5792515820178673820::1679617589::1679662540::1::::<><>::
 ::res://app/resources/images/game/::1681643344
 CardBorder.png::CompressedTexture2D::4938006403575124538::1681643331::1681643344::1::::<><>::
 ::res://app/resources/images/others/::1682671230
@@ -347,30 +283,31 @@ Border.gdshader::Shader::-1::1681603343::0::1::::<><>::
 One Piece OST Mother Sea.ogg::AudioStreamOggVorbis::1416504894118457021::1677362729::1677770304::1::::<><>::
 One Piece OST Overtaken.ogg::AudioStreamOggVorbis::135363464401517399::1677016936::1677770304::1::::<><>::
 One Piece OST Robin.ogg::AudioStreamOggVorbis::4981805120563319864::1677362730::1677770304::1::::<><>::
-::res://app/resources/themes/::1682672555
+::res://app/resources/themes/::1682873920
 default_theme.tres::Theme::4933676142318080811::1679946834::0::1::::<><>::uid://dqj36yxww4awi
-main_theme.tres::Theme::6572816570474216592::1682672555::0::1::::<><>::res://app/resources/themes/main_theme/focus_styleboxflat.tres<>uid://dqj36yxww4awi<>res://app/resources/themes/main_theme/disabled_styleboxflat.tres<>res://app/resources/fonts/normal_font.tres<>res://app/resources/themes/main_theme/normal_styleboxflat.tres
+main_theme.tres::Theme::6572816570474216592::1682873920::0::1::::<><>::res://app/resources/themes/main_theme/focus_styleboxflat.tres<>uid://dqj36yxww4awi<>res://app/resources/themes/main_theme/disabled_styleboxflat.tres<>res://app/resources/fonts/normal_font.tres<>res://app/resources/themes/main_theme/normal_styleboxflat.tres
 ::res://app/resources/themes/main_theme/::1677149264
 disabled_styleboxflat.tres::StyleBoxFlat::-1::1677770236::0::1::::<><>::
 focus_styleboxflat.tres::StyleBoxFlat::-1::1677770236::0::1::::<><>::
 normal_styleboxflat.tres::StyleBoxFlat::-1::1677770236::0::1::::<><>::
 ::res://app/scripts/::1678816916
-::res://app/scripts/auto_load/::1681757814
-CardManager.cs::CSharpScript::-1::1681469751::0::1::::<><>::
-CustomLoader.cs::CSharpScript::-1::1681757814::0::1::::<><>::
-DeckManager.cs::CSharpScript::-1::1679441243::0::1::::<><>::
-DiscordManager.cs::CSharpScript::-1::1679682696::0::1::::<><>::
-Logger.cs::CSharpScript::-1::1677771622::0::1::::<><>::
-NotifierManager.cs::CSharpScript::-1::1677771633::0::1::::<><>::
-PopupManager.cs::CSharpScript::-1::1677771652::0::1::::<><>::
-PopupManager.tscn::PackedScene::-1::1677770236::0::1::::<><>::res://app/scripts/auto_load/PopupManager.cs<>res://app/gui/utils/OPSPopup.tscn
-SecurityLoad.cs::CSharpScript::-1::1679443092::0::1::::<><>::
-SettingsManager.cs::CSharpScript::-1::1679441263::0::1::::<><>::
-SoundManager.cs::CSharpScript::-1::1677771734::0::1::::<><>::
-SoundManager.tscn::PackedScene::-1::1677770236::0::1::::<><>::res://app/scripts/auto_load/SoundManager.cs<>res://app/resources/sounds/background/One Piece OST Overtaken.ogg
-::res://app/translations/::1682675450
-Translation OPS Pro - Main.csv::Translation::640825249604834678::1682675554::1682675562::1::::<><>::
-Translation OPS Pro - Main.en.translation::OptimizedTranslation::9008878792990581952::1682675562::0::1::::<><>::
-Translation OPS Pro - Main.fr.translation::OptimizedTranslation::6917136582745097459::1682675562::0::1::::<><>::
+::res://app/scripts/auto_load/::1682880662
+CardManager.cs::CSharpScript::-1::1682699525::0::1::::<><>::
+CustomLoader.cs::CSharpScript::-1::1682699632::0::1::::<><>::
+DeckManager.cs::CSharpScript::-1::1682676219::0::1::::<><>::
+DiscordManager.cs::CSharpScript::-1::1682699632::0::1::::<><>::
+GameSocketConnector.cs::CSharpScript::-1::1682880662::0::1::::<><>::
+Logger.cs::CSharpScript::-1::1682699632::0::1::::<><>::
+NotifierManager.cs::CSharpScript::-1::1682699632::0::1::::<><>::
+PopupManager.cs::CSharpScript::-1::1682699632::0::1::::<><>::
+PopupManager.tscn::PackedScene::-1::1682699632::0::1::::<><>::res://app/scripts/auto_load/PopupManager.cs<>res://app/gui/utils/OPSPopup.tscn
+SecurityLoad.cs::CSharpScript::-1::1682699632::0::1::::<><>::
+SettingsManager.cs::CSharpScript::-1::1682699632::0::1::::<><>::
+SoundManager.cs::CSharpScript::-1::1682699632::0::1::::<><>::
+SoundManager.tscn::PackedScene::-1::1682699632::0::1::::<><>::res://app/scripts/auto_load/SoundManager.cs<>res://app/resources/sounds/background/One Piece OST Overtaken.ogg
+::res://app/translations/::1682861745
+Translation OPS Pro - Main.csv::Translation::640825249604834678::1682861724::1682861745::1::::<><>::
+Translation OPS Pro - Main.en.translation::OptimizedTranslation::9008878792990581952::1682861745::0::1::::<><>::
+Translation OPS Pro - Main.fr.translation::OptimizedTranslation::6917136582745097459::1682861745::0::1::::<><>::
 ::res://Properties/::1677770897
 launchSettings.json::JSON::-1::1677804647::0::1::::<><>::

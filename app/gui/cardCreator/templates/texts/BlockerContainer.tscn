@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://6f2e0i1ej5wn"]
 
 [ext_resource type="Script" path="res://app/gui/cardCreator/templates/texts/BlockerContainer.cs" id="1_feht4"]
-[ext_resource type="Texture2D" uid="uid://dk4g3r47k1r2b" path="res://Blocker.png" id="2_h4tff"]
+[ext_resource type="Texture2D" uid="uid://bhu4lfortnul7" path="res://app/resources/images/card_creator/Keywords/Blocker.png" id="2_y6gjq"]
 [ext_resource type="FontFile" uid="uid://bgyxmjmaqbpoa" path="res://app/resources/fonts/card_creator/MBodoni-Italic.otf" id="4_8uypb"]
 
 [node name="BlockerContainer" type="MarginContainer"]
@@ -20,7 +20,7 @@ layout_mode = 2
 layout_mode = 2
 offset_right = 65.0
 offset_bottom = 24.0
-texture = ExtResource("2_h4tff")
+texture = ExtResource("2_y6gjq")
 expand_mode = 1
 stretch_mode = 5
 

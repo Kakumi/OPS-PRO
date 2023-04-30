@@ -1,9 +1,11 @@
 using Godot;
+using OPSProServer.Contracts.Contracts;
+using Serilog;
 using System;
 
 public partial class RoomInfo : VBoxContainer
 {
-	public Guid RoomId { get; set; }
+	public Guid RoomId { get; private set; }
 
 	public Label Username { get; private set; }
 	public Label Description { get; private set; }
@@ -18,8 +20,31 @@ public partial class RoomInfo : VBoxContainer
 		JoinButton = GetNode<Button>("HBoxContainer/JoinButton");
 	}
 
-	public void SetUsername(string username)
+	public void Init(Room room)
     {
-		Username.Text = string.Format(Tr("ROOMS_CONNECTED_USER"), username);
+		RoomId = room.Id;
+		Username.Text = room.Creator?.Username;
+		Description.Text = room.Description;
+		Description.TooltipText = room.Description;
+		if (!room.UsePassword)
+        {
+			TexturePassword.SelfModulate = new Color(TexturePassword.SelfModulate.R, TexturePassword.SelfModulate.G, TexturePassword.SelfModulate.B, 0f);
+		}
+
+		if (room.Creator.Id == GameSocketConnector.Instance.UserId)
+        {
+			JoinButton.Disabled = true;
+        }
+    }
+
+	private async void OnJoinPressed()
+    {
+		try
+        {
+			await GameSocketConnector.Instance.JoinRoom(RoomId, null);
+        } catch(Exception ex)
+        {
+			Log.Error(ex, ex.Message);
+        }
     }
 }
