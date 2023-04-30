@@ -115,4 +115,4 @@ text = "ROOMS_ROOM_START"
 [connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/DeckSelectContainer/DeckOptions" to="." method="OnDeckSelected"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Buttons/LeftContainer/Quit" to="." method="OnQuitPressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Buttons/RightContainer/Ready" to="." method="OnReadyPressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Buttons/RightContainer/Start" to="." method="OnReadyPressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Buttons/RightContainer/Start" to="." method="OnStartPressed"]
