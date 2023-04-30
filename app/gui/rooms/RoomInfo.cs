@@ -2,15 +2,23 @@ using Godot;
 using OPSProServer.Contracts.Contracts;
 using Serilog;
 using System;
+using System.Threading.Tasks;
 
 public partial class RoomInfo : VBoxContainer
 {
-	public Guid RoomId { get; private set; }
+	public Room Room { get; private set; }
 
 	public Label Username { get; private set; }
 	public Label Description { get; private set; }
 	public TextureRect TexturePassword { get; private set; }
 	public Button JoinButton { get; private set; }
+	public PasswordDialog PasswordDialog { get; private set; }
+
+	[Signal]
+	public delegate void ClickJoinRoomEventHandler();
+
+	[Signal]
+	public delegate void JoinRoomResultEventHandler(bool success);
 
 	public override void _Ready()
 	{
@@ -18,11 +26,12 @@ public partial class RoomInfo : VBoxContainer
 		Description = GetNode<Label>("HBoxContainer/Desc");
 		TexturePassword = GetNode<TextureRect>("HBoxContainer/TexturePassword");
 		JoinButton = GetNode<Button>("HBoxContainer/JoinButton");
+		PasswordDialog = GetNode<PasswordDialog>("PasswordDialog");
 	}
 
 	public void Init(Room room)
     {
-		RoomId = room.Id;
+		Room = room;
 		Username.Text = room.Creator?.Username;
 		Description.Text = room.Description;
 		Description.TooltipText = room.Description;
@@ -38,13 +47,40 @@ public partial class RoomInfo : VBoxContainer
     }
 
 	private async void OnJoinPressed()
-    {
+	{
 		try
-        {
-			await GameSocketConnector.Instance.JoinRoom(RoomId, null);
-        } catch(Exception ex)
-        {
+		{
+			if (Room.UsePassword)
+			{
+				PasswordDialog.PopupCentered();
+			}
+			else
+			{
+				await JoinRoom(null);
+			}
+		}
+		catch (Exception ex)
+		{
 			Log.Error(ex, ex.Message);
-        }
+		}
     }
+
+	private async void OnPasswordEntered(string password)
+	{
+		try
+		{
+			await JoinRoom(password);
+		}
+		catch (Exception ex)
+		{
+			Log.Error(ex, ex.Message);
+		}
+	}
+
+	private async Task JoinRoom(string password)
+	{
+		EmitSignal(SignalName.ClickJoinRoom);
+		var success = await GameSocketConnector.Instance.JoinRoom(Room.Id, password);
+		EmitSignal(SignalName.JoinRoomResult, success);
+	}
 }

@@ -1,9 +1,10 @@
+LineEdit
+Label
+HBoxContainer
+AcceptDialog
 RichTextLabel
 TextEdit
-Label
-LineEdit
 VBoxContainer
-HBoxContainer
 ConfirmationDialog
 OptionButton
 Button
@@ -16,7 +17,6 @@ Window
 Control
 ScrollContainer
 MenuButton
-AcceptDialog
 HScrollBar
 Popup
 VSeparator

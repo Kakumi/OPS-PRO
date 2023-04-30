@@ -9,3 +9,6 @@ res://app/gui/RoomSelector.tscn
 res://app/gui/MainMenu.tscn
 res://app/gui/rooms/RoomDialog.tscn
 res://app/gui/rooms/RoomInfo.tscn
+res://app/gui/rooms/PasswordDialog.tscn
+res://app/translations/Translation OPS Pro - Main.en.translation
+res://app/translations/Translation OPS Pro - Main.fr.translation

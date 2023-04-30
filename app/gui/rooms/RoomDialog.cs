@@ -11,7 +11,16 @@ public partial class RoomDialog : Window
 	public bool Cancellable { get; set; }
 
 	private List<DeckResource> _decks;
-	public Room Room { get; set; }
+	private Room _room;
+	public Room Room
+    {
+		get => _room;
+		set
+        {
+			_room = value;
+			UpdateMenu();
+		}
+    }
 
 	public Label CreatorLabel { get; private set; }
 	public CheckBox CreatorCheckbox { get; private set; }

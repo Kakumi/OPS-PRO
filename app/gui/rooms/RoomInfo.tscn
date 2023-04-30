@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://du0pbkb24dh5o"]
+[gd_scene load_steps=4 format=3 uid="uid://du0pbkb24dh5o"]
 
 [ext_resource type="Texture2D" uid="uid://dlnsmi2ksgq1q" path="res://app/resources/images/others/padlock.png" id="1_2t81t"]
 [ext_resource type="Script" path="res://app/gui/rooms/RoomInfo.cs" id="1_f0wa3"]
+[ext_resource type="PackedScene" uid="uid://47mwi410p8we" path="res://app/gui/rooms/PasswordDialog.tscn" id="2_dhwcw"]
 
 [node name="RoomInfo" type="VBoxContainer"]
 anchors_preset = 15
@@ -11,6 +12,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_f0wa3")
 metadata/_edit_use_anchors_ = true
+
+[node name="PasswordDialog" parent="." instance=ExtResource("2_dhwcw")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -44,4 +47,5 @@ text = "ROOM_JOIN"
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
 
+[connection signal="PasswordEntered" from="PasswordDialog" to="." method="OnPasswordEntered"]
 [connection signal="pressed" from="HBoxContainer/JoinButton" to="." method="OnJoinPressed"]

@@ -85,6 +85,8 @@ public partial class RoomSelector : VBoxContainer
 				var roomInfo = RoomInfoScene.Instantiate<RoomInfo>();
 				RoomsContainer.AddChild(roomInfo);
 				roomInfo.Init(room);
+                roomInfo.ClickJoinRoom += RoomInfo_ClickJoinRoom; ;
+                roomInfo.JoinRoomResult += RoomInfo_JoinRoomResult;
 			}
 		}
 
@@ -97,6 +99,19 @@ public partial class RoomSelector : VBoxContainer
 			Message.Text = null;
 		}
 	}
+
+    private void RoomInfo_ClickJoinRoom()
+    {
+		ShowPopup("ROOMS_JOINING");
+    }
+
+    private void RoomInfo_JoinRoomResult(bool success)
+    {
+        if (!success)
+		{
+			ShowPopup("ROOMS_JOINED_FAILED", () => OPSWindow.Close());
+		}
+    }
 
     private void ConnectionClosed()
 	{
@@ -179,7 +194,7 @@ public partial class RoomSelector : VBoxContainer
 
 	private void Instance_RoomDeleted(object sender, EventArgs e)
 	{
-		ShowPopup("ROOMS_DELETED", () => { });
+		ShowPopup("ROOMS_DELETED", () => OPSWindow.Close());
 	}
 
 	private void Instance_RoomUpdated(object sender, Room e)
