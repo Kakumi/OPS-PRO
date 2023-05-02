@@ -34,8 +34,7 @@ public partial class GameSocketConnector : Node
 
     public event EventHandler RoomDeleted;
 
-    //[Signal]
-    //public delegate void RoomUpdatedEventHandler(Room room);
+    public event EventHandler RoomExcluded;
 
     public override void _Ready()
 	{
@@ -67,6 +66,11 @@ public partial class GameSocketConnector : Node
                 _connection.On(nameof(IRoomHubEvent.RoomDeleted), () =>
                 {
                     RoomDeleted?.Invoke(this, new EventArgs());
+                });
+
+                _connection.On(nameof(IRoomHubEvent.RoomExcluded), () =>
+                {
+                    RoomExcluded?.Invoke(this, new EventArgs());
                 });
 
                 await _connection.StartAsync();
@@ -144,5 +148,11 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("User {UserId} leave room", UserId);
         return await _connection.InvokeAsync<bool>(nameof(IRoomHub.LeaveRoom), UserId);
+    }
+
+    public async Task<bool> Exclude(Guid opponentId, Guid roomId)
+    {
+        Log.Information("User {UserId} exclude {OpponentId} from room {RoomId}", UserId, opponentId, roomId);
+        return await _connection.InvokeAsync<bool>(nameof(IRoomHub.Exclude), UserId, opponentId, roomId);
     }
 }

@@ -16,8 +16,33 @@ public partial class CardInfoTab : TabInfo
 		EffectsText = GetNode<RichTextLabel>("MarginContainer/ScrollContainer/Texts/EffectsText");
 	}
 
-	public void ShowcardResource(CardResource cardResource)
+	public string GetAdditionalInfo(int value)
+    {
+		if (value == 0)
+        {
+			return "";
+        }
+
+		var prefix = value > 0 ? "+" : "";
+		return $" ({prefix}{value})";
+    }
+
+	public string GetAdditionalInfo(int defaultValue, int addValue)
+    {
+		if (addValue == 0)
+        {
+			return defaultValue.ToString();
+        }
+
+		var prefix = addValue > 0 ? "+" : "";
+		var total = defaultValue + addValue;
+		var color = total > defaultValue ? "green" : "red";
+		return $"[color={color}]{total} ({defaultValue} {prefix}{addValue})[/color]";
+    }
+
+	public void ShowcardResource(Card card)
 	{
+		var cardResource = card.CardResource;
 		if (cardResource != null)
         {
 			string info = Tr("INFOTAB_CARDINFO");
@@ -27,8 +52,8 @@ public partial class CardInfoTab : TabInfo
 			dic.Add("{name}", cardResource.Name);
 			dic.Add("{attribute}", cardResource.Attribute);
 			dic.Add("{cost_text}", cardResource.CardType == "LEADER" ? Tr("CARDINFO_LIFE") : Tr("CARDINFO_COST"));
-			dic.Add("{cost}", cardResource.Cost + "");
-			dic.Add("{power}", cardResource.Power + "");
+			dic.Add("{cost}", GetAdditionalInfo(cardResource.Cost, card.GetCustomCost())); //cardResource.Cost + "" + GetAdditionalInfo(card.GetCustomCost()));
+			dic.Add("{power}", GetAdditionalInfo(cardResource.Power, card.GetCustomPower())); //cardResource.Power + "" + GetAdditionalInfo(card.GetCustomPower()));
 			dic.Add("{colors}", string.Join("/", cardResource.Colors));
 			dic.Add("{types}", string.Join("/", cardResource.Types));
 			dic.Add("{set}", cardResource.Set);

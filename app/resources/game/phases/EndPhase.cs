@@ -23,6 +23,12 @@ public class EndPhase : IPhase
 
     public Task OnPhaseEnded(PlayerArea playerArea)
     {
+        playerArea.Playmat.LeaderSlotCard.Card.RemoveStatDuration(StatDuration.Turn);
+        playerArea.Playmat.CharactersSlots.ForEach(x =>
+        {
+            x.Card.RemoveStatDuration(StatDuration.Turn);
+        });
+
         return Task.CompletedTask;
     }
 

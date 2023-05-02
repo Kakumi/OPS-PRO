@@ -1,5 +1,7 @@
 using Godot;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class OPSWindow : Window
 {
@@ -50,5 +52,19 @@ public partial class OPSWindow : Window
     {
 		Hide();
 		EmitSignal(SignalName.WindowClosed);
+	}
+
+	public void Show(string text, Action action = null)
+	{
+		ClearButtons();
+		Label.Text = Tr(text);
+
+		if (action != null)
+		{
+			var buttonOk = AddButton("OK");
+			buttonOk.Pressed += action;
+		}
+
+		PopupCentered();
 	}
 }

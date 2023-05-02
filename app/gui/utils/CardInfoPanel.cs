@@ -53,6 +53,6 @@ public partial class CardInfoPanel : VBoxContainer
 	{
 		CardImg.Texture = card.Texture;
 
-		TabBar.CardInfoTab.ShowcardResource(card.CardResource);
+		TabBar.CardInfoTab.ShowcardResource(card);
 	}
 }

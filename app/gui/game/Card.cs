@@ -1,11 +1,16 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class Card : TextureRect
 {
     public CardResource CardResource { get; protected set; }
     public bool Rested { get; protected set; }
     public bool Flipped { get; protected set; }
+    public Dictionary<int, StatDuration> CustomAttack { get; protected set; }
+    public Dictionary<int, StatDuration> CustomCost { get; protected set; }
+    public bool Destructable { get; protected set; }
 
     [Signal]
     public delegate void LeftClickCardEventHandler(CardResource cardResource);
@@ -23,6 +28,10 @@ public partial class Card : TextureRect
     {
         Rested = false;
         Flipped = false;
+        Destructable = false;
+
+        CustomAttack = new Dictionary<int, StatDuration>();
+        CustomCost = new Dictionary<int, StatDuration>();
     }
 
     public void SetCardResource(CardResource cardResource, bool download = false)
@@ -131,5 +140,36 @@ public partial class Card : TextureRect
         }
 
         Flipped = !Flipped;
+    }
+
+    public void SetDestructable(bool destructable)
+    {
+        Destructable = destructable;
+    }
+
+    public int GetCustomPower()
+    {
+        return CustomAttack.Keys.Sum();
+    }
+
+    public int GetTotalPower()
+    {
+        return CardResource.Power + GetCustomPower();
+    }
+
+    public int GetCustomCost()
+    {
+        return CustomCost.Keys.Sum();
+    }
+
+    public int GetTotalCost()
+    {
+        return CardResource.Cost + GetCustomCost();
+    }
+
+    public void RemoveStatDuration(StatDuration type)
+    {
+        CustomAttack = CustomAttack.Where(kv => kv.Value != type).ToDictionary(kv => kv.Key, kv => kv.Value);
+        CustomCost = CustomCost.Where(kv => kv.Value != type).ToDictionary(kv => kv.Key, kv => kv.Value);
     }
 }

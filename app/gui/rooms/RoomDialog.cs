@@ -146,10 +146,20 @@ public partial class RoomDialog : Window
 		}
 	}
 
-	private void OnExcludePressed()
-    {
-
-    }
+	private async void OnExcludePressed()
+	{
+		try
+		{
+			if (Room.Opponent != null)
+			{
+				await GameSocketConnector.Instance.Exclude(Room.Opponent.Id, Room.Id);
+			}
+		}
+		catch (Exception ex)
+		{
+			Log.Error(ex, ex.Message);
+		}
+	}
 
 	private void OnDeckSelected(int index)
     {

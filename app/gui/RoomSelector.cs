@@ -25,6 +25,17 @@ public partial class RoomSelector : VBoxContainer
 
 	private Config _config;
 
+	public override void _ExitTree()
+	{
+		GameSocketConnector.Instance.ConnectionClosed -= ConnectionClosed;
+		GameSocketConnector.Instance.ConnectionFailed -= ConnectionFailed;
+		GameSocketConnector.Instance.RoomDeleted -= Instance_RoomDeleted;
+		GameSocketConnector.Instance.RoomUpdated -= Instance_RoomUpdated;
+		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
+
+		base._ExitTree();
+	}
+
 	public override void _Ready()
 	{
 		PlayerLabel = GetNode<Label>("InfoContainer/MarginContainer/HBoxContainer/Player/Label");
@@ -37,16 +48,17 @@ public partial class RoomSelector : VBoxContainer
 		CreateRoomDialog = GetNode<CreateRoomDialog>("CreateRoomDialog");
 		RoomDialog = GetNode<RoomDialog>("RoomDialog");
 
-		OPSWindow.Label.Text = Tr("ROOMS_CONNECTING_POPUP");
+		GameSocketConnector.Instance.ConnectionClosed += ConnectionClosed;
+		GameSocketConnector.Instance.ConnectionFailed += ConnectionFailed;
+		GameSocketConnector.Instance.RoomDeleted += Instance_RoomDeleted;
+		GameSocketConnector.Instance.RoomUpdated += Instance_RoomUpdated;
+		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
 
 		_config = new Config();
 		SettingsManager.Instance.Init(_config);
 		UpdateUsername();
 
-		GameSocketConnector.Instance.ConnectionClosed += ConnectionClosed;
-		GameSocketConnector.Instance.ConnectionFailed += ConnectionFailed;
-		GameSocketConnector.Instance.RoomDeleted += Instance_RoomDeleted;
-		GameSocketConnector.Instance.RoomUpdated += Instance_RoomUpdated;
+		OPSWindow.Label.Text = Tr("ROOMS_CONNECTING_POPUP");
 
 		Task.Run(async () =>
 		{
@@ -85,7 +97,7 @@ public partial class RoomSelector : VBoxContainer
 				var roomInfo = RoomInfoScene.Instantiate<RoomInfo>();
 				RoomsContainer.AddChild(roomInfo);
 				roomInfo.Init(room);
-                roomInfo.ClickJoinRoom += RoomInfo_ClickJoinRoom; ;
+                roomInfo.ClickJoinRoom += RoomInfo_ClickJoinRoom;
                 roomInfo.JoinRoomResult += RoomInfo_JoinRoomResult;
 			}
 		}
@@ -151,15 +163,10 @@ public partial class RoomSelector : VBoxContainer
         }
 	}
 
-	private async void OnQuitPressed()
+    private async void OnQuitPressed()
     {
         try
 		{
-			GameSocketConnector.Instance.ConnectionClosed -= ConnectionClosed;
-			GameSocketConnector.Instance.ConnectionFailed -= ConnectionFailed;
-			GameSocketConnector.Instance.RoomDeleted -= Instance_RoomDeleted;
-			GameSocketConnector.Instance.RoomUpdated -= Instance_RoomUpdated;
-
 			await GameSocketConnector.Instance.Logout();
 			QueueFree();
 			AppInstance.Instance.ShowMainMenu();
@@ -194,7 +201,20 @@ public partial class RoomSelector : VBoxContainer
 
 	private void Instance_RoomDeleted(object sender, EventArgs e)
 	{
-		ShowPopup("ROOMS_DELETED", () => OPSWindow.Close());
+		ShowPopup("ROOMS_DELETED", async () =>
+        {
+			OPSWindow.Close();
+			await RefreshRooms();
+		});
+	}
+
+	private void Instance_RoomExcluded(object sender, EventArgs e)
+	{
+		ShowPopup(Tr("ROOMS_EXCLUDED"), async () =>
+		{
+			OPSWindow.Close();
+			await RefreshRooms();
+		});
 	}
 
 	private void Instance_RoomUpdated(object sender, Room e)
@@ -214,15 +234,6 @@ public partial class RoomSelector : VBoxContainer
 		RoomDialog.Hide();
 		CreateRoomDialog.Hide();
 
-		OPSWindow.ClearButtons();
-		OPSWindow.Label.Text = Tr(text);
-
-		if (action != null)
-		{
-			var buttonOk = OPSWindow.AddButton("OK");
-			buttonOk.Pressed += action;
-		}
-
-		OPSWindow.PopupCentered();
+		OPSWindow.Show(text, action);
 	}
 }

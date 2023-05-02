@@ -42,6 +42,12 @@ public class RefreshPhase : IPhase
             playerArea.Playmat.LeaderSlotCard.Card.ToggleRest();
         }
 
+        playerArea.Playmat.LeaderSlotCard.Card.RemoveStatDuration(StatDuration.OpponentTurn);
+        playerArea.Playmat.CharactersSlots.ForEach(x =>
+        {
+            x.Card.RemoveStatDuration(StatDuration.OpponentTurn);
+        });
+
         return Task.CompletedTask;
     }
 
