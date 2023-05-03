@@ -1,4 +1,4 @@
-res://app/gui/RoomSelector.tscn
+res://app/gui/game/Gameboard.tscn
 res://app/resources/fonts/normal_font_small.tres
 res://app/resources/themes/main_theme.tres
 res://app/resources/game/slot_action/DeckAction.tres
@@ -18,8 +18,3 @@ res://app/resources/card_creator/black/CardCreatorBlackResource.tres
 res://app/resources/card_creator/purple/CardCreatorPurpleResource.tres
 res://app/resources/card_creator/yellow/CardCreatorYellowResource.tres
 res://app/resources/card_creator/CardCreatorSettings.tres
-res://app/gui/MainMenu.tscn
-res://app/gui/rooms/RoomDialog.tscn
-res://app/gui/rooms/RoomInfo.tscn
-res://app/gui/rooms/PasswordDialog.tscn
-res://app/gui/utils/OPSWindow.tscn
