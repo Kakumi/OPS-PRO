@@ -1,7 +1,7 @@
-res://app/gui/rooms
-res://app/gui/utils
 res://app/scripts/auto_load
+res://app/gui/utils
 res://app/gui
+res://app/gui/rooms
 res://app/gui/game
 res://app/resources/game/slot_action
 res://app/translations

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://du0pbkb24dh5o" path="res://app/gui/rooms/RoomInfo.tscn" id="1_7bldr"]
 [ext_resource type="Script" path="res://app/gui/RoomSelector.cs" id="1_ffrct"]
-[ext_resource type="PackedScene" uid="uid://dss5yj3kykc0i" path="res://app/gui/utils/OPSWindow.tscn" id="3_4oxsp"]
+[ext_resource type="PackedScene" uid="uid://dss5yj3kykc0i" path="res://app/gui/utils/OPSWindow.tscn" id="3_fyf3b"]
 [ext_resource type="PackedScene" uid="uid://d0ww8lfi73p3" path="res://app/gui/rooms/CreateRoomDialog.tscn" id="4_y2otb"]
 [ext_resource type="PackedScene" uid="uid://c7024kgkqj2fj" path="res://app/gui/rooms/RoomDialog.tscn" id="5_bqjeg"]
 
@@ -15,7 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_ffrct")
 RoomInfoScene = ExtResource("1_7bldr")
 
-[node name="OPSWindow" parent="." instance=ExtResource("3_4oxsp")]
+[node name="OPSWindow" parent="." instance=ExtResource("3_fyf3b")]
 visible = false
 
 [node name="CreateRoomDialog" parent="." instance=ExtResource("4_y2otb")]

@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkvbntgj7a8ub"]
+[gd_scene load_steps=6 format=3 uid="uid://bkvbntgj7a8ub"]
 
 [ext_resource type="Script" path="res://app/gui/game/Gameboard.cs" id="1_sv63v"]
-[ext_resource type="PackedScene" uid="uid://dss5yj3kykc0i" path="res://app/gui/utils/OPSWindow.tscn" id="2_8a4aq"]
 [ext_resource type="PackedScene" uid="uid://bnounn1418bsl" path="res://app/gui/game/SlotCardSelector.tscn" id="3_h6wij"]
 [ext_resource type="PackedScene" uid="uid://bw7m62bgcc0pv" path="res://app/gui/game/SelectCardDialog.tscn" id="3_j2em0"]
 [ext_resource type="PackedScene" uid="uid://dbov34wkhwtfj" path="res://app/gui/game/PlayerArea.tscn" id="4_yx464"]
@@ -14,9 +13,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sv63v")
-
-[node name="OPSWindow" parent="." instance=ExtResource("2_8a4aq")]
-visible = false
 
 [node name="SelectCardDialog" parent="." instance=ExtResource("3_j2em0")]
 process_mode = 3

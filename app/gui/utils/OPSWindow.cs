@@ -67,4 +67,33 @@ public partial class OPSWindow : Window
 
 		PopupCentered();
 	}
+
+	public async Task<bool> Ask(string text)
+    {
+		var value = false;
+
+		ClearButtons();
+		Label.Text = Tr(text);
+
+		var buttonYes = AddButton("YES");
+		buttonYes.Pressed += () =>
+		{
+
+			value = true;
+			Close();
+		};
+
+		var buttonNo = AddButton("NO");
+		buttonNo.Pressed += () =>
+		{
+			value = false;
+			Close();
+		};
+
+		PopupCentered();
+
+		await ToSignal(this, SignalName.WindowClosed);
+
+		return value;
+	}
 }

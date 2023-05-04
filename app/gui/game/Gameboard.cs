@@ -18,16 +18,6 @@ public partial class Gameboard : VBoxContainer
 	public Button NextPhaseButton { get; private set; }
 	public int TurnCounter { get; private set; }
 
-	public OPSWindow OPSWindow { get; private set; }
-
-	public override void _ExitTree()
-	{
-		GameSocketConnector.Instance.ConnectionClosed -= ConnectionClosed;
-		GameSocketConnector.Instance.ConnectionFailed -= ConnectionFailed;
-
-		base._ExitTree();
-	}
-
 	public override async void _Ready()
 	{
 		GameView = GetNode<GameView>(GameViewPath);
@@ -37,17 +27,12 @@ public partial class Gameboard : VBoxContainer
 		OpponentArea = GetNode<PlayerArea>("OpponentArea");
 		PlayerArea = GetNode<PlayerArea>("PlayerArea");
 
-		OPSWindow = GetNode<OPSWindow>("OPSWindow");
-
 		OpponentArea.Playmat.GameFinished += OpponentPlaymat_GameFinished;
 		PlayerArea.Playmat.GameFinished += MyPlaymat_GameFinished;
 
 		NextPhaseButton = GetNode<Button>("ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/NextPhaseButton");
 
 		TurnCounter = 0;
-
-		GameSocketConnector.Instance.ConnectionClosed += ConnectionClosed;
-		GameSocketConnector.Instance.ConnectionFailed += ConnectionFailed;
 
 		#region Test
 
@@ -59,21 +44,6 @@ public partial class Gameboard : VBoxContainer
 		await PlayerArea.UpdatePhase(new DrawPhase());
 
 		#endregion
-	}
-
-	private void ConnectionClosed()
-	{
-		ShowPopup("ROOMS_CONNECTION_CLOSED", ConnectionClosed_Ok_Pressed);
-	}
-
-	private void ConnectionFailed()
-	{
-		ShowPopup("ROOMS_CONNECTION_FAILED", ConnectionClosed_Ok_Pressed);
-	}
-
-	private void ConnectionClosed_Ok_Pressed()
-	{
-		OnQuitPressed();
 	}
 
 	private void MyPlaymat_GameFinished(bool victory)
@@ -109,15 +79,7 @@ public partial class Gameboard : VBoxContainer
 
 	public void OnQuitPressed()
 	{
-		try
-		{
-			GameView?.QueueFree();
-			AppInstance.Instance.ShowMainMenu();
-		}
-		catch (Exception ex)
-		{
-			Log.Error(ex, ex.Message);
-		}
+		GameView.Quit();
 	}
 
 	private void OnToggleInfoPressed()
@@ -177,15 +139,5 @@ public partial class Gameboard : VBoxContainer
 	public void IncrementTurn()
     {
 		TurnCounter++;
-    }
-
-	public void ShowPopup(string text, Action action = null, bool hideOthers = true)
-    {
-		if (hideOthers)
-		{
-			SelectCardDialog.Hide();
-		}
-
-		OPSWindow.Show(text, action);
     }
 }

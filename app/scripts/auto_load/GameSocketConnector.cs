@@ -41,6 +41,35 @@ public partial class GameSocketConnector : Node
 		Instance = this;
 
         _connection = new HubConnectionBuilder().WithUrl("http://localhost:5282/ws/game").Build();
+
+        InitReceiver();
+    }
+
+    private void InitReceiver()
+    {
+        _connection.Closed += (error) =>
+        {
+            Log.Information($"Connection closed (Game server).");
+
+            EmitSignal(SignalName.ConnectionClosed);
+
+            return Task.CompletedTask;
+        };
+
+        _connection.On<Room>(nameof(IRoomHubEvent.RoomUpdated), (room) =>
+        {
+            RoomUpdated?.Invoke(this, room);
+        });
+
+        _connection.On(nameof(IRoomHubEvent.RoomDeleted), () =>
+        {
+            RoomDeleted?.Invoke(this, new EventArgs());
+        });
+
+        _connection.On(nameof(IRoomHubEvent.RoomExcluded), () =>
+        {
+            RoomExcluded?.Invoke(this, new EventArgs());
+        });
     }
 
 	public async Task<bool> Login()
@@ -49,30 +78,6 @@ public partial class GameSocketConnector : Node
         {
             try
             {
-                _connection.Closed += (error) =>
-                {
-                    Log.Information($"Connection closed (Game server).");
-
-                    EmitSignal(SignalName.ConnectionClosed);
-
-                    return Task.CompletedTask;
-                };
-
-                _connection.On<Room>(nameof(IRoomHubEvent.RoomUpdated), (room) =>
-                {
-                    RoomUpdated?.Invoke(this, room);
-                });
-
-                _connection.On(nameof(IRoomHubEvent.RoomDeleted), () =>
-                {
-                    RoomDeleted?.Invoke(this, new EventArgs());
-                });
-
-                _connection.On(nameof(IRoomHubEvent.RoomExcluded), () =>
-                {
-                    RoomExcluded?.Invoke(this, new EventArgs());
-                });
-
                 await _connection.StartAsync();
 
                 Log.Error("Connection started (Game server).");

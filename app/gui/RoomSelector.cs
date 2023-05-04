@@ -19,16 +19,23 @@ public partial class RoomSelector : VBoxContainer
 	public Container RoomsContainer { get; private set; }
 	public Button CreateButton { get; private set; }
 	public Button RefreshButton { get; private set; }
-	public OPSWindow OPSWindow { get; private set; }
 	public CreateRoomDialog CreateRoomDialog { get; private set; }
 	public RoomDialog RoomDialog { get; private set; }
+	public OPSWindow OPSWindow { get; private set; }
 
-	private Config _config;
+	public Config Config { get; private set; }
 
 	public override void _ExitTree()
 	{
-		GameSocketConnector.Instance.ConnectionClosed -= ConnectionClosed;
-		GameSocketConnector.Instance.ConnectionFailed -= ConnectionFailed;
+		if (GameSocketConnector.Instance.Connected)
+		{
+			Task.Run(async () =>
+			{
+				await GameSocketConnector.Instance.Logout();
+			});
+		}
+
+		GameSocketConnector.Instance.ConnectionStarted -= Instance_ConnectionStarted;
 		GameSocketConnector.Instance.RoomDeleted -= Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated -= Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
@@ -36,7 +43,7 @@ public partial class RoomSelector : VBoxContainer
 		base._ExitTree();
 	}
 
-	public override void _Ready()
+    public override void _Ready()
 	{
 		PlayerLabel = GetNode<Label>("InfoContainer/MarginContainer/HBoxContainer/Player/Label");
 		ShowPasswords = GetNode<CheckBox>("InfoContainer/MarginContainer/HBoxContainer/Settings/ShowPasswords");
@@ -44,42 +51,94 @@ public partial class RoomSelector : VBoxContainer
 		RoomsContainer = GetNode<Container>("PanelContainer/MarginContainer/ScrollContainer/RoomsContainer");
 		CreateButton = GetNode<Button>("InfoContainer/MarginContainer/HBoxContainer/Buttons/Create");
 		RefreshButton = GetNode<Button>("InfoContainer/MarginContainer/HBoxContainer/Buttons/Refresh");
-		OPSWindow = GetNode<OPSWindow>("OPSWindow");
 		CreateRoomDialog = GetNode<CreateRoomDialog>("CreateRoomDialog");
 		RoomDialog = GetNode<RoomDialog>("RoomDialog");
+		OPSWindow = GetNode<OPSWindow>("OPSWindow");
 
-		GameSocketConnector.Instance.ConnectionClosed += ConnectionClosed;
-		GameSocketConnector.Instance.ConnectionFailed += ConnectionFailed;
+		GameSocketConnector.Instance.ConnectionStarted += Instance_ConnectionStarted;
 		GameSocketConnector.Instance.RoomDeleted += Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated += Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
 
-		_config = new Config();
-		SettingsManager.Instance.Init(_config);
+		Config = new Config();
+		SettingsManager.Instance.Init(Config);
+
 		UpdateUsername();
 
-		OPSWindow.Label.Text = Tr("ROOMS_CONNECTING_POPUP");
-
-		Task.Run(async () =>
-		{
-			CreateRoomDialog.Hide();
-			RoomDialog.Hide();
-
-			OPSWindow.PopupCentered();
-			var logged = await GameSocketConnector.Instance.Login();
-			if (logged)
+		if (GameSocketConnector.Instance.Connected)
+        {
+			Task.Run(async () => await InitConnection());
+        } else
+        {
+			Task.Run(async () =>
 			{
-				await GameSocketConnector.Instance.Register(_config.Username);
+				ShowPopup("ROOMS_CONNECTING_POPUP");
+				var logged = await GameSocketConnector.Instance.Login();
+				if (logged)
+				{
+					await GameSocketConnector.Instance.Register(Config.Username);
 
-				ShowPasswords.Disabled = false;
-				CreateButton.Disabled = false;
-				RefreshButton.Disabled = false;
-				OPSWindow.Close();
+					OPSWindow.Close();
+				}
+			});
+		}
+	}
 
-				await RefreshRooms();
-			}
+    #region Connection Events
+
+    private async Task InitConnection()
+	{
+		ShowPasswords.Disabled = false;
+		CreateButton.Disabled = false;
+		RefreshButton.Disabled = false;
+
+		UpdateUsername();
+
+		await RefreshRooms();
+	}
+
+	private async void Instance_ConnectionStarted()
+	{
+		try
+        {
+			await InitConnection();
+		} catch(Exception ex)
+        {
+			Log.Error(ex, ex.Message);
+        }
+	}
+
+	private void Instance_RoomDeleted(object sender, EventArgs e)
+	{
+		ShowPopup("ROOMS_DELETED", async () =>
+		{
+			OPSWindow.Close();
+			await RefreshRooms();
 		});
 	}
+
+	private void Instance_RoomExcluded(object sender, EventArgs e)
+	{
+		ShowPopup(Tr("ROOMS_EXCLUDED"), async () =>
+		{
+			OPSWindow.Close();
+			await RefreshRooms();
+		});
+	}
+
+	private void Instance_RoomUpdated(object sender, Room e)
+	{
+		OPSWindow.Hide();
+		CreateRoomDialog.Hide();
+		RoomDialog.Room = e;
+
+		if (!RoomDialog.Visible)
+		{
+			RoomDialog.PopupCentered();
+		}
+	}
+
+    #endregion
 
     private async Task RefreshRooms()
 	{
@@ -125,24 +184,9 @@ public partial class RoomSelector : VBoxContainer
 		}
     }
 
-    private void ConnectionClosed()
-	{
-		ShowPopup("ROOMS_CONNECTION_CLOSED", ConnectionClosed_Ok_Pressed);
-	}
-
-	private void ConnectionFailed()
-	{
-		ShowPopup("ROOMS_CONNECTION_FAILED", ConnectionClosed_Ok_Pressed);
-	}
-
-	private void ConnectionClosed_Ok_Pressed()
-	{
-		OnQuitPressed();
-	}
-
 	private void UpdateUsername()
     {
-		PlayerLabel.Text = string.Format(Tr("ROOMS_USER"), _config.Username);
+		PlayerLabel.Text = string.Format(Tr("ROOMS_USER"), Config?.Username ?? "...");
     }
 
 	private void OnCreatePressed()
@@ -163,11 +207,10 @@ public partial class RoomSelector : VBoxContainer
         }
 	}
 
-    private async void OnQuitPressed()
+    private void OnQuitPressed()
     {
         try
 		{
-			await GameSocketConnector.Instance.Logout();
 			QueueFree();
 			AppInstance.Instance.ShowMainMenu();
 		}
@@ -199,41 +242,23 @@ public partial class RoomSelector : VBoxContainer
 		}
 	}
 
-	private void Instance_RoomDeleted(object sender, EventArgs e)
+	public void ShowPopup(string text, Action action = null, bool hideOthers = true)
 	{
-		ShowPopup("ROOMS_DELETED", async () =>
-        {
-			OPSWindow.Close();
-			await RefreshRooms();
-		});
-	}
-
-	private void Instance_RoomExcluded(object sender, EventArgs e)
-	{
-		ShowPopup(Tr("ROOMS_EXCLUDED"), async () =>
+		if (hideOthers)
 		{
-			OPSWindow.Close();
-			await RefreshRooms();
-		});
-	}
 
-	private void Instance_RoomUpdated(object sender, Room e)
-	{
-		OPSWindow.Hide();
-		CreateRoomDialog.Hide();
-		RoomDialog.Room = e;
-		
-		if (!RoomDialog.Visible)
-		{
-			RoomDialog.PopupCentered();
 		}
-	}
-
-	private void ShowPopup(string text, Action action = null)
-	{
-		RoomDialog.Hide();
-		CreateRoomDialog.Hide();
 
 		OPSWindow.Show(text, action);
+	}
+
+	public async Task<bool> AskPopup(string text, bool hideOthers = true)
+	{
+		if (hideOthers)
+		{
+
+		}
+
+		return await OPSWindow.Ask(text);
 	}
 }

@@ -57,9 +57,14 @@ public partial class AppInstance : Control
 
 	public void ShowMainMenu()
 	{
-		if (MainMenu != null)
+		ShowPackedScene(MainMenu);
+	}
+
+	public void ShowPackedScene(PackedScene scene)
+	{
+		if (scene != null)
 		{
-			var instance = MainMenu.Instantiate();
+			var instance = scene.Instantiate();
 			Content.CallDeferred("add_child", instance);
 		}
 	}
