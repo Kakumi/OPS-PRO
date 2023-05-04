@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-public partial class Config : Resource, IConfig
+public partial class Config : Resource
 {
     [ConfigSettings("Interface", "en")]
     public string Language { get; set; }
@@ -40,7 +40,7 @@ public partial class Config : Resource, IConfig
         Log.Debug($"Setting sound to {BackgroundMusic} (enabled: {BackgroundMusicEnabled})");
         Log.Debug($"Setting username to {Username}");
 
-        var defaultConfig = (Config) new Config().CreateDefaultConfig();
+        var defaultConfig = new Config().CreateDefaultConfig();
         if (TranslationServer.GetLoadedLocales().Any(x => x.ToLower() == Language.ToLower()))
         {
             TranslationServer.SetLocale(Language);
@@ -89,7 +89,7 @@ public partial class Config : Resource, IConfig
         AudioServer.SetBusVolumeDb(0, Mathf.LinearToDb(BackgroundMusicVolume));
     }
 
-    public IConfig CreateDefaultConfig()
+    public Config CreateDefaultConfig()
     {
         foreach (var property in GetType().GetProperties())
         {
@@ -103,7 +103,7 @@ public partial class Config : Resource, IConfig
         return this;
     }
 
-    public IConfig Clone()
+    public Config Clone()
     {
         Config cloneConfig = new Config();
         var properties = cloneConfig.GetType().GetProperties();

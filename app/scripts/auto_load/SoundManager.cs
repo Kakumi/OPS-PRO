@@ -24,7 +24,7 @@ public partial class SoundManager : Node
         if (musicEnabled)
         {
             var newResource = GD.Load<AudioStream>(path);
-            if (newResource != null && AudioStreamPlayer.Stream.ResourcePath.GetFile() != newResource.ResourcePath.GetFile())
+            if (newResource != null && (!AudioStreamPlayer.Playing || AudioStreamPlayer.Stream.ResourcePath.GetFile() != newResource.ResourcePath.GetFile()))
             {
                 AudioStreamPlayer.Stream = newResource;
                 AudioStreamPlayer.Play();

@@ -13,7 +13,7 @@ public partial class GameSettings : TabSettings
 
     public override void Init()
     {
-		UsernameEdit.Text = Settings.OriginalConfig.Username;
+		UsernameEdit.Text = SettingsManager.Instance.Config.Username;
 	}
 
 	private void OnUsernameChanged(string username)

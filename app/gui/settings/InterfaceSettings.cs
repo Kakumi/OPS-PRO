@@ -54,7 +54,7 @@ public partial class InterfaceSettings : TabSettings
 		SelectTheme.Clear();
 		_themeFiles = new Dictionary<int, string>();
 
-		SearchFiles(_themePaths, @".*_theme\.tres", SelectTheme, ref _themeFiles, Settings.OriginalConfig.Theme);
+		SearchFiles(_themePaths, @".*_theme\.tres", SelectTheme, ref _themeFiles, SettingsManager.Instance.Config.Theme);
 	}
 
 	private void InitBackgrounds()
@@ -62,7 +62,7 @@ public partial class InterfaceSettings : TabSettings
 		SelectBackground.Clear();
 		_backgroundFiles = new Dictionary<int, string>();
 
-		SearchFiles(_backgroundPaths, @".*\.jpg", SelectBackground, ref _backgroundFiles, Settings.OriginalConfig.Background);
+		SearchFiles(_backgroundPaths, @".*\.jpg", SelectBackground, ref _backgroundFiles, SettingsManager.Instance.Config.Background);
 	}
 
 	private void InitLanguages()
@@ -79,7 +79,7 @@ public partial class InterfaceSettings : TabSettings
 
 			SelectLang.AddItem(name, i);
 
-			if (langCode == Settings.OriginalConfig.Language)
+			if (langCode == SettingsManager.Instance.Config.Language)
 			{
 				SelectLang.Selected = i;
 			}

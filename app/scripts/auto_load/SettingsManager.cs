@@ -9,6 +9,8 @@ public partial class SettingsManager : Node
     private string _path;
     private static SettingsManager _instance;
 
+    public Config Config { get; private set; }
+
     public static SettingsManager Instance => _instance;
 
     public override void _Ready()
@@ -16,33 +18,33 @@ public partial class SettingsManager : Node
         _instance = this;
         _path = "user://config.cfg";
         _configFile = new ConfigFile();
+
+        Init();
     }
 
-    public void Init(IConfig config)
+    private void Init()
     {
         if (ConfigExist())
         {
-            LoadConfig(config);
+            Config = ReadConfig();
         }
         else
         {
             Log.Information($"Creating default config file...");
-            config.CreateDefaultConfig();
-
-            SaveConfig(config);
-            config.ApplyChanges();
+            Config = new Config().CreateDefaultConfig();
+            SaveConfig(Config);
         }
     }
 
-    public bool ConfigExist()
+    private bool ConfigExist()
     {
         return FileAccess.FileExists(_path);
     }
 
-    public void ReadConfig(IConfig config)
+    private Config ReadConfig()
     {
         _configFile.Load(_path);
-        var defaultConfig = config.CreateDefaultConfig();
+        var config = new Config().CreateDefaultConfig();
 
         //Properties
         foreach (var property in config.GetType().GetProperties())
@@ -51,11 +53,7 @@ public partial class SettingsManager : Node
             if (settings != null)
             {
                 var value = GetConfigValue(settings.Section, property.Name, property.PropertyType, settings.Default);
-                if (value == null || value.GetType() != property.PropertyType)
-                {
-                    property.SetValue(config, property.GetValue(defaultConfig));
-                }
-                else
+                if (value != null && value.GetType() == property.PropertyType)
                 {
                     property.SetValue(config, value);
                 }
@@ -63,42 +61,7 @@ public partial class SettingsManager : Node
         }
 
         Log.Information($"Config loaded");
-    }
-
-    public void LoadConfig(IConfig config)
-    {
-        ReadConfig(config);
-
-        config.ApplyChanges();
-    }
-
-    public void SaveConfig(IConfig config)
-    {
-        Log.Information($"Saving config file...");
-
-        //Properties
-        foreach (var property in config.GetType().GetProperties())
-        {
-            var settings = property.GetCustomAttributes(true).OfType<ConfigSettings>().FirstOrDefault();
-            if (settings != null)
-            {
-                //if (property.PropertyType == typeof(Godot.Collections.Dictionary<object, object>))
-                //{
-                //    var dictionary = property.GetValue(config) as Godot.Collections.Dictionary<object, object>;
-                //    foreach (var pair in dictionary.ToList())
-                //    {
-                //        _configFile.SetValue(settings.Section.ToString(), pair.Key.ToString(), pair.Value);
-                //    }
-                //}
-                //else
-                //{
-                //    _configFile.SetValue(settings.Section.ToString(), property.Name, property.GetValue(config).ToVariant());
-                //}
-                _configFile.SetValue(settings.Section.ToString(), property.Name, property.GetValue(config).ToVariant());
-            }
-        }
-
-        _configFile.Save(_path);
+        return config;
     }
 
     private object GetConfigValue(string section, string key, Type propertyType, object @default)
@@ -109,5 +72,23 @@ public partial class SettingsManager : Node
         }
 
         return null;
+    }
+
+    public void SaveConfig(Config config)
+    {
+        Log.Information($"Saving config file...");
+        Config = config.Clone();
+
+        //Properties
+        foreach (var property in config.GetType().GetProperties())
+        {
+            var settings = property.GetCustomAttributes(true).OfType<ConfigSettings>().FirstOrDefault();
+            if (settings != null)
+            {
+                _configFile.SetValue(settings.Section.ToString(), property.Name, property.GetValue(config).ToVariant());
+            }
+        }
+
+        _configFile.Save(_path);
     }
 }

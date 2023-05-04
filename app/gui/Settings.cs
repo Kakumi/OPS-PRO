@@ -4,7 +4,6 @@ using System;
 
 public partial class Settings : Control
 {
-    public Config OriginalConfig { get; private set; }
     public Config UpdatedConfig { get; private set; }
 
     public override void _Ready()
@@ -16,10 +15,7 @@ public partial class Settings : Control
     {
         try
         {
-            OriginalConfig = new Config();
-            SettingsManager.Instance.Init(OriginalConfig);
-
-            UpdatedConfig = (Config)OriginalConfig.Clone();
+            UpdatedConfig = SettingsManager.Instance.Config.Clone();
         } catch (Exception ex)
         {
             Log.Error(ex, $"Failed to load Config because {ex.Message}");
@@ -28,16 +24,15 @@ public partial class Settings : Control
 
     public void OnQuitPressed()
     {
-        UpdatedConfig = (Config)OriginalConfig.Clone();
-        OriginalConfig.ApplyChanges();
+        UpdatedConfig = SettingsManager.Instance.Config.Clone();
+        SettingsManager.Instance.Config.ApplyChanges();
         Hide();
     }
 
     public void OnSavePressed()
     {
         SettingsManager.Instance.SaveConfig(UpdatedConfig);
-        OriginalConfig = (Config)UpdatedConfig.Clone();
-        OriginalConfig.ApplyChanges();
+        SettingsManager.Instance.Config.ApplyChanges();
 
         Hide();
     }

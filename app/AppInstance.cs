@@ -21,6 +21,8 @@ public partial class AppInstance : Control
 		Background = GetNode<TextureRect>("AspectRatioContainer/Background");
 		Content = GetNode<Control>("Content");
 
+		SettingsManager.Instance.Config.ApplyChanges();
+
 		ShowMainMenu();
 	}
 

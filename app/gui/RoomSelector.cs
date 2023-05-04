@@ -23,8 +23,6 @@ public partial class RoomSelector : VBoxContainer
 	public RoomDialog RoomDialog { get; private set; }
 	public OPSWindow OPSWindow { get; private set; }
 
-	public Config Config { get; private set; }
-
 	public override void _ExitTree()
 	{
 		if (GameSocketConnector.Instance.Connected)
@@ -35,7 +33,7 @@ public partial class RoomSelector : VBoxContainer
 			});
 		}
 
-		GameSocketConnector.Instance.ConnectionStarted -= Instance_ConnectionStarted;
+		GameSocketConnector.Instance.UserConnected -= Instance_UserConnected;
 		GameSocketConnector.Instance.RoomDeleted -= Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated -= Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
@@ -55,13 +53,10 @@ public partial class RoomSelector : VBoxContainer
 		RoomDialog = GetNode<RoomDialog>("RoomDialog");
 		OPSWindow = GetNode<OPSWindow>("OPSWindow");
 
-		GameSocketConnector.Instance.ConnectionStarted += Instance_ConnectionStarted;
+		GameSocketConnector.Instance.UserConnected += Instance_UserConnected;
 		GameSocketConnector.Instance.RoomDeleted += Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated += Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
-
-		Config = new Config();
-		SettingsManager.Instance.Init(Config);
 
 		UpdateUsername();
 
@@ -73,11 +68,9 @@ public partial class RoomSelector : VBoxContainer
 			Task.Run(async () =>
 			{
 				ShowPopup("ROOMS_CONNECTING_POPUP");
-				var logged = await GameSocketConnector.Instance.Login();
+				var logged = await GameSocketConnector.Instance.LoginAndRegister();
 				if (logged)
 				{
-					await GameSocketConnector.Instance.Register(Config.Username);
-
 					OPSWindow.Close();
 				}
 			});
@@ -97,7 +90,7 @@ public partial class RoomSelector : VBoxContainer
 		await RefreshRooms();
 	}
 
-	private async void Instance_ConnectionStarted()
+	private async void Instance_UserConnected()
 	{
 		try
         {
@@ -186,7 +179,7 @@ public partial class RoomSelector : VBoxContainer
 
 	private void UpdateUsername()
     {
-		PlayerLabel.Text = string.Format(Tr("ROOMS_USER"), Config?.Username ?? "...");
+		PlayerLabel.Text = string.Format(Tr("ROOMS_USER"), GameSocketConnector.Instance.Username ?? Tr("ROOMS_USER_NOT_CONNECTED"));
     }
 
 	private void OnCreatePressed()

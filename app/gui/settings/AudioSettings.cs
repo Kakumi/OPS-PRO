@@ -36,15 +36,15 @@ public partial class AudioSettings : TabSettings
 	public override void Init()
 	{
 		InitBackgroundMusic();
-		BackgroundMusicCheckbox.ButtonPressed = Settings.OriginalConfig.BackgroundMusicEnabled;
-		BackgroundMusicSlider.Value = Settings.OriginalConfig.BackgroundMusicVolume;
+		BackgroundMusicCheckbox.ButtonPressed = SettingsManager.Instance.Config.BackgroundMusicEnabled;
+		BackgroundMusicSlider.Value = SettingsManager.Instance.Config.BackgroundMusicVolume;
 	}
 
 	private void InitBackgroundMusic()
 	{
 		SelectMusic.Clear();
 
-		SearchFiles(_musicPaths, @".*\.ogg", SelectMusic, ref _musicFiles, Settings.OriginalConfig.BackgroundMusic);
+		SearchFiles(_musicPaths, @".*\.ogg", SelectMusic, ref _musicFiles, SettingsManager.Instance.Config.BackgroundMusic);
 	}
 
 	private void OnSelectMusicItemSelected(int idx)

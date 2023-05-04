@@ -33,7 +33,7 @@ public partial class GameView : HBoxContainer
 			if (!logged)
 			{
 				ShowPopup("ROOMS_CONNECTING_POPUP");
-				logged = await GameSocketConnector.Instance.Login();
+				logged = await GameSocketConnector.Instance.LoginAndRegister();
 			}
 
 			if (logged)

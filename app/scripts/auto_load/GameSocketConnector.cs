@@ -15,6 +15,7 @@ public partial class GameSocketConnector : Node
     private HubConnection _connection;
 
     public Guid UserId { get; private set; }
+    public string Username { get; private set; }
 
     public bool Connected
     {
@@ -22,13 +23,16 @@ public partial class GameSocketConnector : Node
     }
 
     [Signal]
+    public delegate void ConnectionStartedEventHandler();
+
+    [Signal]
+    public delegate void UserConnectedEventHandler();
+
+    [Signal]
     public delegate void ConnectionClosedEventHandler();
 
     [Signal]
     public delegate void ConnectionFailedEventHandler();
-
-    [Signal]
-    public delegate void ConnectionStartedEventHandler();
 
     public event EventHandler<Room> RoomUpdated;
 
@@ -99,6 +103,17 @@ public partial class GameSocketConnector : Node
         return true;
     }
 
+    public async Task<bool> LoginAndRegister()
+    {
+        var success = await Login();
+        if (success)
+        {
+            await Register(SettingsManager.Instance.Config.Username);
+        }
+
+        return success;
+    }
+
 	public async Task Logout()
     {
         if (_connection.State != HubConnectionState.Disconnected)
@@ -122,6 +137,10 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("Register user {Username}", username);
         UserId = await _connection.InvokeAsync<Guid>(nameof(IUserHub.Register), username);
+        Username = username;
+
+        EmitSignal(SignalName.UserConnected);
+
         return UserId;
     }
 

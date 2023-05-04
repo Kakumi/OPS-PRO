@@ -10,15 +10,11 @@ public partial class PopupManager : Node
 
     private static PopupManager _instance;
     public static PopupManager Instance => _instance;
-    private Config _config;
 
     public override void _Ready()
     {
         _instance = this;
         CanvasLayer = GetNode<CanvasLayer>("CanvasLayer");
-
-        _config = new Config();
-        SettingsManager.Instance.ReadConfig(_config);
     }
 
     public OPSPopup CreatePopup(string title, string message)
@@ -26,7 +22,7 @@ public partial class PopupManager : Node
         var popup = PopupStyle.Instantiate<OPSPopup>();
         popup.Title = title;
         popup.Message = message;
-        popup.Theme = GD.Load<Theme>(_config.Theme);
+        popup.Theme = GD.Load<Theme>(SettingsManager.Instance.Config.Theme);
 
         CanvasLayer.AddChild(popup);
 
