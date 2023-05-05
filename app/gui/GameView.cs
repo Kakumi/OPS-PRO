@@ -14,6 +14,13 @@ public partial class GameView : HBoxContainer
 
 	public override void _ExitTree()
 	{
+		Task.Run(async () =>
+		{
+			await GameSocketConnector.Instance.LeaveRoom();
+		});
+
+		GameSocketConnector.Instance.ConnectionClosed -= Instance_ConnectionClosed;
+		GameSocketConnector.Instance.ConnectionFailed -= Instance_ConnectionFailed;
 		GameSocketConnector.Instance.ConnectionStarted -= Instance_ConnectionStarted;
 		GameSocketConnector.Instance.RoomDeleted -= Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
@@ -27,6 +34,17 @@ public partial class GameView : HBoxContainer
 		CardInfoPanel = GetNode<CardInfoPanel>("CardInfoPanel");
 		OPSWindow = GetNode<OPSWindow>("OPSWindow");
 
+		GameSocketConnector.Instance.ConnectionClosed += Instance_ConnectionClosed;
+		GameSocketConnector.Instance.ConnectionFailed += Instance_ConnectionFailed;
+		GameSocketConnector.Instance.ConnectionStarted += Instance_ConnectionStarted;
+		GameSocketConnector.Instance.RoomDeleted += Instance_RoomDeleted;
+		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
+
+		PrepareGame();
+	}
+
+    private void PrepareGame()
+	{
 		Task.Run(async () =>
 		{
 			var logged = GameSocketConnector.Instance.Connected;
@@ -37,21 +55,46 @@ public partial class GameView : HBoxContainer
 			}
 
 			if (logged)
-            {
-				OPSWindow.Close();
-				//ShowPopup("ROOMS_GETTING_DATA");
-			} else
-            {
+			{
+				ShowPopup("ROOMS_GETTING_DATA");
+
+				var room = await GameSocketConnector.Instance.GetRoom();
+				if (room != null)
+				{
+					OPSWindow.Close();
+				} else
+				{
+					ShowPopup("ROOMS_NOT_CONNECTED", () => Quit());
+				}
+			}
+			else
+			{
 				ShowPopup("ROOMS_CONNECTION_FAILED", () => Quit());
 			}
 		});
 	}
 
-	#region Connection Events
-
 	private async Task InitConnection()
 	{
 
+	}
+
+	#region Connection Events
+
+	private void Instance_ConnectionClosed()
+	{
+		ShowPopup("SERVER_CONNECTION_CLOSED", () =>
+		{
+			Quit();
+		});
+	}
+
+	private void Instance_ConnectionFailed()
+	{
+		ShowPopup("SERVER_CONNECTION_FAILED", () =>
+		{
+			Quit();
+		});
 	}
 
 	private async void Instance_ConnectionStarted()
@@ -68,17 +111,17 @@ public partial class GameView : HBoxContainer
 
 	private void Instance_RoomDeleted(object sender, EventArgs e)
 	{
-		ShowPopup("ROOMS_DELETED", async () =>
+		ShowPopup("ROOMS_DELETED", () =>
 		{
-			OPSWindow.Close();
+			Quit();
 		});
 	}
 
 	private void Instance_RoomExcluded(object sender, EventArgs e)
 	{
-		ShowPopup(Tr("ROOMS_EXCLUDED"), async () =>
+		ShowPopup(Tr("ROOMS_EXCLUDED"), () =>
 		{
-			OPSWindow.Close();
+			Quit();
 		});
 	}
 

@@ -81,6 +81,13 @@ text = "ROOMS_SELECT_DECK"
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Message" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][color=red][/color][/center]"
+fit_content = true
+
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 

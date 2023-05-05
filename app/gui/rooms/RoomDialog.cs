@@ -32,6 +32,7 @@ public partial class RoomDialog : Window
 	public OptionButton DeckOptions { get; private set; }
 	public Button ReadyButton { get; private set; }
 	public Button StartButton { get; private set; }
+	public RichTextLabel Message { get; private set; }
 
 	[Signal]
 	public delegate void WindowClosedEventHandler();
@@ -53,6 +54,8 @@ public partial class RoomDialog : Window
 
 		ReadyButton = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/Buttons/RightContainer/Ready");
 		StartButton = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/Buttons/RightContainer/Start");
+
+		Message = GetNode<RichTextLabel>("PanelContainer/MarginContainer/VBoxContainer/Message");
 
 		_decks = new List<DeckResource>();
 	}
@@ -113,7 +116,8 @@ public partial class RoomDialog : Window
 	private async void OnReadyPressed()
     {
 		try
-        {
+		{
+			UpdateMessage(null);
 			await GameSocketConnector.Instance.SetReady(!IsReady());
         } catch(Exception ex)
 		{
@@ -125,7 +129,12 @@ public partial class RoomDialog : Window
 	{
 		try
 		{
-
+			UpdateMessage(null);
+			var success = await GameSocketConnector.Instance.LaunchGame(Room.Id);
+			if (!success)
+            {
+				UpdateMessage("ROOMS_NOT_LAUNCHED");
+			}
 		}
 		catch (Exception ex)
 		{
@@ -137,6 +146,7 @@ public partial class RoomDialog : Window
 	{
 		try
 		{
+			UpdateMessage(null);
 			await GameSocketConnector.Instance.LeaveRoom();
 			Close();
 		}
@@ -150,6 +160,7 @@ public partial class RoomDialog : Window
 	{
 		try
 		{
+			UpdateMessage(null);
 			if (Room.Opponent != null)
 			{
 				await GameSocketConnector.Instance.Exclude(Room.Opponent.Id, Room.Id);
@@ -162,10 +173,23 @@ public partial class RoomDialog : Window
 	}
 
 	private void OnDeckSelected(int index)
-    {
+	{
+		UpdateMessage(null);
 		var deckName = DeckOptions.GetItemText(index);
 		var deck = _decks.FirstOrDefault(x => x.Name == deckName);
 
 		ReadyButton.Disabled = deck == null || !deck.IsValid();
 	}
+
+	private void UpdateMessage(string text, string color = "red")
+    {
+		Message.Visible = text != null;
+		if (Message.Visible)
+        {
+			Message.Text = $"[center][color={color}]{Tr(text)}[/color][/center]";
+		} else
+        {
+			Message.Text = null;
+        }
+    }
 }

@@ -1,9 +1,9 @@
+RichTextLabel
 Node
 LineEdit
 Label
 HBoxContainer
 AcceptDialog
-RichTextLabel
 TextEdit
 VBoxContainer
 ConfirmationDialog
@@ -30,4 +30,3 @@ CenterContainer
 ColorRect
 HFlowContainer
 SpinBox
-Tree

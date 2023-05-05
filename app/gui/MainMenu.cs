@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class MainMenu : Control
 {
@@ -8,6 +9,19 @@ public partial class MainMenu : Control
     public Button Settings { get; protected set; }
     public Button Quit { get; protected set; }
     public Settings SettingsContainer { get; protected set; }
+
+    public override void _EnterTree()
+    {
+        if (GameSocketConnector.Instance.Connected)
+        {
+            Task.Run(async () =>
+            {
+                await GameSocketConnector.Instance.Logout();
+            });
+        }
+
+        base._EnterTree();
+    }
 
     public override void _Ready()
     {

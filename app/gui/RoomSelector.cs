@@ -25,18 +25,13 @@ public partial class RoomSelector : VBoxContainer
 
 	public override void _ExitTree()
 	{
-		if (GameSocketConnector.Instance.Connected)
-		{
-			Task.Run(async () =>
-			{
-				await GameSocketConnector.Instance.Logout();
-			});
-		}
-
+		GameSocketConnector.Instance.ConnectionClosed -= Instance_ConnectionClosed;
+		GameSocketConnector.Instance.ConnectionFailed -= Instance_ConnectionFailed;
 		GameSocketConnector.Instance.UserConnected -= Instance_UserConnected;
 		GameSocketConnector.Instance.RoomDeleted -= Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated -= Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
+		GameSocketConnector.Instance.GameLaunched -= Instance_GameLaunched;
 
 		base._ExitTree();
 	}
@@ -53,10 +48,13 @@ public partial class RoomSelector : VBoxContainer
 		RoomDialog = GetNode<RoomDialog>("RoomDialog");
 		OPSWindow = GetNode<OPSWindow>("OPSWindow");
 
+        GameSocketConnector.Instance.ConnectionClosed += Instance_ConnectionClosed;
+        GameSocketConnector.Instance.ConnectionFailed += Instance_ConnectionFailed;
 		GameSocketConnector.Instance.UserConnected += Instance_UserConnected;
 		GameSocketConnector.Instance.RoomDeleted += Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated += Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
+		GameSocketConnector.Instance.GameLaunched += Instance_GameLaunched;
 
 		UpdateUsername();
 
@@ -77,9 +75,7 @@ public partial class RoomSelector : VBoxContainer
 		}
 	}
 
-    #region Connection Events
-
-    private async Task InitConnection()
+	private async Task InitConnection()
 	{
 		ShowPasswords.Disabled = false;
 		CreateButton.Disabled = false;
@@ -88,6 +84,24 @@ public partial class RoomSelector : VBoxContainer
 		UpdateUsername();
 
 		await RefreshRooms();
+	}
+
+	#region Connection Events
+
+	private void Instance_ConnectionClosed()
+	{
+		ShowPopup("SERVER_CONNECTION_CLOSED", () =>
+		{
+			OnQuitPressed();
+		});
+	}
+
+	private void Instance_ConnectionFailed()
+	{
+		ShowPopup("SERVER_CONNECTION_FAILED", () =>
+		{
+			OnQuitPressed();
+		});
 	}
 
 	private async void Instance_UserConnected()
@@ -117,6 +131,19 @@ public partial class RoomSelector : VBoxContainer
 			OPSWindow.Close();
 			await RefreshRooms();
 		});
+	}
+
+	private void Instance_GameLaunched(object sender, EventArgs e)
+	{
+		try
+        {
+			var gameScene = GD.Load<PackedScene>("res://app/gui/GameView.tscn");
+			QueueFree();
+			AppInstance.Instance.ShowPackedScene(gameScene);
+		} catch(Exception ex)
+        {
+			Log.Error(ex, ex.Message);
+        }
 	}
 
 	private void Instance_RoomUpdated(object sender, Room e)
@@ -239,7 +266,8 @@ public partial class RoomSelector : VBoxContainer
 	{
 		if (hideOthers)
 		{
-
+			CreateRoomDialog.Hide();
+			RoomDialog.Hide();
 		}
 
 		OPSWindow.Show(text, action);
@@ -249,7 +277,8 @@ public partial class RoomSelector : VBoxContainer
 	{
 		if (hideOthers)
 		{
-
+			CreateRoomDialog.Hide();
+			RoomDialog.Hide();
 		}
 
 		return await OPSWindow.Ask(text);

@@ -40,6 +40,8 @@ public partial class GameSocketConnector : Node
 
     public event EventHandler RoomExcluded;
 
+    public event EventHandler GameLaunched;
+
     public override void _Ready()
 	{
 		Instance = this;
@@ -73,6 +75,11 @@ public partial class GameSocketConnector : Node
         _connection.On(nameof(IRoomHubEvent.RoomExcluded), () =>
         {
             RoomExcluded?.Invoke(this, new EventArgs());
+        });
+
+        _connection.On(nameof(IGameHubEvent.GameLaunched), () =>
+        {
+            GameLaunched?.Invoke(this, new EventArgs());
         });
     }
 
@@ -150,6 +157,12 @@ public partial class GameSocketConnector : Node
         return await _connection.InvokeAsync<List<Room>>(nameof(IRoomHub.GetRooms));
     }
 
+    public async Task<Room> GetRoom()
+    {
+        Log.Information("Getting Room for user {UserId}", UserId);
+        return await _connection.InvokeAsync<Room>(nameof(IRoomHub.GetRoom), UserId);
+    }
+
     public async Task<bool> CreateRoom(string desc, string password)
     {
         Log.Information($"Create Room");
@@ -162,7 +175,7 @@ public partial class GameSocketConnector : Node
         return await _connection.InvokeAsync<bool>(nameof(IRoomHub.SetReady), UserId, ready);
     }
 
-    public async Task<bool> JoinRoom(Guid roomId, string? password)
+    public async Task<bool> JoinRoom(Guid roomId, string password)
     {
         Log.Information("User {UserId} ask room {RoomId}", UserId, roomId);
         return await _connection.InvokeAsync<bool>(nameof(IRoomHub.JoinRoom), UserId, roomId, password);
@@ -178,5 +191,11 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("User {UserId} exclude {OpponentId} from room {RoomId}", UserId, opponentId, roomId);
         return await _connection.InvokeAsync<bool>(nameof(IRoomHub.Exclude), UserId, opponentId, roomId);
+    }
+
+    public async Task<bool> LaunchGame(Guid roomId)
+    {
+        Log.Information("User {UserId} launch game for room {RoomId}", UserId, roomId);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.LaunchGame), roomId);
     }
 }
