@@ -16,7 +16,6 @@ public partial class CardManager : Node
 
     private List<string> _cardTextureDownloaders;
     private string _path;
-    private OPSPopup _popup;
 
     public List<CardResource> Cards { get; private set; }
     public Texture2D CardTexture { get; private set; }
@@ -27,11 +26,20 @@ public partial class CardManager : Node
 
     public static CardManager Instance => _instance;
 
+    public bool Loaded { get; private set; }
+
+    [Signal]
+    public delegate void CardLoadedEventHandler();
+
+    [Signal]
+    public delegate void LoadFailedEventHandler();
+
     public override void _Ready()
     {
         _instance = this;
         _cardTextureDownloaders = new List<string>();
-        _popup = null;
+
+        Loaded = false;
 
         ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
         Cards = new List<CardResource>();
@@ -50,13 +58,6 @@ public partial class CardManager : Node
     {
         try
         {
-            if (_popup == null)
-            {
-                _popup = PopupManager.Instance.CreatePopup(Tr("AUTOLOAD_CARDS_LOAD_TITLE"), Tr("AUTOLOAD_CARDS_LOAD_MESSAGE"));
-            }
-
-            _popup.PopupCentered();
-
             using(var client = new WebClient())
             {
                 client.DownloadStringCompleted += ServerConfigDownloaded;
@@ -64,11 +65,6 @@ public partial class CardManager : Node
             }
         } catch(Exception ex)
         {
-            if (_popup != null)
-            {
-                _popup.Message = Tr($"AUTOLOAD_CARDS_LOAD_FAILED");
-            }
-
             Log.Error(ex, $"Failed to fetch cards from the API because {ex.Message}");
         }
     }
@@ -82,17 +78,15 @@ public partial class CardManager : Node
             {
                 card.AskDownloadTexture += Card_AskDownloadTexture;
             });
+
             Log.Information($"Loaded {Cards.Count} cards");
 
-            _popup?.QueueFree();
+            Loaded = true;
+            EmitSignal(SignalName.CardLoaded);
         }
         catch (Exception ex)
         {
-            if (_popup != null)
-            {
-                _popup.Message = Tr("AUTOLOAD_CARDS_LOAD_FAILED_DESERIALIZE");
-            }
-
+            EmitSignal(SignalName.LoadFailed);
             Log.Error(ex, $"Failed to deserialize cards from the API because {ex.Message}");
         }
     }

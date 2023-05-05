@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0bsel4oaljb3"]
+[gd_scene load_steps=9 format=3 uid="uid://d0bsel4oaljb3"]
 
 [ext_resource type="PackedScene" path="res://app/gui/mainMenu/ButtonGoto.tscn" id="1"]
 [ext_resource type="Script" path="res://app/gui/MainMenu.cs" id="2"]
+[ext_resource type="PackedScene" uid="uid://dss5yj3kykc0i" path="res://app/gui/utils/OPSWindow.tscn" id="2_fvswa"]
 [ext_resource type="PackedScene" uid="uid://h128lbci1vgn" path="res://app/gui/Settings.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://ndtnmv1rb3gp" path="res://app/gui/GameView.tscn" id="3_keuiq"]
 [ext_resource type="PackedScene" uid="uid://bry114aad4nsh" path="res://app/gui/DeckBuilder.tscn" id="4"]
@@ -16,6 +17,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2")
+
+[node name="OPSWindow" parent="." instance=ExtResource("2_fvswa")]
+visible = false
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0

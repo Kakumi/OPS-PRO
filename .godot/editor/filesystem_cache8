@@ -1,5 +1,5 @@
 2a60927148abd1d33b818b535e306557
-::res://::1683311249
+::res://::1683314201
 Card Example.png::CompressedTexture2D::5799584854092008898::1679940975::1679941013::1::::<><>::
 default_bus_layout.tres::AudioBusLayout::-1::1677770236::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1679872958::0::1::::<><>::
@@ -7,20 +7,20 @@ icon.png::CompressedTexture2D::358893436395597448::1677201853::1677770320::1::::
 OP02-012.png::CompressedTexture2D::6068424928718371565::1679947442::1679947463::1::::<><>::
 OP03-002.png::CompressedTexture2D::5884294185017053117::1679949994::1679949999::1::::<><>::
 README.md::TextFile::-1::1679923503::0::1::::<><>::
-::res://app/::1683234238
-AppInstance.cs::CSharpScript::-1::1683234238::0::1::::<><>::
+::res://app/::1683312918
+AppInstance.cs::CSharpScript::-1::1683312918::0::1::::<><>::
 AppInstance.tscn::PackedScene::4326939361751047718::1680893075::0::1::::<><>::res://app/AppInstance.cs<>uid://bxeudnqrt3dta<>uid://d0bsel4oaljb3
-::res://app/gui/::1683311230
+::res://app/gui/::1683312955
 CardCreator.cs::CSharpScript::-1::1678827650::0::1::::<><>::
 CardCreator.tscn::PackedScene::4477164120734211844::1680893076::0::1::::<><>::res://app/gui/CardCreator.cs<>uid://bjx3brtgt5yrp
 DeckBuilder.cs::CSharpScript::-1::1677805108::0::1::::<><>::
 DeckBuilder.tscn::PackedScene::3630802687272860215::1678824521::0::1::::<><>::uid://bdos3ombb52gx<>uid://boynil74yqbyv<>res://app/gui/deckBuilder/SearchContainer.tscn<>uid://dhupk5drnmsnt<>res://app/gui/DeckBuilder.cs
-GameView.cs::CSharpScript::-1::1683310159::0::1::::<><>::
-GameView.tscn::PackedScene::919825602665131875::1683310934::0::1::::<><>::uid://bdos3ombb52gx<>res://app/gui/GameView.cs<>uid://bkvbntgj7a8ub<>uid://rmh0e5r1i64b<>uid://dss5yj3kykc0i<>uid://dr5oryxtn1ya5<>uid://dqj36yxww4awi
-MainMenu.cs::CSharpScript::-1::1682679028::0::1::::<><>::
+GameView.cs::CSharpScript::-1::1683312826::0::1::::<><>::
+GameView.tscn::PackedScene::919825602665131875::1683312955::0::1::::<><>::uid://bdos3ombb52gx<>res://app/gui/GameView.cs<>uid://bkvbntgj7a8ub<>uid://rmh0e5r1i64b<>uid://dss5yj3kykc0i<>uid://dr5oryxtn1ya5<>uid://dqj36yxww4awi
+MainMenu.cs::CSharpScript::-1::1683312521::0::1::::<><>::
 MainMenu.tscn::PackedScene::8917148192022306874::1683311168::0::1::::<><>::res://app/gui/mainMenu/ButtonGoto.tscn<>res://app/gui/MainMenu.cs<>uid://h128lbci1vgn<>uid://ndtnmv1rb3gp<>uid://bry114aad4nsh<>uid://b411iehs8mi8s<>uid://rmh0e5r1i64b
-RoomSelector.cs::CSharpScript::-1::1683311230::0::1::::<><>::
-RoomSelector.tscn::PackedScene::1218452795937286743::1683311098::0::1::::<><>::uid://du0pbkb24dh5o<>res://app/gui/RoomSelector.cs<>uid://ndtnmv1rb3gp<>uid://dss5yj3kykc0i<>uid://d0ww8lfi73p3<>uid://c7024kgkqj2fj
+RoomSelector.cs::CSharpScript::-1::1683312666::0::1::::<><>::
+RoomSelector.tscn::PackedScene::1218452795937286743::1683311274::0::1::::<><>::uid://du0pbkb24dh5o<>res://app/gui/RoomSelector.cs<>uid://dss5yj3kykc0i<>uid://d0ww8lfi73p3<>uid://c7024kgkqj2fj
 Settings.cs::CSharpScript::-1::1683234253::0::1::::<><>::
 Settings.tscn::PackedScene::546694596479600893::1682675569::0::1::::<><>::res://app/gui/Settings.cs<>res://app/gui/settings/InterfaceSettings.tscn<>uid://c6u2utbxd7c53<>uid://bcjxxfcyr2q8r
 ::res://app/gui/cardCreator/::1681603343
@@ -63,11 +63,11 @@ SearchCardItem.cs::CSharpScript::-1::1678819891::0::1::::<><>::
 SearchCardItem.tscn::PackedScene::2004923533066887899::1678825202::0::1::::<><>::res://app/gui/deckBuilder/SearchCardItem.cs<>uid://boynil74yqbyv
 SearchContainer.cs::CSharpScript::-1::1679680270::0::1::::<><>::
 SearchContainer.tscn::PackedScene::1817137539229630623::1679442161::0::1::::<><>::uid://3tg2edqu8iyd<>res://app/gui/deckBuilder/SearchContainer.cs
-::res://app/gui/game/::1683310934
+::res://app/gui/game/::1683312925
 Card.cs::CSharpScript::-1::1683060203::0::1::::<><>::
 Card.tscn::PackedScene::3419413796521115369::1681470288::0::1::::<><>::res://app/gui/game/Card.cs
-Gameboard.cs::CSharpScript::-1::1683231808::0::1::::<><>::
-Gameboard.tscn::PackedScene::3131745992886409933::1683310934::0::1::::<><>::res://app/gui/game/Gameboard.cs<>uid://bnounn1418bsl<>uid://bw7m62bgcc0pv<>uid://dbov34wkhwtfj<>uid://nhdhdw63bwrn
+Gameboard.cs::CSharpScript::-1::1683312925::0::1::::<><>::
+Gameboard.tscn::PackedScene::3131745992886409933::1683311274::0::1::::<><>::res://app/gui/game/Gameboard.cs<>uid://bnounn1418bsl<>uid://bw7m62bgcc0pv<>uid://dbov34wkhwtfj<>uid://nhdhdw63bwrn
 GamePlayerInfo.cs::CSharpScript::-1::1682155081::0::1::::<><>::
 GamePlayerInfo.tscn::PackedScene::315736747045862004::1682214445::0::1::::<><>::res://app/gui/game/GamePlayerInfo.cs
 HandContainer.cs::CSharpScript::-1::1682351479::0::1::::<><>::
@@ -224,11 +224,11 @@ CardCreatorYellowResource.tres::Resource::817278639660228686::1683310595::0::1::
 CardCreatorYellowStage.tres::Resource::2892051585218025290::1679681080::0::1::::<><>::uid://l3hhb2j0tp58<>uid://cor65h8r0hky3<>res://app/resources/CardCreatorCardTypeResource.cs
 ::res://app/resources/card_scripts/::1681469850
 op01_001.cs::CSharpScript::-1::1681469850::0::1::::<><>::
-::res://app/resources/fonts/::1683310595
+::res://app/resources/fonts/::1683311269
 bold_font.tres::FontFile::-1::1677770237::0::1::::<><>::res://app/resources/fonts/Oswald-Bold.ttf
 bold_font_small.tres::FontFile::-1::1677770237::0::1::::<><>::res://app/resources/fonts/Oswald-Bold.ttf
 normal_font.tres::FontFile::-1::1677770237::0::1::::<><>::res://app/resources/fonts/Oswald-Regular.ttf
-normal_font_small.tres::FontFile::8302619681603896380::1683310595::0::1::::<><>::uid://cwwq0e1edxehl
+normal_font_small.tres::FontFile::8302619681603896380::1683311269::0::1::::<><>::uid://cwwq0e1edxehl
 Oswald-Bold.ttf::FontFile::5510855468987540736::1330473600::1677770319::1::::<><>::
 Oswald-ExtraLight.ttf::FontFile::5785993659610662120::1330473600::1677770319::1::::<><>::
 Oswald-Light.ttf::FontFile::1877003755565297980::1330473600::1677770319::1::::<><>::
@@ -247,11 +247,11 @@ IPhase.cs::CSharpScript::-1::1682351670::0::1::::<><>::
 MainPhase.cs::CSharpScript::-1::1682351771::0::1::::<><>::
 OpponentPhase.cs::CSharpScript::-1::1682351777::0::1::::<><>::
 RefreshPhase.cs::CSharpScript::-1::1683044624::0::1::::<><>::
-::res://app/resources/game/slot_action/::1683310595
-DeckAction.tres::Resource::1195109440748968270::1683310595::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
+::res://app/resources/game/slot_action/::1683311269
+DeckAction.tres::Resource::1195109440748968270::1683311269::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
 HandAction.tres::Resource::1386908077461330540::1682155943::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
-OpponentTrashAction.tres::Resource::6221069499665285438::1683310595::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
-TrashAction.tres::Resource::2054220801350583807::1683310595::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
+OpponentTrashAction.tres::Resource::6221069499665285438::1683311269::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
+TrashAction.tres::Resource::2054220801350583807::1683311269::0::1::::<><>::res://app/resources/GameSlotCardActionResource.cs
 ::res://app/resources/images/::1682883068
 card_back.jpg::CompressedTexture2D::2415365346316614782::1676992280::1677770320::1::::<><>::
 DonCard.png::CompressedTexture2D::8734652368148159916::1678844145::1678844183::1::::<><>::
@@ -354,20 +354,20 @@ Border.gdshader::Shader::-1::1681603343::0::1::::<><>::
 One Piece OST Mother Sea.ogg::AudioStreamOggVorbis::1416504894118457021::1677362729::1677770304::1::::<><>::
 One Piece OST Overtaken.ogg::AudioStreamOggVorbis::135363464401517399::1677016936::1677770304::1::::<><>::
 One Piece OST Robin.ogg::AudioStreamOggVorbis::4981805120563319864::1677362730::1677770304::1::::<><>::
-::res://app/resources/themes/::1683310595
+::res://app/resources/themes/::1683311269
 default_theme.tres::Theme::4933676142318080811::1679946834::0::1::::<><>::uid://dqj36yxww4awi
-main_theme.tres::Theme::6572816570474216592::1683310595::0::1::::<><>::res://app/resources/themes/main_theme/focus_styleboxflat.tres<>uid://dqj36yxww4awi<>res://app/resources/themes/main_theme/disabled_styleboxflat.tres<>res://app/resources/fonts/normal_font.tres<>res://app/resources/themes/main_theme/normal_styleboxflat.tres
+main_theme.tres::Theme::6572816570474216592::1683311269::0::1::::<><>::res://app/resources/themes/main_theme/focus_styleboxflat.tres<>uid://dqj36yxww4awi<>res://app/resources/themes/main_theme/disabled_styleboxflat.tres<>res://app/resources/fonts/normal_font.tres<>res://app/resources/themes/main_theme/normal_styleboxflat.tres
 ::res://app/resources/themes/main_theme/::1677149264
 disabled_styleboxflat.tres::StyleBoxFlat::-1::1677770236::0::1::::<><>::
 focus_styleboxflat.tres::StyleBoxFlat::-1::1677770236::0::1::::<><>::
 normal_styleboxflat.tres::StyleBoxFlat::-1::1677770236::0::1::::<><>::
 ::res://app/scripts/::1678816916
-::res://app/scripts/auto_load/::1683310468
+::res://app/scripts/auto_load/::1683311757
 CardManager.cs::CSharpScript::-1::1683310468::0::1::::<><>::
 CustomLoader.cs::CSharpScript::-1::1682699632::0::1::::<><>::
 DeckManager.cs::CSharpScript::-1::1682676219::0::1::::<><>::
 DiscordManager.cs::CSharpScript::-1::1682699632::0::1::::<><>::
-GameSocketConnector.cs::CSharpScript::-1::1683310148::0::1::::<><>::
+GameSocketConnector.cs::CSharpScript::-1::1683311757::0::1::::<><>::
 Logger.cs::CSharpScript::-1::1682699632::0::1::::<><>::
 NotifierManager.cs::CSharpScript::-1::1682699632::0::1::::<><>::
 PopupManager.cs::CSharpScript::-1::1683234248::0::1::::<><>::
