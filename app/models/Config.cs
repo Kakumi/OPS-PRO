@@ -72,12 +72,12 @@ public partial class Config : Resource
 
         if (FileAccess.FileExists(BackgroundMusic) ||  ResourceLoader.Exists(BackgroundMusic))
         {
-            SoundManager.Instance.UpdateSound(BackgroundMusic, BackgroundMusicEnabled);
+            AppInstance.Instance.UpdateSound(BackgroundMusic, BackgroundMusicEnabled);
         }
         else
         {
             Log.Warning($"Sound not found, set to default");
-            SoundManager.Instance.UpdateSound(defaultConfig.BackgroundMusic, BackgroundMusicEnabled);
+            AppInstance.Instance.UpdateSound(defaultConfig.BackgroundMusic, BackgroundMusicEnabled);
         }
 
         if (string.IsNullOrWhiteSpace(Username))

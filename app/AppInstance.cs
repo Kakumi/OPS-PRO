@@ -10,6 +10,7 @@ public partial class AppInstance : Control
 
 	public TextureRect Background { get; set; }
 	public Control Content { get; set; }
+	public AudioStreamPlayer AudioStreamPlayer { get; private set; }
 
 	private static AppInstance _instance;
 	public static AppInstance Instance => _instance;
@@ -20,6 +21,7 @@ public partial class AppInstance : Control
 
 		Background = GetNode<TextureRect>("AspectRatioContainer/Background");
 		Content = GetNode<Control>("Content");
+		AudioStreamPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
 
 		SettingsManager.Instance.Config.ApplyChanges();
 
@@ -68,6 +70,28 @@ public partial class AppInstance : Control
 		{
 			var instance = scene.Instantiate();
 			Content.CallDeferred("add_child", instance);
+		}
+	}
+
+	public void OnBackgroundMusicFinished()
+	{
+		AudioStreamPlayer.Play();
+	}
+
+	public void UpdateSound(string path, bool musicEnabled)
+	{
+		if (musicEnabled)
+		{
+			var newResource = GD.Load<AudioStream>(path);
+			if (newResource != null && (!AudioStreamPlayer.Playing || AudioStreamPlayer.Stream.ResourcePath.GetFile() != newResource.ResourcePath.GetFile()))
+			{
+				AudioStreamPlayer.Stream = newResource;
+				AudioStreamPlayer.Play();
+			}
+		}
+		else
+		{
+			AudioStreamPlayer.Stop();
 		}
 	}
 }
