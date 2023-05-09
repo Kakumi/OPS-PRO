@@ -1,4 +1,4 @@
-res://app/gui/MainMenu.tscn
+res://app/gui/game/RPSButtons.tscn
 res://app/resources/game/slot_action/DeckAction.tres
 res://app/resources/game/slot_action/TrashAction.tres
 res://app/resources/game/slot_action/OpponentTrashAction.tres
@@ -18,4 +18,8 @@ res://app/resources/card_creator/black/CardCreatorBlackResource.tres
 res://app/resources/card_creator/purple/CardCreatorPurpleResource.tres
 res://app/resources/card_creator/yellow/CardCreatorYellowResource.tres
 res://app/resources/card_creator/CardCreatorSettings.tres
-res://app/AppInstance.tscn
+res://app/gui/game/RPSWindow.tscn
+res://app/gui/game/Gameboard.tscn
+res://app/gui/GameView.tscn
+res://app/translations/Translation OPS Pro - Main.en.translation
+res://app/translations/Translation OPS Pro - Main.fr.translation

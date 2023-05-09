@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ndtnmv1rb3gp"]
+[gd_scene load_steps=9 format=3 uid="uid://ndtnmv1rb3gp"]
 
 [ext_resource type="PackedScene" uid="uid://bdos3ombb52gx" path="res://app/gui/utils/CardInfoPanel.tscn" id="1_6npsf"]
 [ext_resource type="Script" path="res://app/gui/GameView.cs" id="1_nncif"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dss5yj3kykc0i" path="res://app/gui/utils/OPSWindow.tscn" id="2_swg3e"]
 [ext_resource type="PackedScene" uid="uid://dr5oryxtn1ya5" path="res://app/gui/utils/TabInfo.tscn" id="3_remmt"]
 [ext_resource type="FontFile" uid="uid://dqj36yxww4awi" path="res://app/resources/fonts/normal_font_small.tres" id="4_edymd"]
+[ext_resource type="PackedScene" uid="uid://blcyn4prvch7g" path="res://app/gui/game/RPSWindow.tscn" id="4_k1twx"]
 
 [node name="GameView" type="HBoxContainer"]
 anchors_preset = 15
@@ -18,6 +19,9 @@ script = ExtResource("1_nncif")
 QuitScenePath = ExtResource("2_aic28")
 
 [node name="OPSWindow" parent="." instance=ExtResource("2_swg3e")]
+visible = false
+
+[node name="RPSWindow" parent="." instance=ExtResource("4_k1twx")]
 visible = false
 
 [node name="CardInfoPanel" parent="." instance=ExtResource("1_6npsf")]

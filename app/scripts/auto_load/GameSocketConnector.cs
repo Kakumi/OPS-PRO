@@ -42,6 +42,8 @@ public partial class GameSocketConnector : Node
 
     public event EventHandler GameLaunched;
 
+    public event EventHandler<Dictionary<Guid, RockPaperScissors>> RPSExecuted;
+
     public override void _Ready()
 	{
 		Instance = this;
@@ -80,6 +82,11 @@ public partial class GameSocketConnector : Node
         _connection.On(nameof(IGameHubEvent.GameLaunched), () =>
         {
             GameLaunched?.Invoke(this, new EventArgs());
+        });
+
+        _connection.On<Dictionary<Guid, RockPaperScissors>>(nameof(IGameHubEvent.RPSExecuted), (rps) =>
+        {
+            RPSExecuted?.Invoke(this, rps);
         });
     }
 
@@ -197,5 +204,11 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("User {UserId} launch game for room {RoomId}", UserId, roomId);
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.LaunchGame), roomId);
+    }
+
+    public async Task<bool> SetRockPaperScissors(RockPaperScissors rps)
+    {
+        Log.Information("User {UserId} set rock paper scissors to rps {Rps}", UserId, rps);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.SetRockPaperScissors), UserId, rps);
     }
 }

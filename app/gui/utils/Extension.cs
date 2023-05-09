@@ -1,4 +1,5 @@
 using Godot;
+using OPSProServer.Contracts.Contracts;
 using Serilog;
 using Serilog.Configuration;
 using System;
@@ -199,6 +200,18 @@ public static class Extension
             case CardSelectorAction.Discard: return "GAME_ACTION_DISCARD";
             case CardSelectorAction.Attack: return "GAME_ACTION_ATTACK";
             case CardSelectorAction.Summon: return "GAME_ACTION_SUMMON";
+        }
+
+        return "none";
+    }
+
+    public static string GetTrKey(this RockPaperScissors rps)
+    {
+        switch (rps)
+        {
+            case RockPaperScissors.Rock: return "GAME_RPS_ROCK";
+            case RockPaperScissors.Paper: return "GAME_RPS_PAPER";
+            case RockPaperScissors.Scissors: return "GAME_RPS_SCISSORS";
         }
 
         return "none";

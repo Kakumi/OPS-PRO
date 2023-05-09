@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://bip6d011wpis3"]
+
+[ext_resource type="Script" path="res://app/gui/game/RPSButtons.cs" id="1_kvc0o"]
+
+[node name="RPSButtons" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("1_kvc0o")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Rock" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "GAME_RPS_ROCK"
+
+[node name="Paper" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "GAME_RPS_PAPER"
+
+[node name="Scissors" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "GAME_RPS_SCISSORS"
+
+[node name="Random" type="Button" parent="."]
+layout_mode = 2
+text = "GAME_RPS_RANDOM"
+
+[connection signal="pressed" from="HBoxContainer/Rock" to="." method="OnClickRock"]
+[connection signal="pressed" from="HBoxContainer/Paper" to="." method="OnClickPaper"]
+[connection signal="pressed" from="HBoxContainer/Scissors" to="." method="OnClickScissors"]
+[connection signal="pressed" from="Random" to="." method="OnClickRandom"]

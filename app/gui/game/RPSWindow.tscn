@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://blcyn4prvch7g"]
+
+[ext_resource type="Script" path="res://app/gui/game/RPSWindow.cs" id="1_5cq4b"]
+[ext_resource type="PackedScene" uid="uid://bip6d011wpis3" path="res://app/gui/game/RPSButtons.tscn" id="1_gm24n"]
+
+[node name="RPSWindow" type="Window"]
+title = "GAME_RPS_TITLE"
+size = Vector2i(600, 300)
+wrap_controls = true
+transient = true
+exclusive = true
+script = ExtResource("1_5cq4b")
+RandomAfter = 30
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="CloseTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Up" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Opponent" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Up"]
+layout_mode = 2
+
+[node name="Status" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Up/Opponent"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "GAME_RPS_WAITING_OPPONENT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Down" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="My" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Down"]
+layout_mode = 2
+
+[node name="Status" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Down/My"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "GAME_RPS_WAITING_SELECTION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RPSButtons" parent="PanelContainer/MarginContainer/VBoxContainer/Down/My" instance=ExtResource("1_gm24n")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="visibility_changed" from="." to="." method="OnVisibilityChanged"]
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[connection signal="timeout" from="CloseTimer" to="." method="OnCloseTimeout"]
+[connection signal="ClickRPS" from="PanelContainer/MarginContainer/VBoxContainer/Down/My/RPSButtons" to="." method="OnClickRPS"]

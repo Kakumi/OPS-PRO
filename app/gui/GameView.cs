@@ -11,6 +11,7 @@ public partial class GameView : HBoxContainer
 	public Gameboard Gameboard { get; private set; }
 	public CardInfoPanel CardInfoPanel { get; private set; }
 	public OPSWindow OPSWindow { get; private set; }
+	public RPSWindow RPSWindow { get; private set; }
 
 	public override void _ExitTree()
 	{
@@ -33,6 +34,7 @@ public partial class GameView : HBoxContainer
 		Gameboard = GetNode<Gameboard>("VBoxContainer/Gameboard");
 		CardInfoPanel = GetNode<CardInfoPanel>("CardInfoPanel");
 		OPSWindow = GetNode<OPSWindow>("OPSWindow");
+		RPSWindow = GetNode<RPSWindow>("RPSWindow");
 
 		GameSocketConnector.Instance.ConnectionClosed += Instance_ConnectionClosed;
 		GameSocketConnector.Instance.ConnectionFailed += Instance_ConnectionFailed;
@@ -62,6 +64,7 @@ public partial class GameView : HBoxContainer
 				if (room != null)
 				{
 					OPSWindow.Close();
+					InitConnection();
 				} else
 				{
 					ShowPopup("ROOMS_NOT_CONNECTED", () => Quit());
@@ -74,9 +77,10 @@ public partial class GameView : HBoxContainer
 		});
 	}
 
-	private async Task InitConnection()
+	private void InitConnection()
 	{
-
+		OPSWindow.Close();
+		RPSWindow.PopupCentered();
 	}
 
 	#region Connection Events
@@ -97,11 +101,11 @@ public partial class GameView : HBoxContainer
 		});
 	}
 
-	private async void Instance_ConnectionStarted()
+	private void Instance_ConnectionStarted()
 	{
 		try
 		{
-			await InitConnection();
+			InitConnection();
 		}
 		catch (Exception ex)
 		{

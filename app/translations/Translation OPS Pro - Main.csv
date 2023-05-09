@@ -217,9 +217,11 @@ ROOMS_REFRESH,Refresh,Actualiser
 SETTINGS_GAME_USERNAME,Username,Nom d'utilisateur
 SETTINGS_GAME_USERNAME_PLACEHOLDER,User147...,User147...
 ROOMS_CONNECTING_POPUP,Connection to the server in progress. Please wait.,Connexion en cours vers le serveur. Merci de patienter.
+YES,Yes,Oui
+NO,No,Non
 OK,Ok,Ok
-ROOMS_CONNECTION_CLOSED,The connection has been lost.,La connexion a été perdue.
-ROOMS_CONNECTION_FAILED,Unable to contact the server. Please try again later or contact us if the problem persists.,Impossible de contacter le serveur. Merci de réessayer plus tard ou nous contacter si le problème persiste.
+SERVER_CONNECTION_CLOSED,The connection has been lost.,La connexion a été perdue.
+SERVER_CONNECTION_FAILED,Unable to contact the server. Please try again later or contact us if the problem persists.,Impossible de contacter le serveur. Merci de réessayer plus tard ou nous contacter si le problème persiste.
 ROOMS_NO_ROOM,No room was found. Try changing your preferences or creating your own room.,Aucune partie n'a été trouvé. Essayer de modifier vos préférences ou créer votre propre partie.
 ROOMS_CREATE_TITLE,Create a room,Créer une partie
 ROOMS_CREATE_OK,Create,Créer
@@ -240,3 +242,18 @@ ROOMS_PASSWORD,Password:,Mot de passe:
 ROOMS_PASSWORD_TITLE,Enter the password of the room,Entrer le mot de passe de la partie
 ROOMS_JOINING,Attempt to join the room...,Tentative pour rejoindre la partie...
 ROOMS_JOINED_FAILED,Impossible to join the room.,Impossible de rejoindre la partie.
+ROOMS_EXCLUDED,You have been excluded from the room.,Vous avez été exclus de la partie.
+NOT_CONNECTED,"An error occurred, you are not connected to the server.","Une erreur s'est produite, vous n'êtes pas connecté au serveur."
+ROOMS_GETTING_DATA,Getting of the data of the game...,Récupération des données de la partie...
+ROOMS_USER_NOT_CONNECTED,Not connected,Non connecté
+ROOMS_NOT_CONNECTED,You are not connected to any room.,Vous n'êtes connecté à aucune partie.
+ROOMS_NOT_LAUNCHED,Unable to start the game.,Impossible de démarrer la partie.
+GAME_RPS_ROCK,Rock,Pierre
+GAME_RPS_PAPER,Paper,Papier
+GAME_RPS_SCISSORS,Scissors,Ciseaux
+GAME_RPS_RANDOM,Pick random ({0}),Choisir aléatoirement ({0})
+GAME_RPS_WAITING_OPPONENT,Waiting for an answer from your opponent...,En attente d'une réponse de votre adversaire...
+GAME_RPS_TITLE,Choose a sign to see who starts.,Choisissez un signe pour savoir qui commence.
+GAME_RPS_SELECTED,You have chosen {0}.,Vous avez choisi {0}.
+GAME_RPS_WAITING_SELECTION,Please select a sign.,Veuillez choisir un signe.
+GAME_RPS_SELECTION_FAILED,"An error occurred, impossible to choose.","Une erreur est survenue, impossible de choisir."
