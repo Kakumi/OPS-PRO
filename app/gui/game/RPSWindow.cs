@@ -46,21 +46,39 @@ public partial class RPSWindow : Window
     {
         if (Visible)
         {
-            _elapsed = 0;
-            Timer.Start();
-
-            UpdateRandomButton();
+            ResetTimer();
         }
     }
 
-    private void RPSExecuted(object sender, Dictionary<Guid, RockPaperScissors> dic)
+    private void ResetTimer()
+    {
+        _elapsed = 0;
+        Timer.Start();
+
+        UpdateRandomButton();
+    }
+
+    private void RPSExecuted(object sender, RockPaperScissorsResult result)
     {
         try
         {
-            CloseTimer.Start();
+            RPS.SetDisabled(true);
 
-            var opponentValue = dic.First(x => x.Key != GameSocketConnector.Instance.UserId);
-            OpponentStatus.Text = string.Format(Tr("GAME_RPS_SELECTION_OPPONENT"), Tr(opponentValue.Value.GetTrKey()));
+            var opponentValue = result.Signs.First(x => x.Key != GameSocketConnector.Instance.UserId);
+
+            if (result.Winner == null)
+            {
+                OpponentStatus.Text = string.Format(Tr("GAME_RPS_SELECTION_OPPONENT_TIE"), Tr(opponentValue.Value.GetTrKey()));
+                Status.Text = Tr("GAME_RPS_WAITING_SELECTION");
+                RPS.SetDisabled(false);
+                ResetTimer();
+            } else if (result.Winner == GameSocketConnector.Instance.UserId)
+            {
+                OpponentStatus.Text = string.Format(Tr("GAME_RPS_SELECTION_OPPONENT_LOSE"), Tr(opponentValue.Value.GetTrKey()));
+            } else
+            {
+                OpponentStatus.Text = string.Format(Tr("GAME_RPS_SELECTION_OPPONENT_WON"), Tr(opponentValue.Value.GetTrKey()));
+            }
         } catch(Exception ex)
         {
             Log.Error(ex, ex.Message);
@@ -80,13 +98,12 @@ public partial class RPSWindow : Window
         {
             Timer.Stop();
 			RPS.SetDisabled(true);
+            RPS.RandomButton.Text = Tr("GAME_RPS_RANDOM");
 
-			var rps = (RockPaperScissors) id;
-			var success = await GameSocketConnector.Instance.SetRockPaperScissors(rps);
-			if (success)
-            {
-                Status.Text = string.Format(Tr("GAME_RPS_SELECTED"), Tr(rps.GetTrKey()).ToLower());
-            } else
+            var rps = (RockPaperScissors) id;
+            Status.Text = string.Format(Tr("GAME_RPS_SELECTED"), Tr(rps.GetTrKey()).ToLower());
+            var success = await GameSocketConnector.Instance.SetRockPaperScissors(rps);
+			if (!success)
             {
                 Log.Error("Server return error for user {UserId} and RPS id {Id}", GameSocketConnector.Instance.UserId, id);
                 Status.Text = Tr("GAME_RPS_SELECTION_FAILED");
@@ -114,6 +131,6 @@ public partial class RPSWindow : Window
 
     private void UpdateRandomButton()
     {
-        RPS.RandomButton.Text = string.Format(Tr("GAME_RPS_RANDOM"), RandomAfter - _elapsed);
+        RPS.RandomButton.Text = $"{Tr("GAME_RPS_RANDOM")} ({RandomAfter - _elapsed})";
     }
 }

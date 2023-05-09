@@ -1,4 +1,5 @@
 using Godot;
+using OPSProServer.Contracts.Contracts;
 using Serilog;
 using System;
 using System.Threading.Tasks;
@@ -22,9 +23,10 @@ public partial class GameView : HBoxContainer
 
 		GameSocketConnector.Instance.ConnectionClosed -= Instance_ConnectionClosed;
 		GameSocketConnector.Instance.ConnectionFailed -= Instance_ConnectionFailed;
-		GameSocketConnector.Instance.ConnectionStarted -= Instance_ConnectionStarted;
 		GameSocketConnector.Instance.RoomDeleted -= Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
+		GameSocketConnector.Instance.ChooseFirstPlayerToPlay -= Instance_ChooseFirstPlayerToPlay;
+		GameSocketConnector.Instance.FirstPlayerDecided -= FirstPlayerDecided;
 
 		base._ExitTree();
 	}
@@ -38,9 +40,10 @@ public partial class GameView : HBoxContainer
 
 		GameSocketConnector.Instance.ConnectionClosed += Instance_ConnectionClosed;
 		GameSocketConnector.Instance.ConnectionFailed += Instance_ConnectionFailed;
-		GameSocketConnector.Instance.ConnectionStarted += Instance_ConnectionStarted;
 		GameSocketConnector.Instance.RoomDeleted += Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
+        GameSocketConnector.Instance.ChooseFirstPlayerToPlay += Instance_ChooseFirstPlayerToPlay;
+		GameSocketConnector.Instance.FirstPlayerDecided += FirstPlayerDecided;
 
 		PrepareGame();
 	}
@@ -64,7 +67,7 @@ public partial class GameView : HBoxContainer
 				if (room != null)
 				{
 					OPSWindow.Close();
-					InitConnection();
+					InitConnection(room);
 				} else
 				{
 					ShowPopup("ROOMS_NOT_CONNECTED", () => Quit());
@@ -77,10 +80,43 @@ public partial class GameView : HBoxContainer
 		});
 	}
 
-	private void InitConnection()
+	private void InitConnection(Room room)
 	{
 		OPSWindow.Close();
 		RPSWindow.PopupCentered();
+
+		Gameboard.OpponentArea.UserId = room.GetOpponent(GameSocketConnector.Instance.UserId).Id;
+		Gameboard.PlayerArea.UserId = GameSocketConnector.Instance.UserId;
+	}
+
+	private async void Instance_ChooseFirstPlayerToPlay(object sender, EventArgs e)
+	{
+		RPSWindow.Hide();
+
+		var result = await OPSWindow.Ask(Tr("GAME_CHOOSE_FIRST"));
+		if (result)
+        {
+			await GameSocketConnector.Instance.SetFirstPlayerToPlay(Gameboard.PlayerArea.UserId);
+        } else
+		{
+			await GameSocketConnector.Instance.SetFirstPlayerToPlay(Gameboard.OpponentArea.UserId);
+		}
+	}
+
+	private void FirstPlayerDecided(object sender, Guid firstPlayer)
+	{
+		RPSWindow.Hide();
+
+		Gameboard.PlayerArea.FirstToPlay = firstPlayer == GameSocketConnector.Instance.UserId;
+		Gameboard.OpponentArea.FirstToPlay = !Gameboard.PlayerArea.FirstToPlay;
+
+		if (Gameboard.PlayerArea.FirstToPlay)
+        {
+			OPSWindow.Show(Tr("GAME_FIRST_TO_PLAY"), () => OPSWindow.Close());
+        } else
+		{
+			OPSWindow.Show(Tr("GAME_SECOND_TO_PLAY"), () => OPSWindow.Close());
+		}
 	}
 
 	#region Connection Events
@@ -99,18 +135,6 @@ public partial class GameView : HBoxContainer
 		{
 			Quit();
 		});
-	}
-
-	private void Instance_ConnectionStarted()
-	{
-		try
-		{
-			InitConnection();
-		}
-		catch (Exception ex)
-		{
-			Log.Error(ex, ex.Message);
-		}
 	}
 
 	private void Instance_RoomDeleted(object sender, EventArgs e)

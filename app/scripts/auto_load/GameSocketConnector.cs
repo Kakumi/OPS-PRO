@@ -42,7 +42,11 @@ public partial class GameSocketConnector : Node
 
     public event EventHandler GameLaunched;
 
-    public event EventHandler<Dictionary<Guid, RockPaperScissors>> RPSExecuted;
+    public event EventHandler<RockPaperScissorsResult> RPSExecuted;
+
+    public event EventHandler ChooseFirstPlayerToPlay;
+
+    public event EventHandler<Guid> FirstPlayerDecided;
 
     public override void _Ready()
 	{
@@ -84,9 +88,19 @@ public partial class GameSocketConnector : Node
             GameLaunched?.Invoke(this, new EventArgs());
         });
 
-        _connection.On<Dictionary<Guid, RockPaperScissors>>(nameof(IGameHubEvent.RPSExecuted), (rps) =>
+        _connection.On<RockPaperScissorsResult>(nameof(IGameHubEvent.RPSExecuted), (rps) =>
         {
             RPSExecuted?.Invoke(this, rps);
+        });
+
+        _connection.On(nameof(IGameHubEvent.ChooseFirstPlayerToPlay), () =>
+        {
+            ChooseFirstPlayerToPlay?.Invoke(this, new EventArgs());
+        });
+
+        _connection.On<Guid>(nameof(IGameHubEvent.FirstPlayerDecided), (guid) =>
+        {
+            FirstPlayerDecided?.Invoke(this, guid);
         });
     }
 
@@ -210,5 +224,11 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("User {UserId} set rock paper scissors to rps {Rps}", UserId, rps);
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.SetRockPaperScissors), UserId, rps);
+    }
+
+    public async Task<bool> SetFirstPlayerToPlay(Guid playerId)
+    {
+        Log.Information("User {UserId} set first player to play to {PlayerId}", UserId, playerId);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.SetFirstPlayer), UserId, playerId);
     }
 }

@@ -8,6 +8,8 @@ public partial class PlayerArea : VBoxContainer
 	[Export]
 	public NodePath GameboardPath { get; set; }
 
+	public Guid UserId { get; set; }
+
 	public Playmat Playmat { get; private set; }
 	public HandContainer Hand { get; private set; }
 	public GamePlayerInfo PlayerInfo { get; private set; }
