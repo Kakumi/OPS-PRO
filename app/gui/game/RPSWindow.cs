@@ -16,7 +16,6 @@ public partial class RPSWindow : Window
     public Label Status { get; private set; }
     public RPSButtons RPS { get; private set; }
     public Timer Timer { get; private set; }
-    public Timer CloseTimer { get; private set; }
 
     public override void _ExitTree()
     {
@@ -39,7 +38,6 @@ public partial class RPSWindow : Window
         RPS = GetNode<RPSButtons>("PanelContainer/MarginContainer/VBoxContainer/Down/My/RPSButtons");
 
         Timer = GetNode<Timer>("Timer");
-        CloseTimer = GetNode<Timer>("CloseTimer");
     }
 
     public void OnVisibilityChanged()
@@ -84,11 +82,6 @@ public partial class RPSWindow : Window
             Log.Error(ex, ex.Message);
             Status.Text = string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message);
         }
-    }
-
-    private void OnCloseTimeout()
-    {
-        Hide();
     }
 
 

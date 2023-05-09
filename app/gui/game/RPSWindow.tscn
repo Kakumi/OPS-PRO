@@ -14,10 +14,6 @@ RandomAfter = 30
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="CloseTimer" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,5 +64,4 @@ size_flags_vertical = 3
 
 [connection signal="visibility_changed" from="." to="." method="OnVisibilityChanged"]
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
-[connection signal="timeout" from="CloseTimer" to="." method="OnCloseTimeout"]
 [connection signal="ClickRPS" from="PanelContainer/MarginContainer/VBoxContainer/Down/My/RPSButtons" to="." method="OnClickRPS"]
