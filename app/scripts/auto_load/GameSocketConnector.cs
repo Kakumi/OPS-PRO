@@ -16,6 +16,7 @@ public partial class GameSocketConnector : Node
 
     public Guid UserId { get; private set; }
     public string Username { get; private set; }
+    public DeckResource DeckResource { get; internal set; }
 
     public bool Connected
     {

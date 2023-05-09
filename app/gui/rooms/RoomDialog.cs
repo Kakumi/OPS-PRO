@@ -177,8 +177,13 @@ public partial class RoomDialog : Window
 		UpdateMessage(null);
 		var deckName = DeckOptions.GetItemText(index);
 		var deck = _decks.FirstOrDefault(x => x.Name == deckName);
+		var valid = deck != null && deck.IsValid();
+		if (valid)
+		{
+			GameSocketConnector.Instance.DeckResource = deck;
+		}
 
-		ReadyButton.Disabled = deck == null || !deck.IsValid();
+		ReadyButton.Disabled = !valid;
 	}
 
 	private void UpdateMessage(string text, string color = "red")
