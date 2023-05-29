@@ -48,6 +48,7 @@ public partial class GameSocketConnector : Node
     public event EventHandler ChooseFirstPlayerToPlay;
 
     public event EventHandler<Guid> FirstPlayerDecided;
+    public event EventHandler<PlaymatSync> BoardSyncReceived;
 
     public override void _Ready()
 	{
@@ -102,6 +103,11 @@ public partial class GameSocketConnector : Node
         _connection.On<Guid>(nameof(IGameHubEvent.FirstPlayerDecided), (guid) =>
         {
             FirstPlayerDecided?.Invoke(this, guid);
+        });
+
+        _connection.On<PlaymatSync>(nameof(IGameHubEvent.SyncBoard), (playmatSync) =>
+        {
+            BoardSyncReceived?.Invoke(this, playmatSync);
         });
     }
 
@@ -231,5 +237,11 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("User {UserId} set first player to play to {PlayerId}", UserId, playerId);
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.SetFirstPlayer), UserId, playerId);
+    }
+
+    public async Task<bool> SyncBoard(PlaymatSync playmatSync)
+    {
+        Log.Information("User {UserId} send sync board", UserId, playmatSync);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.SyncBoard), UserId, playmatSync);
     }
 }

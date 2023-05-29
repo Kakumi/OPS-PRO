@@ -27,11 +27,12 @@ public partial class GameView : HBoxContainer
 		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
 		GameSocketConnector.Instance.ChooseFirstPlayerToPlay -= Instance_ChooseFirstPlayerToPlay;
 		GameSocketConnector.Instance.FirstPlayerDecided -= FirstPlayerDecided;
+		GameSocketConnector.Instance.BoardSyncReceived -= BoardSyncReceived;
 
 		base._ExitTree();
 	}
 
-	public override void _Ready()
+    public override void _Ready()
 	{
 		Gameboard = GetNode<Gameboard>("VBoxContainer/Gameboard");
 		CardInfoPanel = GetNode<CardInfoPanel>("CardInfoPanel");
@@ -44,6 +45,7 @@ public partial class GameView : HBoxContainer
 		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
         GameSocketConnector.Instance.ChooseFirstPlayerToPlay += Instance_ChooseFirstPlayerToPlay;
 		GameSocketConnector.Instance.FirstPlayerDecided += FirstPlayerDecided;
+		GameSocketConnector.Instance.BoardSyncReceived += BoardSyncReceived;
 
 		PrepareGame();
 	}
@@ -80,6 +82,27 @@ public partial class GameView : HBoxContainer
 		});
 	}
 
+	private void BoardSyncReceived(object sender, PlaymatSync e)
+	{
+		if (e.UserId != GameSocketConnector.Instance.UserId)
+        {
+			Gameboard.OpponentArea.Playmat.LeaderSlotCard.Guid = e.Leader;
+			Gameboard.OpponentArea.Playmat.LifeSlotCard.Guid = e.Life;
+			Gameboard.OpponentArea.Playmat.DeckSlotCard.Guid = e.Deck;
+			Gameboard.OpponentArea.Playmat.StageSlotCard.Guid = e.Stage;
+			Gameboard.OpponentArea.Playmat.TrashSlotCard.Guid = e.Trash;
+			Gameboard.OpponentArea.Playmat.CostSlotCard.Guid = e.Cost;
+			Gameboard.OpponentArea.Playmat.DonDeckSlotCard.Guid = e.DonDeck;
+			for (int i = 0; i < e.Characters.Count; i++)
+			{
+				if (i < Gameboard.OpponentArea.Playmat.CharactersSlots.Count)
+				{
+					Gameboard.OpponentArea.Playmat.CharactersSlots[i].Guid = e.Characters[i];
+				}
+			}
+		}
+	}
+
 	private void InitConnection(Room room)
 	{
 		OPSWindow.Close();
@@ -91,31 +114,50 @@ public partial class GameView : HBoxContainer
 
 	private async void Instance_ChooseFirstPlayerToPlay(object sender, EventArgs e)
 	{
-		RPSWindow.Hide();
-
-		var result = await OPSWindow.Ask(Tr("GAME_CHOOSE_FIRST"));
-		if (result)
-        {
-			await GameSocketConnector.Instance.SetFirstPlayerToPlay(Gameboard.PlayerArea.UserId);
-        } else
+		try
 		{
-			await GameSocketConnector.Instance.SetFirstPlayerToPlay(Gameboard.OpponentArea.UserId);
+			RPSWindow.Hide();
+
+			var result = await OPSWindow.Ask(Tr("GAME_CHOOSE_FIRST"));
+			if (result)
+			{
+				await GameSocketConnector.Instance.SetFirstPlayerToPlay(Gameboard.PlayerArea.UserId);
+			}
+			else
+			{
+				await GameSocketConnector.Instance.SetFirstPlayerToPlay(Gameboard.OpponentArea.UserId);
+			}
+		}
+		catch (Exception ex)
+		{
+			Log.Error(ex, ex.Message);
+			ShowPopup(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), () => OPSWindow.Close());
 		}
 	}
 
 	private void FirstPlayerDecided(object sender, Guid firstPlayer)
 	{
-		RPSWindow.Hide();
-
-		Gameboard.PlayerArea.FirstToPlay = firstPlayer == GameSocketConnector.Instance.UserId;
-		Gameboard.OpponentArea.FirstToPlay = !Gameboard.PlayerArea.FirstToPlay;
-
-		if (Gameboard.PlayerArea.FirstToPlay)
+		try
         {
-			OPSWindow.Show(Tr("GAME_FIRST_TO_PLAY"), () => OPSWindow.Close());
-        } else
+			RPSWindow.Hide();
+
+			Gameboard.PlayerArea.FirstToPlay = firstPlayer == GameSocketConnector.Instance.UserId;
+			Gameboard.OpponentArea.FirstToPlay = !Gameboard.PlayerArea.FirstToPlay;
+
+			if (Gameboard.PlayerArea.FirstToPlay)
+			{
+				ShowPopup(Tr("GAME_FIRST_TO_PLAY"), () => OPSWindow.Close());
+			}
+			else
+			{
+				ShowPopup(Tr("GAME_SECOND_TO_PLAY"), () => OPSWindow.Close());
+			}
+
+			Gameboard.PrepareGameboard(firstPlayer == GameSocketConnector.Instance.UserId);
+		} catch(Exception ex)
 		{
-			OPSWindow.Show(Tr("GAME_SECOND_TO_PLAY"), () => OPSWindow.Close());
+			Log.Error(ex, ex.Message);
+			ShowPopup(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), () => OPSWindow.Close());
 		}
 	}
 

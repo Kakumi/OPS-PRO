@@ -10,6 +10,8 @@ public enum CardSelectorSource
     DonDeck,
     CostDeck,
     Board,
+    Character,
+    Leader,
     OpponentHand,
     OpponentDeck,
     OpponentTrash,
@@ -17,4 +19,6 @@ public enum CardSelectorSource
     OpponentDonDeck,
     OpponentCostDeck,
     OpponentBoard,
+    OpponentCharacter,
+    OpponentLeader,
 }

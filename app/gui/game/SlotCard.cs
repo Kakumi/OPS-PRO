@@ -20,7 +20,7 @@ public partial class SlotCard : TextureRect
         }
     }
 
-	public Guid Guid { get; private set; }
+	public Guid Guid { get; internal set; }
 	public Card Card { get; private set; }
 	public bool Selected { get; private set; }
 	public MenuButton Options { get; private set; }

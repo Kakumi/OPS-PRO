@@ -33,17 +33,6 @@ public partial class Gameboard : VBoxContainer
 		NextPhaseButton = GetNode<Button>("ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/NextPhaseButton");
 
 		TurnCounter = 0;
-
-		#region Test
-
-		var deck = DeckManager.Instance.LoadDecks().Where(x => x.IsValid()).First();
-		PlayerArea.Playmat.Init(deck);
-		OpponentArea.FirstToPlay = false;
-		await PlayerArea.UpdatePhase(new OpponentPhase());
-		PlayerArea.FirstToPlay = true;
-		await PlayerArea.UpdatePhase(new DrawPhase());
-
-		#endregion
 	}
 
 	private void MyPlaymat_GameFinished(bool victory)
@@ -140,4 +129,33 @@ public partial class Gameboard : VBoxContainer
     {
 		TurnCounter++;
     }
+
+	public void PrepareGameboard(bool isFirst)
+    {
+		Task.Run(async () =>
+		{
+			try
+			{
+				//TODO Synchroniser la main
+				//TODO Synchroniser le board (les ids sont déjà fait)
+				//TODO Synchroniser les infos du terrain (nombre de vie, ...)
+
+				await PlayerArea.Playmat.SyncPlaymat();
+				PlayerArea.Playmat.Init(GameSocketConnector.Instance.DeckResource);
+
+				if (isFirst)
+				{
+					await PlayerArea.UpdatePhase(new DrawPhase());
+				}
+				else
+				{
+					await PlayerArea.UpdatePhase(new OpponentPhase());
+				}
+			} catch(Exception ex)
+            {
+				Log.Error(ex, ex.Message);
+				GameView.ShowPopup(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), () => GameView.OPSWindow.Close());
+            }
+		});
+	}
 }

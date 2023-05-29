@@ -1,9 +1,11 @@
 using Godot;
 using Godot.Collections;
+using OPSProServer.Contracts.Contracts;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class Playmat : PanelContainer
 {
@@ -187,6 +189,24 @@ public partial class Playmat : PanelContainer
 		{
 			AddLifeCard(x);
 		});
+	}
+
+	public async Task<bool> SyncPlaymat()
+    {
+		var playmatSync = new PlaymatSync()
+		{
+			UserId = GameSocketConnector.Instance.UserId,
+			Leader = LeaderSlotCard.Guid,
+			Life = LifeSlotCard.Guid,
+			Deck = DeckSlotCard.Guid,
+			Stage = StageSlotCard.Guid,
+			Trash = TrashSlotCard.Guid,
+			Cost = CostSlotCard.Guid,
+			DonDeck = DonDeckSlotCard.Guid,
+			Characters = CharactersSlots.Select(x => x.Guid).ToList()
+		};
+
+		return await GameSocketConnector.Instance.SyncBoard(playmatSync);
 	}
 
 	public void AddDeckCard(CardResource cardResource)

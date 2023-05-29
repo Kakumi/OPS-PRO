@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkvbntgj7a8ub"]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://app/gui/game/Gameboard.cs" id="1_sv63v"]
 [ext_resource type="PackedScene" uid="uid://bnounn1418bsl" path="res://app/gui/game/SlotCardSelector.tscn" id="3_h6wij"]
