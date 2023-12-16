@@ -77,4 +77,22 @@ public partial class PlayerArea : VBoxContainer
 		Playmat.CostSlotCard.CardActionUpdated(phase);
 		Playmat.CharactersSlots.ForEach(x => x.CardActionUpdated(phase));
 	}
+
+	//public PlayerAreaDetails GetPlayerAreaDetails()
+	//{
+	//	return new PlayerAreaDetails()
+	//	{
+	//		Username = GameSocketConnector.Instance.Username,
+	//		DeckName = GameSocketConnector.Instance.DeckResource.Name,
+	//		FirstToPlay = FirstToPlay,
+	//		Turn = Gameboard.TurnCounter,
+	//		CurrentPhase = CurrentPhase.GetType().ToString(),
+	//		//LifeAmount = Playmat._lifes.Count,
+	//		//DeckAmount = _deck.Count,
+	//		//TrashAmount = _trash.Count,
+	//		DonDeckAmount = Playmat.CardsDonDeck,
+	//		CostDeckAmount = Playmat.CardsCostDeck,
+	//		RestedCostDeckAmount = Playmat.CardsRestedCostDeck,
+	//	};
+	//}
 }

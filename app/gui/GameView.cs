@@ -1,5 +1,5 @@
 using Godot;
-using OPSProServer.Contracts.Contracts;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Threading.Tasks;
@@ -27,7 +27,7 @@ public partial class GameView : HBoxContainer
 		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
 		GameSocketConnector.Instance.ChooseFirstPlayerToPlay -= Instance_ChooseFirstPlayerToPlay;
 		GameSocketConnector.Instance.FirstPlayerDecided -= FirstPlayerDecided;
-		GameSocketConnector.Instance.BoardSyncReceived -= BoardSyncReceived;
+		GameSocketConnector.Instance.BoardUpdated -= BoardUpdated;
 
 		base._ExitTree();
 	}
@@ -45,7 +45,7 @@ public partial class GameView : HBoxContainer
 		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
         GameSocketConnector.Instance.ChooseFirstPlayerToPlay += Instance_ChooseFirstPlayerToPlay;
 		GameSocketConnector.Instance.FirstPlayerDecided += FirstPlayerDecided;
-		GameSocketConnector.Instance.BoardSyncReceived += BoardSyncReceived;
+		GameSocketConnector.Instance.BoardUpdated += BoardUpdated;
 
 		PrepareGame();
 	}
@@ -82,25 +82,25 @@ public partial class GameView : HBoxContainer
 		});
 	}
 
-	private void BoardSyncReceived(object sender, PlaymatSync e)
+	private void BoardUpdated(object sender, Game game)
 	{
-		if (e.UserId != GameSocketConnector.Instance.UserId)
-        {
-			Gameboard.OpponentArea.Playmat.LeaderSlotCard.Guid = e.Leader;
-			Gameboard.OpponentArea.Playmat.LifeSlotCard.Guid = e.Life;
-			Gameboard.OpponentArea.Playmat.DeckSlotCard.Guid = e.Deck;
-			Gameboard.OpponentArea.Playmat.StageSlotCard.Guid = e.Stage;
-			Gameboard.OpponentArea.Playmat.TrashSlotCard.Guid = e.Trash;
-			Gameboard.OpponentArea.Playmat.CostSlotCard.Guid = e.Cost;
-			Gameboard.OpponentArea.Playmat.DonDeckSlotCard.Guid = e.DonDeck;
-			for (int i = 0; i < e.Characters.Count; i++)
-			{
-				if (i < Gameboard.OpponentArea.Playmat.CharactersSlots.Count)
-				{
-					Gameboard.OpponentArea.Playmat.CharactersSlots[i].Guid = e.Characters[i];
-				}
-			}
-		}
+		//if (e.UserId != GameSocketConnector.Instance.UserId)
+        //{
+		//	Gameboard.OpponentArea.Playmat.LeaderSlotCard.Guid = e.Leader;
+		//	Gameboard.OpponentArea.Playmat.LifeSlotCard.Guid = e.Life;
+		//	Gameboard.OpponentArea.Playmat.DeckSlotCard.Guid = e.Deck;
+		//	Gameboard.OpponentArea.Playmat.StageSlotCard.Guid = e.Stage;
+		//	Gameboard.OpponentArea.Playmat.TrashSlotCard.Guid = e.Trash;
+		//	Gameboard.OpponentArea.Playmat.CostSlotCard.Guid = e.Cost;
+		//	Gameboard.OpponentArea.Playmat.DonDeckSlotCard.Guid = e.DonDeck;
+		//	for (int i = 0; i < e.Characters.Count; i++)
+		//	{
+		//		if (i < Gameboard.OpponentArea.Playmat.CharactersSlots.Count)
+		//		{
+		//			Gameboard.OpponentArea.Playmat.CharactersSlots[i].Guid = e.Characters[i];
+		//		}
+		//	}
+		//}
 	}
 
 	private void InitConnection(Room room)

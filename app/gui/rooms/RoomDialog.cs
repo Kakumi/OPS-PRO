@@ -1,5 +1,5 @@
 using Godot;
-using OPSProServer.Contracts.Contracts;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -77,13 +77,13 @@ public partial class RoomDialog : Window
     private void UpdateMenu()
     {
 		CreatorLabel.Text = Room.Creator.Username;
-		CreatorCheckbox.ButtonPressed = Room.CreatorReady;
+		CreatorCheckbox.ButtonPressed = Room.Creator.Ready;
 
 		OpponentLabel.Text = Room.Opponent?.Username;
-		OpponentCheckbox.ButtonPressed = Room.OpponentReady;
+		OpponentCheckbox.ButtonPressed = Room.Opponent?.Ready ?? false;
 		OpponentExcludeButton.Visible = Room.Creator.Id == GameSocketConnector.Instance.UserId;
 		StartButton.Visible = OpponentExcludeButton.Visible;
-		StartButton.Disabled = !Room.CreatorReady || !Room.OpponentReady;
+		StartButton.Disabled = !Room.Creator.Ready || (!Room.Opponent?.Ready ?? true);
 
 		OpponentInfo.Visible = Room.Opponent != null;
 		OpponentInfoEmpty.Visible = !OpponentInfo.Visible;
@@ -93,10 +93,10 @@ public partial class RoomDialog : Window
     {
 		if (Room.Creator.Id == GameSocketConnector.Instance.UserId)
         {
-			return Room.CreatorReady;
+			return Room.Creator.Ready;
         }
 
-		return Room.OpponentReady;
+		return Room.Opponent?.Ready ?? false;
     }
 
     private void OnCloseRequested()

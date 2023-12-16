@@ -1,6 +1,5 @@
 using Godot;
 using Godot.Collections;
-using OPSProServer.Contracts.Contracts;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -21,7 +20,7 @@ public partial class Playmat : PanelContainer
 	public int CardsDonDeck
     {
 		get => _cardsDonDeck;
-		set
+		internal set
         {
 			_cardsDonDeck = value;
 			UpdateDonText();
@@ -31,7 +30,7 @@ public partial class Playmat : PanelContainer
 	public int CardsCostDeck
 	{
 		get => _cardsCostDeck;
-		set
+		internal set
 		{
 			_cardsCostDeck = value;
 			UpdateDonText();
@@ -41,7 +40,7 @@ public partial class Playmat : PanelContainer
 	public int CardsRestedCostDeck
 	{
 		get => _cardsRestedCostDeck;
-		set
+		internal set
 		{
 			_cardsRestedCostDeck = value;
 			UpdateDonText();
@@ -191,23 +190,23 @@ public partial class Playmat : PanelContainer
 		});
 	}
 
-	public async Task<bool> SyncPlaymat()
-    {
-		var playmatSync = new PlaymatSync()
-		{
-			UserId = GameSocketConnector.Instance.UserId,
-			Leader = LeaderSlotCard.Guid,
-			Life = LifeSlotCard.Guid,
-			Deck = DeckSlotCard.Guid,
-			Stage = StageSlotCard.Guid,
-			Trash = TrashSlotCard.Guid,
-			Cost = CostSlotCard.Guid,
-			DonDeck = DonDeckSlotCard.Guid,
-			Characters = CharactersSlots.Select(x => x.Guid).ToList()
-		};
+	//public async Task<bool> SyncPlaymat()
+    //{
+		//var playmatSync = new PlaymatSync()
+		//{
+		//	UserId = GameSocketConnector.Instance.UserId,
+		//	Leader = LeaderSlotCard.Guid,
+		//	Life = LifeSlotCard.Guid,
+		//	Deck = DeckSlotCard.Guid,
+		//	Stage = StageSlotCard.Guid,
+		//	Trash = TrashSlotCard.Guid,
+		//	Cost = CostSlotCard.Guid,
+		//	DonDeck = DonDeckSlotCard.Guid,
+		//	Characters = CharactersSlots.Select(x => x.Guid).ToList()
+		//};
 
-		return await GameSocketConnector.Instance.SyncBoard(playmatSync);
-	}
+		//return await GameSocketConnector.Instance.SyncBoard(playmatSync);
+	//}
 
 	public void AddDeckCard(CardResource cardResource)
     {

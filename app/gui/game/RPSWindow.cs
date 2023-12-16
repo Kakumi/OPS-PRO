@@ -1,9 +1,9 @@
 using Godot;
-using OPSProServer.Contracts.Contracts;
 using Serilog;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using OPSProServer.Contracts.Models;
 
 public partial class RPSWindow : Window
 {
@@ -56,7 +56,7 @@ public partial class RPSWindow : Window
         UpdateRandomButton();
     }
 
-    private void RPSExecuted(object sender, RockPaperScissorsResult result)
+    private void RPSExecuted(object sender, RPSResult result)
     {
         try
         {
@@ -93,7 +93,7 @@ public partial class RPSWindow : Window
 			RPS.SetDisabled(true);
             RPS.RandomButton.Text = Tr("GAME_RPS_RANDOM");
 
-            var rps = (RockPaperScissors) id;
+            var rps = (RPSChoice) id;
             Status.Text = string.Format(Tr("GAME_RPS_SELECTED"), Tr(rps.GetTrKey()).ToLower());
             var success = await GameSocketConnector.Instance.SetRockPaperScissors(rps);
 			if (!success)

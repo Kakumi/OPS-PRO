@@ -140,7 +140,7 @@ public partial class Gameboard : VBoxContainer
 				//TODO Synchroniser le board (les ids sont déjà fait)
 				//TODO Synchroniser les infos du terrain (nombre de vie, ...)
 
-				await PlayerArea.Playmat.SyncPlaymat();
+				//await PlayerArea.Playmat.SyncPlaymat();
 				PlayerArea.Playmat.Init(GameSocketConnector.Instance.DeckResource);
 
 				if (isFirst)

@@ -1,5 +1,5 @@
 using Godot;
-using OPSProServer.Contracts.Contracts;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Threading.Tasks;

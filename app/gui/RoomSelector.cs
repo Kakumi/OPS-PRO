@@ -1,10 +1,10 @@
 using Godot;
-using OPSProServer.Contracts.Contracts;
 using Serilog;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using OPSProServer.Contracts.Models;
 
 public partial class RoomSelector : VBoxContainer
 {
@@ -31,7 +31,7 @@ public partial class RoomSelector : VBoxContainer
 		GameSocketConnector.Instance.RoomDeleted -= Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated -= Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
-		GameSocketConnector.Instance.GameLaunched -= Instance_GameLaunched;
+		GameSocketConnector.Instance.GameStarted -= Instance_GameLaunched;
 
 		base._ExitTree();
 	}
@@ -54,7 +54,7 @@ public partial class RoomSelector : VBoxContainer
 		GameSocketConnector.Instance.RoomDeleted += Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated += Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
-		GameSocketConnector.Instance.GameLaunched += Instance_GameLaunched;
+		GameSocketConnector.Instance.GameStarted += Instance_GameLaunched;
 
 		UpdateUsername();
 
@@ -133,7 +133,7 @@ public partial class RoomSelector : VBoxContainer
 		});
 	}
 
-	private void Instance_GameLaunched(object sender, EventArgs e)
+	private void Instance_GameLaunched(object sender, Guid userToStart)
 	{
 		try
         {

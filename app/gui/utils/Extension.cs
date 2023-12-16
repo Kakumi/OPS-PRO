@@ -1,5 +1,5 @@
 using Godot;
-using OPSProServer.Contracts.Contracts;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using Serilog.Configuration;
 using System;
@@ -205,13 +205,13 @@ public static class Extension
         return "none";
     }
 
-    public static string GetTrKey(this RockPaperScissors rps)
+    public static string GetTrKey(this RPSChoice rps)
     {
         switch (rps)
         {
-            case RockPaperScissors.Rock: return "GAME_RPS_ROCK";
-            case RockPaperScissors.Paper: return "GAME_RPS_PAPER";
-            case RockPaperScissors.Scissors: return "GAME_RPS_SCISSORS";
+            case RPSChoice.Rock: return "GAME_RPS_ROCK";
+            case RPSChoice.Paper: return "GAME_RPS_PAPER";
+            case RPSChoice.Scissors: return "GAME_RPS_SCISSORS";
         }
 
         return "none";

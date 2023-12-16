@@ -1,8 +1,8 @@
 using Godot;
 using Microsoft.AspNetCore.SignalR.Client;
-using OPSProServer.Contracts.Contracts;
 using OPSProServer.Contracts.Events;
 using OPSProServer.Contracts.Hubs;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -41,14 +41,14 @@ public partial class GameSocketConnector : Node
 
     public event EventHandler RoomExcluded;
 
-    public event EventHandler GameLaunched;
+    public event EventHandler<Guid> GameStarted;
 
-    public event EventHandler<RockPaperScissorsResult> RPSExecuted;
+    public event EventHandler<RPSResult> RPSExecuted;
 
     public event EventHandler ChooseFirstPlayerToPlay;
 
     public event EventHandler<Guid> FirstPlayerDecided;
-    public event EventHandler<PlaymatSync> BoardSyncReceived;
+    public event EventHandler<Game> BoardUpdated;
 
     public override void _Ready()
 	{
@@ -85,12 +85,12 @@ public partial class GameSocketConnector : Node
             RoomExcluded?.Invoke(this, new EventArgs());
         });
 
-        _connection.On(nameof(IGameHubEvent.GameLaunched), () =>
+        _connection.On<Guid>(nameof(IGameHubEvent.GameStarted), (userToStart) =>
         {
-            GameLaunched?.Invoke(this, new EventArgs());
+            GameStarted?.Invoke(this, userToStart);
         });
 
-        _connection.On<RockPaperScissorsResult>(nameof(IGameHubEvent.RPSExecuted), (rps) =>
+        _connection.On<RPSResult>(nameof(IGameHubEvent.RPSExecuted), (rps) =>
         {
             RPSExecuted?.Invoke(this, rps);
         });
@@ -100,14 +100,9 @@ public partial class GameSocketConnector : Node
             ChooseFirstPlayerToPlay?.Invoke(this, new EventArgs());
         });
 
-        _connection.On<Guid>(nameof(IGameHubEvent.FirstPlayerDecided), (guid) =>
+        _connection.On<Game>(nameof(IGameHubEvent.BoardUpdated), (game) =>
         {
-            FirstPlayerDecided?.Invoke(this, guid);
-        });
-
-        _connection.On<PlaymatSync>(nameof(IGameHubEvent.SyncBoard), (playmatSync) =>
-        {
-            BoardSyncReceived?.Invoke(this, playmatSync);
+            BoardUpdated?.Invoke(this, game);
         });
     }
 
@@ -227,7 +222,7 @@ public partial class GameSocketConnector : Node
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.LaunchGame), roomId);
     }
 
-    public async Task<bool> SetRockPaperScissors(RockPaperScissors rps)
+    public async Task<bool> SetRockPaperScissors(RPSChoice rps)
     {
         Log.Information("User {UserId} set rock paper scissors to rps {Rps}", UserId, rps);
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.SetRockPaperScissors), UserId, rps);
@@ -236,12 +231,12 @@ public partial class GameSocketConnector : Node
     public async Task<bool> SetFirstPlayerToPlay(Guid playerId)
     {
         Log.Information("User {UserId} set first player to play to {PlayerId}", UserId, playerId);
-        return await _connection.InvokeAsync<bool>(nameof(IGameHub.SetFirstPlayer), UserId, playerId);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.LaunchGame), UserId, playerId);
     }
 
-    public async Task<bool> SyncBoard(PlaymatSync playmatSync)
-    {
-        Log.Information("User {UserId} send sync board", UserId, playmatSync);
-        return await _connection.InvokeAsync<bool>(nameof(IGameHub.SyncBoard), UserId, playmatSync);
-    }
+    //public async Task<bool> SyncBoard(Game game)
+    //{
+    //    Log.Information("User {UserId} send sync board", UserId, playmatSync);
+    //    return await _connection.InvokeAsync<bool>(nameof(IGameHub.), UserId, playmatSync);
+    //}
 }
