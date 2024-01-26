@@ -12,8 +12,8 @@ public partial class RoomDialog : Window
 	public bool Cancellable { get; set; }
 
 	private List<DeckResource> _decks;
-	private Room _room;
-	public Room Room
+	private SecureRoom _room;
+	public SecureRoom Room
     {
 		get => _room;
 		set

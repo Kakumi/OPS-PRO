@@ -1,5 +1,6 @@
 using Godot;
 using Newtonsoft.Json;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -259,7 +260,7 @@ public partial class CardManager : Node
 
     public Texture2D GetBackTexture(CardResource cardResource)
     {
-        if (cardResource.CardTypeList == CardTypeList.LEADER)
+        if (cardResource.CardCategory == CardCategory.LEADER)
         {
             return LeaderTexture;
         }
@@ -267,9 +268,9 @@ public partial class CardManager : Node
         return CardTexture;
     }
 
-    public Texture2D GetBackTexture(CardTypeList cardTypeList)
+    public Texture2D GetBackTexture(CardCategory CardCategory)
     {
-        if (cardTypeList == CardTypeList.LEADER)
+        if (CardCategory == CardCategory.LEADER)
         {
             return LeaderTexture;
         }

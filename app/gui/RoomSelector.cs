@@ -11,7 +11,7 @@ public partial class RoomSelector : VBoxContainer
 	[Export]
 	public PackedScene RoomInfoScene { get; set; }
 
-	private IReadOnlyList<Room> _rooms;
+	private IReadOnlyList<SecureRoom> _rooms;
 
 	public Label PlayerLabel { get; private set; }
 	public CheckBox ShowPasswords { get; private set; }
@@ -146,7 +146,7 @@ public partial class RoomSelector : VBoxContainer
         }
 	}
 
-	private void Instance_RoomUpdated(object sender, Room e)
+	private void Instance_RoomUpdated(object sender, SecureRoom e)
 	{
 		OPSWindow.Hide();
 		CreateRoomDialog.Hide();

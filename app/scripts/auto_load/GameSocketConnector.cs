@@ -35,7 +35,7 @@ public partial class GameSocketConnector : Node
     [Signal]
     public delegate void ConnectionFailedEventHandler();
 
-    public event EventHandler<Room> RoomUpdated;
+    public event EventHandler<SecureRoom> RoomUpdated;
 
     public event EventHandler RoomDeleted;
 
@@ -71,7 +71,7 @@ public partial class GameSocketConnector : Node
             return Task.CompletedTask;
         };
 
-        _connection.On<Room>(nameof(IRoomHubEvent.RoomUpdated), (room) =>
+        _connection.On<SecureRoom>(nameof(IRoomHubEvent.RoomUpdated), (room) =>
         {
             RoomUpdated?.Invoke(this, room);
         });
@@ -180,16 +180,16 @@ public partial class GameSocketConnector : Node
         return UserId;
     }
 
-    public async Task<List<Room>> GetRooms()
+    public async Task<List<SecureRoom>> GetRooms()
     {
         Log.Information($"Gettings Rooms");
-        return await _connection.InvokeAsync<List<Room>>(nameof(IRoomHub.GetRooms));
+        return await _connection.InvokeAsync<List<SecureRoom>>(nameof(IRoomHub.GetRooms));
     }
 
-    public async Task<Room> GetRoom()
+    public async Task<SecureRoom> GetRoom()
     {
         Log.Information("Getting Room for user {UserId}", UserId);
-        return await _connection.InvokeAsync<Room>(nameof(IRoomHub.GetRoom), UserId);
+        return await _connection.InvokeAsync<SecureRoom>(nameof(IRoomHub.GetRoom), UserId);
     }
 
     public async Task<bool> CreateRoom(string desc, string password)

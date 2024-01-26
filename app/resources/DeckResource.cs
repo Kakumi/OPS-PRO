@@ -40,9 +40,9 @@ public partial class DeckResource : Resource
 
     public int NumberOfCards => Cards.Sum(x => x.Value);
 
-    public int NumberOfCardsTypes(params CardTypeList[] types)
+    public int NumberOfCardsTypes(params CardCategory[] types)
     {
-        return Cards.Where(x => types.Contains(x.Key.CardTypeList)).Sum(x => x.Value);
+        return Cards.Where(x => types.Contains(x.Key.CardCategory)).Sum(x => x.Value);
     }
 
     public DeckResource Clone(string name)
@@ -55,9 +55,9 @@ public partial class DeckResource : Resource
 
     public bool IsValid()
     {
-        var totalCards = NumberOfCardsTypes(CardTypeList.CHARACTER, CardTypeList.EVENT, CardTypeList.STAGE);
-        var totalLeader = NumberOfCardsTypes(CardTypeList.LEADER);
-        var leader = Cards.FirstOrDefault(x => x.Key.CardTypeList == CardTypeList.LEADER).Key;
+        var totalCards = NumberOfCardsTypes(CardCategory.CHARACTER, CardCategory.EVENT, CardCategory.STAGE);
+        var totalLeader = NumberOfCardsTypes(CardCategory.LEADER);
+        var leader = Cards.FirstOrDefault(x => x.Key.CardCategory == CardCategory.LEADER).Key;
 
         return totalCards == 50 && totalLeader == 1 && leader != null && Cards.All(x => x.Key.Colors.Any(y => leader.Colors.Contains(y)));
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public partial class RoomInfo : VBoxContainer
 {
-	public Room Room { get; private set; }
+	public SecureRoom Room { get; private set; }
 
 	public Label Username { get; private set; }
 	public Label Description { get; private set; }
@@ -29,7 +29,7 @@ public partial class RoomInfo : VBoxContainer
 		PasswordDialog = GetNode<PasswordDialog>("PasswordDialog");
 	}
 
-	public void Init(Room room)
+	public void Init(SecureRoom room)
     {
 		Room = room;
 		Username.Text = room.Creator?.Username;

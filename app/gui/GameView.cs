@@ -14,6 +14,7 @@ public partial class GameView : HBoxContainer
 	public CardInfoPanel CardInfoPanel { get; private set; }
 	public OPSWindow OPSWindow { get; private set; }
 	public RPSWindow RPSWindow { get; private set; }
+	public Label Title { get; private set; }
 
 	public override void _ExitTree()
 	{
@@ -39,6 +40,7 @@ public partial class GameView : HBoxContainer
 		CardInfoPanel = GetNode<CardInfoPanel>("CardInfoPanel");
 		OPSWindow = GetNode<OPSWindow>("OPSWindow");
 		RPSWindow = GetNode<RPSWindow>("RPSWindow");
+        Title = GetNode<Label>("VBoxContainer/PanelContainer/Label");
 
 		GameSocketConnector.Instance.ConnectionClosed += Instance_ConnectionClosed;
 		GameSocketConnector.Instance.ConnectionFailed += Instance_ConnectionFailed;
@@ -110,9 +112,13 @@ public partial class GameView : HBoxContainer
 		var opponentGameInfo = game.GetOpponentPlayerInformation(GameSocketConnector.Instance.UserId);
 		UpdatePlayerBoard(Gameboard.PlayerArea, myGameInfo);
 		UpdatePlayerBoard(Gameboard.OpponentArea, opponentGameInfo);
+
+		Title.Text = string.Format(Tr("GAME_TITLE_VS"), game.CreatorGameInformation.Username, game.OpponentGameInformation.Username);
+        Gameboard.PlayerArea.PlayerInfo.Update(game, myGameInfo);
+        Gameboard.OpponentArea.PlayerInfo.Update(game, opponentGameInfo);
     }
 
-	private void InitConnection(Room room)
+	private void InitConnection(SecureRoom room)
 	{
 		OPSWindow.Close();
 		RPSWindow.PopupCentered();
@@ -161,8 +167,6 @@ public partial class GameView : HBoxContainer
 			{
 				ShowPopup(Tr("GAME_SECOND_TO_PLAY"), () => OPSWindow.Close());
 			}
-
-			//Gameboard.PrepareGameboard(firstPlayer == GameSocketConnector.Instance.UserId);
 		} catch(Exception ex)
 		{
 			Log.Error(ex, ex.Message);

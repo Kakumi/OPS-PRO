@@ -200,6 +200,18 @@ GAME_SOURCE_OPPONENT_LIFE,Life (Opponent),Vie (Adversaire)
 GAME_SOURCE_OPPONENT_DONDECK,DON!! deck (Opponent),Deck DON!! (Adversaire)
 GAME_SOURCE_OPPONENT_COSTDECK,Active DON!! card(s) (Opponent),Carte(s) DON!! active(s) (Adversaire)
 GAME_SOURCE_OPPONENT_BOARD,Board (Opponent),Plateau (Adversaire)
+PHASE_REFRESH_DESC,Refresh DON and character cards.,Rafraichissement des cartes DON et personnages.
+PHASE_DON_DESC,Draw cards DON!,Piochage des cartes DON!!
+PHASE_DRAW_DESC,Draw card from deck,Pioche d'une carte depuis le deck
+PHASE_MAIN_DESC,Main attack phase and use of DON cards!,Phase principale d'attaque et utilisation des cartes DON!!
+PHASE_END_DESC,End,Fin de tour
+PHASE_OPPONENT_DESC,Waiting for his turn...,En attente de son tour...
+PHASE_REFRESH,Refresh Phase,Rafraîchissement
+PHASE_DON,DON!! Phase,Pioche des cartes DON!!
+PHASE_DRAW,Draw Phase,Pioche
+PHASE_MAIN,Main Phase,Principal
+PHASE_END,End Phase,Fin de tour
+PHASE_OPPONENT,Waiting for his turn...,En attente de son tour...
 PHASE_REFRESH_GO_NEXT,Draw Phase,Phase de pioche
 PHASE_DRAW_GO_NEXT,Don!! Phase,Phase Don!!
 PHASE_DON_GO_NEXT,Main Phase,Main Phase
@@ -251,9 +263,22 @@ ROOMS_NOT_LAUNCHED,Unable to start the game.,Impossible de démarrer la partie.
 GAME_RPS_ROCK,Rock,Pierre
 GAME_RPS_PAPER,Paper,Papier
 GAME_RPS_SCISSORS,Scissors,Ciseaux
-GAME_RPS_RANDOM,Pick random ({0}),Choisir aléatoirement ({0})
+GAME_RPS_RANDOM,Pick random,Choisir aléatoirement
+GAME_RPS_SELECTION_OPPONENT_TIE,"Your opponent has chosen {0}. There is a tie, you can choose a new sign.","Votre adversaire a choisi {0}. Il y a égalité, vous pouvez choisir un nouveau signe."
+GAME_RPS_SELECTION_OPPONENT_WON,"Your opponent has chosen {0}. He wins, waiting for his choice to see who starts the game...","Votre adversaire a choisi {0}. Il gagne, en attente de son choix pour savoir qui commence la partie..."
+GAME_RPS_SELECTION_OPPONENT_LOSE,"Your opponent has chosen {0}. He loses, you must choose who starts the game.","Votre adversaire a choisi {0}. Il perd, vous devez choisir qui commence la partie."
 GAME_RPS_WAITING_OPPONENT,Waiting for an answer from your opponent...,En attente d'une réponse de votre adversaire...
-GAME_RPS_TITLE,Choose a sign to see who starts.,Choisissez un signe pour savoir qui commence.
+GAME_RPS_TITLE,Rock Paper Scissors,Pierre Papier Ciseaux
 GAME_RPS_SELECTED,You have chosen {0}.,Vous avez choisi {0}.
 GAME_RPS_WAITING_SELECTION,Please select a sign.,Veuillez choisir un signe.
 GAME_RPS_SELECTION_FAILED,"An error occurred, impossible to choose.","Une erreur est survenue, impossible de choisir."
+GAME_CHOOSE_FIRST,You won on rock paper scissors. Do you want to play first ?,Vous avez gagné au jeu de pierre-papier-ciseaux. Voulez-vous jouer en premier ?
+GAME_FIRST_TO_PLAY,You start first.,Vous commencez premier.
+GAME_SECOND_TO_PLAY,You are second.,Vous êtes deuxième.
+GAME_WAITING_START,Waiting for the game to start...,En attente que la partie commence...
+GAME_TITLE_VS,{0} VS {1},{0} VS {1}
+GAME_PLAYER_INFO,"[center]Current phase: {phase_name}[/center]
+[center]Turn: {turn}[/center]
+[center]Deck name: {deck_name}[/center]","[center]Phase en cours: {phase_name}[/center]
+[center]Tour: {turn}[/center]
+[center]Nom du deck: {deck_name}[/center]"

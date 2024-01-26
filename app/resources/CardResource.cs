@@ -37,7 +37,7 @@ public partial class CardResource : Resource
         {
             if (_frontTexture == null)
             {
-                FrontTexture = CardManager.Instance.GetBackTexture(CardTypeList);
+                FrontTexture = CardManager.Instance.GetBackTexture(CardCategory);
             }
 
             return _frontTexture;
@@ -57,7 +57,7 @@ public partial class CardResource : Resource
         {
             if (_backTexture == null)
             {
-                BackTexture = CardManager.Instance.GetBackTexture(CardTypeList);
+                BackTexture = CardManager.Instance.GetBackTexture(CardCategory);
             }
 
             return _backTexture;
@@ -117,16 +117,16 @@ public partial class CardResource : Resource
     [Signal]
     public delegate void AskDownloadTextureEventHandler(CardResource cardResource);
 
-    public CardTypeList CardTypeList
+    public CardCategory CardCategory
     {
         get
         {
-            if (CardType == "LEADER") return CardTypeList.LEADER;
-            if (CardType == "CHARACTER") return CardTypeList.CHARACTER;
-            if (CardType == "STAGE") return CardTypeList.STAGE;
-            if (CardType == "EVENT") return CardTypeList.EVENT;
+            if (CardType == "LEADER") return CardCategory.LEADER;
+            if (CardType == "CHARACTER") return CardCategory.CHARACTER;
+            if (CardType == "STAGE") return CardCategory.STAGE;
+            if (CardType == "EVENT") return CardCategory.EVENT;
 
-            return CardTypeList.NONE;
+            return CardCategory.NONE;
         }
     }
 
