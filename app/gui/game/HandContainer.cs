@@ -28,22 +28,36 @@ public partial class HandContainer : PanelContainer
 
 	public void SetCards(List<PlayingCard> playingCards)
 	{
-		Hand.GetChildren().ToList().ForEach(x => x.QueueFree());
-
+		//Create or update cards
 		foreach(var playingCard in playingCards)
         {
-			var cardResource = playingCard.GetCardResource();
-            var instance = CardScene.Instantiate<SlotCard>();
-            Hand.AddChild(instance);
-            instance.Card.UpdateCard(playingCard);
-            instance.MouseEntered += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
-            instance.MouseExited += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
-            instance.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-            instance.CardActionResource = CardActionResource;
-            instance.CardActionUpdated(PlayerArea.CurrentPhase);
-            instance.CardAction += Instance_CardAction;
+			var handSlotCard = Hand.GetChildren().OfType<SlotCard>().FirstOrDefault(x => x.Card.PlayingCard.Id == playingCard.Id);
+			if (handSlotCard == null)
+            {
+                var cardResource = playingCard.GetCardResource();
+                var instance = CardScene.Instantiate<SlotCard>();
+                Hand.AddChild(instance);
+                instance.Card.UpdateCard(playingCard);
+                instance.MouseEntered += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
+                instance.MouseExited += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
+                instance.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+                instance.CardActionResource = CardActionResource;
+                instance.CardActionUpdated(PlayerArea.CurrentPhase);
+                instance.CardAction += Instance_CardAction;
+            } else
+			{
+				handSlotCard.Card.UpdateCard(playingCard);
+			}
         }
-	}
+
+		//Remove all others cards
+		Hand.GetChildren().OfType<SlotCard>().ToList().ForEach(x =>
+		{
+			if (!playingCards.Any(y => y.Id == x.Card.PlayingCard.Id)) {
+				x.QueueFree();
+			}
+		});
+    }
 
     private void Instance_CardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
     {

@@ -95,6 +95,13 @@ public partial class GameView : HBoxContainer
 		playerArea.Playmat.SetTrash(playerGameInformation.Trash);
 		playerArea.Hand.SetCards(playerGameInformation.Hand);
 		playerArea.UpdateSlotCardsAction(playerGameInformation.CurrentPhase);
+		playerArea.Playmat.SetCharacters(
+			playerGameInformation.Character1,
+			playerGameInformation.Character2,
+			playerGameInformation.Character3,
+			playerGameInformation.Character4,
+			playerGameInformation.Character5
+		);
     }
 
     private void BoardUpdated(object sender, Game game)
@@ -103,23 +110,6 @@ public partial class GameView : HBoxContainer
 		var opponentGameInfo = game.GetOpponentPlayerInformation(GameSocketConnector.Instance.UserId);
 		UpdatePlayerBoard(Gameboard.PlayerArea, myGameInfo);
 		UpdatePlayerBoard(Gameboard.OpponentArea, opponentGameInfo);
-        //if (e.UserId != GameSocketConnector.Instance.UserId)
-        //{
-        //	Gameboard.OpponentArea.Playmat.LeaderSlotCard.Guid = e.Leader;
-        //	Gameboard.OpponentArea.Playmat.LifeSlotCard.Guid = e.Life;
-        //	Gameboard.OpponentArea.Playmat.DeckSlotCard.Guid = e.Deck;
-        //	Gameboard.OpponentArea.Playmat.StageSlotCard.Guid = e.Stage;
-        //	Gameboard.OpponentArea.Playmat.TrashSlotCard.Guid = e.Trash;
-        //	Gameboard.OpponentArea.Playmat.CostSlotCard.Guid = e.Cost;
-        //	Gameboard.OpponentArea.Playmat.DonDeckSlotCard.Guid = e.DonDeck;
-        //	for (int i = 0; i < e.Characters.Count; i++)
-        //	{
-        //		if (i < Gameboard.OpponentArea.Playmat.CharactersSlots.Count)
-        //		{
-        //			Gameboard.OpponentArea.Playmat.CharactersSlots[i].Guid = e.Characters[i];
-        //		}
-        //	}
-        //}
     }
 
 	private void InitConnection(Room room)
