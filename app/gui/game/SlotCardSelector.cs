@@ -1,11 +1,12 @@
 using Godot;
+using OPSProServer.Contracts.Models;
 using System;
 
 public partial class SlotCardSelector : Container
 {
-	private CardSelectorSource _source;
+	private CardSource _source;
 	[Export]
-	public CardSelectorSource Source
+	public CardSource Source
     {
 		get => _source;
 		set

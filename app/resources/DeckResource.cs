@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using OPSProServer.Contracts.Models;
 using System.Linq;
 
 public partial class DeckResource : Resource
@@ -59,5 +60,16 @@ public partial class DeckResource : Resource
         var leader = Cards.FirstOrDefault(x => x.Key.CardTypeList == CardTypeList.LEADER).Key;
 
         return totalCards == 50 && totalLeader == 1 && leader != null && Cards.All(x => x.Key.Colors.Any(y => leader.Colors.Contains(y)));
+    }
+
+    public DeckInfo Generate()
+    {
+        var deckInfo = new DeckInfo(Name);
+        foreach(var card in Cards) {
+            var cardInfo = card.Key.Generate();
+            deckInfo.AddCard(cardInfo, card.Value);
+        }
+
+        return deckInfo;
     }
 }

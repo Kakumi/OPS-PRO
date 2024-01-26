@@ -17,4 +17,7 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\resources\game\" />
+  </ItemGroup>
 </Project>

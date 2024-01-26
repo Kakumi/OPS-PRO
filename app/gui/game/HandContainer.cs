@@ -1,4 +1,5 @@
 using Godot;
+using OPSProServer.Contracts.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,19 +26,23 @@ public partial class HandContainer : PanelContainer
 		Hand = GetNode<Container>("MarginContainer/Hand");
 	}
 
-	public SlotCard AddCard(CardResource cardResource)
+	public void SetCards(List<PlayingCard> playingCards)
 	{
-		var instance = CardScene.Instantiate<SlotCard>();
-		Hand.AddChild(instance);
-		instance.Card.SetCardResource(cardResource);
-		instance.MouseEntered += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
-		instance.MouseExited += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
-		instance.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-		instance.CardActionResource = CardActionResource;
-		instance.CardActionUpdated(PlayerArea.CurrentPhase);
-		instance.CardAction += Instance_CardAction;
+		Hand.GetChildren().ToList().ForEach(x => x.QueueFree());
 
-		return instance;
+		foreach(var playingCard in playingCards)
+        {
+			var cardResource = playingCard.GetCardResource();
+            var instance = CardScene.Instantiate<SlotCard>();
+            Hand.AddChild(instance);
+            instance.Card.UpdateCard(playingCard);
+            instance.MouseEntered += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
+            instance.MouseExited += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
+            instance.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+            instance.CardActionResource = CardActionResource;
+            instance.CardActionUpdated(PlayerArea.CurrentPhase);
+            instance.CardAction += Instance_CardAction;
+        }
 	}
 
     private void Instance_CardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)

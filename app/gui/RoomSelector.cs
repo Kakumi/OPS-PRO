@@ -31,7 +31,7 @@ public partial class RoomSelector : VBoxContainer
 		GameSocketConnector.Instance.RoomDeleted -= Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated -= Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
-		GameSocketConnector.Instance.GameStarted -= Instance_GameLaunched;
+		GameSocketConnector.Instance.RockPaperScissorsStarted -= Instance_RPSStarted;
 
 		base._ExitTree();
 	}
@@ -54,7 +54,7 @@ public partial class RoomSelector : VBoxContainer
 		GameSocketConnector.Instance.RoomDeleted += Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated += Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
-		GameSocketConnector.Instance.GameStarted += Instance_GameLaunched;
+		GameSocketConnector.Instance.RockPaperScissorsStarted += Instance_RPSStarted;
 
 		UpdateUsername();
 
@@ -133,7 +133,7 @@ public partial class RoomSelector : VBoxContainer
 		});
 	}
 
-	private void Instance_GameLaunched(object sender, Guid userToStart)
+	private void Instance_RPSStarted(object sender, EventArgs e)
 	{
 		try
         {

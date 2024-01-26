@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://cpdd6pbhlbamj"]
 
 [ext_resource type="Script" path="res://app/gui/game/Gameboard.cs" id="1_sv63v"]
 [ext_resource type="PackedScene" uid="uid://bnounn1418bsl" path="res://app/gui/game/SlotCardSelector.tscn" id="3_h6wij"]
@@ -54,18 +54,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Button3" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
-layout_mode = 2
-text = "Test Flip"
-
-[node name="Button2" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
-layout_mode = 2
-text = "Test Rest"
-
-[node name="Button4" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
-layout_mode = 2
-text = "Test Draw"
-
 [node name="Button5" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
 layout_mode = 2
 text = "Test Select"
@@ -82,8 +70,5 @@ GameboardPath = NodePath("..")
 [connection signal="MouseExitCard" from="SelectCardDialog" to="." method="OnSelectDialogMouseExited"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons/Quit" to="." method="OnQuitPressed"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons/ToggleInfo" to="." method="OnToggleInfoPressed"]
-[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button3" to="." method="Test1"]
-[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button2" to="." method="Test2"]
-[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button4" to="." method="TestDraw"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button5" to="." method="TestPopup"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/NextPhaseButton" to="." method="OnNextPhaseButtonPressed"]

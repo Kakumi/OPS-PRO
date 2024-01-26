@@ -1,4 +1,5 @@
 using Godot;
+using OPSProServer.Contracts.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,12 +41,12 @@ public partial class SelectCardDialog : AcceptDialog
 		Cards = GetNode<Container>("MarginContainer/VBoxContainer/HScrollBar/Cards");
 	}
 
-	public void SetCards(List<CardResource> cards, CardSelectorSource source)
+	public void SetCards(List<CardResource> cards, CardSource source)
     {
-		SetCards(cards.Select(x => new Tuple<CardResource, Guid, CardSelectorSource>(x, Guid.Empty, source)).ToList());
+		SetCards(cards.Select(x => new Tuple<CardResource, Guid, CardSource>(x, Guid.Empty, source)).ToList());
     }
 
-	public void SetCards(List<Tuple<CardResource, Guid, CardSelectorSource>> cards)
+	public void SetCards(List<Tuple<CardResource, Guid, CardSource>> cards)
 	{
 		Cards.GetChildren().ToList().ForEach(x => x.QueueFree());
 
@@ -73,11 +74,11 @@ public partial class SelectCardDialog : AcceptDialog
 		return Cards.GetChildren().ToList().OfType<SlotCardSelector>().Where(x => x.SlotCard.Selected).ToList();
 	}
 
-	public List<Tuple<CardResource, Guid, CardSelectorSource>> GetResult()
+	public List<Tuple<CardResource, Guid, CardSource>> GetResult()
 	{
         return Cards.GetChildren().ToList().OfType<SlotCardSelector>().Where(x => x.SlotCard.Selected).Select(x =>
         {
-			return new Tuple<CardResource, Guid, CardSelectorSource>(x.SlotCard.Card.CardResource, x.TargetGuid, x.Source);
+			return new Tuple<CardResource, Guid, CardSource>(x.SlotCard.Card.CardResource, x.TargetGuid, x.Source);
 		}).ToList();
 	}
 

@@ -1,5 +1,7 @@
 using Godot;
 using Godot.Collections;
+using OPSProServer.Contracts.Models;
+using System.Linq;
 
 public partial class CardResource : Resource
 {
@@ -134,5 +136,10 @@ public partial class CardResource : Resource
         {
             EmitSignal(SignalName.AskDownloadTexture, this);
         }
+    }
+
+    public CardInfo Generate()
+    {
+        return new CardInfo(Id, Images.ToList(), Number, Rarity, CardType, Name, Cost, AttributeImage, Attribute, Power, Counter, Colors.ToList(), Types.ToList(), Effects.ToList(), Set);
     }
 }

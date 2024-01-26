@@ -1,4 +1,5 @@
 using Godot;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -55,17 +56,6 @@ public partial class Gameboard : VBoxContainer
 		GameView.CardInfoPanel.ShowcardResource(card);
 	}
 
-
-	private void Test1()
-    {
-		PlayerArea.Playmat.LeaderSlotCard.Card.ToggleFlip();
-    }
-
-    private void Test2()
-    {
-		PlayerArea.Playmat.LeaderSlotCard.Card.ToggleRest();
-	}
-
 	public void OnQuitPressed()
 	{
 		GameView.Quit();
@@ -78,12 +68,7 @@ public partial class Gameboard : VBoxContainer
 		PlayerArea.PlayerInfo.Visible = !PlayerArea.PlayerInfo.Visible;
 	}
 
-	private void TestDraw()
-    {
-		PlayerArea.Playmat.DrawCard();
-	}
-
-	public void ShowCardsDialog(List<CardResource> cardResources, CardSelectorSource source)
+	public void ShowCardsDialog(List<CardResource> cardResources, CardSource source)
 	{
 		SelectCardDialog.SetCards(cardResources, source);
 		SelectCardDialog.Cancellable = true;
@@ -92,13 +77,13 @@ public partial class Gameboard : VBoxContainer
 		SelectCardDialog.PopupCentered();
 	}
 
-	public async Task<List<Tuple<CardResource, Guid, CardSelectorSource>>> ShowSelectCardDialog(List<SlotCard> cards, int selection, CardSelectorAction action, bool cancellable = false)
+	public async Task<List<Tuple<CardResource, Guid, CardSource>>> ShowSelectCardDialog(List<SlotCard> cards, int selection, CardAction action, bool cancellable = false)
 	{
-		var cardsFormated = cards.Select(x => new Tuple<CardResource, Guid, CardSelectorSource>(x.Card.CardResource, x.Guid, x.CardActionResource.Source)).ToList();
+		var cardsFormated = cards.Select(x => new Tuple<CardResource, Guid, CardSource>(x.Card.CardResource, x.Guid, x.CardActionResource.Source)).ToList();
 		return await ShowSelectCardDialog(cardsFormated, selection, action, cancellable);
 	}
 
-	public async Task<List<Tuple<CardResource, Guid, CardSelectorSource>>> ShowSelectCardDialog(List<Tuple<CardResource, Guid, CardSelectorSource>> cards, int selection, CardSelectorAction action, bool cancellable = false)
+	public async Task<List<Tuple<CardResource, Guid, CardSource>>> ShowSelectCardDialog(List<Tuple<CardResource, Guid, CardSource>> cards, int selection, CardAction action, bool cancellable = false)
 	{
 		SelectCardDialog.SetCards(cards);
 		SelectCardDialog.Cancellable = cancellable;
@@ -113,49 +98,15 @@ public partial class Gameboard : VBoxContainer
 
 	private async void TestPopup()
 	{
-		//ShowCardsDialog(PlayerArea.Hand.Hand.GetChildren().OfType<SlotCard>().Select(x => x.Card.CardResource).ToList(), CardSelectorSource.Hand);
+		//ShowCardsDialog(PlayerArea.Hand.Hand.GetChildren().OfType<SlotCard>().Select(x => x.Card.CardResource).ToList(), CardSource.Hand);
 		var result = await ShowSelectCardDialog(PlayerArea.Hand.Hand.GetChildren().OfType<SlotCard>().Select(x =>
         {
-			return new Tuple<CardResource, Guid, CardSelectorSource>(x.Card.CardResource, x.Guid, x.CardActionResource.Source);
-		}).ToList(), 2, CardSelectorAction.Throw);
+			return new Tuple<CardResource, Guid, CardSource>(x.Card.CardResource, x.Guid, x.CardActionResource.Source);
+		}).ToList(), 2, CardAction.Throw);
 	}
 
 	private async void OnNextPhaseButtonPressed()
     {
-		await PlayerArea.UpdatePhase(PlayerArea.CurrentPhase.NextPhase());
+		//await PlayerArea.UpdatePhase(PlayerArea.CurrentPhase.NextPhase());
     }
-
-	public void IncrementTurn()
-    {
-		TurnCounter++;
-    }
-
-	public void PrepareGameboard(bool isFirst)
-    {
-		Task.Run(async () =>
-		{
-			try
-			{
-				//TODO Synchroniser la main
-				//TODO Synchroniser le board (les ids sont déjà fait)
-				//TODO Synchroniser les infos du terrain (nombre de vie, ...)
-
-				//await PlayerArea.Playmat.SyncPlaymat();
-				PlayerArea.Playmat.Init(GameSocketConnector.Instance.DeckResource);
-
-				if (isFirst)
-				{
-					await PlayerArea.UpdatePhase(new DrawPhase());
-				}
-				else
-				{
-					await PlayerArea.UpdatePhase(new OpponentPhase());
-				}
-			} catch(Exception ex)
-            {
-				Log.Error(ex, ex.Message);
-				GameView.ShowPopup(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), () => GameView.OPSWindow.Close());
-            }
-		});
-	}
 }

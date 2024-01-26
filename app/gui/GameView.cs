@@ -2,6 +2,7 @@ using Godot;
 using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 public partial class GameView : HBoxContainer
@@ -82,26 +83,44 @@ public partial class GameView : HBoxContainer
 		});
 	}
 
-	private void BoardUpdated(object sender, Game game)
+	private void UpdatePlayerBoard(PlayerArea playerArea, PlayerGameInformation playerGameInformation)
 	{
-		//if (e.UserId != GameSocketConnector.Instance.UserId)
+		playerArea.Playmat.CardsDonDeck = playerGameInformation.DonDeck;
+		playerArea.Playmat.CardsCostDeck = playerGameInformation.DonAvailable;
+		playerArea.Playmat.CardsRestedCostDeck = playerGameInformation.DonRested;
+        playerArea.Playmat.LeaderSlotCard.Card.UpdateCard(playerGameInformation.Leader);
+		playerArea.Playmat.StageSlotCard.Card.UpdateCard(playerGameInformation.Stage);
+		playerArea.Playmat.SetDeck(playerGameInformation.Deck);
+		playerArea.Playmat.SetLifes(playerGameInformation.Lifes);
+		playerArea.Playmat.SetTrash(playerGameInformation.Trash);
+		playerArea.Hand.SetCards(playerGameInformation.Hand);
+		playerArea.UpdateSlotCardsAction(playerGameInformation.CurrentPhase);
+    }
+
+    private void BoardUpdated(object sender, Game game)
+	{
+		var myGameInfo = game.GetMyPlayerInformation(GameSocketConnector.Instance.UserId);
+		var opponentGameInfo = game.GetOpponentPlayerInformation(GameSocketConnector.Instance.UserId);
+		UpdatePlayerBoard(Gameboard.PlayerArea, myGameInfo);
+		UpdatePlayerBoard(Gameboard.OpponentArea, opponentGameInfo);
+        //if (e.UserId != GameSocketConnector.Instance.UserId)
         //{
-		//	Gameboard.OpponentArea.Playmat.LeaderSlotCard.Guid = e.Leader;
-		//	Gameboard.OpponentArea.Playmat.LifeSlotCard.Guid = e.Life;
-		//	Gameboard.OpponentArea.Playmat.DeckSlotCard.Guid = e.Deck;
-		//	Gameboard.OpponentArea.Playmat.StageSlotCard.Guid = e.Stage;
-		//	Gameboard.OpponentArea.Playmat.TrashSlotCard.Guid = e.Trash;
-		//	Gameboard.OpponentArea.Playmat.CostSlotCard.Guid = e.Cost;
-		//	Gameboard.OpponentArea.Playmat.DonDeckSlotCard.Guid = e.DonDeck;
-		//	for (int i = 0; i < e.Characters.Count; i++)
-		//	{
-		//		if (i < Gameboard.OpponentArea.Playmat.CharactersSlots.Count)
-		//		{
-		//			Gameboard.OpponentArea.Playmat.CharactersSlots[i].Guid = e.Characters[i];
-		//		}
-		//	}
-		//}
-	}
+        //	Gameboard.OpponentArea.Playmat.LeaderSlotCard.Guid = e.Leader;
+        //	Gameboard.OpponentArea.Playmat.LifeSlotCard.Guid = e.Life;
+        //	Gameboard.OpponentArea.Playmat.DeckSlotCard.Guid = e.Deck;
+        //	Gameboard.OpponentArea.Playmat.StageSlotCard.Guid = e.Stage;
+        //	Gameboard.OpponentArea.Playmat.TrashSlotCard.Guid = e.Trash;
+        //	Gameboard.OpponentArea.Playmat.CostSlotCard.Guid = e.Cost;
+        //	Gameboard.OpponentArea.Playmat.DonDeckSlotCard.Guid = e.DonDeck;
+        //	for (int i = 0; i < e.Characters.Count; i++)
+        //	{
+        //		if (i < Gameboard.OpponentArea.Playmat.CharactersSlots.Count)
+        //		{
+        //			Gameboard.OpponentArea.Playmat.CharactersSlots[i].Guid = e.Characters[i];
+        //		}
+        //	}
+        //}
+    }
 
 	private void InitConnection(Room room)
 	{
@@ -121,11 +140,11 @@ public partial class GameView : HBoxContainer
 			var result = await OPSWindow.Ask(Tr("GAME_CHOOSE_FIRST"));
 			if (result)
 			{
-				await GameSocketConnector.Instance.SetFirstPlayerToPlay(Gameboard.PlayerArea.UserId);
+				await GameSocketConnector.Instance.LaunchGame(Gameboard.PlayerArea.UserId);
 			}
 			else
 			{
-				await GameSocketConnector.Instance.SetFirstPlayerToPlay(Gameboard.OpponentArea.UserId);
+				await GameSocketConnector.Instance.LaunchGame(Gameboard.OpponentArea.UserId);
 			}
 		}
 		catch (Exception ex)
@@ -153,7 +172,7 @@ public partial class GameView : HBoxContainer
 				ShowPopup(Tr("GAME_SECOND_TO_PLAY"), () => OPSWindow.Close());
 			}
 
-			Gameboard.PrepareGameboard(firstPlayer == GameSocketConnector.Instance.UserId);
+			//Gameboard.PrepareGameboard(firstPlayer == GameSocketConnector.Instance.UserId);
 		} catch(Exception ex)
 		{
 			Log.Error(ex, ex.Message);

@@ -1,4 +1,5 @@
 using Godot;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Threading.Tasks;
@@ -40,34 +41,13 @@ public partial class PlayerArea : VBoxContainer
 		Gameboard.GameView.CardInfoPanel.ShowcardResource(card);
 	}
 
-	public async Task UpdatePhase(IPhase phase)
-	{
-		Log.Debug("Update phase from {CurrentPhase} to {Phase}", CurrentPhase, phase);
-
-		if (CurrentPhase != null)
-		{
-			await CurrentPhase.OnPhaseEnded(this);
-		}
-
-		CurrentPhase = phase;
-		UpdateSlotCardsAction(phase);
-
-		Gameboard.NextPhaseButton.Text = Tr(phase.GetTrKeyNextPhase());
-		Gameboard.NextPhaseButton.Disabled = phase.NextPhase() == null;
-
-		await phase.OnPhaseStarted(this);
-
-		if (phase.IsAutoNextPhase())
-        {
-			await UpdatePhase(phase.NextPhase());
-        }
-	}
-
 	public void UpdateSlotCardsAction(IPhase phase)
     {
 		Log.Debug($"Updating Slot Cards actions");
 
-		Hand.GetCards().ForEach(x => x.CardActionUpdated(phase));
+		CurrentPhase = phase;
+
+        Hand.GetCards().ForEach(x => x.CardActionUpdated(phase));
 		Playmat.LeaderSlotCard.CardActionUpdated(phase);
 		Playmat.StageSlotCard.CardActionUpdated(phase);
 		Playmat.DeckSlotCard.CardActionUpdated(phase);

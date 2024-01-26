@@ -4,6 +4,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 public partial class RoomDialog : Window
 {
@@ -118,7 +119,7 @@ public partial class RoomDialog : Window
 		try
 		{
 			UpdateMessage(null);
-			await GameSocketConnector.Instance.SetReady(!IsReady());
+            await GameSocketConnector.Instance.SetReady();
         } catch(Exception ex)
 		{
 			Log.Error(ex, ex.Message);
@@ -130,7 +131,7 @@ public partial class RoomDialog : Window
 		try
 		{
 			UpdateMessage(null);
-			var success = await GameSocketConnector.Instance.LaunchGame(Room.Id);
+			var success = await GameSocketConnector.Instance.StartRPS(Room.Id);
 			if (!success)
             {
 				UpdateMessage("ROOMS_NOT_LAUNCHED");
