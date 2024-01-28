@@ -105,8 +105,14 @@ public partial class Gameboard : VBoxContainer
 		}).ToList(), 2, CardAction.Throw);
 	}
 
+	public void UpdateNextPhaseButton(PhaseType phaseType)
+	{
+		NextPhaseButton.Visible = phaseType != PhaseType.Opponent;
+		NextPhaseButton.Text = Tr(phaseType.GetNextTrKey());
+	}
+
 	private async void OnNextPhaseButtonPressed()
     {
-		//await PlayerArea.UpdatePhase(PlayerArea.CurrentPhase.NextPhase());
+		await GameSocketConnector.Instance.GoToNextPhase();
     }
 }

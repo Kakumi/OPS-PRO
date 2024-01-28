@@ -251,6 +251,21 @@ public static class Extension
         return "none";
     }
 
+    public static string GetNextTrKey(this PhaseType phase)
+    {
+        switch (phase)
+        {
+            case PhaseType.Refresh: return "NEXT_PHASE_REFRESH";
+            case PhaseType.Don: return "NEXT_PHASE_DON";
+            case PhaseType.Draw: return "NEXT_PHASE_DRAW";
+            case PhaseType.Main: return "NEXT_PHASE_MAIN";
+            case PhaseType.End: return "NEXT_PHASE_END";
+            case PhaseType.Opponent: return "NEXT_PHASE_OPPONENT";
+        }
+
+        return "none";
+    }
+
     public static CardResource GetCardResource(this PlayingCard card)
     {
         return CardManager.Instance.Cards.FirstOrDefault(x => x.Id == card.CardInfo.Id);

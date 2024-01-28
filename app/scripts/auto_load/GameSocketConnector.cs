@@ -246,9 +246,9 @@ public partial class GameSocketConnector : Node
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.SetRockPaperScissors), UserId, rps);
     }
 
-    //public async Task<bool> SyncBoard(Game game)
-    //{
-    //    Log.Information("User {UserId} send sync board", UserId, playmatSync);
-    //    return await _connection.InvokeAsync<bool>(nameof(IGameHub.), UserId, playmatSync);
-    //}
+    public async Task<bool> GoToNextPhase()
+    {
+        Log.Information("User {UserId} ask to go next phase", UserId);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.NextPhase), UserId);
+    }
 }

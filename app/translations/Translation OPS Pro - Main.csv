@@ -282,3 +282,9 @@ GAME_PLAYER_INFO,"[center]Current phase: {phase_name}[/center]
 [center]Deck name: {deck_name}[/center]","[center]Phase en cours: {phase_name}[/center]
 [center]Tour: {turn}[/center]
 [center]Nom du deck: {deck_name}[/center]"
+NEXT_PHASE_REFRESH,Go to draw phase,Passer à la phase de pioche
+NEXT_PHASE_DRAW,Go to DON!! phase,Passer à la phase DON!!
+NEXT_PHASE_DON,Go to main phase,Passer à la phase principale
+NEXT_PHASE_MAIN,End Turn,Fin de tour
+NEXT_PHASE_END,Opponent's Turn...,Tour de l'adversaire...
+NEXT_PHASE_OPPONENT,Start of turn,Début de tour

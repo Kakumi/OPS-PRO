@@ -54,10 +54,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Button5" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
-layout_mode = 2
-text = "Test Select"
-
 [node name="NextPhaseButton" type="Button" parent="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons"]
 layout_mode = 2
 
@@ -70,5 +66,4 @@ GameboardPath = NodePath("..")
 [connection signal="MouseExitCard" from="SelectCardDialog" to="." method="OnSelectDialogMouseExited"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons/Quit" to="." method="OnQuitPressed"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/MainButtons/ToggleInfo" to="." method="OnToggleInfoPressed"]
-[connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/Button5" to="." method="TestPopup"]
 [connection signal="pressed" from="ButtonsContainer/MarginContainer/HBoxContainer/GameButtons/NextPhaseButton" to="." method="OnNextPhaseButtonPressed"]

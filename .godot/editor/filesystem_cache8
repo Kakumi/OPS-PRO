@@ -1,5 +1,5 @@
 2a60927148abd1d33b818b535e306557
-::res://::1706303782
+::res://::1706450289
 Card Example.png::CompressedTexture2D::5799584854092008898::1679937375::1679937413::1::::<><>::
 default_bus_layout.tres::AudioBusLayout::-1::1677766636::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1686675128::0::1::::<><>::
@@ -10,16 +10,16 @@ README.md::TextFile::-1::1679919903::0::1::::<><>::
 ::res://app/::1683665465
 AppInstance.cs::CSharpScript::-1::1683665465::0::1::::<><>::
 AppInstance.tscn::PackedScene::4326939361751047718::1683311822::0::1::::<><>::res://app/AppInstance.cs<>uid://bxeudnqrt3dta<>uid://d0bsel4oaljb3
-::res://app/gui/::1706303728
+::res://app/gui/::1706305372
 CardCreator.cs::CSharpScript::-1::1678824050::0::1::::<><>::
 CardCreator.tscn::PackedScene::4477164120734211844::1680889476::0::1::::<><>::res://app/gui/CardCreator.cs<>uid://bjx3brtgt5yrp
 DeckBuilder.cs::CSharpScript::-1::1677801508::0::1::::<><>::
 DeckBuilder.tscn::PackedScene::3630802687272860215::1678820921::0::1::::<><>::uid://bdos3ombb52gx<>uid://boynil74yqbyv<>res://app/gui/deckBuilder/SearchContainer.tscn<>uid://dhupk5drnmsnt<>res://app/gui/DeckBuilder.cs
-GameView.cs::CSharpScript::-1::1706303112::0::1::::<><>::
+GameView.cs::CSharpScript::-1::1706305108::0::1::::<><>::
 GameView.tscn::PackedScene::919825602665131875::1706303728::0::1::::<><>::uid://bdos3ombb52gx<>res://app/gui/GameView.cs<>uid://cpdd6pbhlbamj<>uid://rmh0e5r1i64b<>uid://dss5yj3kykc0i<>uid://dr5oryxtn1ya5<>uid://dqj36yxww4awi<>uid://blcyn4prvch7g
 MainMenu.cs::CSharpScript::-1::1683311423::0::1::::<><>::
 MainMenu.tscn::PackedScene::8917148192022306874::1683311929::0::1::::<><>::res://app/gui/mainMenu/ButtonGoto.tscn<>res://app/gui/MainMenu.cs<>uid://dss5yj3kykc0i<>uid://h128lbci1vgn<>uid://ndtnmv1rb3gp<>uid://bry114aad4nsh<>uid://b411iehs8mi8s<>uid://rmh0e5r1i64b
-RoomSelector.cs::CSharpScript::-1::1706226468::0::1::::<><>::
+RoomSelector.cs::CSharpScript::-1::1706305372::0::1::::<><>::
 RoomSelector.tscn::PackedScene::1218452795937286743::1683307674::0::1::::<><>::uid://du0pbkb24dh5o<>res://app/gui/RoomSelector.cs<>uid://dss5yj3kykc0i<>uid://d0ww8lfi73p3<>uid://c7024kgkqj2fj
 Settings.cs::CSharpScript::-1::1683230653::0::1::::<><>::
 Settings.tscn::PackedScene::546694596479600893::1682671969::0::1::::<><>::res://app/gui/Settings.cs<>res://app/gui/settings/InterfaceSettings.tscn<>uid://c6u2utbxd7c53<>uid://bcjxxfcyr2q8r
@@ -57,7 +57,7 @@ RushContainer.cs::CSharpScript::-1::1680533349::0::1::::<><>::
 RushContainer.tscn::PackedScene::8025965659865633875::1680888209::0::1::::<><>::res://app/gui/cardCreator/templates/texts/RushContainer.cs<>uid://4imnmbu073q8<>uid://bgyxmjmaqbpoa
 TemplateCardEffect.cs::CSharpScript::-1::1680027557::0::1::::<><>::
 ::res://app/gui/deckBuilder/::1706302003
-DeckContainer.cs::CSharpScript::-1::1681466246::0::1::::<><>::
+DeckContainer.cs::CSharpScript::-1::1706302003::0::1::::<><>::
 DeckContainer.tscn::PackedScene::7692801705582456357::1679434356::0::1::::<><>::res://app/gui/deckBuilder/DeckContainer.cs
 SearchCardItem.cs::CSharpScript::-1::1678816291::0::1::::<><>::
 SearchCardItem.tscn::PackedScene::2004923533066887899::1678821602::0::1::::<><>::res://app/gui/deckBuilder/SearchCardItem.cs<>uid://boynil74yqbyv
@@ -90,14 +90,14 @@ SlotCardSelector.tscn::PackedScene::3329015219042589371::1681839175::0::1::::<><
 ::res://app/gui/mainMenu/::1677258614
 ButtonGoto.cs::CSharpScript::-1::1677766637::0::1::::<><>::
 ButtonGoto.tscn::PackedScene::-1::1677766637::0::1::::<><>::res://app/gui/mainMenu/ButtonGoto.cs
-::res://app/gui/rooms/::1706226147
+::res://app/gui/rooms/::1706305313
 CreateRoomDialog.cs::CSharpScript::-1::1682870653::0::1::::<><>::
 CreateRoomDialog.tscn::PackedScene::263552786574923242::1682879588::0::1::::<><>::res://app/gui/rooms/CreateRoomDialog.cs
 PasswordDialog.cs::CSharpScript::-1::1682881850::0::1::::<><>::
 PasswordDialog.tscn::PackedScene::2102304911213444348::1683043794::0::1::::<><>::res://app/gui/rooms/PasswordDialog.cs
-RoomDialog.cs::CSharpScript::-1::1706226147::0::1::::<><>::
+RoomDialog.cs::CSharpScript::-1::1706305313::0::1::::<><>::
 RoomDialog.tscn::PackedScene::7072185489461117991::1683306524::0::1::::<><>::res://app/gui/rooms/RoomDialog.cs
-RoomInfo.cs::CSharpScript::-1::1695121429::0::1::::<><>::
+RoomInfo.cs::CSharpScript::-1::1706304974::0::1::::<><>::
 RoomInfo.tscn::PackedScene::8615561436420790190::1683043794::0::1::::<><>::uid://dlnsmi2ksgq1q<>res://app/gui/rooms/RoomInfo.cs<>uid://47mwi410p8we
 ::res://app/gui/settings/::1683230025
 AudioSettings.cs::CSharpScript::-1::1683229974::0::1::::<><>::
@@ -107,13 +107,13 @@ GameSettings.tscn::PackedScene::2546815601669753371::1682671730::0::1::::<><>::r
 InterfaceSettings.cs::CSharpScript::-1::1683230025::0::1::::<><>::
 InterfaceSettings.tscn::PackedScene::-1::1677766637::0::1::::<><>::res://app/gui/settings/InterfaceSettings.cs
 TabSettings.cs::CSharpScript::-1::1683230022::0::1::::<><>::
-::res://app/gui/utils/::1706303515
+::res://app/gui/utils/::1706450706
 CardInfoPanel.cs::CSharpScript::-1::1683040413::0::1::::<><>::
 CardInfoPanel.tscn::PackedScene::2627032165175705839::1678814557::0::1::::<><>::uid://c0v6lf45kst5y<>res://app/gui/utils/CardInfoPanel.cs<>res://app/gui/utils/TabInfoContainer.tscn
 CardInfoTab.cs::CSharpScript::-1::1683045891::0::1::::<><>::
 CardInfoTab.tscn::PackedScene::5848513719491729830::1677846687::0::1::::<><>::uid://dr5oryxtn1ya5<>res://app/gui/utils/CardInfoTab.cs
 DraggableWindow.cs::CSharpScript::-1::1679437358::0::1::::<><>::
-Extension.cs::CSharpScript::-1::1706232145::0::1::::<><>::
+Extension.cs::CSharpScript::-1::1706303515::0::1::::<><>::
 OPSPopup.cs::CSharpScript::-1::1677796690::0::1::::<><>::
 OPSPopup.tscn::PackedScene::3160250905221644894::1682696032::0::1::::<><>::res://app/gui/utils/OPSPopup.cs
 OPSWindow.cs::CSharpScript::-1::1683142759::0::1::::<><>::
@@ -140,9 +140,9 @@ CardCreatorColorResource.cs::CSharpScript::-1::1679916967::0::1::::<><>::
 CardCreatorCostResource.cs::CSharpScript::-1::1679669676::0::1::::<><>::
 CardCreatorEffectResource.cs::CSharpScript::-1::1680024127::0::1::::<><>::
 CardCreatorSettings.cs::CSharpScript::-1::1679672392::0::1::::<><>::
-CardResource.cs::CSharpScript::-1::1706225323::0::1::::<><>::
+CardResource.cs::CSharpScript::-1::1706301972::0::1::::<><>::
 CardScript.cs::CSharpScript::-1::1681466260::0::1::::<><>::
-DeckResource.cs::CSharpScript::-1::1706225236::0::1::::<><>::
+DeckResource.cs::CSharpScript::-1::1706301994::0::1::::<><>::
 GameSlotCardActionResource.cs::CSharpScript::-1::1706232012::0::1::::<><>::
 OP01-001.png::CompressedTexture2D::5762386188225195669::1676992089::1677766721::1::::<><>::
 test_bg_templat.jpg::CompressedTexture2D::281642313256317681::1678822723::1678822737::1::::<><>::
@@ -365,19 +365,19 @@ disabled_styleboxflat.tres::StyleBoxFlat::-1::1677766636::0::1::::<><>::
 focus_styleboxflat.tres::StyleBoxFlat::-1::1677766636::0::1::::<><>::
 normal_styleboxflat.tres::StyleBoxFlat::-1::1677766636::0::1::::<><>::
 ::res://app/scripts/::1678813316
-::res://app/scripts/auto_load/::1706301984
+::res://app/scripts/auto_load/::1706450572
 CardManager.cs::CSharpScript::-1::1706301984::0::1::::<><>::
 CustomLoader.cs::CSharpScript::-1::1682696032::0::1::::<><>::
 DeckManager.cs::CSharpScript::-1::1682672619::0::1::::<><>::
 DiscordManager.cs::CSharpScript::-1::1682696032::0::1::::<><>::
-GameSocketConnector.cs::CSharpScript::-1::1706226229::0::1::::<><>::
+GameSocketConnector.cs::CSharpScript::-1::1706450572::0::1::::<><>::
 Logger.cs::CSharpScript::-1::1682696032::0::1::::<><>::
 NotifierManager.cs::CSharpScript::-1::1682696032::0::1::::<><>::
 SecurityLoad.cs::CSharpScript::-1::1682696032::0::1::::<><>::
 SettingsManager.cs::CSharpScript::-1::1683230862::0::1::::<><>::
-::res://app/translations/::1706303799
-Translation OPS Pro - Main.csv::Translation::640825249604834678::1706304170::1706304178::1::::<><>::
-Translation OPS Pro - Main.en.translation::OptimizedTranslation::9008878792990581952::1706304178::0::1::::<><>::
-Translation OPS Pro - Main.fr.translation::OptimizedTranslation::6917136582745097459::1706304178::0::1::::<><>::
+::res://app/translations/::1706304178
+Translation OPS Pro - Main.csv::Translation::640825249604834678::1706450714::1706450726::1::::<><>::
+Translation OPS Pro - Main.en.translation::OptimizedTranslation::9008878792990581952::1706450726::0::1::::<><>::
+Translation OPS Pro - Main.fr.translation::OptimizedTranslation::6917136582745097459::1706450726::0::1::::<><>::
 ::res://Properties/::1677767297
 launchSettings.json::JSON::-1::1695121761::0::1::::<><>::

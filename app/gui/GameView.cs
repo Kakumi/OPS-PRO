@@ -112,8 +112,9 @@ public partial class GameView : HBoxContainer
 		var opponentGameInfo = game.GetOpponentPlayerInformation(GameSocketConnector.Instance.UserId);
 		UpdatePlayerBoard(Gameboard.PlayerArea, myGameInfo);
 		UpdatePlayerBoard(Gameboard.OpponentArea, opponentGameInfo);
+		Gameboard.UpdateNextPhaseButton(myGameInfo.CurrentPhaseType);
 
-		Title.Text = string.Format(Tr("GAME_TITLE_VS"), game.CreatorGameInformation.Username, game.OpponentGameInformation.Username);
+        Title.Text = string.Format(Tr("GAME_TITLE_VS"), game.CreatorGameInformation.Username, game.OpponentGameInformation.Username);
         Gameboard.PlayerArea.PlayerInfo.Update(game, myGameInfo);
         Gameboard.OpponentArea.PlayerInfo.Update(game, opponentGameInfo);
     }
