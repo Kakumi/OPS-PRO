@@ -30,8 +30,9 @@ public partial class GameView : HBoxContainer
 		GameSocketConnector.Instance.ChooseFirstPlayerToPlay -= Instance_ChooseFirstPlayerToPlay;
 		GameSocketConnector.Instance.FirstPlayerDecided -= FirstPlayerDecided;
 		GameSocketConnector.Instance.BoardUpdated -= BoardUpdated;
+        GameSocketConnector.Instance.AlertReceived -= AlertReceived;
 
-		base._ExitTree();
+        base._ExitTree();
 	}
 
     public override void _Ready()
@@ -49,6 +50,7 @@ public partial class GameView : HBoxContainer
         GameSocketConnector.Instance.ChooseFirstPlayerToPlay += Instance_ChooseFirstPlayerToPlay;
 		GameSocketConnector.Instance.FirstPlayerDecided += FirstPlayerDecided;
 		GameSocketConnector.Instance.BoardUpdated += BoardUpdated;
+		GameSocketConnector.Instance.AlertReceived += AlertReceived;
 
 		PrepareGame();
 	}
@@ -119,7 +121,14 @@ public partial class GameView : HBoxContainer
         Gameboard.OpponentArea.PlayerInfo.Update(game, opponentGameInfo);
     }
 
-	private void InitConnection(SecureRoom room)
+    private void AlertReceived(object sender, UserAlertMessage e)
+    {
+		var message = string.Format(Tr(e.CodeMessage), e.Args);
+		Log.Warning("Alert received: {Message}", message);
+		ShowPopup(message, () => OPSWindow.Close());
+    }
+
+    private void InitConnection(SecureRoom room)
 	{
 		OPSWindow.Close();
 		RPSWindow.PopupCentered();

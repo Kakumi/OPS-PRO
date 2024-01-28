@@ -3,6 +3,7 @@ using OPSProServer.Contracts.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class HandContainer : PanelContainer
 {
@@ -59,9 +60,9 @@ public partial class HandContainer : PanelContainer
 		});
     }
 
-    private void Instance_CardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
+    private async void Instance_CardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
     {
-		PlayerArea.Playmat.OnCardAction(slotCard, resource, id);
+		await PlayerArea.Playmat.CallCardAction(slotCard, resource, id);
 	}
 
 	public List<SlotCard> GetCards()

@@ -180,8 +180,13 @@ public partial class Playmat : PanelContainer
 		PlayerArea.PlayerInfo.UpdateMessage(message, color);
 	}
 
-    public void OnCardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
+    private async void OnCardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
     {
+		await CallCardAction(slotCard, resource, id);
+    }
+
+	public async Task CallCardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
+	{
         if (Enum.IsDefined(typeof(CardAction), id))
         {
             CardAction action = (CardAction)id;
@@ -199,6 +204,7 @@ public partial class Playmat : PanelContainer
                 case CardAction.Attack:
                     break;
                 case CardAction.Summon:
+                    await GameSocketConnector.Instance.Summon(slotCard.Card.PlayingCard.Id);
                     break;
                 default:
                     Log.Error("Card action invalid for id {Id}, not implemented.", id);

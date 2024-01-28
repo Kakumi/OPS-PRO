@@ -50,6 +50,7 @@ public partial class GameSocketConnector : Node
     public event EventHandler<Guid> FirstPlayerDecided;
     public event EventHandler<Game> BoardUpdated;
     public event EventHandler RockPaperScissorsStarted;
+    public event EventHandler<UserAlertMessage> AlertReceived;
 
     public override void _Ready()
 	{
@@ -109,6 +110,11 @@ public partial class GameSocketConnector : Node
         _connection.On(nameof(IGameHubEvent.RockPaperScissorsStarted), () =>
         {
             RockPaperScissorsStarted?.Invoke(this, new EventArgs());
+        });
+
+        _connection.On<UserAlertMessage>(nameof(IGameHubEvent.UserAlertMessage), (userAlertMessage) =>
+        {
+            AlertReceived?.Invoke(this, userAlertMessage);
         });
     }
 
@@ -250,5 +256,11 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("User {UserId} ask to go next phase", UserId);
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.NextPhase), UserId);
+    }
+
+    public async Task<bool> Summon(Guid handCardId)
+    {
+        Log.Information("User {UserId} want to summon card {HandCardId}.", UserId, handCardId);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.Summon), UserId, handCardId);
     }
 }
