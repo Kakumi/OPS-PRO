@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dyl137viaosl7"]
+[gd_scene load_steps=9 format=3 uid="uid://dyl137viaosl7"]
 
 [ext_resource type="Script" path="res://app/gui/game/Playmat.cs" id="1_86oap"]
 [ext_resource type="Texture2D" uid="uid://baoayj2nb21ve" path="res://app/resources/images/card_back.jpg" id="3_6ce0x"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://4jcymiio1eq6" path="res://app/resources/game/slot_action/TrashAction.tres" id="5_1862e"]
 [ext_resource type="PackedScene" uid="uid://b3rc5limli0tv" path="res://app/gui/game/SlotCard.tscn" id="5_skdxf"]
 [ext_resource type="Texture2D" uid="uid://du5y8xyf8rdx3" path="res://app/resources/images/DonCardBack.jpg" id="5_x04xc"]
+[ext_resource type="Resource" uid="uid://biejjv4q20fe4" path="res://app/resources/game/slot_action/CharacterAction.tres" id="8_m8lve"]
 
 [node name="Playmat" type="PanelContainer"]
 anchors_preset = 15
@@ -151,22 +152,27 @@ metadata/_edit_lock_ = true
 [node name="CharacterSlotCard1" parent="Control/CharactersSlots" instance=ExtResource("5_skdxf")]
 layout_mode = 2
 size_flags_horizontal = 3
+CardActionResource = ExtResource("8_m8lve")
 
 [node name="CharacterSlotCard2" parent="Control/CharactersSlots" instance=ExtResource("5_skdxf")]
 layout_mode = 2
 size_flags_horizontal = 3
+CardActionResource = ExtResource("8_m8lve")
 
 [node name="CharacterSlotCard3" parent="Control/CharactersSlots" instance=ExtResource("5_skdxf")]
 layout_mode = 2
 size_flags_horizontal = 3
+CardActionResource = ExtResource("8_m8lve")
 
 [node name="CharacterSlotCard4" parent="Control/CharactersSlots" instance=ExtResource("5_skdxf")]
 layout_mode = 2
 size_flags_horizontal = 3
+CardActionResource = ExtResource("8_m8lve")
 
 [node name="CharacterSlotCard5" parent="Control/CharactersSlots" instance=ExtResource("5_skdxf")]
 layout_mode = 2
 size_flags_horizontal = 3
+CardActionResource = ExtResource("8_m8lve")
 
 [connection signal="resized" from="." to="." method="OnResized"]
 [connection signal="CardAction" from="Control/LeaderSlotCard" to="." method="OnCardAction"]

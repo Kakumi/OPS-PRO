@@ -62,14 +62,17 @@ public partial class DeckResource : Resource
         return totalCards == 50 && totalLeader == 1 && leader != null && Cards.All(x => x.Key.Colors.Any(y => leader.Colors.Contains(y)));
     }
 
-    public DeckInfo Generate()
+    public System.Collections.Generic.List<string> GetCardsId()
     {
-        var deckInfo = new DeckInfo(Name);
-        foreach(var card in Cards) {
-            var cardInfo = card.Key.Generate();
-            deckInfo.AddCard(cardInfo, card.Value);
+        var list = new System.Collections.Generic.List<string>();
+        foreach (var card in Cards)
+        {
+            for (int i = 0; i < card.Value; i++)
+            {
+                list.Add(card.Key.Id);
+            }
         }
 
-        return deckInfo;
+        return list;
     }
 }

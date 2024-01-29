@@ -202,6 +202,7 @@ public partial class Playmat : PanelContainer
                 case CardAction.Discard:
                     break;
                 case CardAction.Attack:
+
                     break;
                 case CardAction.Summon:
                     await GameSocketConnector.Instance.Summon(slotCard.Card.PlayingCard.Id);

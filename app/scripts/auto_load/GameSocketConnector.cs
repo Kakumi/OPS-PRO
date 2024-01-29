@@ -208,9 +208,9 @@ public partial class GameSocketConnector : Node
     {
         if (DeckResource != null)
         {
-            DeckInfo deckInfo = DeckResource.Generate();
-            Log.Information("Set ready for User {UserId} with deck '{Name}' inside room", UserId, deckInfo.Name);
-            return await _connection.InvokeAsync<bool>(nameof(IRoomHub.SetReady), UserId, deckInfo);
+            var cards = DeckResource.GetCardsId();
+            Log.Information("Set ready for User {UserId} with deck '{Name}' inside room", UserId, DeckResource.Name);
+            return await _connection.InvokeAsync<bool>(nameof(IRoomHub.SetReady), UserId, DeckResource.Name, cards);
         }
 
         return false;
@@ -262,5 +262,11 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("User {UserId} want to summon card {HandCardId}.", UserId, handCardId);
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.Summon), UserId, handCardId);
+    }
+
+    public async Task<bool> Attack(Guid attacker, Guid target)
+    {
+        Log.Information("User {UserId} want to attack {Target} with {Attacker}.", UserId, target, attacker);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.Attack), UserId, attacker, target);
     }
 }

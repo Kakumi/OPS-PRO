@@ -89,6 +89,16 @@ public partial class CardResource : Resource
     public Array<string> Effects { get; set; }
     [Export]
     public new string Set { get; set; }
+    [Export]
+    public bool IsBlocker { get; private set; }
+    [Export]
+    public bool IsRush { get; private set; }
+    [Export]
+    public bool IsDoubleAttack { get; private set; }
+    [Export]
+    public bool IsBanish { get; private set; }
+    [Export]
+    public bool IsTrigger { get; private set; }
 
     private bool _cardScriptCheck = false;
     private CardScript _cardScript;
@@ -136,10 +146,5 @@ public partial class CardResource : Resource
         {
             EmitSignal(SignalName.AskDownloadTexture, this);
         }
-    }
-
-    public CardInfo Generate()
-    {
-        return new CardInfo(Id, Images.ToList(), Number, Rarity, CardType, Name, Cost, AttributeImage, Attribute, Power, Counter, Colors.ToList(), Types.ToList(), Effects.ToList(), Set);
     }
 }

@@ -62,7 +62,7 @@ public partial class CardManager : Node
             using(var client = new WebClient())
             {
                 client.DownloadStringCompleted += ServerConfigDownloaded;
-                client.DownloadStringAsync(new Uri("https://launcher.opbluesea.fr/opspro/cards.json"));
+                client.DownloadStringAsync(new Uri("http://localhost:5282/Cards"));
             }
         } catch(Exception ex)
         {

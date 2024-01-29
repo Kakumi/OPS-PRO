@@ -204,6 +204,7 @@ public static class Extension
             case CardAction.Discard: return "GAME_ACTION_DISCARD";
             case CardAction.Attack: return "GAME_ACTION_ATTACK";
             case CardAction.Summon: return "GAME_ACTION_SUMMON";
+            case CardAction.GiveDon: return "GAME_ACTION_GIVE_DON";
         }
 
         return "none";
