@@ -202,7 +202,7 @@ public partial class Playmat : PanelContainer
                 case CardAction.Discard:
                     break;
                 case CardAction.Attack:
-
+					await GameSocketConnector.Instance.GetAttackableCards(slotCard.Card.PlayingCard.Id);
                     break;
                 case CardAction.Summon:
                     await GameSocketConnector.Instance.Summon(slotCard.Card.PlayingCard.Id);
@@ -262,7 +262,7 @@ public partial class Playmat : PanelContainer
 		CostSlotCard.Card.Visible = CardsCostDeck > 0;
 	}
 
-    internal void SetCharacters(PlayingCard character1, PlayingCard character2, PlayingCard character3, PlayingCard character4, PlayingCard character5)
+    public void SetCharacters(PlayingCard character1, PlayingCard character2, PlayingCard character3, PlayingCard character4, PlayingCard character5)
     {
 		CharactersSlot1.Card.UpdateCard(character1);
 		CharactersSlot2.Card.UpdateCard(character2);
@@ -270,4 +270,9 @@ public partial class Playmat : PanelContainer
 		CharactersSlot4.Card.UpdateCard(character4);
 		CharactersSlot5.Card.UpdateCard(character5);
     }
+
+	public List<SlotCard> GetCharacters()
+	{
+		return CharactersSlots.Where(x => x != null && x.Card != null && x.Card.CardResource != null).ToList();
+	}
 }

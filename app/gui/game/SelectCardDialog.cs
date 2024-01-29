@@ -1,4 +1,5 @@
 using Godot;
+using OPSPro.app.models;
 using OPSProServer.Contracts.Models;
 using System;
 using System.Collections.Generic;
@@ -43,22 +44,27 @@ public partial class SelectCardDialog : AcceptDialog
 
 	public void SetCards(List<CardResource> cards, CardSource source)
     {
-		SetCards(cards.Select(x => new Tuple<CardResource, Guid, CardSource>(x, Guid.Empty, source)).ToList());
+		SetCards(cards.Select(x => new SelectCard(x, Guid.Empty, source)).ToList());
     }
 
-	public void SetCards(List<Tuple<CardResource, Guid, CardSource>> cards)
+    public void SetCards(List<SlotCard> cards)
+    {
+        SetCards(cards.Select(x => new SelectCard(x)).ToList());
+    }
+
+    public void SetCards(List<SelectCard> cards)
 	{
-		Cards.GetChildren().ToList().ForEach(x => x.QueueFree());
+		var showSource = cards.GroupBy(x => x.Source).Count() != 1;
 
-		var showSource = cards.GroupBy(x => x.Item3).Count() != 1;
-
+		var excepts = new List<string>();
 		cards.ForEach(x =>
 		{
 			var instance = CardScene.Instantiate<SlotCardSelector>();
 			Cards.AddChild(instance);
-			instance.SlotCard.Card.SetCardResource(x.Item1);
-			instance.TargetGuid = x.Item2;
-			instance.Source = x.Item3;
+			excepts.Add(instance.Name);
+			instance.SlotCard.Card.SetCardResource(x.CardResource);
+			instance.TargetGuid = x.Id;
+			instance.Source = x.Source;
 			instance.ShowSource = showSource;
 			instance.CustomMinimumSize = new Vector2(CardWidth, CardHeight);
 
@@ -67,19 +73,21 @@ public partial class SelectCardDialog : AcceptDialog
 			instance.SlotCard.Card.MouseEntered += () => EmitSignal(SignalName.MouseEnterCard, instance.SlotCard.Card);
 			instance.SlotCard.Card.MouseExited += () => EmitSignal(SignalName.MouseExitCard, instance.SlotCard.Card);
 		});
-	}
+
+        Cards.GetChildren().Where(x => !excepts.Contains(x.Name)).ToList().ForEach(x => x.QueueFree());
+    }
 
 	public List<SlotCardSelector> GetSelecteds()
     {
 		return Cards.GetChildren().ToList().OfType<SlotCardSelector>().Where(x => x.SlotCard.Selected).ToList();
 	}
 
-	public List<Tuple<CardResource, Guid, CardSource>> GetResult()
+	public List<SelectCard> GetResult()
 	{
         return Cards.GetChildren().ToList().OfType<SlotCardSelector>().Where(x => x.SlotCard.Selected).Select(x =>
         {
-			return new Tuple<CardResource, Guid, CardSource>(x.SlotCard.Card.CardResource, x.TargetGuid, x.Source);
-		}).ToList();
+			return new SelectCard(x.SlotCard.Card.CardResource, x.TargetGuid, x.Source);
+        }).ToList();
 	}
 
 	private void CardClicked(SlotCard instance, CardResource x)
@@ -88,7 +96,7 @@ public partial class SelectCardDialog : AcceptDialog
 		{
 			instance.ToggleSelection();
 
-			GetOkButton().Disabled = GetSelecteds().Count != Selection;
+			GetOkButton().Disabled = !Cancellable && GetSelecteds().Count != Selection;
 		}
 	}
 

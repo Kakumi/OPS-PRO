@@ -1,7 +1,9 @@
 using Godot;
+using OPSPro.app.models;
 using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +17,7 @@ public partial class GameView : HBoxContainer
 	public OPSWindow OPSWindow { get; private set; }
 	public RPSWindow RPSWindow { get; private set; }
 	public Label Title { get; private set; }
+	public Game GameState { get; private set; }
 
 	public override void _ExitTree()
 	{
@@ -31,6 +34,9 @@ public partial class GameView : HBoxContainer
 		GameSocketConnector.Instance.FirstPlayerDecided -= FirstPlayerDecided;
 		GameSocketConnector.Instance.BoardUpdated -= BoardUpdated;
         GameSocketConnector.Instance.AlertReceived -= AlertReceived;
+        GameSocketConnector.Instance.GameMessageReceived -= GameMessageReceived;
+        GameSocketConnector.Instance.GameFinished -= GameFinished;
+        GameSocketConnector.Instance.AttackableReceived -= AttackableReceived;
 
         base._ExitTree();
 	}
@@ -51,8 +57,12 @@ public partial class GameView : HBoxContainer
 		GameSocketConnector.Instance.FirstPlayerDecided += FirstPlayerDecided;
 		GameSocketConnector.Instance.BoardUpdated += BoardUpdated;
 		GameSocketConnector.Instance.AlertReceived += AlertReceived;
+        GameSocketConnector.Instance.GameMessageReceived += GameMessageReceived;
+        GameSocketConnector.Instance.GameFinished += GameFinished;
+        GameSocketConnector.Instance.AttackableReceived += AttackableReceived;
 
-		PrepareGame();
+
+        PrepareGame();
 	}
 
     private void PrepareGame()
@@ -110,7 +120,8 @@ public partial class GameView : HBoxContainer
 
     private void BoardUpdated(object sender, Game game)
 	{
-		var myGameInfo = game.GetMyPlayerInformation(GameSocketConnector.Instance.UserId);
+		GameState = game;
+        var myGameInfo = game.GetMyPlayerInformation(GameSocketConnector.Instance.UserId);
 		var opponentGameInfo = game.GetOpponentPlayerInformation(GameSocketConnector.Instance.UserId);
 		UpdatePlayerBoard(Gameboard.PlayerArea, myGameInfo);
 		UpdatePlayerBoard(Gameboard.OpponentArea, opponentGameInfo);
@@ -251,5 +262,37 @@ public partial class GameView : HBoxContainer
 		}
 
 		return await OPSWindow.Ask(text);
-	}
+    }
+
+    private async void AttackableReceived(object sender, AttackableResult e)
+    {
+        var cards = new List<SlotCard>();
+		cards.Add(Gameboard.OpponentArea.Playmat.LeaderSlotCard);
+		cards.AddRange(Gameboard.OpponentArea.Playmat.GetCharacters());
+		var filterCards = cards.Where(x => x != null && x.Card != null && e.Cards.Contains(x.Card.PlayingCard.Id)).ToList();
+        var result = await Gameboard.ShowSelectCardDialog(filterCards.Select(x =>
+        {
+            return new SelectCard(x);
+        }).ToList(), 1, Tr("GAME_CHOOSE_ATTACK_OPPONENT"), true);
+
+		if (result.Count != 0)
+		{
+			var selectedCard = result.First();
+			var slotCard = filterCards.FirstOrDefault(x => x.Guid == selectedCard.Id);
+			if (slotCard != null)
+			{
+				await GameSocketConnector.Instance.Attack(e.Attacker, slotCard.Card.PlayingCard.Id);
+			}
+        }
+    }
+
+    private void GameMessageReceived(object sender, UserGameMessage e)
+    {
+        NotifierManager.Instance.Send("godot_game", string.Format(Tr(e.CodeMessage), e.Args));
+    }
+
+    private void GameFinished(object sender, Guid e)
+    {
+        throw new NotImplementedException();
+    }
 }

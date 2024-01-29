@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://nhdhdw63bwrn"]
+[gd_scene load_steps=8 format=3 uid="uid://nhdhdw63bwrn"]
 
 [ext_resource type="Script" path="res://app/gui/game/PlayerArea.cs" id="1_0q4f5"]
 [ext_resource type="PackedScene" uid="uid://bd5cf4jcvrtmn" path="res://app/gui/game/HandContainer.tscn" id="1_c6e2r"]
 [ext_resource type="PackedScene" uid="uid://dyl137viaosl7" path="res://app/gui/game/Playmat.tscn" id="2_28plc"]
 [ext_resource type="PackedScene" uid="uid://eq7exvwfk0sm" path="res://app/gui/game/GamePlayerInfo.tscn" id="3_6dd3q"]
+[ext_resource type="Resource" uid="uid://bac6desihnui0" path="res://app/resources/game/slot_action/LeaderOpponentAction.tres" id="4_mog44"]
 [ext_resource type="Resource" uid="uid://cuvsduinlwfms" path="res://app/resources/game/slot_action/OpponentTrashAction.tres" id="4_p8rva"]
+[ext_resource type="Resource" uid="uid://ba2b6kbvproom" path="res://app/resources/game/slot_action/CharacterOpponentAction.tres" id="6_8htch"]
 
 [node name="OpponentArea" type="VBoxContainer"]
 anchors_preset = 15
@@ -34,8 +36,26 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 1
 PlayerAreaPath = NodePath("../../..")
 
+[node name="LeaderSlotCard" parent="PlaymatContainer/Control/Playmat/Control" index="0"]
+CardActionResource = ExtResource("4_mog44")
+
 [node name="TrashSlotCard" parent="PlaymatContainer/Control/Playmat/Control" index="3"]
 CardActionResource = ExtResource("4_p8rva")
+
+[node name="CharacterSlotCard1" parent="PlaymatContainer/Control/Playmat/Control/CharactersSlots" index="0"]
+CardActionResource = ExtResource("6_8htch")
+
+[node name="CharacterSlotCard2" parent="PlaymatContainer/Control/Playmat/Control/CharactersSlots" index="1"]
+CardActionResource = ExtResource("6_8htch")
+
+[node name="CharacterSlotCard3" parent="PlaymatContainer/Control/Playmat/Control/CharactersSlots" index="2"]
+CardActionResource = ExtResource("6_8htch")
+
+[node name="CharacterSlotCard4" parent="PlaymatContainer/Control/Playmat/Control/CharactersSlots" index="3"]
+CardActionResource = ExtResource("6_8htch")
+
+[node name="CharacterSlotCard5" parent="PlaymatContainer/Control/Playmat/Control/CharactersSlots" index="4"]
+CardActionResource = ExtResource("6_8htch")
 
 [node name="PlayerInfo" parent="PlaymatContainer" instance=ExtResource("3_6dd3q")]
 layout_mode = 2

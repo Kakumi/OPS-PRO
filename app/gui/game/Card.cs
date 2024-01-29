@@ -49,32 +49,35 @@ public partial class Card : TextureRect
             Texture = null;
             CardResource = null;
             PlayingCard = null;
-            EmitSignal(SignalName.CardResourceUpdated, cardResource);
-        } else if (CardResource?.Id != cardResource?.Id)
+        } else
         {
-            if (PlayingCard == null)
+            if (CardResource?.Id != cardResource?.Id)
             {
-                PlayingCard = new PlayingCard(cardResource.Generate());
+                if (PlayingCard == null)
+                {
+                    PlayingCard = new PlayingCard(cardResource.Generate());
+                }
+
+                if (CardResource != null)
+                {
+                    CardResource.FrontTextureChanged -= FrontTextureChanged;
+                }
+
+                CardResource = cardResource;
+                CardResource.FrontTextureChanged += FrontTextureChanged;
+                Texture = cardResource.FrontTexture;
+
+                if (!cardResource.TextureSet && download)
+                {
+                    CardResource.StartDownloading();
+                }
             }
 
-            if (CardResource != null)
-            {
-                CardResource.FrontTextureChanged -= FrontTextureChanged;
-            }
-
-            CardResource = cardResource;
-            CardResource.FrontTextureChanged += FrontTextureChanged;
-            Texture = cardResource.FrontTexture;
             UpdateFlip();
             UpdateRest();
-
-            if (!cardResource.TextureSet && download)
-            {
-                CardResource.StartDownloading();
-            }
-
-            EmitSignal(SignalName.CardResourceUpdated, cardResource);
         }
+
+        EmitSignal(SignalName.CardResourceUpdated, cardResource);
     }
 
     #region Download & Input

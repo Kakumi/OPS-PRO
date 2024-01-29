@@ -51,6 +51,9 @@ public partial class GameSocketConnector : Node
     public event EventHandler<Game> BoardUpdated;
     public event EventHandler RockPaperScissorsStarted;
     public event EventHandler<UserAlertMessage> AlertReceived;
+    public event EventHandler<UserGameMessage> GameMessageReceived;
+    public event EventHandler<AttackableResult> AttackableReceived;
+    public event EventHandler<Guid> GameFinished;
 
     public override void _Ready()
 	{
@@ -115,6 +118,21 @@ public partial class GameSocketConnector : Node
         _connection.On<UserAlertMessage>(nameof(IGameHubEvent.UserAlertMessage), (userAlertMessage) =>
         {
             AlertReceived?.Invoke(this, userAlertMessage);
+        });
+
+        _connection.On<UserGameMessage>(nameof(IGameHubEvent.UserGameMessage), (userGameMessage) =>
+        {
+            GameMessageReceived?.Invoke(this, userGameMessage);
+        });
+
+        _connection.On<AttackableResult>(nameof(IGameHubEvent.AttackableCards), (result) =>
+        {
+            AttackableReceived?.Invoke(this, result);
+        });
+
+        _connection.On<Guid>(nameof(IGameHubEvent.GameFinished), (result) =>
+        {
+            GameFinished?.Invoke(this, result);
         });
     }
 
@@ -262,6 +280,12 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("User {UserId} want to summon card {HandCardId}.", UserId, handCardId);
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.Summon), UserId, handCardId);
+    }
+
+    public async Task<bool> GetAttackableCards(Guid attacker)
+    {
+        Log.Information("User {UserId} ask for attackable characters with {Attacker}.", UserId, attacker);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.GetAttackableCards), UserId, attacker);
     }
 
     public async Task<bool> Attack(Guid attacker, Guid target)

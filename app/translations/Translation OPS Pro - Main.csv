@@ -186,6 +186,7 @@ GAME_ACTION_TRASH,Throw,Jeter
 GAME_ACTION_DISCARD,Discard,Défausser
 GAME_ACTION_ATTACK,Attack,Attaquer
 GAME_ACTION_SUMMON,Summon,Invoquer
+GAME_ACTION_GIVE_DON,Give DON!! card,Donner une carte DON!!
 GAME_SOURCE_HAND,Hand,Main
 GAME_SOURCE_DECK,Deck,Deck
 GAME_SOURCE_TRASH,Trash,Poubelle
@@ -288,3 +289,12 @@ NEXT_PHASE_DON,Go to main phase,Passer à la phase principale
 NEXT_PHASE_MAIN,End Turn,Fin de tour
 NEXT_PHASE_END,Opponent's Turn...,Tour de l'adversaire...
 NEXT_PHASE_OPPONENT,Start of turn,Début de tour
+GAME_CARD_NOT_FOUND,One of the specified cards does not exist.,Une des cartes spécifiés n'existe pas.
+GAME_NO_CARDS_TO_ATTACK,No cards are available for attack.,Aucune carte n'est disponible pour l'attaque.
+GAME_CHOOSE_ATTACK_OPPONENT,Choose the card you wish to attack (none to cancel).,Choisissez la carte que vous souhaitez attaquer (aucune pour annuler).
+GAME_PLAYER_ATTACK_FAILED,[b]{0}[/b]: attacked {3} ({5}) using {2} ({4}) but failed due to lack of power.,[b]{0}[/b]: a attaqué {3} ({5}) en utilisant {2} ({4}) mais l'attaque a échouée suit à un manque de puissance.
+GAME_PLAYER_ATTACK_SUCCESS,[b]{0}[/b]: attacked {3} ({5}) using {2} ({4}).,[b]{0}[/b]: a attaqué {3} ({5}) en utilisant {2} ({4}).
+GAME_PLAYER_LOOSE_LIFE,[b]{0}[/b] has lost 1 HP ({1} remaining).,[b]{0}[/b] a perdu 1 PV ({1} restant(s)).
+GAME_PLAYER_CANT_ATTACK_FIRST_TURN,You cannot attack the first turn.,Vous ne pouvez pas attaquer le premier tour.
+GAME_PLAYER_CHARACTER_CANT_ATTACK_FIRST_TURN,"This character card cannot attack on the first turn without being in ""Rush"" state.","Cette carte personnage ne peut pas attaquer le premier tour sans avoir l'état ""Rush""."
+GAME_PLAYER_CHARACTER_CANT_ATTACK_RESTED,"This character card cannot attack in the ""Rested"" state.","Cette carte personnage ne peut pas attaquer dans l'état ""Rested""."
