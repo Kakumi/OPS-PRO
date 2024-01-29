@@ -207,6 +207,9 @@ public partial class Playmat : PanelContainer
                 case CardAction.Summon:
                     await GameSocketConnector.Instance.Summon(slotCard.Card.PlayingCard.Id);
                     break;
+				case CardAction.GiveDon:
+					await GameSocketConnector.Instance.GiveDonCard(slotCard.Card.PlayingCard.Id);
+					break;
                 default:
                     Log.Error("Card action invalid for id {Id}, not implemented.", id);
                     break;

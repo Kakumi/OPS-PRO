@@ -293,4 +293,10 @@ public partial class GameSocketConnector : Node
         Log.Information("User {UserId} want to attack {Target} with {Attacker}.", UserId, target, attacker);
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.Attack), UserId, attacker, target);
     }
+
+    public async Task<bool> GiveDonCard(Guid target)
+    {
+        Log.Information("User {UserId} want to give DON!! card to {Target}.", UserId, target);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.GiveDonCard), UserId, target);
+    }
 }
