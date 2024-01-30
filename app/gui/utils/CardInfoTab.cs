@@ -43,7 +43,7 @@ public partial class CardInfoTab : TabInfo
 	public void ShowcardResource(Card card)
 	{
 		var cardResource = card.CardResource;
-		if (cardResource != null)
+		if (cardResource != null && card.IsCardVisible())
         {
 			string info = Tr("INFOTAB_CARDINFO");
 

@@ -62,20 +62,22 @@ public partial class RPSWindow : Window
         {
             RPS.SetDisabled(true);
 
-            var opponentValue = result.Signs.First(x => x.Key != GameSocketConnector.Instance.UserId);
+            var opponentValue = result.GetOpponentChoice(GameSocketConnector.Instance.UserId);
 
             if (result.Winner == null)
             {
-                OpponentStatus.Text = string.Format(Tr("GAME_RPS_SELECTION_OPPONENT_TIE"), Tr(opponentValue.Value.GetTrKey()));
+                OpponentStatus.Text = string.Format(Tr("GAME_RPS_SELECTION_OPPONENT_TIE"), Tr(opponentValue.GetTrKey()).ToLower());
                 Status.Text = Tr("GAME_RPS_WAITING_SELECTION");
                 RPS.SetDisabled(false);
                 ResetTimer();
-            } else if (result.Winner == GameSocketConnector.Instance.UserId)
+            }
+            else if (result.Winner == GameSocketConnector.Instance.UserId)
             {
-                OpponentStatus.Text = string.Format(Tr("GAME_RPS_SELECTION_OPPONENT_LOSE"), Tr(opponentValue.Value.GetTrKey()));
-            } else
+                OpponentStatus.Text = string.Format(Tr("GAME_RPS_SELECTION_OPPONENT_LOSE"), Tr(opponentValue.GetTrKey()).ToLower());
+            }
+            else
             {
-                OpponentStatus.Text = string.Format(Tr("GAME_RPS_SELECTION_OPPONENT_WON"), Tr(opponentValue.Value.GetTrKey()));
+                OpponentStatus.Text = string.Format(Tr("GAME_RPS_SELECTION_OPPONENT_WON"), Tr(opponentValue.GetTrKey()).ToLower());
             }
         } catch(Exception ex)
         {
@@ -100,14 +102,13 @@ public partial class RPSWindow : Window
             {
                 Log.Error("Server return error for user {UserId} and RPS id {Id}", GameSocketConnector.Instance.UserId, id);
                 Status.Text = Tr("GAME_RPS_SELECTION_FAILED");
+                RPS.SetDisabled(false);
             }
         } catch(Exception ex)
         {
 			Log.Error(ex, ex.Message);
 			Status.Text = string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message);
-        } finally
-        {
-			RPS.SetDisabled(false);
+            RPS.SetDisabled(false);
         }
     }
 

@@ -54,6 +54,8 @@ public partial class GameSocketConnector : Node
     public event EventHandler<UserGameMessage> GameMessageReceived;
     public event EventHandler<AttackableResult> AttackableReceived;
     public event EventHandler<Guid> GameFinished;
+    public event EventHandler<bool> WaitOpponent;
+    public event EventHandler<UserResolver> UserAction;
 
     public override void _Ready()
 	{
@@ -133,6 +135,16 @@ public partial class GameSocketConnector : Node
         _connection.On<Guid>(nameof(IGameHubEvent.GameFinished), (result) =>
         {
             GameFinished?.Invoke(this, result);
+        });
+
+        _connection.On<bool>(nameof(IGameHubEvent.WaitOpponent), (result) =>
+        {
+            WaitOpponent?.Invoke(this, result);
+        });
+
+        _connection.On<UserResolver>(nameof(IGameHubEvent.AskUserAction), (result) =>
+        {
+            UserAction?.Invoke(this, result);
         });
     }
 
@@ -298,5 +310,17 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("User {UserId} want to give DON!! card to {Target}.", UserId, target);
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.GiveDonCard), UserId, target);
+    }
+
+    public async Task<bool> ResolveAction(Guid actionId, List<Guid> cardsId)
+    {
+        Log.Information("User {UserId} resolve action {ActionId} with {Count} cards.", UserId, actionId, cardsId.Count);
+        return await _connection.InvokeAsync<bool>(nameof(IResolverHub.ResolveAction), UserId, actionId, cardsId);
+    }
+
+    public async Task<bool> ResolveAskAction(Guid actionId, bool value)
+    {
+        Log.Information("User {UserId} resolve action {ActionId} with {Value}.", UserId, actionId, value);
+        return await _connection.InvokeAsync<bool>(nameof(IResolverHub.ResolveAskAction), UserId, actionId, value);
     }
 }

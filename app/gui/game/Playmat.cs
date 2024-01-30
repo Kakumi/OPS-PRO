@@ -265,13 +265,13 @@ public partial class Playmat : PanelContainer
 		CostSlotCard.Card.Visible = CardsCostDeck > 0;
 	}
 
-    public void SetCharacters(PlayingCard character1, PlayingCard character2, PlayingCard character3, PlayingCard character4, PlayingCard character5)
+    public void SetCharacters(List<PlayingCard> cards)
     {
-		CharactersSlot1.Card.UpdateCard(character1);
-		CharactersSlot2.Card.UpdateCard(character2);
-		CharactersSlot3.Card.UpdateCard(character3);
-		CharactersSlot4.Card.UpdateCard(character4);
-		CharactersSlot5.Card.UpdateCard(character5);
+		CharactersSlot1.Card.UpdateCard(cards[0]);
+		CharactersSlot2.Card.UpdateCard(cards[1]);
+		CharactersSlot3.Card.UpdateCard(cards[2]);
+		CharactersSlot4.Card.UpdateCard(cards[3]);
+		CharactersSlot5.Card.UpdateCard(cards[4]);
     }
 
 	public List<SlotCard> GetCharacters()

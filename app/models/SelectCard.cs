@@ -11,15 +11,18 @@ namespace OPSPro.app.models
     {
         public CardResource CardResource { get; }
         public Guid Id { get; }
-        public CardSource Source { get; }
+        public bool Selected { get; set; }
+        public CardSource Source { get; set; }
 
-        public SelectCard(CardResource cardResource, Guid id, CardSource source)
+        public SelectCard(CardResource cardResource, Guid id, bool selected, CardSource source)
         {
             CardResource = cardResource;
             Id = id;
-            Source = source;
+            Selected = selected;
         }
 
-        public SelectCard(SlotCard slotCard) : this(slotCard.Card.CardResource, slotCard.Guid, slotCard.CardActionResource.Source) { }
+        public SelectCard(CardResource cardResource, Guid id, CardSource source) : this(cardResource, id, false, source) { }
+
+        public SelectCard(SlotCard slotCard) : this(slotCard.Card.CardResource, slotCard.Guid, false, slotCard.CardActionResource.Source) { }
     }
 }

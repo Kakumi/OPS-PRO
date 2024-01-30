@@ -73,7 +73,8 @@ public partial class Gameboard : VBoxContainer
 	{
 		SelectCardDialog.SetCards(cardResources, source);
 		SelectCardDialog.Cancellable = true;
-		SelectCardDialog.Selection = 0;
+		SelectCardDialog.MinSelection = 0;
+		SelectCardDialog.MaxSelection = 0;
 		SelectCardDialog.Title = string.Format(Tr("GAME_VIEW_CARD_TITLE"), cardResources.Count, Tr(source.GetTrKey()).ToLower());
 		SelectCardDialog.PopupCentered();
 	}
@@ -86,14 +87,15 @@ public partial class Gameboard : VBoxContainer
 
 	public async Task<List<SelectCard>> ShowSelectCardDialog(List<SelectCard> cards, int selection, CardAction action, bool cancellable = false)
 	{
-		return await ShowSelectCardDialog(cards, selection, string.Format(Tr("GAME_SELECT_CARD_TITLE"), selection, Tr(action.GetTrKey()).ToLower()), cancellable);
+		return await ShowSelectCardDialog(cards, selection, selection, string.Format(Tr("GAME_SELECT_CARD_TITLE"), selection, Tr(action.GetTrKey()).ToLower()), cancellable);
 	}
 
-    public async Task<List<SelectCard>> ShowSelectCardDialog(List<SelectCard> cards, int selection, string title, bool cancellable = false)
+    public async Task<List<SelectCard>> ShowSelectCardDialog(List<SelectCard> cards, int minSelection, int maxSelection, string title, bool cancellable = false)
     {
         SelectCardDialog.SetCards(cards);
         SelectCardDialog.Cancellable = cancellable;
-        SelectCardDialog.Selection = selection;
+        SelectCardDialog.MinSelection = minSelection;
+		SelectCardDialog.MaxSelection = maxSelection;
         SelectCardDialog.Title = title;
         SelectCardDialog.PopupCentered();
 
@@ -101,15 +103,6 @@ public partial class Gameboard : VBoxContainer
 
         return SelectCardDialog.GetResult();
     }
-
- //   private async void TestPopup()
-	//{
-	//	//ShowCardsDialog(PlayerArea.Hand.Hand.GetChildren().OfType<SlotCard>().Select(x => x.Card.CardResource).ToList(), CardSource.Hand);
-	//	var result = await ShowSelectCardDialog(PlayerArea.Hand.Hand.GetChildren().OfType<SlotCard>().Select(x =>
- //       {
-	//		return new Tuple<CardResource, Guid, CardSource>(x.Card.CardResource, x.Guid, x.CardActionResource.Source);
-	//	}).ToList(), 2, CardAction.Throw);
-	//}
 
 	public void UpdateNextPhaseButton(PhaseType phaseType)
 	{

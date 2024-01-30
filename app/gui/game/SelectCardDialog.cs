@@ -11,9 +11,12 @@ public partial class SelectCardDialog : AcceptDialog
 	public bool Cancellable { get; set; }
 
 	[Export(PropertyHint.Range, "0,120,")]
-	public int Selection { get; set; } = 0;
+	public int MinSelection { get; set; } = 0;
 
-	[Export(PropertyHint.Range, "0,9999,")]
+    [Export(PropertyHint.Range, "0,120,")]
+    public int MaxSelection { get; set; } = 0;
+
+    [Export(PropertyHint.Range, "0,9999,")]
 	public int CardWidth { get; set; } = 207;
 
 	[Export(PropertyHint.Range, "0,9999,")]
@@ -67,6 +70,10 @@ public partial class SelectCardDialog : AcceptDialog
 			instance.Source = x.Source;
 			instance.ShowSource = showSource;
 			instance.CustomMinimumSize = new Vector2(CardWidth, CardHeight);
+			if (x.Selected)
+			{
+				instance.SlotCard.ToggleSelection();
+			}
 
 			instance.SlotCard.Options.Disabled = true;
 			instance.SlotCard.Card.LeftClickCard += (x) => CardClicked(instance.SlotCard, x);
@@ -92,11 +99,11 @@ public partial class SelectCardDialog : AcceptDialog
 
 	private void CardClicked(SlotCard instance, CardResource x)
     {
-		if (Selection > 0)
+		if (MinSelection > 0)
 		{
 			instance.ToggleSelection();
 
-			GetOkButton().Disabled = !Cancellable && GetSelecteds().Count != Selection;
+            UpdateOkButton();
 		}
 	}
 
@@ -107,7 +114,7 @@ public partial class SelectCardDialog : AcceptDialog
 
 	private void OnSelectCardDialogConfirmed()
     {
-		if (GetSelecteds().Count == Selection)
+		if (GetSelecteds().Count >= MinSelection && GetSelecteds().Count <= MaxSelection)
         {
 			Hide();
         }
@@ -129,7 +136,12 @@ public partial class SelectCardDialog : AcceptDialog
 			EmitSignal(SignalName.CloseDialog);
         } else
         {
-			GetOkButton().Disabled = Selection > 0 && GetSelecteds().Count != Selection;
-		}
+			UpdateOkButton();
+        }
 	}
+
+	private void UpdateOkButton()
+    {
+		GetOkButton().Disabled = !Cancellable && MinSelection != 0 && (GetSelecteds().Count < MinSelection || GetSelecteds().Count > MaxSelection);
+    }
 }

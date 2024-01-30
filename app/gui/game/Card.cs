@@ -8,6 +8,7 @@ public partial class Card : TextureRect
 {
     public CardResource CardResource { get; protected set; }
     public PlayingCard PlayingCard { get; protected set; }
+    public bool IsOwner { get; set; }
 
     [Signal]
     public delegate void LeftClickCardEventHandler(CardResource cardResource);
@@ -24,6 +25,7 @@ public partial class Card : TextureRect
     public override void _Ready()
     {
         base._Ready();
+        IsOwner = true;
     }
 
     public void UpdateCard(PlayingCard playingCard)
@@ -139,13 +141,18 @@ public partial class Card : TextureRect
 
     public void UpdateFlip()
     {
-        if (PlayingCard.Flipped)
+        if (PlayingCard.Flipped || !IsCardVisible())
         {
             Texture = CardResource.BackTexture;
         } else
         {
             Texture = CardResource.FrontTexture;
         }
+    }
+
+    public bool IsCardVisible()
+    {
+        return PlayingCard == null || PlayingCard.VisibleForOpponent || IsOwner;
     }
 
     public int GetCustomPower()
