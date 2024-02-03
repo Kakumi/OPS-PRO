@@ -39,7 +39,7 @@ public partial class GameView : HBoxContainer
         GameSocketConnector.Instance.GameFinished -= GameFinished;
         GameSocketConnector.Instance.AttackableReceived -= AttackableReceived;
         GameSocketConnector.Instance.WaitOpponent -= WaitOpponent;
-        GameSocketConnector.Instance.UserAction -= UserAction;
+        GameSocketConnector.Instance.FlowRequested -= FlowRequested;
 
         base._ExitTree();
 	}
@@ -65,7 +65,7 @@ public partial class GameView : HBoxContainer
         GameSocketConnector.Instance.GameFinished += GameFinished;
         GameSocketConnector.Instance.AttackableReceived += AttackableReceived;
         GameSocketConnector.Instance.WaitOpponent += WaitOpponent;
-        GameSocketConnector.Instance.UserAction += UserAction;
+        GameSocketConnector.Instance.FlowRequested += FlowRequested;
 
 
         PrepareGame();
@@ -317,18 +317,18 @@ public partial class GameView : HBoxContainer
         throw new NotImplementedException();
     }
 
-    private async void UserAction(object sender, UserResolver e)
+    private async void FlowRequested(object sender, FlowActionRequest e)
     {
-		if (e.CardsId.Count() == 0)
-		{
-			var result = await AskPopup(Tr(e.CodeMessage));
-			await GameSocketConnector.Instance.ResolveAskAction(e.Id, result);
-		}
-		else
-		{
-			var cards = GetAllCards(e.CardsId);
+        if (e.Type == FlowActionType.Question)
+        {
+            var result = await AskPopup(Tr(e.CodeMessage));
+            await GameSocketConnector.Instance.ResolveFlow(e.FlowActionId, result);
+        }
+        else
+        {
+            var cards = GetAllCards(e.CardsId);
             var result = await Gameboard.ShowSelectCardDialog(cards, e.MinSelection, e.MaxSelection, Tr(e.CodeMessage), e.Cancellable);
-            await GameSocketConnector.Instance.ResolveAction(e.Id, result.Select(x => x.Id).ToList());
+            await GameSocketConnector.Instance.ResolveFlow(e.FlowActionId, result.Count > 0, result.Select(x => x.Id).ToList());
         }
     }
 

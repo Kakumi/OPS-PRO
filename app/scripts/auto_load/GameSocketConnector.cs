@@ -55,7 +55,7 @@ public partial class GameSocketConnector : Node
     public event EventHandler<AttackableResult> AttackableReceived;
     public event EventHandler<Guid> GameFinished;
     public event EventHandler<bool> WaitOpponent;
-    public event EventHandler<UserResolver> UserAction;
+    public event EventHandler<FlowActionRequest> FlowRequested;
 
     public override void _Ready()
 	{
@@ -142,9 +142,9 @@ public partial class GameSocketConnector : Node
             WaitOpponent?.Invoke(this, result);
         });
 
-        _connection.On<UserResolver>(nameof(IGameHubEvent.AskUserAction), (result) =>
+        _connection.On<FlowActionRequest>(nameof(IGameHubEvent.FlowActionRequest), (result) =>
         {
-            UserAction?.Invoke(this, result);
+            FlowRequested?.Invoke(this, result);
         });
     }
 
@@ -225,13 +225,13 @@ public partial class GameSocketConnector : Node
     public async Task<SecureRoom> GetRoom()
     {
         Log.Information("Getting Room for user {UserId}", UserId);
-        return await _connection.InvokeAsync<SecureRoom>(nameof(IRoomHub.GetRoom), UserId);
+        return await _connection.InvokeAsync<SecureRoom>(nameof(IRoomHub.GetRoom));
     }
 
     public async Task<bool> CreateRoom(string desc, string password)
     {
         Log.Information($"Create Room");
-        return await _connection.InvokeAsync<bool>(nameof(IRoomHub.CreateRoom), UserId, password, desc);
+        return await _connection.InvokeAsync<bool>(nameof(IRoomHub.CreateRoom), password, desc);
     }
 
     public async Task<bool> SetReady()
@@ -240,7 +240,7 @@ public partial class GameSocketConnector : Node
         {
             var cards = DeckResource.GetCardsId();
             Log.Information("Set ready for User {UserId} with deck '{Name}' inside room", UserId, DeckResource.Name);
-            return await _connection.InvokeAsync<bool>(nameof(IRoomHub.SetReady), UserId, DeckResource.Name, cards);
+            return await _connection.InvokeAsync<bool>(nameof(IRoomHub.SetReady), DeckResource.Name, cards);
         }
 
         return false;
@@ -249,25 +249,25 @@ public partial class GameSocketConnector : Node
     public async Task<bool> JoinRoom(Guid roomId, string password)
     {
         Log.Information("User {UserId} ask room {RoomId}", UserId, roomId);
-        return await _connection.InvokeAsync<bool>(nameof(IRoomHub.JoinRoom), UserId, roomId, password);
+        return await _connection.InvokeAsync<bool>(nameof(IRoomHub.JoinRoom), roomId, password);
     }
 
     public async Task<bool> LeaveRoom()
     {
         Log.Information("User {UserId} leave room", UserId);
-        return await _connection.InvokeAsync<bool>(nameof(IRoomHub.LeaveRoom), UserId);
+        return await _connection.InvokeAsync<bool>(nameof(IRoomHub.LeaveRoom));
     }
 
     public async Task<bool> Exclude(Guid opponentId, Guid roomId)
     {
         Log.Information("User {UserId} exclude {OpponentId} from room {RoomId}", UserId, opponentId, roomId);
-        return await _connection.InvokeAsync<bool>(nameof(IRoomHub.Exclude), UserId, opponentId, roomId);
+        return await _connection.InvokeAsync<bool>(nameof(IRoomHub.Exclude), opponentId, roomId);
     }
 
     public async Task<bool> LaunchGame(Guid userToStart)
     {
         Log.Information("User {UserId} launch game and set User ID '{UserToStart}' to start.", UserId, userToStart);
-        return await _connection.InvokeAsync<bool>(nameof(IGameHub.LaunchGame), UserId, userToStart);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.LaunchGame), userToStart);
     }
 
     public async Task<bool> StartRPS(Guid roomId)
@@ -279,48 +279,52 @@ public partial class GameSocketConnector : Node
     public async Task<bool> SetRockPaperScissors(RPSChoice rps)
     {
         Log.Information("User {UserId} set rock paper scissors to rps {Rps}", UserId, rps);
-        return await _connection.InvokeAsync<bool>(nameof(IGameHub.SetRockPaperScissors), UserId, rps);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.SetRockPaperScissors), rps);
     }
 
     public async Task<bool> GoToNextPhase()
     {
         Log.Information("User {UserId} ask to go next phase", UserId);
-        return await _connection.InvokeAsync<bool>(nameof(IGameHub.NextPhase), UserId);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.NextPhase));
     }
 
     public async Task<bool> Summon(Guid handCardId)
     {
         Log.Information("User {UserId} want to summon card {HandCardId}.", UserId, handCardId);
-        return await _connection.InvokeAsync<bool>(nameof(IGameHub.Summon), UserId, handCardId);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.Summon), handCardId);
     }
 
     public async Task<bool> GetAttackableCards(Guid attacker)
     {
         Log.Information("User {UserId} ask for attackable characters with {Attacker}.", UserId, attacker);
-        return await _connection.InvokeAsync<bool>(nameof(IGameHub.GetAttackableCards), UserId, attacker);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.GetAttackableCards), attacker);
     }
 
     public async Task<bool> Attack(Guid attacker, Guid target)
     {
         Log.Information("User {UserId} want to attack {Target} with {Attacker}.", UserId, target, attacker);
-        return await _connection.InvokeAsync<bool>(nameof(IGameHub.Attack), UserId, attacker, target);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.Attack), attacker, target);
     }
 
     public async Task<bool> GiveDonCard(Guid target)
     {
         Log.Information("User {UserId} want to give DON!! card to {Target}.", UserId, target);
-        return await _connection.InvokeAsync<bool>(nameof(IGameHub.GiveDonCard), UserId, target);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.GiveDonCard), target);
     }
 
-    public async Task<bool> ResolveAction(Guid actionId, List<Guid> cardsId)
+    public async Task<bool> ResolveFlow(Guid actionId, bool accepted)
+    {
+        return await ResolveFlow(actionId, accepted, new List<Guid>());
+    }
+
+    public async Task<bool> Test()
+    {
+        return await _connection.InvokeAsync<bool>("Test");
+    }
+
+    public async Task<bool> ResolveFlow(Guid actionId, bool accepted, List<Guid> cardsId)
     {
         Log.Information("User {UserId} resolve action {ActionId} with {Count} cards.", UserId, actionId, cardsId.Count);
-        return await _connection.InvokeAsync<bool>(nameof(IResolverHub.ResolveAction), UserId, actionId, cardsId);
-    }
-
-    public async Task<bool> ResolveAskAction(Guid actionId, bool value)
-    {
-        Log.Information("User {UserId} resolve action {ActionId} with {Value}.", UserId, actionId, value);
-        return await _connection.InvokeAsync<bool>(nameof(IResolverHub.ResolveAskAction), UserId, actionId, value);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.ResolveFlow), new FlowActionResponse(actionId, accepted, cardsId));
     }
 }
