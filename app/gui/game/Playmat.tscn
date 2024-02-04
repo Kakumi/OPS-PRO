@@ -1,14 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://dyl137viaosl7"]
+[gd_scene load_steps=14 format=3 uid="uid://srdpyqlbpyn2"]
 
 [ext_resource type="Script" path="res://app/gui/game/Playmat.cs" id="1_86oap"]
 [ext_resource type="Texture2D" uid="uid://baoayj2nb21ve" path="res://app/resources/images/card_back.jpg" id="3_6ce0x"]
 [ext_resource type="Resource" uid="uid://ra6jph4aacsc" path="res://app/resources/game/slot_action/DeckAction.tres" id="3_kx7l7"]
 [ext_resource type="Resource" uid="uid://dmk0xmcm4xmv5" path="res://app/resources/game/slot_action/LeaderAction.tres" id="3_pu7hm"]
+[ext_resource type="Resource" uid="uid://y75n03slraja" path="res://app/resources/game/slot_action/StageAction.tres" id="4_0f6tj"]
 [ext_resource type="Texture2D" uid="uid://dwpepikesyu1i" path="res://app/resources/images/DonCard.png" id="4_c33al"]
 [ext_resource type="Resource" uid="uid://4jcymiio1eq6" path="res://app/resources/game/slot_action/TrashAction.tres" id="5_1862e"]
 [ext_resource type="PackedScene" uid="uid://b3rc5limli0tv" path="res://app/gui/game/SlotCard.tscn" id="5_skdxf"]
 [ext_resource type="Texture2D" uid="uid://du5y8xyf8rdx3" path="res://app/resources/images/DonCardBack.jpg" id="5_x04xc"]
+[ext_resource type="Resource" uid="uid://djmuo27vnsqhy" path="res://app/resources/game/slot_action/CostAction.tres" id="8_jbnih"]
 [ext_resource type="Resource" uid="uid://biejjv4q20fe4" path="res://app/resources/game/slot_action/CharacterAction.tres" id="8_m8lve"]
+[ext_resource type="Resource" uid="uid://doqup0yphh5xf" path="res://app/resources/game/slot_action/LifesAction.tres" id="9_evgxl"]
+[ext_resource type="Resource" uid="uid://db04i47e2tk6u" path="res://app/resources/game/slot_action/DonDeckAction.tres" id="10_uxnqq"]
 
 [node name="Playmat" type="PanelContainer"]
 anchors_preset = 15
@@ -34,6 +38,7 @@ anchor_right = 0.754
 offset_left = 0.180054
 offset_right = -0.179932
 tooltip_text = "GAME_SLOT_TOOLTIP_STAGE"
+CardActionResource = ExtResource("4_0f6tj")
 metadata/_edit_lock_ = true
 
 [node name="DeckSlotCard" parent="Control" instance=ExtResource("5_skdxf")]
@@ -77,6 +82,7 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 tooltip_text = "GAME_SLOT_TOOLTIP_COST"
+CardActionResource = ExtResource("8_jbnih")
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
@@ -108,6 +114,7 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 tooltip_text = "GAME_SLOT_TOOLTIP_DONDECK"
+CardActionResource = ExtResource("10_uxnqq")
 metadata/_edit_lock_ = true
 
 [node name="Card" parent="Control/DonDeckSlotCard/MarginContainer" index="0"]
@@ -125,6 +132,7 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 tooltip_text = "GAME_SLOT_TOOLTIP_LIFE"
+CardActionResource = ExtResource("9_evgxl")
 metadata/_edit_use_anchors_ = true
 
 [node name="Card" parent="Control/LifeSlotCard/MarginContainer" index="0"]

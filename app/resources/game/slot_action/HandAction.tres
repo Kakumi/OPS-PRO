@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_6pou5")
 Source = 0
-Actions = Array[int]([4])
+Actions = Array[int]([4, 6])

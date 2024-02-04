@@ -37,7 +37,6 @@ public partial class GameView : HBoxContainer
         GameSocketConnector.Instance.AlertReceived -= AlertReceived;
         GameSocketConnector.Instance.GameMessageReceived -= GameMessageReceived;
         GameSocketConnector.Instance.GameFinished -= GameFinished;
-        GameSocketConnector.Instance.AttackableReceived -= AttackableReceived;
         GameSocketConnector.Instance.WaitOpponent -= WaitOpponent;
         GameSocketConnector.Instance.FlowRequested -= FlowRequested;
 
@@ -63,7 +62,6 @@ public partial class GameView : HBoxContainer
 		GameSocketConnector.Instance.AlertReceived += AlertReceived;
         GameSocketConnector.Instance.GameMessageReceived += GameMessageReceived;
         GameSocketConnector.Instance.GameFinished += GameFinished;
-        GameSocketConnector.Instance.AttackableReceived += AttackableReceived;
         GameSocketConnector.Instance.WaitOpponent += WaitOpponent;
         GameSocketConnector.Instance.FlowRequested += FlowRequested;
 
@@ -283,28 +281,6 @@ public partial class GameView : HBoxContainer
 		{
 			OPSWindow.Close();
 		}
-    }
-
-    private async void AttackableReceived(object sender, AttackableResult e)
-    {
-        var cards = new List<SlotCard>();
-		cards.Add(Gameboard.OpponentArea.Playmat.LeaderSlotCard);
-		cards.AddRange(Gameboard.OpponentArea.Playmat.GetCharacters());
-		var filterCards = cards.Where(x => x != null && x.Card != null && e.Cards.Contains(x.Card.PlayingCard.Id)).ToList();
-        var result = await Gameboard.ShowSelectCardDialog(filterCards.Select(x =>
-        {
-            return new SelectCard(x);
-        }).ToList(), 1, 1, Tr("GAME_CHOOSE_ATTACK_OPPONENT"), true);
-
-		if (result.Count != 0)
-		{
-			var selectedCard = result.First();
-			var slotCard = filterCards.FirstOrDefault(x => x.Guid == selectedCard.Id);
-			if (slotCard != null)
-			{
-				await GameSocketConnector.Instance.Attack(e.Attacker, slotCard.Card.PlayingCard.Id);
-			}
-        }
     }
 
     private void GameMessageReceived(object sender, UserGameMessage e)

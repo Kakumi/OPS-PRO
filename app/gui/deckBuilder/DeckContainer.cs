@@ -124,7 +124,7 @@ public partial class DeckContainer : VBoxContainer
             {
                 DeckManager.Instance.Save(deck, DeckName.Text);
                 DecksOptions.SetItemText(DecksOptions.Selected, deck.Name);
-                ChangeInfoMessage(string.Format(Tr("DECKBUILDER_SAVED", deck.Name)), "green");
+                ChangeInfoMessage(string.Format(Tr("DECKBUILDER_SAVED"), deck.Name), "green");
             }
             else
             {

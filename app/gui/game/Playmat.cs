@@ -15,7 +15,7 @@ public partial class Playmat : PanelContainer
 	public PlayerArea PlayerArea { get; private set; }
 
 	private List<PlayingCard> _deck;
-	private List<PlayingCard> _trash;
+	private Stack<PlayingCard> _trash;
 	private Stack<PlayingCard> _lifes;
 	private int _cardsDonDeck;
 	public int CardsDonDeck
@@ -161,8 +161,20 @@ public partial class Playmat : PanelContainer
     public void SetTrash(List<PlayingCard> trashDeck)
     {
         Log.Debug("Life changed, update card slot");
-        _trash = trashDeck;
-        TrashSlotCard.Card.Visible = trashDeck.Count > 0;
+		_trash = new Stack<PlayingCard>();
+        foreach (var trashCard in trashDeck)
+        {
+            _trash.Push(trashCard);
+        }
+
+		if (_trash.Count > 0)
+        {
+            TrashSlotCard.Card.Visible = true;
+			TrashSlotCard.Card.UpdateCard(_trash.Peek());
+        } else
+        {
+			TrashSlotCard.Card.Visible = false;
+        }
     }
 
     private void OnCardMouseEntered(Card card)

@@ -99,6 +99,12 @@ public partial class CardResource : Resource
     public bool IsBanish { get; private set; }
     [Export]
     public bool IsTrigger { get; private set; }
+    public bool CanGainBlocker { get; private set; }
+    public bool CanGainRush { get; private set; }
+    public bool CanGainDoubleAttack { get; private set; }
+    public bool CanGainBanish { get; private set; }
+    public bool IsEventCounter { get; private set; }
+    public bool HasActivateEffect { get; private set; }
 
     private bool _cardScriptCheck = false;
     private CardScript _cardScript;
@@ -140,6 +146,14 @@ public partial class CardResource : Resource
         }
     }
 
+    public string GetScriptCode()
+    {
+        var args = Number.Split("-");
+        var serie = args[0];
+        var number = args[1].Split("_")[0];
+        return $"{serie}-{number}";
+    }
+
     public void StartDownloading()
     {
         if (!TextureSet)
@@ -150,6 +164,6 @@ public partial class CardResource : Resource
 
     public CardInfo Generate()
     {
-        return new CardInfo(Id, Images.ToList(), Number, Rarity, CardType, Name, Cost, AttributeImage, Attribute, Power, Counter, Colors.ToList(), Types.ToList(), Effects.ToList(), Set, IsBlocker, IsRush, IsDoubleAttack, IsBanish, IsTrigger);
+        return new CardInfo(Id, Images.ToList(), Number, Rarity, CardType, Name, Cost, AttributeImage, Attribute, Power, Counter, Colors.ToList(), Types.ToList(), Effects.ToList(), Set, IsBlocker, IsRush, IsDoubleAttack, IsBanish, CanGainBlocker, CanGainRush, CanGainDoubleAttack, CanGainBanish, IsTrigger, IsEventCounter, HasActivateEffect);
     }
 }

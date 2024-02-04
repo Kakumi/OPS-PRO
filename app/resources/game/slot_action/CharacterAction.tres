@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_dsvu1")
 Source = 7
-Actions = Array[int]([3, 5])
+Actions = Array[int]([3, 5, 6])

@@ -36,23 +36,16 @@ public partial class GameSocketConnector : Node
     public delegate void ConnectionFailedEventHandler();
 
     public event EventHandler<SecureRoom> RoomUpdated;
-
     public event EventHandler RoomDeleted;
-
     public event EventHandler RoomExcluded;
-
     public event EventHandler<Guid> GameStarted;
-
     public event EventHandler<RPSResult> RPSExecuted;
-
     public event EventHandler ChooseFirstPlayerToPlay;
-
     public event EventHandler<Guid> FirstPlayerDecided;
     public event EventHandler<Game> BoardUpdated;
     public event EventHandler RockPaperScissorsStarted;
     public event EventHandler<UserAlertMessage> AlertReceived;
     public event EventHandler<UserGameMessage> GameMessageReceived;
-    public event EventHandler<AttackableResult> AttackableReceived;
     public event EventHandler<Guid> GameFinished;
     public event EventHandler<bool> WaitOpponent;
     public event EventHandler<FlowActionRequest> FlowRequested;
@@ -125,11 +118,6 @@ public partial class GameSocketConnector : Node
         _connection.On<UserGameMessage>(nameof(IGameHubEvent.UserGameMessage), (userGameMessage) =>
         {
             GameMessageReceived?.Invoke(this, userGameMessage);
-        });
-
-        _connection.On<AttackableResult>(nameof(IGameHubEvent.AttackableCards), (result) =>
-        {
-            AttackableReceived?.Invoke(this, result);
         });
 
         _connection.On<Guid>(nameof(IGameHubEvent.GameFinished), (result) =>
@@ -300,12 +288,6 @@ public partial class GameSocketConnector : Node
         return await _connection.InvokeAsync<bool>(nameof(IGameHub.GetAttackableCards), attacker);
     }
 
-    public async Task<bool> Attack(Guid attacker, Guid target)
-    {
-        Log.Information("User {UserId} want to attack {Target} with {Attacker}.", UserId, target, attacker);
-        return await _connection.InvokeAsync<bool>(nameof(IGameHub.Attack), attacker, target);
-    }
-
     public async Task<bool> GiveDonCard(Guid target)
     {
         Log.Information("User {UserId} want to give DON!! card to {Target}.", UserId, target);
@@ -315,11 +297,6 @@ public partial class GameSocketConnector : Node
     public async Task<bool> ResolveFlow(Guid actionId, bool accepted)
     {
         return await ResolveFlow(actionId, accepted, new List<Guid>());
-    }
-
-    public async Task<bool> Test()
-    {
-        return await _connection.InvokeAsync<bool>("Test");
     }
 
     public async Task<bool> ResolveFlow(Guid actionId, bool accepted, List<Guid> cardsId)

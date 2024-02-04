@@ -53,13 +53,19 @@ public partial class DeckResource : Resource
         return deck;
     }
 
+    public int NumberOfCardsNumber(string number)
+    {
+        return Cards.Count(x => x.Key.GetScriptCode() == number);
+    }
+
     public bool IsValid()
     {
         var totalCards = NumberOfCardsTypes(CardCategory.CHARACTER, CardCategory.EVENT, CardCategory.STAGE);
         var totalLeader = NumberOfCardsTypes(CardCategory.LEADER);
         var leader = Cards.FirstOrDefault(x => x.Key.CardCategory == CardCategory.LEADER).Key;
+        var exceedsSameCard = Cards.Any(x => NumberOfCardsNumber(x.Key.GetScriptCode()) > 4);
 
-        return totalCards == 50 && totalLeader == 1 && leader != null && Cards.All(x => x.Key.Colors.Any(y => leader.Colors.Contains(y)));
+        return totalCards == 50 && totalLeader == 1 && leader != null && !exceedsSameCard && Cards.All(x => x.Key.Colors.Any(y => leader.Colors.Contains(y)));
     }
 
     public System.Collections.Generic.List<string> GetCardsId()
