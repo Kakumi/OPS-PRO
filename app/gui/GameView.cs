@@ -108,7 +108,7 @@ public partial class GameView : HBoxContainer
 
 	private void UpdatePlayerBoard(PlayerArea playerArea, PlayerGameInformation playerGameInformation)
 	{
-		var isOwner = playerGameInformation.UserId == GameSocketConnector.Instance.UserId;
+		var isOwner = playerGameInformation.User.Id == GameSocketConnector.Instance.UserId;
 
         playerArea.Playmat.CardsDonDeck = playerGameInformation.DonDeck;
 		playerArea.Playmat.CardsCostDeck = playerGameInformation.DonAvailable;
@@ -133,9 +133,9 @@ public partial class GameView : HBoxContainer
 		var opponentGameInfo = game.GetOpponentPlayerInformation(GameSocketConnector.Instance.UserId);
 		UpdatePlayerBoard(Gameboard.PlayerArea, myGameInfo);
 		UpdatePlayerBoard(Gameboard.OpponentArea, opponentGameInfo);
-		Gameboard.UpdateNextPhaseButton(myGameInfo.CurrentPhaseType);
+		Gameboard.UpdateNextPhaseButton(myGameInfo.CurrentPhase.PhaseType);
 
-        Title.Text = string.Format(Tr("GAME_TITLE_VS"), game.CreatorGameInformation.Username, game.OpponentGameInformation.Username);
+        Title.Text = string.Format(Tr("GAME_TITLE_VS"), game.CreatorGameInformation.User.Username, game.OpponentGameInformation.User.Username);
         Gameboard.PlayerArea.PlayerInfo.Update(game, myGameInfo);
         Gameboard.OpponentArea.PlayerInfo.Update(game, opponentGameInfo);
     }
@@ -297,13 +297,13 @@ public partial class GameView : HBoxContainer
     {
         if (e.Type == FlowActionType.Question)
         {
-            var result = await AskPopup(Tr(e.CodeMessage));
+            var result = await AskPopup(string.Format(Tr(e.CodeMessage), e.Args));
             await GameSocketConnector.Instance.ResolveFlow(e.FlowActionId, result);
         }
         else
         {
             var cards = GetAllCards(e.CardsId);
-            var result = await Gameboard.ShowSelectCardDialog(cards, e.MinSelection, e.MaxSelection, Tr(e.CodeMessage), e.Cancellable);
+            var result = await Gameboard.ShowSelectCardDialog(cards, e.MinSelection, e.MaxSelection, string.Format(Tr(e.CodeMessage), e.Args), e.Cancellable);
             await GameSocketConnector.Instance.ResolveFlow(e.FlowActionId, result.Count > 0, result.Select(x => x.Id).ToList());
         }
     }

@@ -33,7 +33,7 @@ public partial class GamePlayerInfo : PanelContainer
 
     internal void Update(Game game, PlayerGameInformation gameInfo)
     {
-        Label.Text = gameInfo.Username;
+        Label.Text = gameInfo.User.Username;
         string infoMessage = Tr("GAME_PLAYER_INFO");
         infoMessage = infoMessage.Replace("{phase_name}", Tr(gameInfo.CurrentPhase.PhaseType.GetTrKey()));
         infoMessage = infoMessage.Replace("{turn}", game.Turn + "");
