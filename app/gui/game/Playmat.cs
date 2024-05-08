@@ -1,6 +1,6 @@
 using Godot;
 using Godot.Collections;
-using OPSProServer.Contracts.Contracts;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -14,37 +14,37 @@ public partial class Playmat : PanelContainer
 
 	public PlayerArea PlayerArea { get; private set; }
 
-	private List<CardResource> _deck;
-	private List<CardResource> _trash;
-	private Stack<CardResource> _lifes;
+	private List<PlayingCard> _deck;
+	private Stack<PlayingCard> _trash;
+	private Stack<PlayingCard> _lifes;
 	private int _cardsDonDeck;
 	public int CardsDonDeck
     {
 		get => _cardsDonDeck;
-		set
+		internal set
         {
 			_cardsDonDeck = value;
-			UpdateDonText();
+			UpdateDon();
 		}
 	}
 	private int _cardsCostDeck;
 	public int CardsCostDeck
 	{
 		get => _cardsCostDeck;
-		set
+		internal set
 		{
 			_cardsCostDeck = value;
-			UpdateDonText();
+			UpdateDon();
 		}
 	}
 	private int _cardsRestedCostDeck;
 	public int CardsRestedCostDeck
 	{
 		get => _cardsRestedCostDeck;
-		set
+		internal set
 		{
 			_cardsRestedCostDeck = value;
-			UpdateDonText();
+			UpdateDon();
 		}
 	}
 
@@ -57,6 +57,11 @@ public partial class Playmat : PanelContainer
 	public SlotCard LifeSlotCard { get; private set; }
 	public Container CharactersSlotsContainer { get; private set; }
 	public List<SlotCard> CharactersSlots { get; private set; }
+	public SlotCard CharactersSlot1 { get; private set; }
+	public SlotCard CharactersSlot2 { get; private set; }
+	public SlotCard CharactersSlot3 { get; private set; }
+	public SlotCard CharactersSlot4 { get; private set; }
+	public SlotCard CharactersSlot5 { get; private set; }
 
 	public Label CostLabel { get; private set; }
 	public Label LifeLabel { get; private set; }
@@ -72,15 +77,6 @@ public partial class Playmat : PanelContainer
 
 	[Signal]
 	public delegate void GameFinishedEventHandler(bool victory);
-
-	[Signal]
-	public delegate void DeckChangedEventHandler(Array<CardResource> cards);
-
-	[Signal]
-	public delegate void TrashChangedEventHandler(Array<CardResource> cards);
-
-	[Signal]
-	public delegate void LifeChangedEventHandler(Array<CardResource> cards);
 
 	[Signal]
 	public delegate void CharactersChangedEventHandler(Array<CardResource> cards);
@@ -99,8 +95,13 @@ public partial class Playmat : PanelContainer
 
 		CharactersSlotsContainer = GetNode<Container>("Control/CharactersSlots");
 		CharactersSlots = CharactersSlotsContainer.GetChildren().OfType<SlotCard>().ToList();
+		CharactersSlot1 = GetNode<SlotCard>("Control/CharactersSlots/CharacterSlotCard1");
+		CharactersSlot2 = GetNode<SlotCard>("Control/CharactersSlots/CharacterSlotCard2");
+		CharactersSlot3 = GetNode<SlotCard>("Control/CharactersSlots/CharacterSlotCard3");
+		CharactersSlot4 = GetNode<SlotCard>("Control/CharactersSlots/CharacterSlotCard4");
+		CharactersSlot5 = GetNode<SlotCard>("Control/CharactersSlots/CharacterSlotCard5");
 
-		CostLabel = CostSlotCard.GetNode<Label>("Label");
+        CostLabel = CostSlotCard.GetNode<Label>("Label");
 		LifeLabel = LifeSlotCard.GetNode<Label>("Label");
 
 		LeaderSlotCard.Card.MouseEntered += () => OnCardMouseEntered(LeaderSlotCard.Card);
@@ -123,10 +124,12 @@ public partial class Playmat : PanelContainer
 			x.Card.MouseExited += () => OnCardMouseExited(x.Card);
 		});
 
-        DeckChanged += Playmat_DeckChanged;
-        TrashChanged += Playmat_TrashChanged;
-        LifeChanged += Playmat_LifeChanged;
-	}
+        DeckSlotCard.Card.Visible = false;
+        LifeSlotCard.Card.Visible = false;
+        TrashSlotCard.Card.Visible = false;
+        DonDeckSlotCard.Card.Visible = false;
+        CostSlotCard.Card.Visible = false;
+    }
 
 	private void OnResized()
     {
@@ -140,232 +143,42 @@ public partial class Playmat : PanelContainer
 		TrashSlotCard.Card.Visible = cards.Count > 0;
 	}
 
-    private void Playmat_DeckChanged(Array<CardResource> cards)
+    public void SetDeck(List<PlayingCard> deck)
 	{
 		Log.Debug("Deck changed, update card slot");
-		DeckSlotCard.Card.Visible = cards.Count > 0;
+		_deck = deck;
+		DeckSlotCard.Card.Visible = deck.Count > 0;
 	}
 
-    private void Playmat_LifeChanged(Array<CardResource> cards)
+    public void SetLifes(Stack<PlayingCard> lifeDeck)
 	{
 		Log.Debug("Life changed, update card slot");
-		LifeLabel.Text = string.Format(Tr("GAME_LIFE_COUNTER"), cards.Count);
-		LifeSlotCard.Card.Visible = cards.Count > 0;
+		_lifes = lifeDeck;
+		LifeLabel.Text = string.Format(Tr("GAME_LIFE_COUNTER"), lifeDeck.Count);
+		LifeSlotCard.Card.Visible = lifeDeck.Count > 0;
 	}
 
-    public void Init(DeckResource deckResource)
-	{
-		Log.Information("Initializing game with deck {Name}", deckResource.Name);
-		var cards = deckResource.Cards.ToList();
-		var leaderCardResource = cards.First(x => x.Key.CardTypeList == CardTypeList.LEADER);
-		LeaderSlotCard.Card.SetCardResource(leaderCardResource.Key);
-
-		_deck = new List<CardResource>();
-		DeckSlotCard.Card.Hide();
-		_trash = new List<CardResource>();
-		TrashSlotCard.Card.Hide();
-		_lifes = new Stack<CardResource>();
-		LifeSlotCard.Card.Hide();
-		CardsDonDeck = 10;
-		CardsCostDeck = 0;
-		CardsRestedCostDeck = 0;
-		DonDeckSlotCard.Card.Hide();
-		CostSlotCard.Card.Hide();
-
-		var deckCards = cards.Where(x => x.Key.CardTypeList == CardTypeList.CHARACTER || x.Key.CardTypeList == CardTypeList.STAGE || x.Key.CardTypeList == CardTypeList.EVENT);
-		foreach(var deckCard in deckCards)
+    public void SetTrash(List<PlayingCard> trashDeck)
+    {
+        Log.Debug("Life changed, update card slot");
+		_trash = new Stack<PlayingCard>();
+        foreach (var trashCard in trashDeck)
         {
-			for(int i = 0; i < deckCard.Value; i++)
-            {
-				AddDeckCard(deckCard.Key);
-			}
+            _trash.Push(trashCard);
         }
 
-		ShuffleDeck();
-
-		DrawCard(5);
-
-		RemoveDeckCards(leaderCardResource.Key.Cost).ForEach(x =>
-		{
-			AddLifeCard(x);
-		});
-	}
-
-	public async Task<bool> SyncPlaymat()
-    {
-		var playmatSync = new PlaymatSync()
-		{
-			UserId = GameSocketConnector.Instance.UserId,
-			Leader = LeaderSlotCard.Guid,
-			Life = LifeSlotCard.Guid,
-			Deck = DeckSlotCard.Guid,
-			Stage = StageSlotCard.Guid,
-			Trash = TrashSlotCard.Guid,
-			Cost = CostSlotCard.Guid,
-			DonDeck = DonDeckSlotCard.Guid,
-			Characters = CharactersSlots.Select(x => x.Guid).ToList()
-		};
-
-		return await GameSocketConnector.Instance.SyncBoard(playmatSync);
-	}
-
-	public void AddDeckCard(CardResource cardResource)
-    {
-		_deck.Add(cardResource);
-		EmitSignal(SignalName.DeckChanged, new Array<CardResource>(_deck));
-	}
-
-	private List<CardResource> RemoveDeckCards(int amount = 1)
-	{
-		if (_deck.Count >= amount)
-		{
-			Log.Information("Remove {Amount} cards from deck", amount);
-			var cards = _deck.Take(amount).ToList();
-			_deck.RemoveRange(0, amount);
-			EmitSignal(SignalName.DeckChanged, new Array<CardResource>(_deck));
-
-			return cards;
-		}
-
-		EmitSignal(SignalName.GameFinished, false);
-		return null;
-	}
-
-	public void AddLifeCard(CardResource cardResource)
-	{
-		Log.Information("Add 1 life card");
-		_lifes.Push(cardResource);
-		EmitSignal(SignalName.LifeChanged, new Array<CardResource>(_lifes));
-	}
-
-	public CardResource RemoveLifeCard()
-	{
-		Log.Information("Remove 1 life card");
-		var cardResource = _lifes.Pop();
-		EmitSignal(SignalName.LifeChanged, new Array<CardResource>(_lifes));
-
-		return cardResource;
-	}
-
-	private List<CardResource> GetCharacters()
-    {
-		return CharactersSlots.Where(x => x.Card.CardResource != null).Select(x => x.Card.CardResource).ToList();
-	}
-
-	public bool AddCharacter(CardResource cardResource)
-	{
-		var emptySlot = CharactersSlots.FirstOrDefault(x => x.Card.CardResource == null);
-		if (emptySlot == null)
+		if (_trash.Count > 0)
         {
-			ChangeMessage(Tr("GAME_CHARACTERS_FULL"));
-			return false;
-        }
-
-		if (cardResource.Cost > CardsCostDeck)
-		{
-			ChangeMessage(Tr("GAME_CHARACTERS_NOT_ENOUGH_DON"));
-			return false;
-        }
-
-		emptySlot.Card.SetCardResource(cardResource);
-		UseDonCard(cardResource.Cost);
-
-		EmitSignal(SignalName.CharactersChanged, new Array<CardResource>(GetCharacters()));
-
-		return true;
-	}
-
-	public void RemoveCharacter(CardResource cardResource)
-	{
-		EmitSignal(SignalName.CharactersChanged, new Array<CardResource>(GetCharacters()));
-	}
-
-	public void ShuffleDeck()
-	{
-		Log.Information("Shuffle Deck");
-		_deck = _deck.OrderBy(a => System.Guid.NewGuid()).ToList();
-	}
-
-	public void DrawDonCard(int amount = 1)
-    {
-		if (amount > CardsDonDeck)
+            TrashSlotCard.Card.Visible = true;
+			TrashSlotCard.Card.UpdateCard(_trash.Peek());
+        } else
         {
-			amount = CardsDonDeck;
-        } else if (amount < 0)
-        {
-			amount = 1;
-        }
-
-		if (amount != 0)
-		{
-			Log.Debug("Draw {Amount} from the don deck.", amount);
-			CardsDonDeck -= amount;
-			CardsCostDeck += amount;
-		} else
-        {
-			Log.Debug($"Don't draw don card because don deck is empty.");
+			TrashSlotCard.Card.Visible = false;
         }
     }
 
-	public bool UseDonCard(int amount = 1)
+    private void OnCardMouseEntered(Card card)
 	{
-		if (amount < 0)
-		{
-			amount = 1;
-		}
-
-		if (CardsCostDeck >= amount)
-		{
-			Log.Debug("Use {Amount} card(s) from the cost area.", amount);
-			CardsCostDeck -= amount;
-			CardsRestedCostDeck += amount;
-
-			return true;
-		} else
-        {
-			Log.Debug($"Can't use don card because cost deck has not enough don cards.");
-			ChangeMessage(string.Format(Tr("GAME_NOT_ENOUGH_DON"), amount));
-        }
-
-		return false;
-	}
-
-	public void UnrestCostDeck()
-    {
-		CardsCostDeck += CardsRestedCostDeck;
-		CardsRestedCostDeck = 0;
-	}
-
-	public List<CardResource> DrawCard(int amount = 1)
-	{
-		Log.Information("Draw {Amount} cards", amount);
-		var cards = RemoveDeckCards(amount);
-		cards.ForEach(x =>
-		{
-			if (x != null)
-			{
-				Log.Information($"Card drawn, add it to the hand.");
-				_ = PlayerArea.Hand.AddCard(x);
-			}
-			else
-			{
-				Log.Warning($"Card drawn but null (game finished ?)");
-			}
-
-			EmitSignal(SignalName.CardDrawn, x);
-		});
-
-		return cards;
-	}
-
-	public void TrashCard(CardResource cardResource)
-    {
-		_trash.Add(cardResource);
-		TrashSlotCard.Card.Show();
-    }
-
-	private void OnCardMouseEntered(Card card)
-    {
 		EmitSignal(SignalName.MouseEnterCard, card);
 	}
 
@@ -379,78 +192,102 @@ public partial class Playmat : PanelContainer
 		PlayerArea.PlayerInfo.UpdateMessage(message, color);
 	}
 
-	public void OnCardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
+    private async void OnCardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
     {
-		if (Enum.IsDefined(typeof(CardSelectorAction), id))
-        {
-			CardSelectorAction action = (CardSelectorAction)id;
-			Log.Debug("Card action clicked for source {Source} and action {Action}", resource.Source, action);
+		await CallCardAction(slotCard, resource, id);
+    }
 
-			switch (action)
+	public async Task CallCardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
+	{
+        if (Enum.IsDefined(typeof(CardAction), id))
+        {
+            CardAction action = (CardAction)id;
+            Log.Debug("Card action clicked for source {Source} and action {Action}", resource.Source, action);
+
+            switch (action)
             {
-                case CardSelectorAction.See:
-					SeeCards(slotCard, resource);
+                case CardAction.See:
+                    SeeCards(slotCard, resource);
                     break;
-                case CardSelectorAction.Throw:
+                case CardAction.Throw:
                     break;
-                case CardSelectorAction.Discard:
+                case CardAction.Discard:
                     break;
-                case CardSelectorAction.Attack:
+                case CardAction.Attack:
+					await GameSocketConnector.Instance.GetAttackableCards(slotCard.Card.PlayingCard.Id);
                     break;
-                case CardSelectorAction.Summon:
-					SummonCards(slotCard, resource);
+                case CardAction.Summon:
+                    await GameSocketConnector.Instance.Summon(slotCard.Card.PlayingCard.Id);
                     break;
-				default:
-					Log.Error("Card action invalid for id {Id}, not implemented.", id);
+				case CardAction.GiveDon:
+					await GameSocketConnector.Instance.GiveDonCard(slotCard.Card.PlayingCard.Id);
 					break;
+                default:
+                    Log.Error("Card action invalid for id {Id}, not implemented.", id);
+                    break;
             }
         }
         else
         {
-			Log.Error("Can't parse card action id {Id}, it doesn't exist.", id);
+            Log.Error("Can't parse card action id {Id}, it doesn't exist.", id);
         }
-    }
-
-    private void SummonCards(SlotCard slotCard, GameSlotCardActionResource resource)
-	{
-		Log.Debug("Executing summon method for source {Source}", resource.Source);
-
-		if (AddCharacter(slotCard.Card.CardResource))
-		{
-			Log.Information("Card '{Name}' summoned", slotCard.Card.CardResource.Name);
-			slotCard.QueueFree();
-        } else
-		{
-			Log.Warning("Unable to add the card '{Name}' (area is full ?)", slotCard.Card.CardResource.Name);
-		}
     }
 
     private void SeeCards(SlotCard slotCard, GameSlotCardActionResource resource)
     {
-		Log.Debug("Executing see method for source {Source}", resource.Source);
+        Log.Debug("Executing see method for source {Source}", resource.Source);
 
         switch (resource.Source)
         {
-            case CardSelectorSource.Deck:
-				var cards = _deck.OrderBy(x => Guid.NewGuid()).ToList();
-				PlayerArea.Gameboard.ShowCardsDialog(cards, resource.Source);
-				break;
-            case CardSelectorSource.Trash:
-				PlayerArea.Gameboard.ShowCardsDialog(_trash, resource.Source);
-				break;
-            case CardSelectorSource.OpponentTrash:
-				PlayerArea.Gameboard.ShowCardsDialog(PlayerArea.Gameboard.OpponentArea.Playmat._trash, resource.Source);
-				break;
-			default:
-				Log.Warning("No cards to see because not supported.");
-				break;
+            case CardSource.Deck:
+                var cards = _deck.OrderBy(x => Guid.NewGuid()).ToList();
+                PlayerArea.Gameboard.ShowCardsDialog(cards.Select(x => x.GetCardResource()).ToList(), resource.Source);
+                break;
+            case CardSource.Trash:
+                PlayerArea.Gameboard.ShowCardsDialog(_trash.Select(x => x.GetCardResource()).ToList(), resource.Source);
+                break;
+            case CardSource.OpponentTrash:
+                PlayerArea.Gameboard.ShowCardsDialog(PlayerArea.Gameboard.OpponentArea.Playmat.GetTrash().Select(x => x.GetCardResource()).ToList(), resource.Source);
+                break;
+            default:
+                Log.Warning("No cards to see because not supported.");
+                break;
         }
     }
 
-	private void UpdateDonText()
+    public IEnumerable<PlayingCard> GetTrash()
+    {
+        return (IEnumerable<PlayingCard>) _trash;
+    }
+
+    public IEnumerable<PlayingCard> GetLifes()
+    {
+        return (IEnumerable<PlayingCard>)_lifes;
+    }
+
+    public IEnumerable<PlayingCard> GetDeck()
+    {
+        return (IEnumerable<PlayingCard>)_deck;
+    }
+
+    private void UpdateDon()
     {
 		CostLabel.Text = string.Format(Tr("GAME_DON_COUNTER"), CardsDonDeck, CardsCostDeck, CardsRestedCostDeck);
 		DonDeckSlotCard.Card.Visible = CardsDonDeck > 0;
 		CostSlotCard.Card.Visible = CardsCostDeck > 0;
+	}
+
+    public void SetCharacters(List<PlayingCard> cards)
+    {
+		CharactersSlot1.Card.UpdateCard(cards[0]);
+		CharactersSlot2.Card.UpdateCard(cards[1]);
+		CharactersSlot3.Card.UpdateCard(cards[2]);
+		CharactersSlot4.Card.UpdateCard(cards[3]);
+		CharactersSlot5.Card.UpdateCard(cards[4]);
+    }
+
+	public List<SlotCard> GetCharacters()
+	{
+		return CharactersSlots.Where(x => x != null && x.Card != null && x.Card.CardResource != null).ToList();
 	}
 }

@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://nhdhdw63bwrn"]
+[gd_scene load_steps=13 format=3 uid="uid://htqxrxfgn8m6"]
 
 [ext_resource type="Script" path="res://app/gui/game/PlayerArea.cs" id="1_0q4f5"]
 [ext_resource type="PackedScene" uid="uid://bd5cf4jcvrtmn" path="res://app/gui/game/HandContainer.tscn" id="1_c6e2r"]
-[ext_resource type="PackedScene" uid="uid://dyl137viaosl7" path="res://app/gui/game/Playmat.tscn" id="2_28plc"]
+[ext_resource type="PackedScene" uid="uid://srdpyqlbpyn2" path="res://app/gui/game/Playmat.tscn" id="2_28plc"]
 [ext_resource type="PackedScene" uid="uid://eq7exvwfk0sm" path="res://app/gui/game/GamePlayerInfo.tscn" id="3_6dd3q"]
-[ext_resource type="Resource" uid="uid://cuvsduinlwfms" path="res://app/resources/game/slot_action/OpponentTrashAction.tres" id="4_p8rva"]
+[ext_resource type="Resource" uid="uid://cvbyvij1rdoit" path="res://app/resources/game/slot_action/OpponentTrashAction.tres" id="4_p8rva"]
+[ext_resource type="Resource" uid="uid://drupglpf3vxyr" path="res://app/resources/game/slot_action/OpponentLeaderAction.tres" id="4_re7al"]
+[ext_resource type="Resource" uid="uid://du285lwm2sduk" path="res://app/resources/game/slot_action/OpponentStageAction.tres" id="5_w1wcv"]
+[ext_resource type="Resource" uid="uid://bli82ny7xjede" path="res://app/resources/game/slot_action/OpponentDeckAction.tres" id="6_vvom5"]
+[ext_resource type="Resource" uid="uid://dafljlv0g5pxc" path="res://app/resources/game/slot_action/OpponentCostAction.tres" id="8_gcshi"]
+[ext_resource type="Resource" uid="uid://cyojnpyxv0ok8" path="res://app/resources/game/slot_action/OpponentDonDeckAction.tres" id="9_nsflt"]
+[ext_resource type="Resource" uid="uid://07wk5bf6ily4" path="res://app/resources/game/slot_action/OpponentLifesAction.tres" id="10_7smy1"]
+[ext_resource type="Resource" uid="uid://db5hgpgvkfxg8" path="res://app/resources/game/slot_action/OpponentCharacterAction.tres" id="11_8ksi2"]
 
 [node name="OpponentArea" type="VBoxContainer"]
 anchors_preset = 15
@@ -34,8 +41,41 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 1
 PlayerAreaPath = NodePath("../../..")
 
+[node name="LeaderSlotCard" parent="PlaymatContainer/Control/Playmat/Control" index="0"]
+CardActionResource = ExtResource("4_re7al")
+
+[node name="StageSlotCard" parent="PlaymatContainer/Control/Playmat/Control" index="1"]
+CardActionResource = ExtResource("5_w1wcv")
+
+[node name="DeckSlotCard" parent="PlaymatContainer/Control/Playmat/Control" index="2"]
+CardActionResource = ExtResource("6_vvom5")
+
 [node name="TrashSlotCard" parent="PlaymatContainer/Control/Playmat/Control" index="3"]
 CardActionResource = ExtResource("4_p8rva")
+
+[node name="CostSlotCard" parent="PlaymatContainer/Control/Playmat/Control" index="4"]
+CardActionResource = ExtResource("8_gcshi")
+
+[node name="DonDeckSlotCard" parent="PlaymatContainer/Control/Playmat/Control" index="5"]
+CardActionResource = ExtResource("9_nsflt")
+
+[node name="LifeSlotCard" parent="PlaymatContainer/Control/Playmat/Control" index="6"]
+CardActionResource = ExtResource("10_7smy1")
+
+[node name="CharacterSlotCard1" parent="PlaymatContainer/Control/Playmat/Control/CharactersSlots" index="0"]
+CardActionResource = ExtResource("11_8ksi2")
+
+[node name="CharacterSlotCard2" parent="PlaymatContainer/Control/Playmat/Control/CharactersSlots" index="1"]
+CardActionResource = ExtResource("11_8ksi2")
+
+[node name="CharacterSlotCard3" parent="PlaymatContainer/Control/Playmat/Control/CharactersSlots" index="2"]
+CardActionResource = ExtResource("11_8ksi2")
+
+[node name="CharacterSlotCard4" parent="PlaymatContainer/Control/Playmat/Control/CharactersSlots" index="3"]
+CardActionResource = ExtResource("11_8ksi2")
+
+[node name="CharacterSlotCard5" parent="PlaymatContainer/Control/Playmat/Control/CharactersSlots" index="4"]
+CardActionResource = ExtResource("11_8ksi2")
 
 [node name="PlayerInfo" parent="PlaymatContainer" instance=ExtResource("3_6dd3q")]
 layout_mode = 2

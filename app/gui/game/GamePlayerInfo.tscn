@@ -18,16 +18,16 @@ layout_mode = 2
 
 [node name="Top" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top"]
 layout_mode = 2
-text = "Kakumi"
+text = "GAME_WAITING_START"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Bottom" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Bottom"]
 layout_mode = 2

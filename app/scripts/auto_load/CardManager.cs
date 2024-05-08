@@ -1,5 +1,6 @@
 using Godot;
 using Newtonsoft.Json;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,6 @@ using System.Threading.Tasks;
 
 public partial class CardManager : Node
 {
-    //public static string CARD_FILE_JSON = @"res://app/resources/json/cards.json";
-
     private List<string> _cardTextureDownloaders;
     private string _path;
 
@@ -61,7 +60,9 @@ public partial class CardManager : Node
             using(var client = new WebClient())
             {
                 client.DownloadStringCompleted += ServerConfigDownloaded;
-                client.DownloadStringAsync(new Uri("https://launcher.opbluesea.fr/opspro/cards.json"));
+                //TODO URL
+                //client.DownloadStringAsync(new Uri("http://26.80.66.111:5000/Cards"));
+                client.DownloadStringAsync(new Uri("http://localhost:5282/Cards"));
             }
         } catch(Exception ex)
         {
@@ -259,7 +260,7 @@ public partial class CardManager : Node
 
     public Texture2D GetBackTexture(CardResource cardResource)
     {
-        if (cardResource.CardTypeList == CardTypeList.LEADER)
+        if (cardResource.CardCategory == CardCategory.LEADER)
         {
             return LeaderTexture;
         }
@@ -267,9 +268,9 @@ public partial class CardManager : Node
         return CardTexture;
     }
 
-    public Texture2D GetBackTexture(CardTypeList cardTypeList)
+    public Texture2D GetBackTexture(CardCategory CardCategory)
     {
-        if (cardTypeList == CardTypeList.LEADER)
+        if (CardCategory == CardCategory.LEADER)
         {
             return LeaderTexture;
         }

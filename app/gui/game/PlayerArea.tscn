@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://app/gui/game/PlayerArea.cs" id="1_vls8e"]
 [ext_resource type="PackedScene" uid="uid://bd5cf4jcvrtmn" path="res://app/gui/game/HandContainer.tscn" id="1_x3d3t"]
-[ext_resource type="PackedScene" uid="uid://dyl137viaosl7" path="res://app/gui/game/Playmat.tscn" id="2_osd0n"]
+[ext_resource type="PackedScene" uid="uid://srdpyqlbpyn2" path="res://app/gui/game/Playmat.tscn" id="2_osd0n"]
 [ext_resource type="PackedScene" uid="uid://eq7exvwfk0sm" path="res://app/gui/game/GamePlayerInfo.tscn" id="3_rno1e"]
 [ext_resource type="Resource" uid="uid://t03f5pswk5ca" path="res://app/resources/game/slot_action/HandAction.tres" id="5_6esdm"]
 

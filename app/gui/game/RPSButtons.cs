@@ -1,4 +1,5 @@
 using Godot;
+using OPSProServer.Contracts.Models;
 using System;
 
 public partial class RPSButtons : Container
@@ -29,24 +30,24 @@ public partial class RPSButtons : Container
 
 	public void OnClickRock()
     {
-		EmitSignal(SignalName.ClickRPS, (int)OPSProServer.Contracts.Contracts.RockPaperScissors.Rock);
+		EmitSignal(SignalName.ClickRPS, (int)RPSChoice.Rock);
     }
 
 	public void OnClickPaper()
 	{
-		EmitSignal(SignalName.ClickRPS, (int)OPSProServer.Contracts.Contracts.RockPaperScissors.Paper);
+		EmitSignal(SignalName.ClickRPS, (int)RPSChoice.Paper);
 	}
 
 	public void OnClickScissors()
 	{
-		EmitSignal(SignalName.ClickRPS, (int)OPSProServer.Contracts.Contracts.RockPaperScissors.Scissors);
+		EmitSignal(SignalName.ClickRPS, (int)RPSChoice.Scissors);
 	}
 
 	public void OnClickRandom()
 	{
 		var random = new Random();
-		var min = (int)OPSProServer.Contracts.Contracts.RockPaperScissors.Rock;
-		var max = (int)OPSProServer.Contracts.Contracts.RockPaperScissors.Scissors + 1;
+		var min = (int)RPSChoice.Rock;
+		var max = (int)RPSChoice.Scissors + 1;
 		EmitSignal(SignalName.ClickRPS, random.Next(min, max));
 	}
 }

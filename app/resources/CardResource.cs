@@ -1,5 +1,7 @@
 using Godot;
 using Godot.Collections;
+using OPSProServer.Contracts.Models;
+using System.Linq;
 
 public partial class CardResource : Resource
 {
@@ -35,7 +37,7 @@ public partial class CardResource : Resource
         {
             if (_frontTexture == null)
             {
-                FrontTexture = CardManager.Instance.GetBackTexture(CardTypeList);
+                FrontTexture = CardManager.Instance.GetBackTexture(CardCategory);
             }
 
             return _frontTexture;
@@ -55,7 +57,7 @@ public partial class CardResource : Resource
         {
             if (_backTexture == null)
             {
-                BackTexture = CardManager.Instance.GetBackTexture(CardTypeList);
+                BackTexture = CardManager.Instance.GetBackTexture(CardCategory);
             }
 
             return _backTexture;
@@ -87,6 +89,22 @@ public partial class CardResource : Resource
     public Array<string> Effects { get; set; }
     [Export]
     public new string Set { get; set; }
+    [Export]
+    public bool IsBlocker { get; private set; }
+    [Export]
+    public bool IsRush { get; private set; }
+    [Export]
+    public bool IsDoubleAttack { get; private set; }
+    [Export]
+    public bool IsBanish { get; private set; }
+    [Export]
+    public bool IsTrigger { get; private set; }
+    public bool CanGainBlocker { get; private set; }
+    public bool CanGainRush { get; private set; }
+    public bool CanGainDoubleAttack { get; private set; }
+    public bool CanGainBanish { get; private set; }
+    public bool IsEventCounter { get; private set; }
+    public bool HasActivateEffect { get; private set; }
 
     private bool _cardScriptCheck = false;
     private CardScript _cardScript;
@@ -115,17 +133,25 @@ public partial class CardResource : Resource
     [Signal]
     public delegate void AskDownloadTextureEventHandler(CardResource cardResource);
 
-    public CardTypeList CardTypeList
+    public CardCategory CardCategory
     {
         get
         {
-            if (CardType == "LEADER") return CardTypeList.LEADER;
-            if (CardType == "CHARACTER") return CardTypeList.CHARACTER;
-            if (CardType == "STAGE") return CardTypeList.STAGE;
-            if (CardType == "EVENT") return CardTypeList.EVENT;
+            if (CardType == "LEADER") return CardCategory.LEADER;
+            if (CardType == "CHARACTER") return CardCategory.CHARACTER;
+            if (CardType == "STAGE") return CardCategory.STAGE;
+            if (CardType == "EVENT") return CardCategory.EVENT;
 
-            return CardTypeList.NONE;
+            return CardCategory.NONE;
         }
+    }
+
+    public string GetScriptCode()
+    {
+        var args = Number.Split("-");
+        var serie = args[0];
+        var number = args[1].Split("_")[0];
+        return $"{serie}-{number}";
     }
 
     public void StartDownloading()
@@ -134,5 +160,10 @@ public partial class CardResource : Resource
         {
             EmitSignal(SignalName.AskDownloadTexture, this);
         }
+    }
+
+    public CardInfo Generate()
+    {
+        return new CardInfo(Id, Images.ToList(), Number, Rarity, CardType, Name, Cost, AttributeImage, Attribute, Power, Counter, Colors.ToList(), Types.ToList(), Effects.ToList(), Set, IsBlocker, IsRush, IsDoubleAttack, IsBanish, CanGainBlocker, CanGainRush, CanGainDoubleAttack, CanGainBanish, IsTrigger, IsEventCounter, HasActivateEffect);
     }
 }

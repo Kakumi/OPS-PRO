@@ -1,4 +1,5 @@
 ﻿using Godot;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -123,7 +124,7 @@ public partial class DeckContainer : VBoxContainer
             {
                 DeckManager.Instance.Save(deck, DeckName.Text);
                 DecksOptions.SetItemText(DecksOptions.Selected, deck.Name);
-                ChangeInfoMessage(string.Format(Tr("DECKBUILDER_SAVED", deck.Name)), "green");
+                ChangeInfoMessage(string.Format(Tr("DECKBUILDER_SAVED"), deck.Name), "green");
             }
             else
             {
@@ -257,10 +258,10 @@ public partial class DeckContainer : VBoxContainer
         CardsNumber.Text = $"Cards: {deck.NumberOfCards}";
 
         var sBuilderTypes = new StringBuilder();
-        sBuilderTypes.Append($"{Tr("DECKBUILDER_LEADER")}{deck.NumberOfCardsTypes(CardTypeList.LEADER)}").Append(" | ");
-        sBuilderTypes.Append($"{Tr("DECKBUILDER_CHARACTERS")}{deck.NumberOfCardsTypes(CardTypeList.CHARACTER)}").Append(" | ");
-        sBuilderTypes.Append($"{Tr("DECKBUILDER_EVENT")}{deck.NumberOfCardsTypes(CardTypeList.STAGE)}").Append(" | ");
-        sBuilderTypes.Append($"{Tr("DECKBUILDER_STAGE")}{deck.NumberOfCardsTypes(CardTypeList.EVENT)}");
+        sBuilderTypes.Append($"{Tr("DECKBUILDER_LEADER")}{deck.NumberOfCardsTypes(CardCategory.LEADER)}").Append(" | ");
+        sBuilderTypes.Append($"{Tr("DECKBUILDER_CHARACTERS")}{deck.NumberOfCardsTypes(CardCategory.CHARACTER)}").Append(" | ");
+        sBuilderTypes.Append($"{Tr("DECKBUILDER_EVENT")}{deck.NumberOfCardsTypes(CardCategory.STAGE)}").Append(" | ");
+        sBuilderTypes.Append($"{Tr("DECKBUILDER_STAGE")}{deck.NumberOfCardsTypes(CardCategory.EVENT)}");
         CardsTypes.Text = sBuilderTypes.ToString();
     }
 
@@ -397,9 +398,9 @@ public partial class DeckContainer : VBoxContainer
             return ErrorAddCard.NullObject;
         }
 
-        if (cardResource.CardTypeList == CardTypeList.LEADER)
+        if (cardResource.CardCategory == CardCategory.LEADER)
         {
-            if (deck.Cards.Count(x => x.Key.CardTypeList == cardResource.CardTypeList) != 0)
+            if (deck.Cards.Count(x => x.Key.CardCategory == cardResource.CardCategory) != 0)
             {
                 return ErrorAddCard.LeaderAlreadyExist;
             }
@@ -407,7 +408,7 @@ public partial class DeckContainer : VBoxContainer
             return ErrorAddCard.Ok;
         }
 
-        if (deck.NumberOfCardsTypes(CardTypeList.STAGE, CardTypeList.EVENT, CardTypeList.CHARACTER) >= 50)
+        if (deck.NumberOfCardsTypes(CardCategory.STAGE, CardCategory.EVENT, CardCategory.CHARACTER) >= 50)
         {
             return ErrorAddCard.DeckFull;
         }

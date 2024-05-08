@@ -12,9 +12,11 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\resources\game\" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="OPSProServer.Contracts">
-      <HintPath>..\..\VisualStudioProjects\OPS Pro Server\OPSProServer.Contracts\bin\Debug\net6.0\OPSProServer.Contracts.dll</HintPath>
-      <CopyLocal>True</CopyLocal>
+      <HintPath>..\OPS-PRO-Server\OPSProServer\bin\Debug\net7.0\OPSProServer.Contracts.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using OPSProServer.Contracts.Models;
 using System.Linq;
 
 public partial class DeckResource : Resource
@@ -39,9 +40,9 @@ public partial class DeckResource : Resource
 
     public int NumberOfCards => Cards.Sum(x => x.Value);
 
-    public int NumberOfCardsTypes(params CardTypeList[] types)
+    public int NumberOfCardsTypes(params CardCategory[] types)
     {
-        return Cards.Where(x => types.Contains(x.Key.CardTypeList)).Sum(x => x.Value);
+        return Cards.Where(x => types.Contains(x.Key.CardCategory)).Sum(x => x.Value);
     }
 
     public DeckResource Clone(string name)
@@ -52,12 +53,32 @@ public partial class DeckResource : Resource
         return deck;
     }
 
+    public int NumberOfCardsNumber(string number)
+    {
+        return Cards.Count(x => x.Key.GetScriptCode() == number);
+    }
+
     public bool IsValid()
     {
-        var totalCards = NumberOfCardsTypes(CardTypeList.CHARACTER, CardTypeList.EVENT, CardTypeList.STAGE);
-        var totalLeader = NumberOfCardsTypes(CardTypeList.LEADER);
-        var leader = Cards.FirstOrDefault(x => x.Key.CardTypeList == CardTypeList.LEADER).Key;
+        var totalCards = NumberOfCardsTypes(CardCategory.CHARACTER, CardCategory.EVENT, CardCategory.STAGE);
+        var totalLeader = NumberOfCardsTypes(CardCategory.LEADER);
+        var leader = Cards.FirstOrDefault(x => x.Key.CardCategory == CardCategory.LEADER).Key;
+        var exceedsSameCard = Cards.Any(x => NumberOfCardsNumber(x.Key.GetScriptCode()) > 4);
 
-        return totalCards == 50 && totalLeader == 1 && leader != null && Cards.All(x => x.Key.Colors.Any(y => leader.Colors.Contains(y)));
+        return totalCards == 50 && totalLeader == 1 && leader != null && !exceedsSameCard && Cards.All(x => x.Key.Colors.Any(y => leader.Colors.Contains(y)));
+    }
+
+    public System.Collections.Generic.List<string> GetCardsId()
+    {
+        var list = new System.Collections.Generic.List<string>();
+        foreach (var card in Cards)
+        {
+            for (int i = 0; i < card.Value; i++)
+            {
+                list.Add(card.Key.Id);
+            }
+        }
+
+        return list;
     }
 }

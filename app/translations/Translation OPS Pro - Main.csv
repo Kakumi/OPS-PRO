@@ -186,6 +186,8 @@ GAME_ACTION_TRASH,Throw,Jeter
 GAME_ACTION_DISCARD,Discard,Défausser
 GAME_ACTION_ATTACK,Attack,Attaquer
 GAME_ACTION_SUMMON,Summon,Invoquer
+GAME_ACTION_ACTIVATE,Activate,Activer
+GAME_ACTION_GIVE_DON,Give DON!! card,Donner une carte DON!!
 GAME_SOURCE_HAND,Hand,Main
 GAME_SOURCE_DECK,Deck,Deck
 GAME_SOURCE_TRASH,Trash,Poubelle
@@ -200,6 +202,18 @@ GAME_SOURCE_OPPONENT_LIFE,Life (Opponent),Vie (Adversaire)
 GAME_SOURCE_OPPONENT_DONDECK,DON!! deck (Opponent),Deck DON!! (Adversaire)
 GAME_SOURCE_OPPONENT_COSTDECK,Active DON!! card(s) (Opponent),Carte(s) DON!! active(s) (Adversaire)
 GAME_SOURCE_OPPONENT_BOARD,Board (Opponent),Plateau (Adversaire)
+PHASE_REFRESH_DESC,Refresh DON and character cards.,Rafraichissement des cartes DON et personnages.
+PHASE_DON_DESC,Draw cards DON!,Piochage des cartes DON!!
+PHASE_DRAW_DESC,Draw card from deck,Pioche d'une carte depuis le deck
+PHASE_MAIN_DESC,Main attack phase and use of DON cards!,Phase principale d'attaque et utilisation des cartes DON!!
+PHASE_END_DESC,End,Fin de tour
+PHASE_OPPONENT_DESC,Waiting for his turn...,En attente de son tour...
+PHASE_REFRESH,Refresh Phase,Rafraîchissement
+PHASE_DON,DON!! Phase,Pioche des cartes DON!!
+PHASE_DRAW,Draw Phase,Pioche
+PHASE_MAIN,Main Phase,Principal
+PHASE_END,End Phase,Fin de tour
+PHASE_OPPONENT,Waiting for his turn...,En attente de son tour...
 PHASE_REFRESH_GO_NEXT,Draw Phase,Phase de pioche
 PHASE_DRAW_GO_NEXT,Don!! Phase,Phase Don!!
 PHASE_DON_GO_NEXT,Main Phase,Main Phase
@@ -248,12 +262,86 @@ ROOMS_GETTING_DATA,Getting of the data of the game...,Récupération des donnée
 ROOMS_USER_NOT_CONNECTED,Not connected,Non connecté
 ROOMS_NOT_CONNECTED,You are not connected to any room.,Vous n'êtes connecté à aucune partie.
 ROOMS_NOT_LAUNCHED,Unable to start the game.,Impossible de démarrer la partie.
+ROOMS_ALREADY_HAS_ONE,You're already in a game.,Vous êtes déjà dans une partie.
 GAME_RPS_ROCK,Rock,Pierre
 GAME_RPS_PAPER,Paper,Papier
 GAME_RPS_SCISSORS,Scissors,Ciseaux
-GAME_RPS_RANDOM,Pick random ({0}),Choisir aléatoirement ({0})
+GAME_RPS_RANDOM,Pick random,Choisir aléatoirement
+GAME_RPS_SELECTION_OPPONENT_TIE,"Your opponent has chosen {0}. There is a tie, you can choose a new sign.","Votre adversaire a choisi {0}. Il y a égalité, vous pouvez choisir un nouveau signe."
+GAME_RPS_SELECTION_OPPONENT_WON,"Your opponent has chosen {0}. He wins, waiting for his choice to see who starts the game...","Votre adversaire a choisi {0}. Il gagne, en attente de son choix pour savoir qui commence la partie..."
+GAME_RPS_SELECTION_OPPONENT_LOSE,"Your opponent has chosen {0}. He loses, you must choose who starts the game.","Votre adversaire a choisi {0}. Il perd, vous devez choisir qui commence la partie."
 GAME_RPS_WAITING_OPPONENT,Waiting for an answer from your opponent...,En attente d'une réponse de votre adversaire...
-GAME_RPS_TITLE,Choose a sign to see who starts.,Choisissez un signe pour savoir qui commence.
+GAME_RPS_TITLE,Rock Paper Scissors,Pierre Papier Ciseaux
 GAME_RPS_SELECTED,You have chosen {0}.,Vous avez choisi {0}.
 GAME_RPS_WAITING_SELECTION,Please select a sign.,Veuillez choisir un signe.
 GAME_RPS_SELECTION_FAILED,"An error occurred, impossible to choose.","Une erreur est survenue, impossible de choisir."
+GAME_CHOOSE_FIRST,You won on rock paper scissors. Do you want to play first ?,Vous avez gagné au jeu de pierre-papier-ciseaux. Voulez-vous jouer en premier ?
+GAME_FIRST_TO_PLAY,You start first.,Vous commencez premier.
+GAME_SECOND_TO_PLAY,You are second.,Vous êtes deuxième.
+GAME_WAITING_START,Waiting for the game to start...,En attente que la partie commence...
+GAME_TITLE_VS,{0} VS {1},{0} VS {1}
+GAME_PLAYER_INFO,"[center]Current phase: {phase_name}[/center]
+[center]Turn: {turn}[/center]
+[center]Deck name: {deck_name}[/center]
+[center]Leader: {leader}[/center]
+[center]Deck type: {leader_color}[/center]
+
+[center]Card(s) in deck: {deck_size}[/center]
+[center]Card(s) in hand: {hand_size}[/center]
+[center]Card(s) in garbage can: {trash_size}[/center]
+[center]Remaining life: {life_size}[/center]","[center]Phase en cours: {phase_name}[/center]
+[center]Tour: {turn}[/center]
+[center]Nom du deck: {deck_name}[/center]
+[center]Leader: {leader}[/center]
+[center]Type de deck: {leader_color}[/center]
+
+[center]Carte(s) dans le deck: {deck_size}[/center]
+[center]Carte(s) dans la main: {hand_size}[/center]
+[center]Carte(s) dans la poubelle: {trash_size}[/center]
+[center]Vie restante: {life_size}[/center]"
+NEXT_PHASE_REFRESH,Go to draw phase,Passer à la phase de pioche
+NEXT_PHASE_DRAW,Go to DON!! phase,Passer à la phase DON!!
+NEXT_PHASE_DON,Go to main phase,Passer à la phase principale
+NEXT_PHASE_MAIN,End Turn,Fin de tour
+NEXT_PHASE_END,Opponent's Turn...,Tour de l'adversaire...
+NEXT_PHASE_OPPONENT,Start of turn,Début de tour
+GAME_CARD_NOT_FOUND,One of the specified cards does not exist.,Une des cartes spécifiés n'existe pas.
+GAME_NO_CARDS_TO_ATTACK,No cards are available for attack.,Aucune carte n'est disponible pour l'attaque.
+GAME_CHOOSE_ATTACK_OPPONENT,Choose the card you wish to attack (none to cancel).,Choisissez la carte que vous souhaitez attaquer (aucune pour annuler).
+GAME_PLAYER_ATTACK_FAILED,[b]{0}[/b]: attacked {3} ({5}) using {2} ({4}) but failed due to lack of power.,[b]{0}[/b]: a attaqué {3} ({5}) en utilisant {2} ({4}) mais l'attaque a échouée suit à un manque de puissance.
+GAME_PLAYER_ATTACK_SUCCESS,[b]{0}[/b]: attacked {3} ({5}) using {2} ({4}).,[b]{0}[/b]: a attaqué {3} ({5}) en utilisant {2} ({4}).
+GAME_PLAYER_LOOSE_LIFE,[b]{0}[/b] has lost 1 HP ({1} remaining).,[b]{0}[/b] a perdu 1 PV ({1} restant(s)).
+GAME_PLAYER_CANT_ATTACK_FIRST_TURN,You cannot attack the first turn.,Vous ne pouvez pas attaquer le premier tour.
+GAME_PLAYER_CHARACTER_CANT_ATTACK_FIRST_TURN,"This character card cannot attack on the first turn without being in ""Rush"" state.","Cette carte personnage ne peut pas attaquer le premier tour sans avoir l'état ""Rush""."
+GAME_PLAYER_CHARACTER_CANT_ATTACK_RESTED,"This character card cannot attack in the ""Rested"" state.","Cette carte personnage ne peut pas attaquer dans l'état ""Rested""."
+GAME_PLAYER_SUMMONED,[b]{0}[/b]: invoked {1} against x{2} card(s) DON!!!,[b]{0}[/b]: a invoqué {1} contre x{2} carte(s) DON!!
+GAME_PLAYER_CHARACTER_DON_USED,[b]{0}[/b]: gave {1} card(s) DON!! for {2} ({3}).,[b]{0}[/b]: a donné {1} carte(s) DON!! pour {2} ({3}).
+GAME_CARD_CANNOT_BE_SUMMONED,This card cannot be summoned.,Cette carte ne peut pas être invoquée.
+GAME_WAIT_OPPONENT,Waiting for your opponent to react...,En attente d'une réaction de votre adversaire...
+GAME_CARD_TRASH,[b]{0}[/b]: {1} has been sent to the trash.,[b]{0}[/b]: {1} a été envoyé à la poubelle.
+GAME_VERSUS_START,The game against {0} starts!,La partie contre {0} commence !
+PLAYER_END_TURN,[b]{0}[/b]: End of turn,[b]{0}[/b]: Fin de tour
+PLAYER_START_TURN,[b]{0}[/b]: Start of turn,[b]{0}[/b] : Début du tour
+GAME_USER_START,[b]{0}[/b] plays first.,[b]{0}[/b]: joue premier.
+GAME_USE_EVENT_COUNTER,[b]{0}[/b]: used {1} as event counter (cost {2}).,[b]{0}[/b]: a utilisé {1} comme event counter (coût {2}).
+GAME_USE_EVENT_COUNTER_NO_DON,You can't use the card {1} because you don't have enough DON!! card ({2}/{3}),Vous ne pouvez pas utiliser la carte {1} car vous n'avez pas assez de cartes DON!! ({2}/{3})
+GAME_USE_COUNTER,[b]{0}[/b]: used {1} as counter (+{2}).,[b]{0}[/b]: a utilisé {1} comme counter (+{2}).
+GAME_GET_LIFE_CARD,You received {0} for taking damage.,Vous avez reçu {0} pour avoir pris un dégat.
+GAME_GET_LIFE_CARD_ATTACKER,​​[b]{0}[/b] received a card for having suffered damage.,[b]{0}[/b]: a reçu une carte pour avoir subis des dégats.
+GAME_NOT_IN_GAME,You are not in game.,Vous n'êtes pas en partie.
+GAME_NOT_YOUR_TURN,It's not your turn to play.,Ce n'est pas votre tour de jouer.
+GAME_USE_BLOCKER,[b]{0}[/b]: used {1} as blocker.,[b]{0}[/b]: a utilisé {1} comme blocker.
+GAME_GENERIC_CARD_EFFECT,[b]{0}[/b]: used {1}'s effect.,[b]{0}[/b] : a utilisé l'effet de {1}.
+GAME_ASK_LIFECARD,"You've picked a lifecard with a ""Trigger"" effect. Would you 
+use it? Select the card and confirm, or close this window.","Vous avez pioché une lifecard avec un effet ""Trigger"". Voulez-vous l'utiliser ? Sélectionner la carte et valider ou fermer cette fenêtre."
+GAME_ASK_EVENT_COUNTER_ATTACK,Would you like to use an event counter card from {0} attack?,Voulez-vous utiliser une carte évènement contre l'attaque de {0} ?
+GAME_ASK_COUNTER,Do you want to use a counter to improve the attack from {2} with {3} current power against the attack from {0} to {1} power?,Voulez-vous utiliser un contre pour améliorer l'attaque de {2} à {3} de puissance contre l'attaque de {0} à {1} de puissance ?
+GAME_ASK_BLOCKER,Do you want to use a blocker to counter the attack of {0} to {1} power on your {2} to {3} power?,Voulez-vous utiliser un blocker pour contrer l'attaque de {0} à {1} de puissance sur votre {2} à {3} de puissance ?
+GAME_EFFECT_ALREADY_USED,This effect has already been used.,Cet effet a déjà été joué.
+GAME_NOT_ENOUGH_CHARACTERS,You need {0} character(s) to use this effect.,Vous avez besoin de {0} personnages pour utiliser cet effet.
+GAME_NOT_ENOUGH_DON,You need {0} DON!! card(s) to use this effect.,Vous avez besoin de {0} cartes DON!! pour utiliser cet effet.
+GAME_EFFECT_SELECT_CHARACTER_HAND,Choose a character to return to your hand.,Chisissez un personnage à retourner dans votre main.
+GAME_EFFECT_NO_CHARACTERS_ABLE,No characters are eligible to use this effect.,Aucun caractères n'est éligible pour utiliser cet effet.
+GAME_ALREADY_REDRAW,You have already redrawn your starting hand.,Vous avez déjà re-pioché votre main de départ.
+GAME_REDRAW,[b]{0}[/b]: redraw a starting hand.,[b]{0}[/b]: a re-pioché une main de départ.
+GAME_ASK_REDRAW,Would you like to change your starting hand?,Voulez-vous changer votre main de départ ?

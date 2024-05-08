@@ -1,9 +1,10 @@
 using Godot;
-using OPSProServer.Contracts.Contracts;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 public partial class RoomDialog : Window
 {
@@ -11,8 +12,8 @@ public partial class RoomDialog : Window
 	public bool Cancellable { get; set; }
 
 	private List<DeckResource> _decks;
-	private Room _room;
-	public Room Room
+	private SecureRoom _room;
+	public SecureRoom Room
     {
 		get => _room;
 		set
@@ -77,13 +78,13 @@ public partial class RoomDialog : Window
     private void UpdateMenu()
     {
 		CreatorLabel.Text = Room.Creator.Username;
-		CreatorCheckbox.ButtonPressed = Room.CreatorReady;
+		CreatorCheckbox.ButtonPressed = Room.Creator.Ready;
 
 		OpponentLabel.Text = Room.Opponent?.Username;
-		OpponentCheckbox.ButtonPressed = Room.OpponentReady;
+		OpponentCheckbox.ButtonPressed = Room.Opponent?.Ready ?? false;
 		OpponentExcludeButton.Visible = Room.Creator.Id == GameSocketConnector.Instance.UserId;
 		StartButton.Visible = OpponentExcludeButton.Visible;
-		StartButton.Disabled = !Room.CreatorReady || !Room.OpponentReady;
+		StartButton.Disabled = !Room.Creator.Ready || (!Room.Opponent?.Ready ?? true);
 
 		OpponentInfo.Visible = Room.Opponent != null;
 		OpponentInfoEmpty.Visible = !OpponentInfo.Visible;
@@ -93,10 +94,10 @@ public partial class RoomDialog : Window
     {
 		if (Room.Creator.Id == GameSocketConnector.Instance.UserId)
         {
-			return Room.CreatorReady;
+			return Room.Creator.Ready;
         }
 
-		return Room.OpponentReady;
+		return Room.Opponent?.Ready ?? false;
     }
 
     private void OnCloseRequested()
@@ -118,7 +119,7 @@ public partial class RoomDialog : Window
 		try
 		{
 			UpdateMessage(null);
-			await GameSocketConnector.Instance.SetReady(!IsReady());
+            await GameSocketConnector.Instance.SetReady();
         } catch(Exception ex)
 		{
 			Log.Error(ex, ex.Message);
@@ -130,7 +131,7 @@ public partial class RoomDialog : Window
 		try
 		{
 			UpdateMessage(null);
-			var success = await GameSocketConnector.Instance.LaunchGame(Room.Id);
+			var success = await GameSocketConnector.Instance.StartRPS(Room.Id);
 			if (!success)
             {
 				UpdateMessage("ROOMS_NOT_LAUNCHED");

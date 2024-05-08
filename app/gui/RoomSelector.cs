@@ -1,17 +1,17 @@
 using Godot;
-using OPSProServer.Contracts.Contracts;
 using Serilog;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using OPSProServer.Contracts.Models;
 
 public partial class RoomSelector : VBoxContainer
 {
 	[Export]
 	public PackedScene RoomInfoScene { get; set; }
 
-	private IReadOnlyList<Room> _rooms;
+	private IReadOnlyList<SecureRoom> _rooms;
 
 	public Label PlayerLabel { get; private set; }
 	public CheckBox ShowPasswords { get; private set; }
@@ -31,7 +31,7 @@ public partial class RoomSelector : VBoxContainer
 		GameSocketConnector.Instance.RoomDeleted -= Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated -= Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded -= Instance_RoomExcluded;
-		GameSocketConnector.Instance.GameLaunched -= Instance_GameLaunched;
+		GameSocketConnector.Instance.RockPaperScissorsStarted -= Instance_RPSStarted;
 
 		base._ExitTree();
 	}
@@ -54,7 +54,7 @@ public partial class RoomSelector : VBoxContainer
 		GameSocketConnector.Instance.RoomDeleted += Instance_RoomDeleted;
 		GameSocketConnector.Instance.RoomUpdated += Instance_RoomUpdated;
 		GameSocketConnector.Instance.RoomExcluded += Instance_RoomExcluded;
-		GameSocketConnector.Instance.GameLaunched += Instance_GameLaunched;
+		GameSocketConnector.Instance.RockPaperScissorsStarted += Instance_RPSStarted;
 
 		UpdateUsername();
 
@@ -133,7 +133,7 @@ public partial class RoomSelector : VBoxContainer
 		});
 	}
 
-	private void Instance_GameLaunched(object sender, EventArgs e)
+	private void Instance_RPSStarted(object sender, EventArgs e)
 	{
 		try
         {
@@ -146,7 +146,7 @@ public partial class RoomSelector : VBoxContainer
         }
 	}
 
-	private void Instance_RoomUpdated(object sender, Room e)
+	private void Instance_RoomUpdated(object sender, SecureRoom e)
 	{
 		OPSWindow.Hide();
 		CreateRoomDialog.Hide();

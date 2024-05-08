@@ -1,5 +1,5 @@
 using Godot;
-using OPSProServer.Contracts.Contracts;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using Serilog.Configuration;
 using System;
@@ -168,52 +168,108 @@ public static class Extension
         return default(Variant);
     }
 
-    public static string GetTrKey(this CardSelectorSource source)
+    public static string GetTrKey(this CardSource source)
     {
         switch (source)
         {
-            case CardSelectorSource.Hand: return "GAME_SOURCE_HAND";
-            case CardSelectorSource.Deck: return "GAME_SOURCE_DECK";
-            case CardSelectorSource.Trash: return "GAME_SOURCE_TRASH";
-            case CardSelectorSource.Life: return "GAME_SOURCE_LIFE";
-            case CardSelectorSource.DonDeck: return "GAME_SOURCE_DONDECK";
-            case CardSelectorSource.CostDeck: return "GAME_SOURCE_COSTDECK";
-            case CardSelectorSource.Board: return "GAME_SOURCE_BOARD";
-            case CardSelectorSource.OpponentHand: return "GAME_SOURCE_OPPONENT_HAND";
-            case CardSelectorSource.OpponentDeck: return "GAME_SOURCE_OPPONENT_DECK";
-            case CardSelectorSource.OpponentTrash: return "GAME_SOURCE_OPPONENT_TRASH";
-            case CardSelectorSource.OpponentLife: return "GAME_SOURCE_OPPONENT_LIFE";
-            case CardSelectorSource.OpponentDonDeck: return "GAME_SOURCE_OPPONENT_DONDECK";
-            case CardSelectorSource.OpponentCostDeck: return "GAME_SOURCE_OPPONENT_COSTDECK";
-            case CardSelectorSource.OpponentBoard: return "GAME_SOURCE_OPPONENT_BOARD";
+            case CardSource.Hand: return "GAME_SOURCE_HAND";
+            case CardSource.Deck: return "GAME_SOURCE_DECK";
+            case CardSource.Trash: return "GAME_SOURCE_TRASH";
+            case CardSource.Life: return "GAME_SOURCE_LIFE";
+            case CardSource.DonDeck: return "GAME_SOURCE_DONDECK";
+            case CardSource.CostDeck: return "GAME_SOURCE_COSTDECK";
+            case CardSource.Board: return "GAME_SOURCE_BOARD";
+            case CardSource.OpponentHand: return "GAME_SOURCE_OPPONENT_HAND";
+            case CardSource.OpponentDeck: return "GAME_SOURCE_OPPONENT_DECK";
+            case CardSource.OpponentTrash: return "GAME_SOURCE_OPPONENT_TRASH";
+            case CardSource.OpponentLife: return "GAME_SOURCE_OPPONENT_LIFE";
+            case CardSource.OpponentDonDeck: return "GAME_SOURCE_OPPONENT_DONDECK";
+            case CardSource.OpponentCostDeck: return "GAME_SOURCE_OPPONENT_COSTDECK";
+            case CardSource.OpponentBoard: return "GAME_SOURCE_OPPONENT_BOARD";
+            case CardSource.Character: return "";
+            case CardSource.Leader: return "";
+            case CardSource.OpponentCharacter: return "";
+            case CardSource.OpponentLeader: return "";
         }
 
         return "none";
     }
 
-    public static string GetTrKey(this CardSelectorAction action)
+    public static string GetTrKey(this CardAction action)
     {
         switch (action)
         {
-            case CardSelectorAction.See: return "GAME_ACTION_SEE";
-            case CardSelectorAction.Throw: return "GAME_ACTION_TRASH";
-            case CardSelectorAction.Discard: return "GAME_ACTION_DISCARD";
-            case CardSelectorAction.Attack: return "GAME_ACTION_ATTACK";
-            case CardSelectorAction.Summon: return "GAME_ACTION_SUMMON";
+            case CardAction.See: return "GAME_ACTION_SEE";
+            case CardAction.Throw: return "GAME_ACTION_TRASH";
+            case CardAction.Discard: return "GAME_ACTION_DISCARD";
+            case CardAction.Attack: return "GAME_ACTION_ATTACK";
+            case CardAction.Summon: return "GAME_ACTION_SUMMON";
+            case CardAction.GiveDon: return "GAME_ACTION_GIVE_DON";
+            case CardAction.Activate: return "GAME_ACTION_ACTIVATE";
         }
 
         return "none";
     }
 
-    public static string GetTrKey(this RockPaperScissors rps)
+    public static string GetTrKey(this RPSChoice rps)
     {
         switch (rps)
         {
-            case RockPaperScissors.Rock: return "GAME_RPS_ROCK";
-            case RockPaperScissors.Paper: return "GAME_RPS_PAPER";
-            case RockPaperScissors.Scissors: return "GAME_RPS_SCISSORS";
+            case RPSChoice.Rock: return "GAME_RPS_ROCK";
+            case RPSChoice.Paper: return "GAME_RPS_PAPER";
+            case RPSChoice.Scissors: return "GAME_RPS_SCISSORS";
         }
 
         return "none";
+    }
+
+    public static string GetTrKey(this PhaseType phase)
+    {
+        switch (phase)
+        {
+            case PhaseType.Refresh: return "PHASE_REFRESH";
+            case PhaseType.Don: return "PHASE_DON";
+            case PhaseType.Draw: return "PHASE_DRAW";
+            case PhaseType.Main: return "PHASE_MAIN";
+            case PhaseType.End: return "PHASE_END";
+            case PhaseType.Opponent: return "PHASE_OPPONENT";
+        }
+
+        return "none";
+    }
+
+    public static string GetTrKeyDesc(this PhaseType phase)
+    {
+        switch (phase)
+        {
+            case PhaseType.Refresh: return "PHASE_REFRESH_DESC";
+            case PhaseType.Don: return "PHASE_DON_DESC";
+            case PhaseType.Draw: return "PHASE_DRAW_DESC";
+            case PhaseType.Main: return "PHASE_MAIN_DESC";
+            case PhaseType.End: return "PHASE_END_DESC";
+            case PhaseType.Opponent: return "PHASE_OPPONENT_DESC";
+        }
+
+        return "none";
+    }
+
+    public static string GetNextTrKey(this PhaseType phase)
+    {
+        switch (phase)
+        {
+            case PhaseType.Refresh: return "NEXT_PHASE_REFRESH";
+            case PhaseType.Don: return "NEXT_PHASE_DON";
+            case PhaseType.Draw: return "NEXT_PHASE_DRAW";
+            case PhaseType.Main: return "NEXT_PHASE_MAIN";
+            case PhaseType.End: return "NEXT_PHASE_END";
+            case PhaseType.Opponent: return "NEXT_PHASE_OPPONENT";
+        }
+
+        return "none";
+    }
+
+    public static CardResource GetCardResource(this PlayingCard card)
+    {
+        return CardManager.Instance.Cards.FirstOrDefault(x => x.Id == card.CardInfo.Id);
     }
 }

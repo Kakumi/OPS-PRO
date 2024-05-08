@@ -1,6 +1,8 @@
 using Godot;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public partial class PlayerArea : VBoxContainer
@@ -24,48 +26,27 @@ public partial class PlayerArea : VBoxContainer
 		PlayerInfo = GetNode<GamePlayerInfo>("PlaymatContainer/PlayerInfo");
 		Gameboard = GetNode<Gameboard>(GameboardPath);
 
-        Playmat.MouseEnterCard += Playmat_MouseEnterCard;
-        Playmat.MouseExitCard += Playmat_MouseExitCard;
+		Playmat.MouseEnterCard += Playmat_MouseEnterCard;
+		Playmat.MouseExitCard += Playmat_MouseExitCard;
 
 		FirstToPlay = true;
 	}
 
-    private void Playmat_MouseExitCard(Card card)
-    {
-		Gameboard.GameView.CardInfoPanel.ShowcardResource(card);
-    }
-
-    private void Playmat_MouseEnterCard(Card card)
-    {
+	private void Playmat_MouseExitCard(Card card)
+	{
 		Gameboard.GameView.CardInfoPanel.ShowcardResource(card);
 	}
 
-	public async Task UpdatePhase(IPhase phase)
+	private void Playmat_MouseEnterCard(Card card)
 	{
-		Log.Debug("Update phase from {CurrentPhase} to {Phase}", CurrentPhase, phase);
-
-		if (CurrentPhase != null)
-		{
-			await CurrentPhase.OnPhaseEnded(this);
-		}
-
-		CurrentPhase = phase;
-		UpdateSlotCardsAction(phase);
-
-		Gameboard.NextPhaseButton.Text = Tr(phase.GetTrKeyNextPhase());
-		Gameboard.NextPhaseButton.Disabled = phase.NextPhase() == null;
-
-		await phase.OnPhaseStarted(this);
-
-		if (phase.IsAutoNextPhase())
-        {
-			await UpdatePhase(phase.NextPhase());
-        }
+		Gameboard.GameView.CardInfoPanel.ShowcardResource(card);
 	}
 
 	public void UpdateSlotCardsAction(IPhase phase)
-    {
+	{
 		Log.Debug($"Updating Slot Cards actions");
+
+		CurrentPhase = phase;
 
 		Hand.GetCards().ForEach(x => x.CardActionUpdated(phase));
 		Playmat.LeaderSlotCard.CardActionUpdated(phase);

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bdos3ombb52gx" path="res://app/gui/utils/CardInfoPanel.tscn" id="1_6npsf"]
 [ext_resource type="Script" path="res://app/gui/GameView.cs" id="1_nncif"]
-[ext_resource type="PackedScene" uid="uid://bkvbntgj7a8ub" path="res://app/gui/game/Gameboard.tscn" id="2_5w7gj"]
+[ext_resource type="PackedScene" path="res://app/gui/game/Gameboard.tscn" id="2_5w7gj"]
 [ext_resource type="PackedScene" uid="uid://rmh0e5r1i64b" path="res://app/gui/RoomSelector.tscn" id="2_aic28"]
 [ext_resource type="PackedScene" uid="uid://dss5yj3kykc0i" path="res://app/gui/utils/OPSWindow.tscn" id="2_swg3e"]
 [ext_resource type="PackedScene" uid="uid://dr5oryxtn1ya5" path="res://app/gui/utils/TabInfo.tscn" id="3_remmt"]
@@ -47,7 +47,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
-text = "Kakumi VS Sarcasm"
+text = "GAME_WAITING_START"
 horizontal_alignment = 1
 vertical_alignment = 1
 

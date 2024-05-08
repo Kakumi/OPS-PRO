@@ -1,4 +1,5 @@
 using Godot;
+using OPSProServer.Contracts.Models;
 using Serilog;
 using System;
 using System.Linq;

@@ -1,4 +1,6 @@
 using Godot;
+using OPSPro.app.models;
+using OPSProServer.Contracts.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +11,12 @@ public partial class SelectCardDialog : AcceptDialog
 	public bool Cancellable { get; set; }
 
 	[Export(PropertyHint.Range, "0,120,")]
-	public int Selection { get; set; } = 0;
+	public int MinSelection { get; set; } = 0;
 
-	[Export(PropertyHint.Range, "0,9999,")]
+    [Export(PropertyHint.Range, "0,120,")]
+    public int MaxSelection { get; set; } = 0;
+
+    [Export(PropertyHint.Range, "0,9999,")]
 	public int CardWidth { get; set; } = 207;
 
 	[Export(PropertyHint.Range, "0,9999,")]
@@ -40,54 +45,65 @@ public partial class SelectCardDialog : AcceptDialog
 		Cards = GetNode<Container>("MarginContainer/VBoxContainer/HScrollBar/Cards");
 	}
 
-	public void SetCards(List<CardResource> cards, CardSelectorSource source)
+	public void SetCards(List<CardResource> cards, CardSource source)
     {
-		SetCards(cards.Select(x => new Tuple<CardResource, Guid, CardSelectorSource>(x, Guid.Empty, source)).ToList());
+		SetCards(cards.Select(x => new SelectCard(x, Guid.Empty, source)).ToList());
     }
 
-	public void SetCards(List<Tuple<CardResource, Guid, CardSelectorSource>> cards)
+    public void SetCards(List<SlotCard> cards)
+    {
+        SetCards(cards.Select(x => new SelectCard(x)).ToList());
+    }
+
+    public void SetCards(List<SelectCard> cards)
 	{
-		Cards.GetChildren().ToList().ForEach(x => x.QueueFree());
+		var showSource = cards.GroupBy(x => x.Source).Count() != 1;
 
-		var showSource = cards.GroupBy(x => x.Item3).Count() != 1;
-
+		var excepts = new List<string>();
 		cards.ForEach(x =>
 		{
 			var instance = CardScene.Instantiate<SlotCardSelector>();
 			Cards.AddChild(instance);
-			instance.SlotCard.Card.SetCardResource(x.Item1);
-			instance.TargetGuid = x.Item2;
-			instance.Source = x.Item3;
+			excepts.Add(instance.Name);
+			instance.SlotCard.Card.SetCardResource(x.CardResource);
+			instance.TargetGuid = x.Id;
+			instance.Source = x.Source;
 			instance.ShowSource = showSource;
 			instance.CustomMinimumSize = new Vector2(CardWidth, CardHeight);
+			if (x.Selected)
+			{
+				instance.SlotCard.ToggleSelection();
+			}
 
 			instance.SlotCard.Options.Disabled = true;
 			instance.SlotCard.Card.LeftClickCard += (x) => CardClicked(instance.SlotCard, x);
 			instance.SlotCard.Card.MouseEntered += () => EmitSignal(SignalName.MouseEnterCard, instance.SlotCard.Card);
 			instance.SlotCard.Card.MouseExited += () => EmitSignal(SignalName.MouseExitCard, instance.SlotCard.Card);
 		});
-	}
+
+        Cards.GetChildren().Where(x => !excepts.Contains(x.Name)).ToList().ForEach(x => x.QueueFree());
+    }
 
 	public List<SlotCardSelector> GetSelecteds()
     {
 		return Cards.GetChildren().ToList().OfType<SlotCardSelector>().Where(x => x.SlotCard.Selected).ToList();
 	}
 
-	public List<Tuple<CardResource, Guid, CardSelectorSource>> GetResult()
+	public List<SelectCard> GetResult()
 	{
         return Cards.GetChildren().ToList().OfType<SlotCardSelector>().Where(x => x.SlotCard.Selected).Select(x =>
         {
-			return new Tuple<CardResource, Guid, CardSelectorSource>(x.SlotCard.Card.CardResource, x.TargetGuid, x.Source);
-		}).ToList();
+			return new SelectCard(x.SlotCard.Card.CardResource, x.TargetGuid, x.Source);
+        }).ToList();
 	}
 
 	private void CardClicked(SlotCard instance, CardResource x)
     {
-		if (Selection > 0)
+		if (MinSelection > 0)
 		{
 			instance.ToggleSelection();
 
-			GetOkButton().Disabled = GetSelecteds().Count != Selection;
+            UpdateOkButton();
 		}
 	}
 
@@ -98,7 +114,7 @@ public partial class SelectCardDialog : AcceptDialog
 
 	private void OnSelectCardDialogConfirmed()
     {
-		if (GetSelecteds().Count == Selection)
+		if (GetSelecteds().Count >= MinSelection && GetSelecteds().Count <= MaxSelection)
         {
 			Hide();
         }
@@ -120,7 +136,12 @@ public partial class SelectCardDialog : AcceptDialog
 			EmitSignal(SignalName.CloseDialog);
         } else
         {
-			GetOkButton().Disabled = Selection > 0 && GetSelecteds().Count != Selection;
-		}
+			UpdateOkButton();
+        }
 	}
+
+	private void UpdateOkButton()
+    {
+		GetOkButton().Disabled = !Cancellable && MinSelection != 0 && (GetSelecteds().Count < MinSelection || GetSelecteds().Count > MaxSelection);
+    }
 }

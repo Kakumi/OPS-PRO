@@ -1,7 +1,9 @@
 using Godot;
+using OPSProServer.Contracts.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class HandContainer : PanelContainer
 {
@@ -25,24 +27,42 @@ public partial class HandContainer : PanelContainer
 		Hand = GetNode<Container>("MarginContainer/Hand");
 	}
 
-	public SlotCard AddCard(CardResource cardResource)
+	public void SetCards(List<PlayingCard> playingCards)
 	{
-		var instance = CardScene.Instantiate<SlotCard>();
-		Hand.AddChild(instance);
-		instance.Card.SetCardResource(cardResource);
-		instance.MouseEntered += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
-		instance.MouseExited += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
-		instance.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-		instance.CardActionResource = CardActionResource;
-		instance.CardActionUpdated(PlayerArea.CurrentPhase);
-		instance.CardAction += Instance_CardAction;
+		//Create or update cards
+		foreach(var playingCard in playingCards)
+        {
+			var handSlotCard = Hand.GetChildren().OfType<SlotCard>().FirstOrDefault(x => x.Card.PlayingCard.Id == playingCard.Id);
+			if (handSlotCard == null)
+            {
+                var cardResource = playingCard.GetCardResource();
+                var instance = CardScene.Instantiate<SlotCard>();
+                Hand.AddChild(instance);
+                instance.Card.UpdateCard(playingCard);
+                instance.MouseEntered += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
+                instance.MouseExited += () => PlayerArea.Gameboard.GameView.CardInfoPanel.ShowcardResource(instance.Card);
+                instance.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+                instance.CardActionResource = CardActionResource;
+                instance.CardActionUpdated(PlayerArea.CurrentPhase);
+                instance.CardAction += Instance_CardAction;
+            } else
+			{
+				handSlotCard.Card.UpdateCard(playingCard);
+			}
+        }
 
-		return instance;
-	}
+		//Remove all others cards
+		Hand.GetChildren().OfType<SlotCard>().ToList().ForEach(x =>
+		{
+			if (!playingCards.Any(y => y.Id == x.Card.PlayingCard.Id)) {
+				x.QueueFree();
+			}
+		});
+    }
 
-    private void Instance_CardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
+    private async void Instance_CardAction(SlotCard slotCard, GameSlotCardActionResource resource, int id)
     {
-		PlayerArea.Playmat.OnCardAction(slotCard, resource, id);
+		await PlayerArea.Playmat.CallCardAction(slotCard, resource, id);
 	}
 
 	public List<SlotCard> GetCards()
