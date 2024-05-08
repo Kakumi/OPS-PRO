@@ -44,6 +44,7 @@ public partial class GameSocketConnector : Node
     public event EventHandler<Guid> FirstPlayerDecided;
     public event EventHandler<Game> BoardUpdated;
     public event EventHandler RockPaperScissorsStarted;
+    public event EventHandler AskRedrawStartingHand;
     public event EventHandler<UserAlertMessage> AlertReceived;
     public event EventHandler<UserGameMessage> GameMessageReceived;
     public event EventHandler<Guid> GameFinished;
@@ -110,6 +111,11 @@ public partial class GameSocketConnector : Node
         _connection.On(nameof(IGameHubEvent.RockPaperScissorsStarted), () =>
         {
             RockPaperScissorsStarted?.Invoke(this, new EventArgs());
+        });
+
+        _connection.On(nameof(IGameHubEvent.AskRedrawStartingHand), () =>
+        {
+            AskRedrawStartingHand?.Invoke(this, new EventArgs());
         });
 
         _connection.On<UserAlertMessage>(nameof(IGameHubEvent.UserAlertMessage), (userAlertMessage) =>
@@ -240,6 +246,12 @@ public partial class GameSocketConnector : Node
     {
         Log.Information("User {UserId} ask room {RoomId}", UserId, roomId);
         return await _connection.InvokeAsync<bool>(nameof(IRoomHub.JoinRoom), roomId, password);
+    }
+
+    public async Task<bool> Redraw(bool redraw)
+    {
+        Log.Information("User {UserId} set redraw to {Redraw}", UserId, redraw);
+        return await _connection.InvokeAsync<bool>(nameof(IGameHub.Redraw), redraw);
     }
 
     public async Task<bool> LeaveRoom()

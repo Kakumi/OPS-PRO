@@ -39,6 +39,7 @@ public partial class GameView : HBoxContainer
         GameSocketConnector.Instance.GameFinished -= GameFinished;
         GameSocketConnector.Instance.WaitOpponent -= WaitOpponent;
         GameSocketConnector.Instance.FlowRequested -= FlowRequested;
+        GameSocketConnector.Instance.AskRedrawStartingHand -= AskRedrawStartingHand;
 
         base._ExitTree();
 	}
@@ -64,7 +65,7 @@ public partial class GameView : HBoxContainer
         GameSocketConnector.Instance.GameFinished += GameFinished;
         GameSocketConnector.Instance.WaitOpponent += WaitOpponent;
         GameSocketConnector.Instance.FlowRequested += FlowRequested;
-
+        GameSocketConnector.Instance.AskRedrawStartingHand += AskRedrawStartingHand;
 
         PrepareGame();
 	}
@@ -72,6 +73,22 @@ public partial class GameView : HBoxContainer
     private void GameStarted(object sender, Guid e)
     {
 		RPSWindow.Hide();
+    }
+
+    private async void AskRedrawStartingHand(object sender, EventArgs e)
+    {
+        try
+        {
+            RPSWindow.Hide();
+
+            var result = await OPSWindow.Ask(Tr("GAME_ASK_REDRAW"));
+            await GameSocketConnector.Instance.Redraw(result);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            ShowPopup(string.Format(Tr("GENERAL_ERROR_OCCURED"), ex.Message), () => OPSWindow.Close());
+        }
     }
 
     private void PrepareGame()
