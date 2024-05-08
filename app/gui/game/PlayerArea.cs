@@ -26,29 +26,29 @@ public partial class PlayerArea : VBoxContainer
 		PlayerInfo = GetNode<GamePlayerInfo>("PlaymatContainer/PlayerInfo");
 		Gameboard = GetNode<Gameboard>(GameboardPath);
 
-        Playmat.MouseEnterCard += Playmat_MouseEnterCard;
-        Playmat.MouseExitCard += Playmat_MouseExitCard;
+		Playmat.MouseEnterCard += Playmat_MouseEnterCard;
+		Playmat.MouseExitCard += Playmat_MouseExitCard;
 
 		FirstToPlay = true;
 	}
 
-    private void Playmat_MouseExitCard(Card card)
-    {
+	private void Playmat_MouseExitCard(Card card)
+	{
 		Gameboard.GameView.CardInfoPanel.ShowcardResource(card);
-    }
+	}
 
-    private void Playmat_MouseEnterCard(Card card)
-    {
+	private void Playmat_MouseEnterCard(Card card)
+	{
 		Gameboard.GameView.CardInfoPanel.ShowcardResource(card);
 	}
 
 	public void UpdateSlotCardsAction(IPhase phase)
-    {
+	{
 		Log.Debug($"Updating Slot Cards actions");
 
 		CurrentPhase = phase;
 
-        Hand.GetCards().ForEach(x => x.CardActionUpdated(phase));
+		Hand.GetCards().ForEach(x => x.CardActionUpdated(phase));
 		Playmat.LeaderSlotCard.CardActionUpdated(phase);
 		Playmat.StageSlotCard.CardActionUpdated(phase);
 		Playmat.DeckSlotCard.CardActionUpdated(phase);

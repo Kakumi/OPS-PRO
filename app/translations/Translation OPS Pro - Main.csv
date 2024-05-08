@@ -337,3 +337,11 @@ use it? Select the card and confirm, or close this window.","Vous avez pioché u
 GAME_ASK_EVENT_COUNTER_ATTACK,Would you like to use an event counter card from {0} attack?,Voulez-vous utiliser une carte évènement contre l'attaque de {0} ?
 GAME_ASK_COUNTER,Do you want to use a counter to improve the attack from {2} with {3} current power against the attack from {0} to {1} power?,Voulez-vous utiliser un contre pour améliorer l'attaque de {2} à {3} de puissance contre l'attaque de {0} à {1} de puissance ?
 GAME_ASK_BLOCKER,Do you want to use a blocker to counter the attack of {0} to {1} power on your {2} to {3} power?,Voulez-vous utiliser un blocker pour contrer l'attaque de {0} à {1} de puissance sur votre {2} à {3} de puissance ?
+GAME_EFFECT_ALREADY_USED,This effect has already been used.,Cet effet a déjà été joué.
+GAME_NOT_ENOUGH_CHARACTERS,You need {0} character(s) to use this effect.,Vous avez besoin de {0} personnages pour utiliser cet effet.
+GAME_NOT_ENOUGH_DON,You need {0} DON!! card(s) to use this effect.,Vous avez besoin de {0} cartes DON!! pour utiliser cet effet.
+GAME_EFFECT_SELECT_CHARACTER_HAND,Choose a character to return to your hand.,Chisissez un personnage à retourner dans votre main.
+GAME_EFFECT_NO_CHARACTERS_ABLE,No characters are eligible to use this effect.,Aucun caractères n'est éligible pour utiliser cet effet.
+GAME_ALREADY_REDRAW,You have already redrawn your starting hand.,Vous avez déjà re-pioché votre main de départ.
+GAME_REDRAW,[b]{0}[/b]: redraw a starting hand.,[b]{0}[/b]: a re-pioché une main de départ.
+GAME_ASK_REDRAW,Would you like to change your starting hand?,Voulez-vous changer votre main de départ ?
