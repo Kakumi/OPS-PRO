@@ -1,6 +1,7 @@
 This application was created using Godot 4.0 (.NET Version). Please use this specific version to avoid breaking changes or unexpected behavior.
 
 OPS Pro is a simulator application for the One Piece TCG card game. The application is currently under development, but it's already possible to use it to see how it works.
+I started it to learn and try to understand how a turn-based card game works.
 
 Support or contact me :
 <a href="https://discord.gg/2Cr6UdskdQ"><img src="https://discordapp.com/api/guilds/1237756823474536458/widget.png?style=banner2" alt="Discord server"></a>
