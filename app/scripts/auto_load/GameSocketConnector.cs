@@ -56,7 +56,6 @@ public partial class GameSocketConnector : Node
 		Instance = this;
 
         //TODO URL
-        //_connection = new HubConnectionBuilder().WithUrl("http://26.80.66.111:5000/ws/game").Build();
         _connection = new HubConnectionBuilder().WithUrl("http://localhost:5282/ws/game").Build();
 
         InitReceiver();

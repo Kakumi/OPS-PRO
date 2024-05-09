@@ -1,14 +1,12 @@
 2a60927148abd1d33b818b535e306557
-::res://::1715172798
+::res://::1715276534
 Card Example.png::CompressedTexture2D::5799584854092008898::1715167103::1715167103::1::::<><>::
 default_bus_layout.tres::AudioBusLayout::-1::1715167104::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1715168086::0::1::::<><>::
 icon.png::CompressedTexture2D::358893436395597448::1715167104::1715167104::1::::<><>::
 OP02-012.png::CompressedTexture2D::6068424928718371565::1715167103::1715167103::1::::<><>::
 OP03-002.png::CompressedTexture2D::5884294185017053117::1715167103::1715167103::1::::<><>::
-README.md::TextFile::-1::1715172530::0::1::::<><>::
-Translation OPS Pro - Main.en.translation::OptimizedTranslation::139506805204637124::1715172752::0::1::::<><>::
-Translation OPS Pro - Main.fr.translation::OptimizedTranslation::4021393893674504400::1715172752::0::1::::<><>::
+README.md::TextFile::-1::1715175149::0::1::::<><>::
 ::res://app/::1715167104
 AppInstance.cs::CSharpScript::-1::1715167103::0::1::::<><>::
 AppInstance.tscn::PackedScene::4326939361751047718::1715167103::0::1::::<><>::res://app/AppInstance.cs<>uid://bxeudnqrt3dta<>uid://d0bsel4oaljb3
@@ -134,7 +132,7 @@ ServerConfig.cs::CSharpScript::-1::1715167103::0::1::::<><>::
 ServerFile.cs::CSharpScript::-1::1715167103::0::1::::<><>::
 StatDuration.cs::CSharpScript::-1::1715167103::0::1::::<><>::
 TabType.cs::CSharpScript::-1::1715167103::0::1::::<><>::
-::res://app/resources/::1715168086
+::res://app/resources/::1715276482
 CardCreatorAttribute.cs::CSharpScript::-1::1715167103::0::1::::<><>::
 CardCreatorCardEffectsResource.cs::CSharpScript::-1::1715167103::0::1::::<><>::
 CardCreatorCardTypeResource.cs::CSharpScript::-1::1715167103::0::1::::<><>::
@@ -143,8 +141,7 @@ CardCreatorColorResource.cs::CSharpScript::-1::1715167103::0::1::::<><>::
 CardCreatorCostResource.cs::CSharpScript::-1::1715167103::0::1::::<><>::
 CardCreatorEffectResource.cs::CSharpScript::-1::1715167103::0::1::::<><>::
 CardCreatorSettings.cs::CSharpScript::-1::1715167103::0::1::::<><>::
-CardResource.cs::CSharpScript::-1::1715168086::0::1::::<><>::
-CardScript.cs::CSharpScript::-1::1715167103::0::1::::<><>::
+CardResource.cs::CSharpScript::-1::1715276482::0::1::::<><>::
 DeckResource.cs::CSharpScript::-1::1715168086::0::1::::<><>::
 GameSlotCardActionResource.cs::CSharpScript::-1::1715168086::0::1::::<><>::
 OP01-001.png::CompressedTexture2D::5762386188225195669::1715167103::1715167103::1::::<><>::
@@ -226,8 +223,6 @@ CardCreatorYellowEvent.tres::Resource::340830485846460690::1715167103::0::1::::<
 CardCreatorYellowLeader.tres::Resource::4839369251274436130::1715167103::0::1::::<><>::uid://q6l1qeojn0ks<>uid://cc2rlbrbmqebb<>res://app/resources/CardCreatorCardTypeResource.cs
 CardCreatorYellowResource.tres::Resource::817278639660228686::1715167103::0::1::::<><>::uid://ca7hx7o04a7qs<>uid://5i6s5yaakk73<>uid://bfu0avy27tnjn<>uid://e4doteevyj0m<>uid://bhg6wxexxqryg<>res://app/resources/CardCreatorColorResource.cs
 CardCreatorYellowStage.tres::Resource::2892051585218025290::1715167103::0::1::::<><>::uid://l3hhb2j0tp58<>uid://cor65h8r0hky3<>res://app/resources/CardCreatorCardTypeResource.cs
-::res://app/resources/card_scripts/::1715167103
-op01_001.cs::CSharpScript::-1::1715167103::0::1::::<><>::
 ::res://app/resources/fonts/::1715172355
 bold_font.tres::FontFile::-1::1715167103::0::1::::<><>::res://app/resources/fonts/Oswald-Bold.ttf
 bold_font_small.tres::FontFile::-1::1715167103::0::1::::<><>::res://app/resources/fonts/Oswald-Bold.ttf
@@ -382,8 +377,8 @@ disabled_styleboxflat.tres::StyleBoxFlat::-1::1715167104::0::1::::<><>::
 focus_styleboxflat.tres::StyleBoxFlat::-1::1715167104::0::1::::<><>::
 normal_styleboxflat.tres::StyleBoxFlat::-1::1715167104::0::1::::<><>::
 ::res://app/scripts/::1715167104
-::res://app/scripts/auto_load/::1715170900
-CardManager.cs::CSharpScript::-1::1715168086::0::1::::<><>::
+::res://app/scripts/auto_load/::1715276462
+CardManager.cs::CSharpScript::-1::1715276462::0::1::::<><>::
 CustomLoader.cs::CSharpScript::-1::1715167104::0::1::::<><>::
 DeckManager.cs::CSharpScript::-1::1715167104::0::1::::<><>::
 DiscordManager.cs::CSharpScript::-1::1715167104::0::1::::<><>::

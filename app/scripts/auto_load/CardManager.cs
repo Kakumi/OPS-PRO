@@ -61,7 +61,6 @@ public partial class CardManager : Node
             {
                 client.DownloadStringCompleted += ServerConfigDownloaded;
                 //TODO URL
-                //client.DownloadStringAsync(new Uri("http://26.80.66.111:5000/Cards"));
                 client.DownloadStringAsync(new Uri("http://localhost:5282/Cards"));
             }
         } catch(Exception ex)
@@ -204,15 +203,6 @@ public partial class CardManager : Node
         }
 
         return GetBackTexture(cardResource);
-    }
-
-    public CardScript GetCardScript(CardResource cardResource)
-    {
-        var path = @$"res://app/resources/card_scripts/{cardResource.Id.ToLower().Replace("-", "_")}.cs";
-        var csharScript = GD.Load<CSharpScript>(path);
-        var script = (CardScript)csharScript?.New();
-
-        return script;
     }
 
     public void DownloadTextureAsync(CardResource cardResource)

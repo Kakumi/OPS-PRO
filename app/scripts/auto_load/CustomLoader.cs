@@ -2,6 +2,7 @@ using Godot;
 using Serilog;
 using System;
 
+//Not used anymore but can be usefull
 public partial class CustomLoader : Node
 {
     public override void _Ready()

@@ -106,24 +106,6 @@ public partial class CardResource : Resource
     public bool IsEventCounter { get; private set; }
     public bool HasActivateEffect { get; private set; }
 
-    private bool _cardScriptCheck = false;
-    private CardScript _cardScript;
-    [Export]
-    public CardScript CardScript
-    {
-        get
-        {
-            if (_cardScript == null && !_cardScriptCheck)
-            {
-                _cardScriptCheck = true;
-                CardScript = CardManager.Instance.GetCardScript(this);
-            }
-
-            return _cardScript;
-        }
-        set => _cardScript = value;
-    }
-
     [Signal]
     public delegate void FrontTextureChangedEventHandler(Texture2D texture);
 
